@@ -24,9 +24,13 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<!-- Fonts : uniquement les weights réellement utilisés (perf optim) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Caveat&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="styles.css">
+
+<!-- Theme color matche le hero (sauge) -->
+<meta name="theme-color" content="#4A5D2E">
 </head>
 <body>
 
@@ -84,6 +88,270 @@
       <!-- Feuilles latérales -->
       <path d="M14 22c-2-.5-4 .5-5 2.5 1.5 1 3.5.5 5-1z" fill="currentColor" opacity="0.85"/>
       <path d="M14 25c2-.5 4 .5 5 2.5-1.5 1-3.5.5-5-1z" fill="currentColor" opacity="0.85"/>
+    </symbol>
+
+    <!-- ====================================================================
+         ILLUSTRATIONS ÉDITORIALES (line-art, sauge/sable + accents terracotta)
+         ==================================================================== -->
+
+    <!-- Arrangement : tasse + tulipe en vase (welcome, atelier feature) -->
+    <symbol id="i-illu-arrangement" viewBox="0 0 240 280">
+      <!-- Plateau bas -->
+      <line x1="20" y1="240" x2="220" y2="240" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Tasse à gauche -->
+      <path d="M55 165 L55 220 Q55 235 70 235 L115 235 Q130 235 130 220 L130 165 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M130 180 Q150 180 150 195 Q150 210 130 210" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif sur la tasse -->
+      <path d="M92 185 Q86 195 92 205 Q98 195 92 185 Z" fill="currentColor" opacity="0.4"/>
+      <ellipse cx="92" cy="184" rx="3" ry="4" fill="currentColor" opacity="0.4"/>
+      <!-- Vase à droite -->
+      <path d="M150 150 Q145 155 145 170 L145 220 Q145 235 165 235 L195 235 Q215 235 215 220 L215 170 Q215 155 210 150 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Col du vase -->
+      <line x1="155" y1="155" x2="205" y2="155" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tulipe dans le vase -->
+      <line x1="170" y1="155" x2="170" y2="100" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="190" y1="155" x2="190" y2="115" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M170 90 Q160 70 170 50 Q180 70 170 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="170" cy="48" rx="6" ry="9" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <path d="M190 105 Q183 90 190 75 Q197 90 190 105 Z" fill="currentColor" opacity="0.7"/>
+      <ellipse cx="190" cy="73" rx="5" ry="7" fill="currentColor" opacity="0.7"/>
+      <!-- Feuilles -->
+      <path d="M170 130 Q160 128 155 135 Q165 138 170 134 Z" fill="currentColor" opacity="0.6"/>
+      <path d="M190 140 Q200 138 205 145 Q195 148 190 144 Z" fill="currentColor" opacity="0.6"/>
+      <!-- Petits éléments décoratifs -->
+      <circle cx="35" cy="225" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- Devanture boutique stylisée (location) -->
+    <symbol id="i-illu-storefront" viewBox="0 0 280 320">
+      <!-- Façade contour -->
+      <path d="M40 280 L40 100 Q40 80 60 80 L220 80 Q240 80 240 100 L240 280" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Sol -->
+      <line x1="20" y1="280" x2="260" y2="280" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Enseigne -->
+      <line x1="60" y1="120" x2="220" y2="120" stroke="currentColor" stroke-width="1"/>
+      <text x="140" y="106" font-family="Cormorant Garamond, serif" font-size="14" letter-spacing="2" fill="currentColor" text-anchor="middle" opacity="0.85">MAISON DE TARA</text>
+      <!-- Auvent / store -->
+      <path d="M40 130 L60 145 L80 130 L100 145 L120 130 L140 145 L160 130 L180 145 L200 130 L220 145 L240 130" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Vitrine grande -->
+      <rect x="60" y="160" width="80" height="100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Élément dans la vitrine : tulipe -->
+      <path d="M100 220 Q92 240 100 255 Q108 240 100 220 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.8"/>
+      <ellipse cx="100" cy="218" rx="5" ry="7" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.8"/>
+      <line x1="100" y1="240" x2="100" y2="260" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Porte -->
+      <rect x="155" y="160" width="60" height="120" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="205" cy="220" r="2" fill="currentColor"/>
+      <!-- Plante en pot devant -->
+      <ellipse cx="40" cy="275" rx="12" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M30 270 Q35 240 40 260 Q42 235 47 255 Q52 240 50 270" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Petite tulipe à droite -->
+      <ellipse cx="250" cy="275" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="250" y1="270" x2="250" y2="245" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M250 245 Q245 235 250 225 Q255 235 250 245 Z" fill="currentColor" opacity="0.6"/>
+    </symbol>
+
+    <!-- Bols empilés (sortie de four / atelier) -->
+    <symbol id="i-illu-bowls" viewBox="0 0 200 200">
+      <!-- Bol du bas -->
+      <path d="M30 130 Q30 175 100 175 Q170 175 170 130" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="100" cy="130" rx="70" ry="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif sur le bol bas -->
+      <g opacity="0.4">
+        <circle cx="70" cy="150" r="3" fill="currentColor"/>
+        <circle cx="100" cy="155" r="3" fill="currentColor"/>
+        <circle cx="130" cy="150" r="3" fill="currentColor"/>
+      </g>
+      <!-- Bol du milieu -->
+      <path d="M45 95 Q45 125 100 125 Q155 125 155 95" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="100" cy="95" rx="55" ry="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tasse du haut -->
+      <path d="M75 50 L75 88 Q75 92 80 92 L115 92 Q120 92 120 88 L120 50 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M120 60 Q132 60 132 70 Q132 80 120 80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Vapeur stylisée au-dessus -->
+      <path d="M85 35 Q82 28 88 22 Q92 16 87 10" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <path d="M100 35 Q97 28 103 22 Q107 16 102 10" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <path d="M115 35 Q112 28 118 22" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+    </symbol>
+
+    <!-- Verres qui trinquent (café / apéro / soirée vins) -->
+    <symbol id="i-illu-cheers" viewBox="0 0 200 200">
+      <!-- Verre gauche (incliné droite) -->
+      <path d="M55 50 L70 50 L78 110 Q78 125 70 130 L60 135 Q50 135 50 125 L50 110 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <line x1="58" y1="148" x2="58" y2="170" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <line x1="48" y1="172" x2="68" y2="172" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <!-- Vin dans le verre gauche -->
+      <path d="M55 88 L75 88 L77 110 Q77 122 70 126 L62 130 Q52 130 53 120 L55 110 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5" transform="rotate(-12 65 92)"/>
+      <!-- Verre droit (incliné gauche) -->
+      <path d="M130 50 L145 50 L150 110 Q150 125 142 130 L132 135 Q122 135 122 125 L125 110 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <line x1="135" y1="148" x2="135" y2="170" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <line x1="125" y1="172" x2="145" y2="172" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <!-- Vin dans le verre droit -->
+      <path d="M130 88 L145 88 L149 110 Q149 122 142 126 L134 130 Q124 130 125 120 L128 110 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5" transform="rotate(12 138 92)"/>
+      <!-- Étincelle de "tchin" entre les deux -->
+      <g opacity="0.7">
+        <path d="M100 55 L100 75 M93 65 L107 65 M95 60 L105 70 M105 60 L95 70" stroke="var(--mdt-laiton, #B8924D)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      </g>
+    </symbol>
+
+    <!-- Lampe pendante motif indien (boutique / détails) -->
+    <symbol id="i-illu-lamp" viewBox="0 0 200 200">
+      <!-- Fil de suspension -->
+      <line x1="100" y1="20" x2="100" y2="55" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Cap supérieur -->
+      <ellipse cx="100" cy="55" rx="14" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Corps de lampe (forme indienne arrondie) -->
+      <path d="M86 55 Q70 80 70 105 Q70 135 100 145 Q130 135 130 105 Q130 80 114 55" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif géométrique indien (losanges/croisillons) -->
+      <g opacity="0.6">
+        <path d="M85 85 L100 75 L115 85 L100 95 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+        <path d="M85 110 L100 100 L115 110 L100 120 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="100" cy="85" r="2" fill="var(--mdt-laiton, #B8924D)"/>
+        <circle cx="100" cy="110" r="2" fill="var(--mdt-laiton, #B8924D)"/>
+      </g>
+      <!-- Frange de la lampe -->
+      <g opacity="0.8">
+        <line x1="75" y1="140" x2="75" y2="150" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="85" y1="143" x2="85" y2="155" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="95" y1="144" x2="95" y2="158" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="105" y1="144" x2="105" y2="158" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="115" y1="143" x2="115" y2="155" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="125" y1="140" x2="125" y2="150" stroke="currentColor" stroke-width="1.5"/>
+      </g>
+      <!-- Lueur subtile -->
+      <circle cx="100" cy="100" r="22" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.08"/>
+    </symbol>
+
+    <!-- Bouquet (workshop fleurs / journal) -->
+    <symbol id="i-illu-bouquet" viewBox="0 0 200 200">
+      <!-- Vase -->
+      <path d="M75 130 Q72 135 72 145 L72 175 Q72 185 82 185 L118 185 Q128 185 128 175 L128 145 Q128 135 125 130 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="78" y1="132" x2="122" y2="132" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tiges -->
+      <line x1="90" y1="132" x2="85" y2="80" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="100" y1="132" x2="100" y2="60" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="110" y1="132" x2="115" y2="75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="120" y1="132" x2="135" y2="95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="80" y1="132" x2="65" y2="95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Fleurs (tulipe centrale + autres) -->
+      <path d="M100 50 Q92 35 100 20 Q108 35 100 50 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="100" cy="18" rx="5" ry="7" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <!-- Fleur ronde 1 -->
+      <circle cx="85" cy="75" r="9" fill="var(--mdt-laiton, #B8924D)" opacity="0.7"/>
+      <circle cx="85" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+      <!-- Fleur ronde 2 -->
+      <circle cx="115" cy="70" r="8" fill="currentColor" opacity="0.6"/>
+      <circle cx="115" cy="70" r="2.5" fill="var(--mdt-laiton, #B8924D)"/>
+      <!-- Petits boutons -->
+      <circle cx="65" cy="90" r="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.6"/>
+      <circle cx="135" cy="90" r="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5"/>
+      <!-- Feuilles -->
+      <path d="M93 110 Q83 105 78 115 Q88 118 93 113 Z" fill="currentColor" opacity="0.5"/>
+      <path d="M107 110 Q117 105 122 115 Q112 118 107 113 Z" fill="currentColor" opacity="0.5"/>
+    </symbol>
+
+    <!-- Étoile ornementale (kids Noël) -->
+    <symbol id="i-illu-star" viewBox="0 0 200 200">
+      <!-- Étoile à 8 branches (ornement indien) -->
+      <g transform="translate(100 100)">
+        <path d="M0 -55 L8 -12 L55 0 L8 12 L0 55 L-8 12 L-55 0 L-8 -12 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+        <path d="M0 -40 L0 40 M-40 0 L40 0 M-28 -28 L28 28 M-28 28 L28 -28" stroke="var(--mdt-sable, #F4EDE0)" stroke-width="1.5" opacity="0.4"/>
+        <circle r="8" fill="var(--mdt-laiton, #B8924D)"/>
+      </g>
+      <!-- Petits points décoratifs autour -->
+      <g fill="currentColor" opacity="0.4">
+        <circle cx="40" cy="40" r="2"/>
+        <circle cx="160" cy="40" r="2"/>
+        <circle cx="40" cy="160" r="2"/>
+        <circle cx="160" cy="160" r="2"/>
+        <circle cx="100" cy="25" r="1.5"/>
+        <circle cx="100" cy="175" r="1.5"/>
+      </g>
+      <!-- Tige -->
+      <line x1="100" y1="155" x2="100" y2="180" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    </symbol>
+
+    <!-- Mains en cercle (workshops / moments partagés) -->
+    <symbol id="i-illu-circle" viewBox="0 0 200 200">
+      <!-- Cercle central (objet partagé) -->
+      <circle cx="100" cy="100" r="22" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif tulipe au centre -->
+      <path d="M100 90 Q94 100 100 110 Q106 100 100 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.7"/>
+      <ellipse cx="100" cy="88" rx="4" ry="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.7"/>
+      <!-- Cercles concentriques (rayonnement) -->
+      <circle cx="100" cy="100" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" stroke-dasharray="2 4"/>
+      <circle cx="100" cy="100" r="65" fill="none" stroke="currentColor" stroke-width="1" opacity="0.22" stroke-dasharray="2 6"/>
+      <!-- Points autour (participants) -->
+      <g fill="var(--mdt-laiton, #B8924D)">
+        <circle cx="100" cy="35" r="4"/>
+        <circle cx="165" cy="100" r="4"/>
+        <circle cx="100" cy="165" r="4"/>
+        <circle cx="35" cy="100" r="4"/>
+      </g>
+      <g fill="currentColor" opacity="0.55">
+        <circle cx="146" cy="54" r="3.5"/>
+        <circle cx="146" cy="146" r="3.5"/>
+        <circle cx="54" cy="146" r="3.5"/>
+        <circle cx="54" cy="54" r="3.5"/>
+      </g>
+    </symbol>
+
+    <!-- Cityscape silhouette (journal Garenne-Colombes) -->
+    <symbol id="i-illu-cityscape" viewBox="0 0 240 200">
+      <!-- Bâtiments stylisés en silhouette -->
+      <path d="M0 175 L20 175 L20 130 L40 130 L40 110 L60 110 L60 95 L75 95 L75 80 L85 80 L85 105 L100 105 L100 75 L120 75 L120 90 L140 90 L140 65 L155 65 L155 85 L170 85 L170 100 L190 100 L190 120 L210 120 L210 140 L240 140 L240 175 Z" fill="currentColor" opacity="0.55"/>
+      <!-- Détails : fenêtres -->
+      <g fill="var(--mdt-laiton, #B8924D)" opacity="0.7">
+        <rect x="28" y="140" width="3" height="3"/>
+        <rect x="48" y="120" width="3" height="3"/>
+        <rect x="65" y="105" width="3" height="3"/>
+        <rect x="108" y="85" width="3" height="3"/>
+        <rect x="125" y="100" width="3" height="3"/>
+        <rect x="160" y="75" width="3" height="3"/>
+        <rect x="178" y="110" width="3" height="3"/>
+        <rect x="200" y="130" width="3" height="3"/>
+      </g>
+      <!-- Maison Tara mise en valeur (au centre avec store) -->
+      <rect x="100" y="105" width="20" height="70" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.5"/>
+      <path d="M100 100 L120 100" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="2"/>
+      <!-- Sol -->
+      <line x1="0" y1="175" x2="240" y2="175" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Petits éléments en avant-plan -->
+      <ellipse cx="20" cy="180" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <ellipse cx="220" cy="180" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+    </symbol>
+
+    <!-- Block print pattern carré (journal block print, gallery décor) -->
+    <symbol id="i-illu-blockprint-pattern" viewBox="0 0 200 200">
+      <!-- 4 tulipes en grille avec liaison -->
+      <g fill="currentColor" opacity="0.78">
+        <!-- HG -->
+        <path d="M50 35 Q44 50 50 70 Q56 50 50 35 Z"/>
+        <ellipse cx="50" cy="33" rx="3.5" ry="5"/>
+        <line x1="50" y1="60" x2="50" y2="85" stroke="currentColor" stroke-width="1.2"/>
+        <!-- HD -->
+        <path d="M150 35 Q144 50 150 70 Q156 50 150 35 Z"/>
+        <ellipse cx="150" cy="33" rx="3.5" ry="5"/>
+        <line x1="150" y1="60" x2="150" y2="85" stroke="currentColor" stroke-width="1.2"/>
+        <!-- BG -->
+        <path d="M50 130 Q44 145 50 165 Q56 145 50 130 Z"/>
+        <ellipse cx="50" cy="128" rx="3.5" ry="5"/>
+        <line x1="50" y1="155" x2="50" y2="180" stroke="currentColor" stroke-width="1.2"/>
+        <!-- BD -->
+        <path d="M150 130 Q144 145 150 165 Q156 145 150 130 Z"/>
+        <ellipse cx="150" cy="128" rx="3.5" ry="5"/>
+        <line x1="150" y1="155" x2="150" y2="180" stroke="currentColor" stroke-width="1.2"/>
+      </g>
+      <!-- Lignes de liaison -->
+      <g stroke="currentColor" stroke-width="1" opacity="0.32" fill="none">
+        <path d="M50 100 L150 100" stroke-dasharray="3 5"/>
+        <path d="M100 50 L100 150" stroke-dasharray="3 5"/>
+      </g>
+      <!-- Tulipe centrale accent -->
+      <path d="M100 90 Q92 105 100 120 Q108 105 100 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="100" cy="88" rx="4" ry="5.5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <!-- Bordure intérieure éditoriale -->
+      <rect x="20" y="20" width="160" height="160" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
     </symbol>
   </defs>
 </svg>
@@ -290,7 +558,7 @@
     <div class="container welcome__inner">
       <div class="welcome__image fade-in" style="--stagger-index: 0;">
         <div class="welcome__image-placeholder">
-          <svg width="80" height="92" viewBox="0 0 28 32" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+          <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
         </div>
       </div>
       <div class="welcome__content fade-in" style="--stagger-index: 1;">
@@ -441,7 +709,7 @@
               <strong>15</strong>
               <span>Nov</span>
             </div>
-            <svg width="60" height="68" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bouquet"/></svg>
           </div>
           <div class="card--event__body">
             <div class="card--event__meta">Workshop · Avec Anaïs Fleurs</div>
@@ -462,7 +730,7 @@
               <strong>28</strong>
               <span>Nov</span>
             </div>
-            <svg width="60" height="68" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
           </div>
           <div class="card--event__body">
             <div class="card--event__meta">Soirée · Vins nature & céramique</div>
@@ -483,7 +751,7 @@
               <strong>06</strong>
               <span>Déc</span>
             </div>
-            <svg width="60" height="68" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-star"/></svg>
           </div>
           <div class="card--event__body">
             <div class="card--event__meta">Kids · Spécial Noël</div>
@@ -509,7 +777,7 @@
   <section class="location" id="contact" aria-labelledby="location-title">
     <div class="container location__inner">
       <div class="location__image fade-in" style="--stagger-index: 0;">
-        <svg width="100" height="120" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+        <svg viewBox="0 0 280 320" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-storefront"/></svg>
       </div>
       <div class="fade-in" style="--stagger-index: 1;">
         <span class="eyebrow">Le lieu</span>
@@ -544,7 +812,7 @@
       <div class="gallery__grid">
         <button class="gallery__item gallery__item--feature fade-in" type="button" aria-label="L'atelier en action" style="--stagger-index: 0;">
           <div class="gallery__placeholder">
-            <svg width="80" height="92" viewBox="0 0 28 32" opacity="0.5" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
           </div>
           <div class="gallery__overlay">
             <span class="gallery__tag">Atelier</span>
@@ -553,7 +821,7 @@
         </button>
         <button class="gallery__item fade-in" type="button" aria-label="Sortie de four" style="--stagger-index: 1;">
           <div class="gallery__placeholder">
-            <svg width="50" height="50" viewBox="0 0 50 50" opacity="0.5" aria-hidden="true" focusable="false"><circle cx="25" cy="25" r="15" fill="currentColor"/></svg>
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bowls"/></svg>
           </div>
           <div class="gallery__overlay">
             <span class="gallery__tag">Rituel</span>
@@ -562,7 +830,7 @@
         </button>
         <button class="gallery__item fade-in" type="button" aria-label="Apéro maison" style="--stagger-index: 2;">
           <div class="gallery__placeholder">
-            <svg width="50" height="50" viewBox="0 0 50 50" opacity="0.5" aria-hidden="true" focusable="false"><rect x="12" y="12" width="26" height="26" fill="currentColor"/></svg>
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
           </div>
           <div class="gallery__overlay">
             <span class="gallery__tag">Café</span>
@@ -571,7 +839,7 @@
         </button>
         <button class="gallery__item fade-in" type="button" aria-label="Détails du lieu" style="--stagger-index: 3;">
           <div class="gallery__placeholder">
-            <svg width="50" height="50" viewBox="0 0 50 50" opacity="0.5" aria-hidden="true" focusable="false"><path d="M10 25 L25 10 L40 25 L25 40 Z" fill="currentColor"/></svg>
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-lamp"/></svg>
           </div>
           <div class="gallery__overlay">
             <span class="gallery__tag">Boutique</span>
@@ -580,7 +848,7 @@
         </button>
         <button class="gallery__item fade-in" type="button" aria-label="Moments partagés" style="--stagger-index: 4;">
           <div class="gallery__placeholder">
-            <svg width="50" height="50" viewBox="0 0 50 50" opacity="0.5" aria-hidden="true" focusable="false"><circle cx="25" cy="25" r="12" fill="currentColor"/></svg>
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-circle"/></svg>
           </div>
           <div class="gallery__overlay">
             <span class="gallery__tag">Workshops</span>
@@ -603,7 +871,7 @@
       <div class="journal__grid">
         <article class="card--journal fade-in" style="--stagger-index: 0;">
           <div class="card--journal__image">
-            <svg width="60" height="68" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg viewBox="0 0 240 200" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-cityscape"/></svg>
           </div>
           <div class="card--journal__body">
             <div class="card--journal__meta">
@@ -616,7 +884,7 @@
 
         <article class="card--journal fade-in" style="--stagger-index: 1;">
           <div class="card--journal__image">
-            <svg width="60" height="68" viewBox="0 0 28 32" opacity="0.4" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-blockprint-pattern"/></svg>
           </div>
           <div class="card--journal__body">
             <div class="card--journal__meta">

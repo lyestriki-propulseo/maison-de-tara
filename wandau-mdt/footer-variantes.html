@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison de Tara · 5 directions footer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mdt-sable:      #F4EDE0;
+      --mdt-sable-warm: #E8DCC4;
+      --mdt-sable-deep: #DCC9A5;
+      --mdt-greige:     #B5A998;
+      --mdt-terracotta: #C75B3C;
+      --mdt-terra-dark: #8B4A2E;
+      --mdt-sauge:      #4A5D2E;
+      --mdt-sauge-light:#7A8043;
+      --mdt-olive-deep: #3A4A24;
+      --mdt-noir:       #1A1815;
+      --mdt-noir-soft:  #2C2419;
+      --mdt-laiton:     #B8924D;
+      --mdt-text:       #2C2419;
+      --mdt-text-soft:  #5F4F3F;
+      --mdt-line:       rgba(74,93,46,0.18);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Inter', -apple-system, sans-serif;
+      --font-script:  'Caveat', cursive;
+      --container: 1280px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      background: #d9d2c4;
+      color: var(--mdt-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; transition: opacity .25s, color .25s; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+
+    /* --- étiquette de variante --- */
+    .variant-label {
+      max-width: var(--container);
+      margin: 56px auto 14px;
+      padding: 0 32px;
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+    }
+    .variant-label .tag {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--mdt-sauge);
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+    .variant-label .name {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--mdt-noir-soft);
+    }
+    .variant-label .hint {
+      font-size: 13px;
+      color: var(--mdt-text-soft);
+      font-style: italic;
+    }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 500;
+      font-size: 12px;
+    }
+    .widget-title {
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 500;
+      font-size: 12px;
+      margin-bottom: 22px;
+      opacity: 0.7;
+    }
+    .footer-menu { list-style: none; }
+    .footer-menu li { margin-bottom: 12px; }
+    .footer-menu a { font-family: var(--font-display); font-size: 19px; }
+    .footer-menu a:hover { color: var(--mdt-laiton); }
+
+    .signature { font-family: var(--font-script); }
+
+    /* ============================================================
+       A — Sauge plein, newsletter XL
+       ============================================================ */
+    .footer-a {
+      background: var(--mdt-olive-deep);
+      color: var(--mdt-sable);
+      padding: clamp(80px, 9vw, 130px) 0 40px;
+      text-align: center;
+    }
+    .footer-a .eyebrow { color: var(--mdt-laiton); margin-bottom: 26px; display: block; }
+    .footer-a h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+    .footer-a h2 em { font-style: italic; color: var(--mdt-sable-deep); }
+    .footer-a .lead {
+      max-width: 540px;
+      margin: 0 auto 44px;
+      font-size: 16px;
+      color: rgba(244,237,224,0.78);
+    }
+    .nl-form {
+      display: flex;
+      max-width: 520px;
+      margin: 0 auto 56px;
+      gap: 0;
+      border-bottom: 1px solid rgba(244,237,224,0.4);
+    }
+    .nl-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 16px 4px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: #fff;
+      outline: none;
+    }
+    .nl-form input::placeholder { color: rgba(244,237,224,0.5); }
+    .nl-form button {
+      background: transparent;
+      border: none;
+      color: var(--mdt-laiton);
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 500;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0 8px;
+    }
+    .footer-a .links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-bottom: 50px;
+    }
+    .footer-a .links a {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .footer-a .links a:hover { opacity: 1; color: var(--mdt-laiton); }
+    .footer-a .bottom {
+      border-top: 1px solid rgba(244,237,224,0.15);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(244,237,224,0.55);
+    }
+
+    /* ============================================================
+       B — 3 colonnes classique
+       ============================================================ */
+    .footer-b {
+      background: var(--mdt-sable);
+      color: var(--mdt-text);
+      padding: clamp(64px, 7vw, 96px) 0 36px;
+      border-top: 3px solid var(--mdt-sauge);
+    }
+    .footer-b .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .footer-b .brand-name {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--mdt-sauge);
+      margin-bottom: 14px;
+    }
+    .footer-b .brand-tag {
+      font-family: var(--font-script);
+      font-size: 26px;
+      color: var(--mdt-terracotta);
+      margin-bottom: 16px;
+    }
+    .footer-b .brand p { font-size: 15px; color: var(--mdt-text-soft); max-width: 320px; }
+    .footer-b address { font-style: normal; font-size: 15px; color: var(--mdt-text-soft); line-height: 1.9; }
+    .footer-b address strong { color: var(--mdt-text); font-weight: 500; }
+    .footer-b .bottom {
+      margin-top: 56px;
+      padding-top: 26px;
+      border-top: 1px solid var(--mdt-line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--mdt-text-soft);
+    }
+
+    /* ============================================================
+       C — Split sauge / sable
+       ============================================================ */
+    .footer-c { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .footer-c .left {
+      background: var(--mdt-sauge);
+      color: var(--mdt-sable);
+      padding: clamp(56px, 6vw, 90px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .footer-c .left .eyebrow { color: var(--mdt-laiton); margin-bottom: 22px; display: block; }
+    .footer-c .left h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(30px, 3.4vw, 46px);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-c .left h2 em { font-style: italic; color: var(--mdt-sable-deep); }
+    .footer-c .left p { color: rgba(244,237,224,0.78); margin-bottom: 32px; max-width: 380px; }
+    .footer-c .nl-form { margin: 0; max-width: 100%; }
+    .footer-c .right {
+      background: var(--mdt-sable-warm);
+      padding: clamp(56px, 6vw, 90px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .footer-c .right .brand-name {
+      font-family: var(--font-display);
+      font-size: 30px;
+      color: var(--mdt-sauge);
+      margin-bottom: 28px;
+    }
+    .footer-c .right address { font-style: normal; font-size: 16px; color: var(--mdt-text); line-height: 2; margin-bottom: 28px; }
+    .footer-c .right address strong { font-weight: 500; }
+    .footer-c .right .socials { display: flex; gap: 24px; }
+    .footer-c .right .socials a {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mdt-sauge);
+    }
+    .footer-c .right .socials a:hover { color: var(--mdt-terracotta); }
+
+    /* ============================================================
+       D — Lettre de Tara, intime
+       ============================================================ */
+    .footer-d {
+      background: var(--mdt-sable-warm);
+      color: var(--mdt-text);
+      padding: clamp(80px, 9vw, 130px) 0;
+      text-align: center;
+    }
+    .footer-d .inner { max-width: 620px; margin: 0 auto; }
+    .footer-d .mark {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--mdt-laiton);
+      margin-bottom: 30px;
+    }
+    .footer-d .letter {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.6vw, 30px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--mdt-noir-soft);
+      margin-bottom: 36px;
+    }
+    .footer-d .letter em { font-style: italic; color: var(--mdt-terracotta); }
+    .footer-d .signature { font-size: 46px; color: var(--mdt-terracotta); margin-bottom: 8px; }
+    .footer-d .role { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mdt-text-soft); margin-bottom: 52px; }
+    .footer-d .links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 26px;
+      padding-top: 36px;
+      border-top: 1px solid var(--mdt-line);
+    }
+    .footer-d .links a {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mdt-text-soft);
+    }
+    .footer-d .links a:hover { color: var(--mdt-sauge); }
+
+    /* ============================================================
+       E — Hiérarchique éditorial
+       ============================================================ */
+    .footer-e {
+      background: var(--mdt-noir-soft);
+      color: var(--mdt-sable);
+      padding: clamp(70px, 8vw, 110px) 0 40px;
+    }
+    .footer-e .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(244,237,224,0.15);
+    }
+    .footer-e .top h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(40px, 6.5vw, 90px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .footer-e .top h2 em { font-style: italic; color: var(--mdt-laiton); }
+    .footer-e .top .nl-mini { max-width: 340px; }
+    .footer-e .top .nl-mini p { font-size: 14px; color: rgba(244,237,224,0.7); margin-bottom: 14px; }
+    .footer-e .nl-form { margin: 0; max-width: 100%; }
+    .footer-e .cols {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding: 56px 0;
+    }
+    .footer-e .brand-name { font-family: var(--font-display); font-size: 28px; color: #fff; margin-bottom: 14px; }
+    .footer-e .brand p { font-size: 14px; color: rgba(244,237,224,0.65); max-width: 280px; }
+    .footer-e .widget-title { color: var(--mdt-laiton); opacity: 1; }
+    .footer-e .footer-menu a { font-size: 17px; color: var(--mdt-sable); }
+    .footer-e .footer-menu a:hover { color: var(--mdt-laiton); }
+    .footer-e .bottom {
+      border-top: 1px solid rgba(244,237,224,0.15);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(244,237,224,0.5);
+    }
+
+    /* --- responsive --- */
+    @media (max-width: 860px) {
+      .footer-b .grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-c { grid-template-columns: 1fr; }
+      .footer-e .cols { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .footer-e .top h2 { font-size: 44px; }
+    }
+    @media (max-width: 520px) {
+      .footer-e .cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================= A ========================= -->
+  <div class="variant-label">
+    <span class="tag">A</span>
+    <span class="name">Sauge plein, newsletter XL</span>
+    <span class="hint">immersif, la lettre de la maison au centre</span>
+  </div>
+  <footer class="footer-a">
+    <div class="container">
+      <span class="eyebrow">La lettre de la maison</span>
+      <h2>Recevez le <em>rythme</em> de la maison.</h2>
+      <p class="lead">Une fois par mois, les ateliers à venir, les fournées de la semaine et les petites nouvelles de Tara. Rien de plus.</p>
+      <form class="nl-form" onsubmit="return false">
+        <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail">
+        <button type="submit">S'inscrire</button>
+      </form>
+      <nav class="links">
+        <a href="#">L'atelier</a>
+        <a href="#">Le café</a>
+        <a href="#">La boutique</a>
+        <a href="#">L'esprit</a>
+        <a href="#">Nous trouver</a>
+        <a href="#">Instagram</a>
+      </nav>
+      <div class="bottom">
+        <span>© 2026 Maison de Tara</span>
+        <span class="signature" style="font-size:20px;color:var(--mdt-laiton)">On prend le temps.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================= B ========================= -->
+  <div class="variant-label">
+    <span class="tag">B</span>
+    <span class="name">3 colonnes classique</span>
+    <span class="hint">clair, rassurant, lisible au premier coup d'oeil</span>
+  </div>
+  <footer class="footer-b">
+    <div class="container">
+      <div class="grid">
+        <div class="brand">
+          <div class="brand-name">Maison de Tara</div>
+          <div class="brand-tag">On prend le temps.</div>
+          <p>Un atelier, un café et une boutique sous le même toit. Un lieu pour faire de ses mains, s'attabler et repartir avec un objet qui a une histoire.</p>
+        </div>
+        <div>
+          <h6 class="widget-title">La maison</h6>
+          <ul class="footer-menu">
+            <li><a href="#">L'atelier</a></li>
+            <li><a href="#">Le café</a></li>
+            <li><a href="#">La boutique</a></li>
+            <li><a href="#">Réserver une place</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="widget-title">Nous trouver</h6>
+          <address>
+            Adresse à compléter<br>
+            <strong>Ville · Code postal</strong><br>
+            Du mardi au dimanche<br>
+            10h à 19h
+          </address>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 Maison de Tara · Tous droits réservés</span>
+        <span>Instagram · Facebook</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================= C ========================= -->
+  <div class="variant-label">
+    <span class="tag">C</span>
+    <span class="name">Split sauge / sable</span>
+    <span class="hint">moitié newsletter, moitié infos pratiques</span>
+  </div>
+  <footer class="footer-c">
+    <div class="left">
+      <span class="eyebrow">Restons en lien</span>
+      <h2>Les nouvelles de la <em>maison</em>, une fois par mois.</h2>
+      <p>Ateliers, fournées et rendez-vous à venir. On vous écrit peu, mais on vous écrit bien.</p>
+      <form class="nl-form" onsubmit="return false">
+        <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail">
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
+    <div class="right">
+      <div class="brand-name">Maison de Tara</div>
+      <address>
+        Adresse à compléter<br>
+        <strong>Ville · Code postal</strong><br>
+        Du mardi au dimanche · 10h à 19h<br>
+        bonjour@maisondetara.fr
+      </address>
+      <div class="socials">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Nous trouver</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================= D ========================= -->
+  <div class="variant-label">
+    <span class="tag">D</span>
+    <span class="name">Lettre de Tara, intime</span>
+    <span class="hint">émotionnel, signé à la main, peu de liens</span>
+  </div>
+  <footer class="footer-d">
+    <div class="container">
+      <div class="inner">
+        <div class="mark">Maison de Tara</div>
+        <p class="letter">Ici, on ne court pas. On pétrit, on attend que ça lève, on partage un café pendant que ça cuit. Si vous passez, <em>prenez le temps</em> de rester un peu. La porte est ouverte.</p>
+        <div class="signature">Tara</div>
+        <div class="role">Fondatrice</div>
+        <nav class="links">
+          <a href="#">L'atelier</a>
+          <a href="#">Le café</a>
+          <a href="#">La boutique</a>
+          <a href="#">Nous trouver</a>
+          <a href="#">Instagram</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================= E ========================= -->
+  <div class="variant-label">
+    <span class="tag">E</span>
+    <span class="name">Hiérarchique éditorial</span>
+    <span class="hint">tagline géante + grille de liens, ton magazine</span>
+  </div>
+  <footer class="footer-e">
+    <div class="container">
+      <div class="top">
+        <h2>On prend <em>le temps.</em></h2>
+        <div class="nl-mini">
+          <p>Les nouvelles de la maison, une fois par mois.</p>
+          <form class="nl-form" onsubmit="return false">
+            <input type="email" placeholder="Votre e-mail" aria-label="Votre e-mail">
+            <button type="submit">S'inscrire</button>
+          </form>
+        </div>
+      </div>
+      <div class="cols">
+        <div class="brand">
+          <div class="brand-name">Maison de Tara</div>
+          <p>Un atelier, un café et une boutique sous le même toit. Un lieu où faire de ses mains et prendre le temps.</p>
+        </div>
+        <div>
+          <h6 class="widget-title">Visiter</h6>
+          <ul class="footer-menu">
+            <li><a href="#">L'atelier</a></li>
+            <li><a href="#">Le café</a></li>
+            <li><a href="#">La boutique</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="widget-title">La maison</h6>
+          <ul class="footer-menu">
+            <li><a href="#">L'esprit</a></li>
+            <li><a href="#">Comment ça se passe</a></li>
+            <li><a href="#">Réserver</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="widget-title">Nous suivre</h6>
+          <ul class="footer-menu">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Nous trouver</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 Maison de Tara</span>
+        <span>Du mardi au dimanche · 10h à 19h</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

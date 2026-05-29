@@ -1,0 +1,1215 @@
+/* ============================================================
+   MDT Override — Maison de Tara
+   Surcharge Wandau avec charte MDT (tokens + fonts + base)
+   Chargé APRES style.css pour gagner en specificity
+   ============================================================ */
+
+/* --- Tokens officiels MDT (source: PROMPT-MASTER-MDT.md) --- */
+:root {
+  /* Base — 60% du visuel */
+  --mdt-sable:      #F4EDE0;
+  --mdt-sable-warm: #E8DCC4;
+  --mdt-sable-deep: #DCC9A5;
+  --mdt-greige:     #B5A998;
+
+  /* Primary — 25% */
+  --mdt-terracotta: #C75B3C;
+  --mdt-terra-dark: #8B4A2E;
+
+  /* Accent — 16% */
+  --mdt-sauge:      #4A5D2E;
+  --mdt-sauge-light:#7A8043;
+  --mdt-olive-deep: #3A4A24;
+
+  /* Highlight — 5% */
+  --mdt-noir:       #1A1815;
+  --mdt-noir-soft:  #2C2419;
+  --mdt-laiton:     #B8924D;
+
+  /* Sémantique */
+  --mdt-text:       #2C2419;
+  --mdt-text-soft:  #5F4F3F;
+  --mdt-line:       rgba(74,93,46,0.18);
+
+  /* Typo */
+  --mdt-font-display: 'Cormorant Garamond', Georgia, serif;
+  --mdt-font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mdt-font-script:  'Caveat', cursive;
+
+  /* Espacements */
+  --mdt-section-pad: clamp(64px, 8vw, 120px);
+  --mdt-container: 1280px;
+}
+
+/* --- Body & typography overrides --- */
+body {
+  font-family: var(--mdt-font-body) !important;
+  background: var(--mdt-sable) !important;
+  color: var(--mdt-text) !important;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title h2,
+.section-title h3 {
+  font-family: var(--mdt-font-display) !important;
+  font-weight: 400 !important;
+  color: var(--mdt-noir) !important;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-weight: 300 !important; }
+
+.section-title h6,
+.eyebrow,
+.custom-menu a,
+.site-menu a,
+.navbar-button a {
+  font-family: var(--mdt-font-body) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
+/* --- Italics éditoriaux (mots-clés émotionnels) --- */
+.mdt-italic,
+em.mdt {
+  font-family: var(--mdt-font-display);
+  font-style: italic;
+  color: var(--mdt-laiton);
+}
+
+/* --- Signature manuscrite --- */
+.mdt-signature {
+  font-family: var(--mdt-font-script);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--mdt-terracotta);
+  font-weight: 400;
+}
+
+/* --- Buttons / CTA --- */
+.custom-button,
+.navbar-button a,
+a.custom-button {
+  background: var(--mdt-terracotta) !important;
+  color: var(--mdt-sable) !important;
+  border: none !important;
+  padding: 18px 36px !important;
+  font-family: var(--mdt-font-body) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  transition: background 300ms cubic-bezier(.4,0,.2,1) !important;
+  border-radius: 0 !important;
+  /* Centrage texte horizontal + vertical (override des height 70px / line-height 70px Wandau qui cassent le centrage avec multi-lignes) */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  height: auto !important;
+  min-height: 52px;
+  text-indent: 0 !important;
+}
+
+.custom-button:hover,
+.navbar-button a:hover {
+  background: var(--mdt-terra-dark) !important;
+  color: var(--mdt-sable) !important;
+  line-height: 1.2 !important;
+  text-indent: 0 !important;
+}
+
+/* --- Navbar Wandau native : logo MDT --- */
+.navbar .logo img {
+  height: 56px;
+  width: auto;
+}
+
+/* --- Backgrounds : neutraliser les jaunes/verts Wandau au profit du sable --- */
+[data-background="#fffbf7"],
+[data-background="#fff8e9"] {
+  background: var(--mdt-sable) !important;
+}
+[data-background="#94ffc4"],
+[data-background="#feed01"] {
+  background: var(--mdt-sauge) !important;
+  color: var(--mdt-sable) !important;
+}
+[data-background="#94ffc4"] *,
+[data-background="#feed01"] * {
+  color: var(--mdt-sable) !important;
+}
+
+/* --- Hero slider : copy color sauge sur sable / sable sur sauge --- */
+.slider-texts h1 {
+  color: var(--mdt-noir) !important;
+  font-family: var(--mdt-font-display) !important;
+  font-weight: 300 !important;
+  font-style: italic;
+}
+.slider-texts p {
+  font-family: var(--mdt-font-body) !important;
+  color: var(--mdt-text-soft) !important;
+  font-weight: 400;
+}
+
+/* --- SVG morph blob du hero : passer au sauge --- */
+.svg-morph path {
+  fill: var(--mdt-sauge) !important;
+  opacity: 0.92;
+}
+
+/* --- Custom menu (langues) : sable warm --- */
+.navbar .custom-menu a {
+  color: var(--mdt-text-soft) !important;
+}
+.navbar .site-menu a {
+  color: var(--mdt-noir) !important;
+}
+.navbar .site-menu a:hover {
+  color: var(--mdt-terracotta) !important;
+}
+
+/* --- Hamburger + search --- */
+.navbar .hamburger path { stroke: var(--mdt-noir) !important; }
+.navbar .search-button { color: var(--mdt-noir) !important; }
+
+/* --- Preloader & page-transition : passer en sable --- */
+.preloader svg path,
+.page-transition svg path {
+  fill: var(--mdt-sable) !important;
+}
+.preloader small {
+  color: var(--mdt-sauge) !important;
+  font-family: var(--mdt-font-body) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.32em !important;
+  text-transform: uppercase !important;
+  font-weight: 500;
+}
+
+/* Logo MDT dans preloader (PNG transparent — pas de mix-blend nécessaire) */
+.preloader .inner .mdt-preloader-logo {
+  width: 200px !important;
+  height: 200px !important;
+}
+.preloader .inner .mdt-preloader-logo img {
+  height: 176px !important;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* --- Sections backgrounds neutres --- */
+.content-section { background: var(--mdt-sable); }
+.content-section.bottom-white { background: var(--mdt-sable) !important; }
+
+/* --- Section-title shape : on neutralise le shape Wandau (souvent un blob jaune) --- */
+.section-title figure img[src*="title-shape"] {
+  filter: hue-rotate(-30deg) saturate(0.4) brightness(0.95);
+  opacity: 0.6;
+}
+
+/* Capsule MDT à la place du title-shape Wandau (pas de filtre nécessaire) */
+.section-title figure.mdt-title-shape img {
+  filter: none !important;
+  opacity: 1 !important;
+  width: auto;
+  height: 56px;
+  margin: 0 auto;
+}
+
+/* Sous-titre éditorial sous le H2 de section */
+.section-title .mdt-section-sub {
+  font-family: var(--mdt-font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--mdt-text-soft);
+  max-width: 560px;
+  margin: 18px auto 0;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+/* Mini icône MDT — pill Wandau réduite (100→64) pour col-lg-3 plus étroite,
+   fond sauge, icône laiton plus petite */
+.image-icon-box .icon.mdt-step-icon {
+  width: 64px !important;
+  height: 64px !important;
+  background: var(--mdt-sauge) !important;
+  color: var(--mdt-laiton);
+  left: 20px !important;
+  top: 20px !important;
+}
+.image-icon-box .icon.mdt-step-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* Photos étapes : forcer aspect-ratio portrait pour prendre plus de hauteur
+   (compense la perte de largeur due au passage 3→4 colonnes) */
+.image-icon-box .content-image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+.image-icon-box .content-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  display: block;
+}
+
+/* Content-box (carte texte en bas) : blanc → sable cohérent MDT */
+.image-icon-box .content-box {
+  background: var(--mdt-sable) !important;
+  text-align: center !important;
+}
+.image-icon-box .content-box b {
+  font-family: var(--mdt-font-body) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.28em !important;
+  color: var(--mdt-laiton) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+}
+.image-icon-box .content-box h4 {
+  font-family: var(--mdt-font-display) !important;
+  font-weight: 400 !important;
+  color: var(--mdt-noir) !important;
+}
+.image-icon-box .content-box p {
+  font-family: var(--mdt-font-body) !important;
+  color: var(--mdt-text-soft) !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+
+/* Suppression du séparateur blanc en bas de section ('bottom-white' Wandau)
+   → Wandau crée une bande blanche 140px via ::before, on l'enlève */
+.content-section.bottom-white::before {
+  display: none !important;
+}
+
+/* --- Side widget (drawer) : fond sauge profond + texte sable --- */
+.side-widget svg path { fill: var(--mdt-olive-deep) !important; }
+.side-widget,
+.side-widget p,
+.side-widget h6,
+.side-widget a {
+  color: var(--mdt-sable) !important;
+}
+.side-widget .widget-title {
+  font-family: var(--mdt-font-display) !important;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 24px !important;
+  font-style: italic;
+}
+
+/* --- Footer / newsletter sombre --- */
+.newsletter,
+.newsletter-section {
+  background: var(--mdt-noir-soft) !important;
+  color: var(--mdt-sable);
+}
+.newsletter h2 { color: var(--mdt-sable) !important; }
+
+/* --- Cards / exhibition box --- */
+.exhibition-box,
+.content-box {
+  background: var(--mdt-sable) !important;
+  border: 1px solid var(--mdt-line);
+}
+
+/* --- Play-now circular text : sauge --- */
+.play-now text { fill: var(--mdt-sauge); font-family: var(--mdt-font-body); letter-spacing: 0.18em; }
+.play-now .play-btn { background: var(--mdt-terracotta); }
+
+/* --- Selection highlight --- */
+::selection {
+  background: var(--mdt-sauge);
+  color: var(--mdt-sable);
+}
+
+/* ============================================================
+   HERO MDT — structure Wandau préservée (full-bleed bg + texte overlay)
+   On surcharge UNIQUEMENT la DA : couleurs, typo, copy. Pas de photos.
+   ============================================================ */
+
+/* Fond sauge + wallpaper fleuri (repris du Hero V2 de l'ancienne LP) */
+.slider .slider-images .swiper-slide.mdt-slide-bg,
+.slider .slider-images .swiper-slide.mdt-slide-bg .mobile-slide {
+  background: var(--mdt-sauge) !important;
+  background-image: none !important;
+}
+
+/* Layer wallpaper tara-green par dessus, mix-blend screen — donne la texture fleurie de la LP */
+.slider .slider-images .swiper-slide.mdt-slide-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-size: 720px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Eyebrow au dessus du H1 */
+.slider-texts .hero-eyebrow {
+  display: block;
+  font-family: var(--mdt-font-body);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-sable);
+  margin-bottom: 28px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* H1 Cormorant — taille réduite vs Wandau 126px pour tenir sur 1-2 lignes
+   sans déborder sur la booking card à droite */
+.slider .slider-texts .swiper-slide h1 {
+  font-family: var(--mdt-font-display) !important;
+  font-weight: 300 !important;
+  color: var(--mdt-sable) !important;
+  letter-spacing: -0.01em;
+  font-size: clamp(56px, 6vw, 100px) !important;
+  line-height: 1.05 !important;
+}
+
+/* Hero avec 1 seul slide : on cache les clones générés par Swiper (loop:true) */
+.slider .slider-images .swiper-slide-duplicate,
+.slider .slider-texts .swiper-slide-duplicate {
+  visibility: hidden !important;
+}
+
+.slider-texts h1 em {
+  font-family: var(--mdt-font-display);
+  font-style: italic;
+  color: var(--mdt-laiton);
+  font-weight: 400;
+}
+
+/* Paragraphe sous H1 */
+.slider .slider-texts .swiper-slide p {
+  font-family: var(--mdt-font-body) !important;
+  color: var(--mdt-sable) !important;
+  border-left-color: var(--mdt-laiton) !important;
+  opacity: 0.9;
+}
+
+.slider-texts p em {
+  font-family: var(--mdt-font-display);
+  font-style: italic;
+  color: var(--mdt-laiton);
+  font-weight: 400;
+}
+
+/* CTA hero */
+.slider-texts .hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  margin-left: 40px;
+}
+
+.slider-texts .hero-link {
+  font-family: var(--mdt-font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mdt-sable);
+  text-decoration: none;
+  border-bottom: 1px solid var(--mdt-sable);
+  padding-bottom: 4px;
+  transition: color 250ms, border-color 250ms;
+}
+
+.slider-texts .hero-link:hover {
+  color: var(--mdt-laiton);
+  border-color: var(--mdt-laiton);
+}
+
+/* Blob morph sauge (au lieu du vert Wandau) */
+.slider .slider-texts .svg-morph path {
+  fill: var(--mdt-sauge) !important;
+  opacity: 0.85;
+}
+
+/* Overlay sombre sur image pour lisibilité du texte sable */
+.slider .slider-images .swiper-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(26,24,21,0.55) 0%, rgba(26,24,21,0.32) 60%, rgba(26,24,21,0.18) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.slider .slider-images .swiper-slide > * { position: relative; z-index: 2; }
+
+/* Slider nav / fraction : tokens MDT */
+.slider .swiper-fraction { color: var(--mdt-sable) !important; }
+.slider .swiper-fraction span { color: var(--mdt-laiton) !important; }
+.slider .swiper-pagination-progressbar { background: rgba(244,237,224,0.2) !important; }
+.slider .swiper-pagination-progressbar .swiper-pagination-progressbar-fill { background: var(--mdt-sable) !important; }
+.slider .slider-nav .button-prev,
+.slider .slider-nav .button-next {
+  color: var(--mdt-sable);
+  border-color: rgba(244,237,224,0.3);
+}
+
+/* Play-now : texte circulaire rotatif (on garde) */
+.play-now text {
+  fill: var(--mdt-laiton) !important;
+  font-family: var(--mdt-font-body) !important;
+  letter-spacing: 0.22em !important;
+  font-size: 11px !important;
+  font-weight: 500;
+}
+
+/* Plus de cercle blanc autour : on neutralise toute trace */
+.play-now circle,
+.play-now .svg-morph + svg circle {
+  display: none !important;
+}
+
+/* Flèche : on remplace le triangle border-trick par une flèche plus chic */
+.play-now .play-btn {
+  background: transparent !important;
+  width: 60px !important;
+  height: 60px !important;
+  border: 1px solid var(--mdt-laiton) !important;
+  border-radius: 50% !important;
+  transform: translateX(-50%) translateY(-50%) !important;
+  transition: background 300ms ease, border-color 300ms ease !important;
+}
+.play-now .play-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: none;
+  border-top: 1.5px solid var(--mdt-laiton);
+  border-right: 1.5px solid var(--mdt-laiton);
+  transform: translate(-60%, -50%) rotate(45deg);
+  transition: border-color 300ms ease;
+}
+.play-now .play-btn:hover {
+  background: var(--mdt-laiton) !important;
+  border-color: var(--mdt-laiton) !important;
+}
+.play-now .play-btn:hover::before {
+  border-top-color: var(--mdt-sauge);
+  border-right-color: var(--mdt-sauge);
+}
+
+/* ============================================================
+   BOOKING CARD dans le hero (droite) — repris de l'ancienne LP
+   ============================================================ */
+
+/* Hauteur du hero : rentre dans le viewport restant après topbar+header fixes
+   (le smooth-scroll padding-top compense déjà 136px côté flow, ici on cale juste la viewport) */
+header.slider {
+  height: calc(100vh - 136px) !important;
+  min-height: 600px !important;
+}
+
+/* Texte hero : poussé à gauche pour libérer la droite */
+.slider .slider-texts .container-fluid {
+  max-width: 580px !important;
+  margin-left: clamp(40px, 6vw, 80px) !important;
+  margin-right: auto !important;
+}
+
+/* Aside booking — gros bloc qui équilibre le H1 */
+.mdt-hero-booking {
+  position: absolute;
+  right: clamp(40px, 5vw, 80px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 560px;
+  max-width: 90vw;
+  z-index: 5;
+  background: var(--mdt-sable);
+  color: var(--mdt-noir);
+  padding: 44px 40px;
+  border: 1px solid var(--mdt-laiton);
+}
+/* Double-bordure laiton décalée — signature MDT */
+.mdt-hero-booking::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border: 1px solid var(--mdt-laiton);
+  transform: translate(10px, 10px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card--booking__title {
+  font-family: var(--mdt-font-display) !important;
+  font-size: 26px !important;
+  color: var(--mdt-sauge) !important;
+  margin: 0 0 6px 0 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+.card--booking__subtitle {
+  font-family: var(--mdt-font-body) !important;
+  font-size: 12px !important;
+  color: var(--mdt-text-soft) !important;
+  margin: 0 0 22px 0 !important;
+  letter-spacing: 0.02em;
+}
+
+.field { margin-bottom: 14px; }
+.field__label {
+  display: block;
+  font-family: var(--mdt-font-body);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.field__input,
+.field__select {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--mdt-line);
+  background: transparent;
+  font-family: var(--mdt-font-body);
+  font-size: 14px;
+  color: var(--mdt-noir);
+  outline: none;
+  transition: border-color 250ms;
+  font-weight: 400;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.field__input:focus,
+.field__select:focus { border-bottom-color: var(--mdt-terracotta); }
+.field__input::placeholder { color: var(--mdt-greige); }
+.field__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A5D2E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 24px;
+  cursor: pointer;
+}
+.field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+.field--row .field { margin-bottom: 0; }
+
+.mdt-hero-booking .btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 18px !important;
+  font-size: 11px !important;
+}
+.card--booking__reassurance {
+  font-family: var(--mdt-font-body);
+  font-size: 11px;
+  color: var(--mdt-text-soft);
+  text-align: center;
+  margin: 12px 0 0 0;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* Responsive : booking passe sous le texte si pas assez de place */
+@media (max-width: 1320px) {
+  .slider .slider-texts .container-fluid { max-width: 100% !important; margin: 0 auto !important; padding: 0 32px !important; }
+  .mdt-hero-booking {
+    position: relative;
+    right: auto; top: auto; transform: none;
+    margin: 32px auto 0;
+    width: 90%;
+    max-width: 560px;
+  }
+  header.slider { height: auto !important; min-height: auto !important; padding: 60px 0 80px !important; }
+  .slider .slider-images,
+  .slider .slider-images .swiper-container,
+  .slider .slider-images .swiper-wrapper { height: 100% !important; }
+}
+
+/* Flèches slider-nav (override du #94ffc4 Wandau) */
+.slider .slider-nav .button-prev,
+.slider .slider-nav .button-next {
+  background: var(--mdt-sable) !important;
+  color: var(--mdt-sauge) !important;
+}
+.slider .slider-nav .button-prev:hover,
+.slider .slider-nav .button-next:hover {
+  background: var(--mdt-terracotta) !important;
+  color: var(--mdt-sable) !important;
+}
+
+/* ============================================================
+   HEADER MDT — repris de l'ancienne LP (topbar + header + drawer)
+   Cache la navbar Wandau, on garde l'ancien header
+   ============================================================ */
+
+/* Alias sémantiques (utilisés par les rules importées) */
+:root {
+  --color-cta-primary:        var(--mdt-terracotta);
+  --color-cta-primary-hover:  var(--mdt-terra-dark);
+  --color-bg-dark:            var(--mdt-noir-soft);
+  --color-text-on-dark:       var(--mdt-sable);
+  --color-line:               var(--mdt-line);
+  --font-display:             var(--mdt-font-display);
+  --font-body:                var(--mdt-font-body);
+  --ease-out:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-mdt:  cubic-bezier(0.22, 0.61, 0.36, 1);
+  --container: 1280px;
+}
+
+/* Cache la navbar Wandau (on la remplace par notre header MDT) */
+nav.navbar { display: none !important; }
+
+/* Container */
+.mdt-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+/* sr-only (a11y) */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--mdt-noir);
+  color: var(--mdt-sable);
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  z-index: 1000;
+  transition: top 0.2s var(--ease-out);
+}
+.skip-link:focus { top: 16px; }
+
+/* Icon sizes */
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+  flex-shrink: 0;
+}
+.icon--md { width: 20px; height: 20px; }
+.icon--lg { width: 24px; height: 24px; }
+
+/* Btn (variantes utilisées dans header/drawer) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.3s var(--ease-out);
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 0;
+}
+.btn--primary {
+  background: var(--color-cta-primary);
+  color: var(--color-text-on-dark);
+}
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background: var(--color-cta-primary-hover);
+  transform: translateY(-1px);
+  color: var(--color-text-on-dark);
+}
+
+/* TOPBAR (hors smooth-scroll, fixe en haut) */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  background: var(--color-bg-dark);
+  color: var(--mdt-sable-warm);
+  font-size: 12px;
+  padding: 10px 0;
+}
+.topbar__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.topbar__info {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.topbar__info li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+.topbar__info a { color: inherit; }
+.topbar__info .icon { color: var(--mdt-laiton); }
+.topbar__opening { letter-spacing: 0.04em; }
+
+@media (max-width: 600px) {
+  .topbar { padding: 8px 0; }
+  .topbar__info { display: none; }
+  .topbar__opening { width: 100%; text-align: center; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mdt-laiton); }
+}
+
+/* HEADER (fixe en haut, sous la topbar) — opaque sable */
+.mdt-header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-line);
+  position: fixed;
+  top: 44px; /* sous la topbar */
+  left: 0;
+  right: 0;
+  z-index: 140;
+  background: var(--mdt-sable);
+}
+
+/* Compensation : décaler le contenu de la page sous le header fixe (topbar 44 + header 92) */
+.smooth-scroll {
+  padding-top: 136px;
+}
+
+@media (max-width: 600px) {
+  .mdt-header { top: 0; } /* topbar invisible en mobile */
+  .smooth-scroll { padding-top: 88px; }
+}
+.mdt-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Logo capsule_sage (PNG transparent — pas de mix-blend) */
+.mdt-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.18em;
+  color: var(--mdt-sauge);
+  font-weight: 400;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.mdt-logo__image {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+@media (max-width: 600px) {
+  .mdt-logo__image { height: 42px; }
+}
+
+/* NAV desktop */
+.mdt-nav { display: flex; gap: 28px; }
+.mdt-nav a {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+  transition: color 0.3s;
+  position: relative;
+  white-space: nowrap;
+  padding: 8px 0;
+  text-decoration: none;
+}
+.mdt-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--mdt-terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+.mdt-nav a:hover { color: var(--mdt-terracotta); }
+.mdt-nav a:hover::after,
+.mdt-nav a:focus-visible::after { transform: scaleX(1); }
+
+.mdt-header__cta { display: flex; align-items: center; gap: 16px; }
+.mdt-header__cta .btn {
+  white-space: nowrap;
+  padding: 12px 22px;
+  font-size: 11px;
+  min-height: 40px;
+}
+
+/* BURGER */
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: var(--mdt-sauge);
+  background: transparent;
+  border: 0;
+}
+.burger__lines {
+  position: relative;
+  width: 22px;
+  height: 14px;
+  display: block;
+}
+.burger__lines::before,
+.burger__lines::after,
+.burger__lines span {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s;
+}
+.burger__lines::before { top: 0; }
+.burger__lines span { top: 50%; transform: translateY(-50%); display: block; }
+.burger__lines::after { bottom: 0; }
+
+@media (max-width: 900px) {
+  .mdt-nav { display: none; }
+  .mdt-header__cta .btn--primary { display: none; }
+  .burger { display: inline-flex; }
+}
+
+/* NAV BADGE "Bientôt" */
+.nav-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 6px;
+  background: var(--mdt-laiton);
+  color: var(--mdt-sable) !important;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  vertical-align: 2px;
+}
+
+/* DRAWER mobile */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out), visibility 0s 0.3s;
+}
+.drawer.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
+
+.drawer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 24, 21, 0.5);
+  cursor: pointer;
+}
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(420px, 90vw);
+  background: var(--mdt-sable);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease-mdt);
+  box-shadow: -8px 0 32px rgba(26, 24, 21, 0.08);
+}
+.drawer.is-open .drawer__panel { transform: translateX(0); }
+
+.drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.drawer__header .mdt-logo__image { height: 44px; }
+
+.drawer__close {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mdt-sauge);
+  background: transparent;
+  border: 0;
+  transition: transform 0.3s var(--ease-out);
+}
+.drawer__close:hover { transform: rotate(90deg); }
+
+.drawer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+.drawer__nav a {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--mdt-noir);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line);
+  transition: color 0.3s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.drawer__nav a:hover,
+.drawer__nav a:focus-visible { color: var(--mdt-terracotta); }
+.drawer__nav a em {
+  font-style: italic;
+  color: var(--mdt-sauge);
+  font-family: var(--font-display);
+}
+
+.drawer__cta { margin-top: auto; }
+.drawer__cta .btn { width: 100%; }
+
+.drawer__contact {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--mdt-text-soft);
+}
+.drawer__contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--mdt-sauge);
+  text-decoration: none;
+}
+
+body.is-drawer-open { overflow: hidden; }
+
+/* ============================================================
+   SECTION 2 — placeholder image-box en pattern fleuri MDT
+   (la structure et la typo Wandau sont préservées, on remplace juste
+    l'image manquante par un bloc décoratif sable+wallpaper)
+   ============================================================ */
+.mdt-pattern-block {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  background: var(--mdt-sauge);
+  overflow: hidden;
+}
+.mdt-pattern-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-size: 540px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.32;
+  mix-blend-mode: screen;
+}
+.mdt-pattern-block::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--mdt-laiton);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Section 3 cards — uniformiser les images (aspect-ratio 3/2 façon Wandau)
+   et recolorer le badge pill (lime green → laiton MDT) */
+.exhibition-box figure .img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Animation Wandau native préservée :
+     opacity 0 + scale(1.2) au départ (style.css)
+     → Locomotive ajoute .is-inview à l'entrée viewport
+     → fade-in + zoom-out 0.7s cubic-bezier(0.86, 0, 0.09, 1) */
+}
+.exhibition-box figure .info span {
+  background: var(--mdt-laiton) !important;
+  color: var(--mdt-sable) !important;
+  font-family: var(--mdt-font-body) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.06em;
+  font-weight: 500 !important;
+}
+/* Le cercle blanc "i" reste blanc (cohérent Wandau) — on s'assure que rien ne le surcharge */
+.exhibition-box figure .info figure {
+  background: #fff !important;
+}
+.exhibition-box figure .info figure img {
+  filter: brightness(0); /* assure que le "i" reste foncé sur fond blanc */
+}
+
+/* Espace texte agrandi : marge sous l'image + plus de gap content-box */
+.exhibition-box figure { margin-bottom: 28px !important; }
+.exhibition-box .content-box { padding: 0 12px; }
+.exhibition-box .content-box h4 { margin-bottom: 16px !important; }
+.exhibition-box .content-box p { margin-bottom: 22px !important; }
+
+/* Stagger : cartes 1 et 3 alignées en haut, carte 2 (Café) décalée vers le bas
+   — reproduit l'effet Wandau original sans dépendre du parallax JS */
+.exhibition-box#cafe { margin-top: 80px; }
+@media (max-width: 767px) {
+  .exhibition-box#cafe { margin-top: 0; }
+}
+
+/* Logo section 3 top-left (signature MDT) */
+.mdt-section-with-logo { position: relative; }
+.mdt-section-logo {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 96px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
+.mdt-section-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 991px) {
+  .mdt-section-logo { width: 72px; top: 20px; left: 20px; }
+}
+
+/* Features list — petites puces centrées sous la description */
+.mdt-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 26px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+.mdt-features li {
+  font-family: var(--mdt-font-body);
+  font-size: 13px;
+  color: var(--mdt-text-soft);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 14px;
+  display: inline-block;
+}
+.mdt-features li::before {
+  content: "·";
+  position: relative;
+  left: -8px;
+  color: var(--mdt-laiton);
+  font-weight: 700;
+}
+
+/* CTA carte — petit lien éditorial soulign\é sauge */
+.mdt-card-cta {
+  display: inline-block;
+  font-family: var(--mdt-font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--mdt-sauge);
+  padding-bottom: 4px;
+  margin: 0 auto;
+  transition: color 250ms, border-color 250ms;
+}
+.mdt-card-cta:hover {
+  color: var(--mdt-terracotta);
+  border-color: var(--mdt-terracotta);
+}
+
+/* Côté droit (3 items info) — Wandau côtes natives sont OK,
+   on ne fait qu'aligner les icônes SVG dans les figures Wandau */
+.side-icon-list .content a {
+  color: var(--mdt-sauge);
+  border-bottom: 1px solid var(--mdt-sauge);
+  padding-bottom: 2px;
+  font-family: var(--mdt-font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 6px;
+}
+.side-icon-list .content a:hover { color: var(--mdt-terracotta); border-color: var(--mdt-terracotta); }
+.side-icon-list figure { color: var(--mdt-laiton); display: inline-flex; align-items: center; justify-content: center; }
+.side-icon-list figure .icon { width: 28px; height: 28px; }
+
+@media (max-width: 991px) {
+  .mdt-pattern-block { height: 320px; }
+}

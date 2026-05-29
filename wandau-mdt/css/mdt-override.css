@@ -416,6 +416,32 @@ a.custom-button {
   font-weight: 400;
 }
 
+/* Infos pratiques sous le paragraphe (adresse, horaires, univers) */
+.slider-texts .hero-meta {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(244, 237, 224, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+}
+.slider-texts .hero-meta li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mdt-font-body);
+  font-size: 14px;
+  color: var(--mdt-sable);
+  opacity: 0.92;
+}
+.slider-texts .hero-meta__ic {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--mdt-laiton);
+}
+
 /* CTA hero */
 .slider-texts .hero-cta {
   display: flex;
@@ -529,17 +555,18 @@ header.slider {
   min-height: 600px !important;
 }
 
-/* Texte hero : poussé à gauche pour libérer la droite */
+/* Texte hero : largeur élargie, calé dans une bande centrée pour éviter
+   le grand vide central sur écran large (gouttière constante avec la carte) */
 .slider .slider-texts .container-fluid {
-  max-width: 580px !important;
-  margin-left: clamp(40px, 6vw, 80px) !important;
+  max-width: 640px !important;
+  margin-left: max(clamp(40px, 6vw, 80px), calc(50% - 640px)) !important;
   margin-right: auto !important;
 }
 
-/* Aside booking — gros bloc qui équilibre le H1 */
+/* Aside booking — gros bloc qui équilibre le H1, calé sur la même bande */
 .mdt-hero-booking {
   position: absolute;
-  right: clamp(40px, 5vw, 80px);
+  right: max(clamp(40px, 5vw, 80px), calc(50% - 640px));
   top: 50%;
   transform: translateY(-50%);
   width: 560px;
@@ -636,7 +663,7 @@ header.slider {
 }
 
 /* Responsive : booking passe sous le texte si pas assez de place */
-@media (max-width: 1320px) {
+@media (max-width: 1440px) {
   .slider .slider-texts .container-fluid { max-width: 100% !important; margin: 0 auto !important; padding: 0 32px !important; }
   .mdt-hero-booking {
     position: relative;
@@ -1212,4 +1239,194 @@ body.is-drawer-open { overflow: hidden; }
 
 @media (max-width: 991px) {
   .mdt-pattern-block { height: 320px; }
+}
+
+/* ============================================================
+   Fonds floraux de sections (motifs de la LP de base)
+   Intensite alternee : subtil sur sections chargees, marque sur bandes
+   ============================================================ */
+/* Filigranes sur fond creme. Pas d'overflow:hidden (casserait le
+   scroll horizontal Locomotive de #histoire). On leve tous les enfants
+   directs au-dessus du motif via "> *". */
+.mdt-floral-soft,
+.mdt-floral-line { position: relative; }
+.mdt-floral-soft::before,
+.mdt-floral-line::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Texture A — wallpaper florale (sections principales) */
+.mdt-floral-soft::before {
+  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 600px repeat;
+  opacity: 0.07;
+}
+/* Texture B — meme florale, tile plus dense + opacite legerement
+   superieure (alternance de rythme, lisible sur fond clair/blanc). */
+.mdt-floral-line::before {
+  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 380px repeat;
+  opacity: 0.09;
+}
+.mdt-floral-soft > *,
+.mdt-floral-line > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   Newsletter MDT — bande sauge profond (DA hero confidentiel)
+   ============================================================ */
+.mdt-newsletter {
+  background: var(--mdt-olive-deep) !important;
+  padding: clamp(48px, 5vw, 72px) 0 !important;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Florale en filigrane ton-sur-ton (coherent avec le reste du site) */
+.mdt-newsletter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 420px repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+.mdt-newsletter > .container { position: relative; z-index: 2; }
+.mdt-nl-eyebrow {
+  display: block;
+  font-family: var(--mdt-font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--mdt-laiton);
+  margin-bottom: 14px;
+}
+.mdt-nl-title {
+  font-family: var(--mdt-font-display) !important;
+  font-weight: 300 !important;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #fff !important;
+  margin-bottom: 18px;
+}
+.mdt-nl-title em { font-style: italic; color: var(--mdt-sable-deep); }
+.mdt-nl-lead {
+  max-width: 540px;
+  margin: 0 auto 30px;
+  font-size: 16px;
+  color: rgba(244, 237, 224, 0.78);
+}
+.mdt-nl-form {
+  display: flex;
+  max-width: 520px;
+  margin: 0 auto 22px;
+  border-bottom: 1px solid rgba(244, 237, 224, 0.4);
+}
+.mdt-nl-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 16px 4px;
+  font-family: var(--mdt-font-body);
+  font-size: 16px;
+  color: #fff;
+  outline: none;
+}
+.mdt-nl-form input::placeholder { color: rgba(244, 237, 224, 0.5); }
+.mdt-nl-form button {
+  background: transparent;
+  border: none;
+  color: var(--mdt-laiton);
+  font-family: var(--mdt-font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 8px;
+  transition: color .25s;
+}
+.mdt-nl-form button:hover { color: #fff; }
+.mdt-nl-note { font-size: 12px; color: rgba(244, 237, 224, 0.5); }
+.mdt-nl-note a { color: rgba(244, 237, 224, 0.75); text-decoration: underline; }
+.mdt-nl-note a:hover { color: var(--mdt-laiton); }
+
+/* ============================================================
+   Footer MDT — Variante B (3 colonnes classique)
+   ============================================================ */
+.mdt-footer {
+  background: var(--mdt-sable) !important;
+  color: var(--mdt-text);
+  padding: clamp(64px, 7vw, 96px) 0 36px;
+  border-top: 3px solid var(--mdt-sauge);
+}
+.mdt-footer .container { max-width: var(--mdt-container); }
+.mdt-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.mdt-footer-name {
+  font-family: var(--mdt-font-display);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--mdt-sauge);
+  margin-bottom: 14px;
+}
+.mdt-footer-tag {
+  font-family: var(--mdt-font-script);
+  font-size: 26px;
+  color: var(--mdt-terracotta);
+  margin-bottom: 16px;
+}
+.mdt-footer-brand p {
+  font-size: 15px;
+  color: var(--mdt-text-soft);
+  max-width: 320px;
+  margin: 0;
+}
+.mdt-footer-wtitle {
+  font-family: var(--mdt-font-body) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  color: var(--mdt-text) !important;
+  margin-bottom: 22px;
+  opacity: 0.7;
+}
+.mdt-footer-menu { list-style: none; padding: 0; margin: 0; }
+.mdt-footer-menu li { margin-bottom: 12px; }
+.mdt-footer-menu a {
+  font-family: var(--mdt-font-display);
+  font-size: 19px;
+  color: var(--mdt-text);
+  transition: color .25s;
+}
+.mdt-footer-menu a:hover { color: var(--mdt-laiton); }
+.mdt-footer-address {
+  font-style: normal;
+  font-size: 15px;
+  color: var(--mdt-text-soft);
+  line-height: 1.9;
+}
+.mdt-footer-address strong { color: var(--mdt-text); font-weight: 500; }
+.mdt-footer-bottom {
+  margin-top: 56px;
+  padding-top: 26px;
+  border-top: 1px solid var(--mdt-line);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--mdt-text-soft);
+}
+
+@media (max-width: 860px) {
+  .mdt-footer-grid { grid-template-columns: 1fr; gap: 40px; }
 }

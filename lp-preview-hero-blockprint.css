@@ -1,0 +1,43 @@
+/* Preview non destructive : hero avec le motif blockprint-green */
+
+.hero::before {
+  background-image: url("assets-premium-lp/blockprint-green.jpg");
+  background-size: 520px;
+  background-repeat: repeat;
+  opacity: 0.96;
+}
+
+.hero::after {
+  background:
+    linear-gradient(90deg, rgba(244, 237, 224, 0.9), rgba(244, 237, 224, 0.72) 48%, rgba(244, 237, 224, 0.18)),
+    radial-gradient(circle at 82% 24%, rgba(244, 237, 224, 0.34), transparent 36%);
+}
+
+.hero__practical li,
+.card--booking {
+  background: rgba(244, 237, 224, 0.9);
+}
+
+.hero__title,
+.hero__title em,
+.hero__lead,
+.hero__tab,
+.hero__tab.is-active,
+.hero__practical strong {
+  color: var(--mdt-noir);
+}
+
+.hero__title em {
+  font-weight: 300;
+}
+
+.hero__lead,
+.hero__practical strong {
+  font-weight: 600;
+}
+
+.hero .btn--outline-light {
+  color: var(--mdt-noir);
+  border-color: rgba(26, 24, 21, 0.42);
+  background: rgba(244, 237, 224, 0.62);
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison de Tara — Variantes premium (A/B/C/D)</title>
+  <style>
+    :root{--bg:#f7f2ea;--ink:#2d2a26;--accent:#b86f52;--card:#fffdf9;--line:#dfd2c3;--ok:#5c7a62}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+    header{position:sticky;top:0;background:#fffcf7cc;backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:14px 22px;z-index:5}
+    h1{margin:0;font-size:1.1rem} main{max-width:1200px;margin:24px auto;padding:0 16px 80px}
+    .intro{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:20px}
+    .section{margin:26px 0}
+    .section h2{font-size:1rem;margin:0 0 10px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .variant{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;min-height:180px}
+    .variant h3{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
+    .chip{display:inline-block;border:1px solid var(--line);padding:3px 8px;border-radius:99px;font-size:.72rem;margin-right:6px}
+    .mock{border:1px dashed #cdb8a4;border-radius:10px;padding:10px;background:#fffaf3}
+    .cta{display:inline-block;background:var(--ink);color:#fff;padding:8px 12px;border-radius:99px;font-size:.8rem;margin-top:8px}
+    .select{margin-top:8px;color:var(--ok);font-weight:700;font-size:.82rem}
+    @media (max-width: 860px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><h1>Maison de Tara — Planche de variantes premium (choix section par section)</h1></header>
+<main>
+  <div class="intro">
+    <p><strong>Comment choisir :</strong> pour chaque section, compare les 4 options puis note ton choix (A/B/C/D). Dès validation, j’implémente la V2 finale dans <code>index-v2.html</code>/<code>styles-v2.css</code>/<code>scripts-v2.js</code>.</p>
+  </div>
+
+  <section class="section"><h2>A — Header / Navigation</h2><div class="grid">
+    <article class="variant"><h3>A1 Quiet Luxury Sticky</h3><div class="mock"><span class="chip">Logo gauche</span><span class="chip">Menu fin</span><span class="chip">CTA plein</span><p>Header discret, premium, sticky + bouton réserver bien visible.</p></div><div class="select">Choix: A1</div></article>
+    <article class="variant"><h3>A2 Editorial Ribbon</h3><div class="mock"><span class="chip">Topbar éditoriale</span><span class="chip">Ouverture automne</span><p>Ruban informatif puis nav minimaliste.</p></div></article>
+    <article class="variant"><h3>A3 Split Navigation</h3><div class="mock"><span class="chip">Logo centré</span><span class="chip">Menus split</span><p>Layout mode maison de mode / concept store.</p></div></article>
+    <article class="variant"><h3>A4 Progressive Header</h3><div class="mock"><span class="chip">Large→compact</span><span class="chip">Scroll state</span><p>Header qui se compresse au scroll.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>B — Hero</h2><div class="grid">
+    <article class="variant"><h3>B1 Clarté immédiate</h3><div class="mock"><p><strong>La maison où l’on prend le temps.</strong><br>Atelier céramique, café et boutique à La Garenne-Colombes.</p><span class="chip">Session 2h</span><span class="chip">Café sans résa</span><span class="chip">Hauts-de-Seine</span><div class="cta">Réserver un moment</div></div></article>
+    <article class="variant"><h3>B2 Signature Tara</h3><div class="mock"><p>Message personnel fondatrice + philosophie “luxe silencieux”.</p><div class="cta">Découvrir la vision</div></div></article>
+    <article class="variant"><h3>B3 3 univers dynamiques</h3><div class="mock"><p>Tabs Atelier / Café / Boutique avec changements visuels marqués.</p><span class="chip">accent couleur</span><span class="chip">motif dédié</span></div></article>
+    <article class="variant"><h3>B4 Booking-first</h3><div class="mock"><p>Marque à gauche, module réservation dominant à droite.</p><div class="cta">Voir les créneaux</div></div></article>
+  </div></section>
+
+  <section class="section"><h2>C — Réservation</h2><div class="grid">
+    <article class="variant"><h3>C1 Minimal Trust</h3><div class="mock"><p>Formulaire court + “Paiement sécurisé” + no-show expliqué.</p></div></article>
+    <article class="variant"><h3>C2 Step-by-step</h3><div class="mock"><p>Étape 1 créneau → 2 participants → 3 coordonnées.</p></div></article>
+    <article class="variant"><h3>C3 Concierge</h3><div class="mock"><p>Tonalité accueil premium : “on vous prépare une table”.</p></div></article>
+    <article class="variant"><h3>C4 Sticky mobile + drawer</h3><div class="mock"><p>CTA fixe mobile ouvrant un panneau de réservation.</p></div></article>
+  </div></section>
+
+
+  <section class="section"><h2>D — Concept / histoire</h2><div class="grid">
+    <article class="variant"><h3>D1 Founder note</h3><div class="mock"><p>Carte "Mot de Tara" courte, incarnée.</p></div></article>
+    <article class="variant"><h3>D2 Dual culture</h3><div class="mock"><p>Split Inde × France, double univers visuel.</p></div></article>
+    <article class="variant"><h3>D3 Timeline douce</h3><div class="mock"><p>4 jalons : vision, lieu, ouverture, communauté.</p></div></article>
+    <article class="variant"><h3>D4 Manifesto court</h3><div class="mock"><p>5 lignes de manifeste minimaliste.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>E — Univers Atelier/Café/Boutique</h2><div class="grid">
+    <article class="variant"><h3>E1 Trio cartes premium</h3><div class="mock"><p>3 cartes homogènes, 1 bénéfice phare par carte.</p></div></article>
+    <article class="variant"><h3>E2 Alternance immersive</h3><div class="mock"><p>Blocs alternés image/texte pour respiration.</p></div></article>
+    <article class="variant"><h3>E3 Accordéon éditorial</h3><div class="mock"><p>Une carte ouverte à la fois (moins dense).</p></div></article>
+    <article class="variant"><h3>E4 Carousel mobile</h3><div class="mock"><p>Carousel mobile + grille desktop.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>F — Comment ça marche</h2><div class="grid">
+    <article class="variant"><h3>F1 3 étapes iconiques</h3><div class="mock"><p>Choisir, créer, récupérer.</p></div></article>
+    <article class="variant"><h3>F2 Carte parcours</h3><div class="mock"><p>Parcours de bout en bout visuel.</p></div></article>
+    <article class="variant"><h3>F3 FAQ micro</h3><div class="mock"><p>6 questions clés condensées.</p></div></article>
+    <article class="variant"><h3>F4 Trust badges</h3><div class="mock"><p>Process + badges sécurité/no-surbooking.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>G — Événements / calendrier</h2><div class="grid">
+    <article class="variant"><h3>G1 Agenda teaser</h3><div class="mock"><p>3 événements du mois + lien calendrier.</p></div></article>
+    <article class="variant"><h3>G2 Grille mensuelle</h3><div class="mock"><p>Mini calendrier premium visuel.</p></div></article>
+    <article class="variant"><h3>G3 Focus saisonnier</h3><div class="mock"><p>Bloc décembre & offres ponctuelles.</p></div></article>
+    <article class="variant"><h3>G4 Segmentation</h3><div class="mock"><p>Ateliers réguliers / workshops / privatisations.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>H — Contact / Localisation</h2><div class="grid">
+    <article class="variant"><h3>H1 Local SEO élégant</h3><div class="mock"><p>Titre géolocalisé + plan + horaires.</p></div></article>
+    <article class="variant"><h3>H2 Contact concierge</h3><div class="mock"><p>Promesse de réponse et assistance.</p></div></article>
+    <article class="variant"><h3>H3 Visit card</h3><div class="mock"><p>Carte “venir nous voir” visuelle.</p></div></article>
+    <article class="variant"><h3>H4 Mobile practical</h3><div class="mock"><p>Gros boutons appeler/réserver/itinéraire.</p></div></article>
+  </div></section>
+
+  <section class="section"><h2>I — Newsletter / fidélisation</h2><div class="grid">
+    <article class="variant"><h3>I1 Club Maison de Tara</h3><div class="mock"><p>Avant-premières et invitations.</p></div></article>
+    <article class="variant"><h3>I2 Agenda insider</h3><div class="mock"><p>Alertes créneaux, workshops, ouvertures.</p></div></article>
+    <article class="variant"><h3>I3 Gift & Take Home</h3><div class="mock"><p>Nouveautés bons cadeaux & kits maison.</p></div></article>
+    <article class="variant"><h3>I4 Soft opt-in</h3><div class="mock"><p>Opt-in discret + preuve sociale locale.</p></div></article>
+  </div></section>
+
+</main>
+</body>
+</html>

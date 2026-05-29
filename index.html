@@ -390,17 +390,15 @@
      ============================================================================ -->
 <header class="header" role="banner">
   <div class="container header__inner">
-    <a href="#" class="logo" aria-label="Maison de Tara — Accueil">
-      <svg class="logo__mark" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
-      <span class="logo__text">MAISON <em>de</em> TARA</span>
+    <a href="#" class="logo logo--image" aria-label="Maison de Tara — Accueil">
+      <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara" class="logo__image">
     </a>
 
     <nav class="nav" aria-label="Navigation principale">
       <a href="#atelier">Atelier</a>
-      <a href="#lieu">Le lieu</a>
       <a href="#calendrier">Calendrier</a>
-      <a href="#boutique">Boutique</a>
-      <a href="#journal">Le journal</a>
+      <a href="#boutique">Boutique<span class="nav-badge">Bientôt</span></a>
+      <a href="#histoire">Histoire</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -420,9 +418,8 @@
   <div class="drawer__overlay" data-drawer-close></div>
   <div class="drawer__panel">
     <div class="drawer__header">
-      <span class="logo" id="drawer-title">
-        <svg class="logo__mark" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
-        <span class="logo__text">MAISON <em>de</em> TARA</span>
+      <span class="logo logo--image" id="drawer-title">
+        <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara" class="logo__image">
       </span>
       <button class="drawer__close" type="button" aria-label="Fermer le menu" data-drawer-close>
         <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
@@ -431,10 +428,9 @@
 
     <nav class="drawer__nav" aria-label="Navigation mobile">
       <a href="#atelier" data-drawer-close>L'<em>Atelier</em></a>
-      <a href="#lieu" data-drawer-close>Le <em>lieu</em></a>
       <a href="#calendrier" data-drawer-close>Le <em>calendrier</em></a>
-      <a href="#boutique" data-drawer-close>La <em>boutique</em></a>
-      <a href="#journal" data-drawer-close>Le <em>journal</em></a>
+      <a href="#boutique" data-drawer-close>La <em>boutique</em><span class="nav-badge">Bientôt</span></a>
+      <a href="#histoire" data-drawer-close>L'<em>histoire</em></a>
       <a href="#contact" data-drawer-close>Contact</a>
     </nav>
 
@@ -469,8 +465,6 @@
     <div class="container hero__inner">
       <div class="hero__content fade-in" style="--stagger-index: 0;">
         <div class="hero__eyebrow">La Garenne-Colombes · Ouverture Automne 2026</div>
-        <h1 class="hero__title" id="hero-title">La maison où l'on <em>prend le temps</em>.</h1>
-        <p class="hero__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
 
         <div class="hero__tabs" role="tablist" aria-label="Choisir un univers">
           <button class="hero__tab is-active" type="button" data-tab="atelier" role="tab" aria-selected="true">L'Atelier</button>
@@ -478,13 +472,31 @@
           <button class="hero__tab" type="button" data-tab="boutique" role="tab" aria-selected="false">La Boutique</button>
         </div>
 
+        <h1 class="hero__title" id="hero-title">La maison où l'on <em>prend le temps</em>.</h1>
+        <p class="hero__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
         <div class="hero__cta-group">
           <a href="#reserver" class="btn btn--primary">
             Réserver un moment
             <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
           </a>
-          <a href="#concept" class="btn btn--outline-light">Découvrir le lieu</a>
+          <a href="#atelier" class="btn btn--outline-light">Découvrir le lieu</a>
         </div>
+
+        <ul class="hero__practical" aria-label="Informations pratiques">
+          <li>
+            <span>Adresse</span>
+            <strong>La Garenne-Colombes, 92250</strong>
+          </li>
+          <li>
+            <span>Horaires</span>
+            <strong>Mar–Ven 10h–19h<br>Sam 10h–20h</strong>
+          </li>
+          <li>
+            <span>Contact</span>
+            <strong>01 47 XX XX XX</strong>
+          </li>
+        </ul>
       </div>
 
       <!-- Booking card — contenu pilote par data-tab du hero -->
@@ -528,6 +540,7 @@
           </div>
 
           <button class="btn btn--primary" type="button">Confirmer la réservation</button>
+          <p class="card--booking__reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
         </div>
 
         <div data-booking-variant="cafe" hidden>
@@ -541,357 +554,449 @@
         </div>
 
         <div data-booking-variant="boutique" hidden>
-          <h3 class="card--booking__alt-title">Nous <em>rendre visite</em></h3>
-          <p class="card--booking__alt-text">La sélection se découvre sur place — chaque saison apporte ses nouveautés.</p>
+          <h3 class="card--booking__alt-title">La boutique <em>en avant-première</em></h3>
+          <p class="card--booking__alt-text">La sélection se découvre sur place — textiles, lampes, objets et pièces choisies.</p>
           <div class="card--booking__alt-info">
             <strong>L'adresse</strong>
             <p>Adresse à confirmer<br>La Garenne-Colombes, 92250</p>
           </div>
-          <a href="#contact" class="btn btn--outline">Voir le lieu</a>
+          <a href="#contact" class="btn btn--outline">Nous contacter</a>
         </div>
       </aside>
     </div>
   </section>
 
-  <!-- WELCOME =================================================================== -->
-  <section class="welcome" id="concept" aria-labelledby="welcome-title">
-    <div class="container welcome__inner">
-      <div class="welcome__image fade-in" style="--stagger-index: 0;">
-        <div class="welcome__image-placeholder">
-          <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
-        </div>
+  <!-- COUNTDOWN ================================================================ -->
+  <aside class="countdown" aria-label="Compte à rebours avant ouverture" data-countdown data-countdown-target="2026-10-15">
+    <div class="container countdown__inner">
+      <svg class="countdown__mark" viewBox="0 0 28 32" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+      <div class="countdown__text">
+        <span class="countdown__eyebrow">Ouverture · Automne 2026</span>
+        <strong class="countdown__line">
+          <em data-countdown-days>—</em>
+          <span>jours avant que la Maison ouvre ses portes</span>
+        </strong>
       </div>
-      <div class="welcome__content fade-in" style="--stagger-index: 1;">
-        <span class="eyebrow">Bienvenue</span>
-        <h2 class="welcome__title" id="welcome-title">Une maison née entre <em>deux cultures</em>, deux rythmes.</h2>
-        <p class="welcome__text welcome__text--lead">Maison de Tara est née d'un équilibre entre la France et l'Inde. Une maison familiale, communautaire, où l'on prend le temps de créer, partager et se retrouver.</p>
-        <p class="welcome__text">Entre tradition artisanale et élégance contemporaine, un lieu où la matière, les gestes et les objets ont du sens. Un lieu que l'on habite, le temps d'un moment.</p>
-        <p class="welcome__text welcome__text--quote">« On ne vous apprend pas à peindre. On vous laisse essayer. »</p>
+      <a href="#newsletter" class="countdown__cta">Être prévenu·e
+        <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </aside>
 
-        <div class="signature">
-          <div class="signature__name">Tara</div>
-          <div class="signature__role">Fondatrice</div>
+  <!-- TARA STORY — "Deux cultures" ============================================== -->
+  <section class="tara-story" id="histoire" aria-labelledby="tara-story-title">
+    <div class="container">
+      <header class="tara-story__heading fade-in">
+        <span class="eyebrow">Bienvenue</span>
+        <span class="divider divider--center"></span>
+        <h2 id="tara-story-title" class="tara-story__title">Une maison née entre <em>deux cultures</em>,<br>deux rythmes.</h2>
+      </header>
+
+      <div class="tara-story__grid">
+        <div class="tara-story__text fade-in" style="--stagger-index: 0;">
+          <p class="tara-story__lead">Maison de Tara est née d'un équilibre entre la France et l'Inde. Une maison familiale, communautaire, où l'on prend le temps de créer, partager et se retrouver.</p>
+          <p class="tara-story__body">Entre tradition artisanale et élégance contemporaine, un lieu où la matière, les gestes et les objets ont du sens. Un lieu que l'on habite, le temps d'un moment.</p>
+
+          <blockquote class="tara-story__quote">
+            <p>« On ne vous apprend pas à peindre. On vous laisse essayer. »</p>
+          </blockquote>
+
+          <figcaption class="tara-story__signature">
+            <span class="tara-story__signature-line"></span>
+            <div>
+              <span class="tara-story__signature-name">Tara</span>
+              <span class="tara-story__signature-role">Fondatrice · Architecte d'intérieur, 15 ans entre Mumbai et Paris</span>
+            </div>
+          </figcaption>
+        </div>
+
+        <div class="tara-story__media fade-in" style="--stagger-index: 1;">
+          <figure class="photo-frame">
+            <img src="assets-premium-lp/experience-03-peindre.jpg" alt="Céramiques en atelier — pièces peintes à la main" loading="lazy" decoding="async">
+          </figure>
+
+          <ul class="tara-story__pillars" aria-label="Trois gestes essentiels">
+            <li>
+              <span class="tara-story__pillar-num">01</span>
+              <strong>Créer</strong>
+            </li>
+            <li>
+              <span class="tara-story__pillar-num">02</span>
+              <strong>Partager</strong>
+            </li>
+            <li>
+              <span class="tara-story__pillar-num">03</span>
+              <strong>Prolonger</strong>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- UNIVERSES ================================================================= -->
-  <section class="universes" id="atelier" aria-labelledby="universes-title">
+  <!-- THREE UNIVERSES =========================================================== -->
+  <section class="universes-rich" id="atelier" aria-labelledby="universes-title">
     <div class="container">
-      <header class="section-heading fade-in">
-        <span class="eyebrow">Trois univers, un seul lieu</span>
-        <h2 id="universes-title">Créer. Partager. <em>Prolonger.</em></h2>
-        <p>Chaque pièce de la Maison vit selon son propre rythme — mais ensemble, elles racontent une seule histoire.</p>
+      <header class="universes-rich__heading fade-in">
+        <div>
+          <span class="eyebrow">Trois univers, un seul lieu</span>
+          <h2 id="universes-title" class="universes-rich__title">Créer. <em>Partager.</em> Prolonger.</h2>
+        </div>
+        <p class="universes-rich__intro">Chaque pièce de la Maison vit selon son propre rythme — mais ensemble, elles racontent une seule histoire.</p>
       </header>
 
-      <div class="universes__grid">
-        <article class="card--universe fade-in" style="--stagger-index: 0;">
-          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <path d="M32 8 Q22 24 32 44 Q42 24 32 8 Z"/>
-            <ellipse cx="32" cy="7" rx="5" ry="7"/>
-            <line x1="32" y1="32" x2="32" y2="56"/>
-            <path d="M22 44 Q12 40 8 50"/>
-            <path d="M42 44 Q52 40 56 50"/>
-          </svg>
-          <h3 class="card--universe__title">L'Atelier</h3>
-          <p class="card--universe__desc">Choisissez une pièce en céramique, installez-vous, peignez librement. Repartez avec votre création une semaine plus tard, cuite à 1000°C.</p>
-          <ul class="card--universe__features">
-            <li>Sessions de 2 heures en autonomie</li>
-            <li>Café, thé et inspirations à disposition</li>
-            <li>Bons cadeaux et workshops thématiques</li>
-          </ul>
-          <a href="#reserver" class="btn btn--outline">Réserver une session</a>
+      <div class="universes-rich__grid">
+        <article class="universe-card universe-card--lead fade-in" style="--stagger-index: 0;">
+          <div class="universe-card__media">
+            <img src="assets-premium-lp/experience-01-choisir.jpg" alt="L'atelier de peinture sur céramique" loading="lazy" decoding="async">
+            <span class="universe-card__num">01</span>
+          </div>
+          <div class="universe-card__body">
+            <span class="eyebrow">L'Atelier</span>
+            <h3 class="universe-card__title">Un geste libre,<br><em>accompagné</em>.</h3>
+            <p class="universe-card__desc">Choisissez une pièce en céramique, installez-vous, peignez librement. Repartez avec votre création une semaine plus tard, cuite à 1000°C.</p>
+            <ul class="universe-card__features">
+              <li>Sessions de 2 heures en autonomie</li>
+              <li>Café, thé et inspirations à disposition</li>
+              <li>Bons cadeaux et workshops thématiques</li>
+            </ul>
+            <a href="#reserver" class="btn btn--primary">
+              Réserver une session
+              <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
+          </div>
         </article>
 
-        <article class="card--universe fade-in" style="--stagger-index: 1;">
-          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <path d="M16 20 L48 20 L46 48 Q46 54 40 54 L24 54 Q18 54 18 48 Z"/>
-            <path d="M48 24 Q56 24 56 32 Q56 40 48 40"/>
-            <line x1="24" y1="12" x2="24" y2="18"/>
-            <line x1="32" y1="10" x2="32" y2="18"/>
-            <line x1="40" y1="12" x2="40" y2="18"/>
-          </svg>
-          <h3 class="card--universe__title">Le Café</h3>
-          <p class="card--universe__desc">Un espace pour s'attabler sans réserver. Café spécialité, thés rares, pâtisseries du jour et charcuterie — pensés comme à la maison.</p>
-          <ul class="card--universe__features">
-            <li>Ouvert sans réservation</li>
-            <li>Carte saisonnière, produits artisans locaux</li>
-            <li>Boissons avec et sans alcool</li>
-          </ul>
-          <a href="#cafe" class="btn btn--outline">Voir l'esprit du café</a>
+        <article class="universe-card fade-in" id="cafe" style="--stagger-index: 1;">
+          <div class="universe-card__media">
+            <img src="https://images.pexels.com/photos/18699433/pexels-photo-18699433.jpeg?auto=compress&cs=tinysrgb&w=700&q=80" alt="Le café de la Maison de Tara" loading="lazy" decoding="async">
+            <span class="universe-card__num">02</span>
+          </div>
+          <div class="universe-card__body">
+            <span class="eyebrow">Le Café</span>
+            <h3 class="universe-card__title">S'attabler.<br><em>Sans réserver.</em></h3>
+            <p class="universe-card__desc">Un espace pour s'attabler sans cérémonie. Café spécialité, thés rares, pâtisseries du jour — pensés comme à la maison.</p>
+            <ul class="universe-card__features">
+              <li>Ouvert sans réservation</li>
+              <li>Carte saisonnière, produits artisans locaux</li>
+              <li>Boissons avec et sans alcool</li>
+            </ul>
+            <a href="#histoire" class="btn btn--outline">Voir l'esprit du café</a>
+          </div>
         </article>
 
-        <article class="card--universe fade-in" style="--stagger-index: 2;">
-          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <rect x="12" y="20" width="40" height="32" rx="2"/>
-            <path d="M20 20 V14 Q20 8 26 8 L38 8 Q44 8 44 14 V20"/>
-            <line x1="18" y1="30" x2="46" y2="30"/>
-            <circle cx="32" cy="40" r="3"/>
-          </svg>
-          <h3 class="card--universe__title">La Boutique</h3>
-          <p class="card--universe__desc">Une sélection de pièces de décoration d'inspiration indienne — nappes brodées, lampes en céramique, textiles en block print, objets choisis.</p>
-          <ul class="card--universe__features">
-            <li>Pièces renouvelées chaque saison</li>
-            <li>Sélection artisanale et confidentielle</li>
-            <li>Nouveautés présentées sur place</li>
-          </ul>
-          <a href="#boutique" class="btn btn--outline">Découvrir la boutique</a>
+        <article class="universe-card fade-in" id="boutique" style="--stagger-index: 2;">
+          <div class="universe-card__media">
+            <img src="https://images.unsplash.com/photo-1708523404059-d9e6c8bcdb78?auto=format&w=700&q=80&fit=crop" alt="La boutique de décoration d'inspiration indienne" loading="lazy" decoding="async">
+            <span class="universe-card__num">03</span>
+            <span class="universe-card__badge">Bientôt</span>
+          </div>
+          <div class="universe-card__body">
+            <span class="eyebrow">La Boutique</span>
+            <h3 class="universe-card__title">Des pièces <em>choisies</em><br>avec soin.</h3>
+            <p class="universe-card__desc">Textiles, lampes, objets d'inspiration indienne — nappes brodées, lampes en céramique, block print, pièces confidentielles renouvelées chaque saison.</p>
+            <ul class="universe-card__features">
+              <li>Pièces renouvelées chaque saison</li>
+              <li>Sélection artisanale confidentielle</li>
+              <li>Découverte sur place — pas d'e-shop avant 2027</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline">Nous contacter</a>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- HOW IT WORKS ============================================================== -->
-  <section class="how bg-blockprint" aria-labelledby="how-title">
-    <div class="container" style="position: relative; z-index: 2;">
-      <header class="section-heading fade-in">
-        <span class="eyebrow">Le parcours</span>
+  <section class="how experience-how" aria-labelledby="how-title" data-experience-steps>
+    <div class="container experience-how__inner">
+      <header class="experience-how__heading fade-in">
+        <span class="eyebrow">L'expérience Tara</span>
         <h2 id="how-title">Comment ça se passe ?</h2>
-        <p>Quatre étapes simples, depuis votre arrivée jusqu'au retour chez vous avec votre pièce.</p>
       </header>
 
-      <div class="how__steps">
-        <div class="step fade-in" style="--stagger-index: 0;">
-          <span class="step__number" aria-hidden="true">01</span>
-          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <path d="M6 24 Q6 6 18 6 Q30 6 30 24 Q30 28 18 28 Q6 28 6 24 Z"/>
-            <line x1="18" y1="28" x2="18" y2="32"/>
-          </svg>
-          <h4 class="step__title">Choisir</h4>
-          <p class="step__text">Parcourez les pièces — tasses, bols, assiettes, vases — et choisissez celle que vous voulez peindre.</p>
-        </div>
-        <div class="step fade-in" style="--stagger-index: 1;">
-          <span class="step__number" aria-hidden="true">02</span>
-          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <rect x="8" y="14" width="20" height="14" rx="1"/>
-            <path d="M12 14 V10 Q12 6 16 6 L20 6 Q24 6 24 10 V14"/>
-          </svg>
-          <h4 class="step__title">S'installer</h4>
-          <p class="step__text">Prenez place à une table, un café à la main. Les pinceaux, palettes et inspirations vous attendent.</p>
-        </div>
-        <div class="step fade-in" style="--stagger-index: 2;">
-          <span class="step__number" aria-hidden="true">03</span>
-          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <path d="M8 28 L20 16 Q22 14 24 16 L28 20 Q30 22 28 24 L16 36"/>
-            <line x1="24" y1="6" x2="30" y2="12"/>
-          </svg>
-          <h4 class="step__title">Peindre</h4>
-          <p class="step__text">2 heures pour laisser couler les idées. Sans pression, sans recherche de perfection.</p>
-        </div>
-        <div class="step fade-in" style="--stagger-index: 3;">
-          <span class="step__number" aria-hidden="true">04</span>
-          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <path d="M10 28 L26 28 L24 12 L12 12 Z"/>
-            <path d="M14 12 V8 Q14 6 16 6 L20 6 Q22 6 22 8 V12"/>
-            <line x1="18" y1="18" x2="18" y2="24"/>
-          </svg>
-          <h4 class="step__title">Repartir</h4>
-          <p class="step__text">Votre pièce part en cuisson à 1000°C. Vous la récupérez 7 jours plus tard, prête à habiter votre maison.</p>
+      <div class="experience-how__grid fade-in" style="--stagger-index: 1;">
+        <figure class="experience-how__media">
+          <span class="experience-how__counter" data-experience-counter>1/4</span>
+          <img
+            src="assets-premium-lp/experience-01-choisir.jpg"
+            alt="Main tenant une tasse en céramique devant une étagère de pièces"
+            data-experience-image
+          >
+          <figcaption>
+            <span data-experience-subtitle>Premier geste</span>
+            <strong data-experience-title>Choisir sa pièce</strong>
+          </figcaption>
+        </figure>
+
+        <div class="experience-how__content">
+          <p class="experience-how__text" data-experience-text>On commence par trouver l'objet qui vous appelle : tasse, bol, assiette, vase ou petite pièce décorative.</p>
+
+          <div class="experience-how__actions" role="tablist" aria-label="Étapes de l'expérience">
+            <button
+              class="experience-step is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              data-experience-step
+              data-image="assets-premium-lp/experience-01-choisir.jpg"
+              data-alt="Main tenant une tasse en céramique devant une étagère de pièces"
+              data-title="Choisir sa pièce"
+              data-subtitle="Premier geste"
+              data-text="On commence par trouver l'objet qui vous appelle : tasse, bol, assiette, vase ou petite pièce décorative."
+            >
+              <span class="experience-step__bubble" aria-hidden="true">🏺</span>
+              <span class="experience-step__number">01</span>
+              <strong>Choisir</strong>
+            </button>
+            <button
+              class="experience-step"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-experience-step
+              data-image="assets-premium-lp/experience-02-installer.jpg"
+              data-alt="Groupe attablé dans un atelier autour d'un café"
+              data-title="S'installer"
+              data-subtitle="Prendre place"
+              data-text="Vous prenez place autour d'une table, café ou thé à portée de main. Les couleurs, pinceaux et inspirations sont là."
+            >
+              <span class="experience-step__bubble" aria-hidden="true">☕</span>
+              <span class="experience-step__number">02</span>
+              <strong>S'installer</strong>
+            </button>
+            <button
+              class="experience-step"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-experience-step
+              data-image="assets-premium-lp/experience-03-peindre.jpg"
+              data-alt="Jeunes femmes en train de peindre des poteries"
+              data-title="Peindre librement"
+              data-subtitle="Le temps suspendu"
+              data-text="Deux heures pour laisser couler les idées. Sans pression, sans recherche de perfection — guidé si besoin, jamais enfermé."
+            >
+              <span class="experience-step__bubble" aria-hidden="true">🖌️</span>
+              <span class="experience-step__number">03</span>
+              <strong>Peindre</strong>
+            </button>
+            <button
+              class="experience-step"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-experience-step
+              data-image="assets-premium-lp/experience-04-recuperer.jpg"
+              data-alt="Artisan emballant soigneusement une pièce en céramique"
+              data-title="Revenir la chercher"
+              data-subtitle="Après cuisson"
+              data-text="Votre pièce part en cuisson à 1000°C, puis revient prête à habiter votre maison environ 7 jours plus tard."
+            >
+              <span class="experience-step__bubble" aria-hidden="true">🎁</span>
+              <span class="experience-step__number">04</span>
+              <strong>Récupérer</strong>
+            </button>
+          </div>
+
+          <a href="#reserver" class="btn btn--primary">
+            Réserver une session
+            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- EVENTS ==================================================================== -->
-  <section class="events" id="calendrier" aria-labelledby="events-title">
-    <div class="container events__inner">
-      <header class="section-heading fade-in">
-        <span class="eyebrow eyebrow--on-dark">À venir</span>
-        <h2 id="events-title">Les <em>rendez-vous</em> de la Maison</h2>
-        <p>Workshops, soirées, collaborations avec artistes et artisans — la Maison vit au rythme des saisons.</p>
-      </header>
-
-      <div class="events__grid">
-        <article class="card--event fade-in" style="--stagger-index: 0;">
-          <div class="card--event__image">
-            <div class="card--event__date">
-              <strong>15</strong>
-              <span>Nov</span>
-            </div>
-            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bouquet"/></svg>
-          </div>
-          <div class="card--event__body">
-            <div class="card--event__meta">Workshop · Avec Anaïs Fleurs</div>
-            <h4 class="card--event__title">Atelier fleurs séchées et céramique</h4>
-            <div class="card--event__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Samedi · 14h00 – 17h00
-            </div>
-            <a href="#" class="card--event__cta">Réserver cette session
-              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="card--event fade-in" style="--stagger-index: 1;">
-          <div class="card--event__image">
-            <div class="card--event__date">
-              <strong>28</strong>
-              <span>Nov</span>
-            </div>
-            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
-          </div>
-          <div class="card--event__body">
-            <div class="card--event__meta">Soirée · Vins nature & céramique</div>
-            <h4 class="card--event__title">Apéro créatif du vendredi soir</h4>
-            <div class="card--event__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Vendredi · 19h00 – 22h00
-            </div>
-            <a href="#" class="card--event__cta">Réserver cette session
-              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="card--event fade-in" style="--stagger-index: 2;">
-          <div class="card--event__image">
-            <div class="card--event__date">
-              <strong>06</strong>
-              <span>Déc</span>
-            </div>
-            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-star"/></svg>
-          </div>
-          <div class="card--event__body">
-            <div class="card--event__meta">Kids · Spécial Noël</div>
-            <h4 class="card--event__title">Workshop enfants — décorations de Noël</h4>
-            <div class="card--event__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Samedi · 10h00 – 12h00
-            </div>
-            <a href="#" class="card--event__cta">Réserver cette session
-              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-            </a>
-          </div>
-        </article>
-      </div>
-
-      <div class="events__footer">
-        <a href="#" class="btn btn--outline-light">Voir tout le calendrier</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- LOCATION ================================================================== -->
-  <section class="location" id="contact" aria-labelledby="location-title">
-    <div class="container location__inner">
-      <div class="location__image fade-in" style="--stagger-index: 0;">
-        <svg viewBox="0 0 280 320" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-storefront"/></svg>
-      </div>
-      <div class="fade-in" style="--stagger-index: 1;">
-        <span class="eyebrow">Le lieu</span>
-        <h2 class="location__title" id="location-title">Nous rendre visite</h2>
-        <p class="location__intro">Au cœur de La Garenne-Colombes, dans une boutique vert sauge — vous reconnaîtrez la Maison à sa façade.</p>
-
-        <ul class="hours">
-          <li><span class="hours__day">Lundi</span> <span class="hours__closed">Fermé</span></li>
-          <li><span class="hours__day">Mardi — Vendredi</span> <span class="hours__time">10h00 – 19h00</span></li>
-          <li><span class="hours__day">Samedi</span> <span class="hours__time">10h00 – 20h00</span></li>
-          <li><span class="hours__day">Dimanche</span> <span class="hours__time">11h00 – 18h00</span></li>
-        </ul>
-
-        <div class="contact">
-          <span class="eyebrow">Nous appeler</span>
-          <a href="tel:0147XXXXXX" class="contact__phone">01 47 XX XX XX</a>
-          <p class="contact__address">Adresse à confirmer · La Garenne-Colombes, 92250</p>
+  <section class="events-rows" id="calendrier" aria-labelledby="events-title">
+    <div class="container events-rows__inner">
+      <header class="events-rows__heading fade-in">
+        <div>
+          <span class="eyebrow eyebrow--on-dark">À venir</span>
+          <h2 id="events-title" class="events-rows__title">Les <em>rendez-vous</em> de la Maison</h2>
         </div>
-      </div>
+        <a href="#" class="btn btn--outline-light">Voir tout le calendrier</a>
+      </header>
+
+      <!-- Event featured (ouverture) -->
+      <article class="event-row event-row--featured fade-in" style="--stagger-index: 0;">
+        <div class="event-row__date event-row__date--featured">
+          <strong>15</strong>
+          <span>Oct</span>
+        </div>
+        <div class="event-row__body">
+          <span class="event-row__badge">Première session · 2026</span>
+          <div class="event-row__meta">Soirée d'ouverture · Maison de Tara</div>
+          <h3 class="event-row__title">La Maison ouvre ses portes</h3>
+          <div class="event-row__time">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+            Jeudi · 18h00 – 22h00 · Plus que <strong>12 places</strong>
+          </div>
+        </div>
+        <a href="#" class="btn btn--primary event-row__cta">
+          Je m'inscris
+          <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+        </a>
+      </article>
+
+      <article class="event-row fade-in" style="--stagger-index: 1;">
+        <div class="event-row__date">
+          <strong>15</strong>
+          <span>Nov</span>
+        </div>
+        <div class="event-row__body">
+          <div class="event-row__meta">Workshop · Avec Anaïs Fleurs</div>
+          <h4 class="event-row__title">Atelier fleurs séchées et céramique</h4>
+          <div class="event-row__time">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+            Samedi · 14h00 – 17h00 · <span class="event-row__seats">Plus que 4 places</span>
+          </div>
+        </div>
+        <a href="#" class="btn btn--outline-light event-row__cta">
+          Réserver
+          <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+        </a>
+      </article>
+
+      <article class="event-row fade-in" style="--stagger-index: 2;">
+        <div class="event-row__date">
+          <strong>28</strong>
+          <span>Nov</span>
+        </div>
+        <div class="event-row__body">
+          <div class="event-row__meta">Soirée · Vins nature & céramique</div>
+          <h4 class="event-row__title">Apéro créatif du vendredi soir</h4>
+          <div class="event-row__time">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+            Vendredi · 19h00 – 22h00
+          </div>
+        </div>
+        <a href="#" class="btn btn--outline-light event-row__cta">
+          Réserver
+          <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+        </a>
+      </article>
+
+      <article class="event-row event-row--full fade-in" style="--stagger-index: 3;">
+        <div class="event-row__date">
+          <strong>06</strong>
+          <span>Déc</span>
+        </div>
+        <div class="event-row__body">
+          <div class="event-row__meta">Kids · Spécial Noël</div>
+          <h4 class="event-row__title">Workshop enfants — décorations de Noël</h4>
+          <div class="event-row__time">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+            Samedi · 10h00 – 12h00 · <span class="event-row__seats event-row__seats--full">Complet · Liste d'attente</span>
+          </div>
+        </div>
+        <a href="#" class="btn btn--outline-light event-row__cta">
+          Liste d'attente
+          <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+        </a>
+      </article>
     </div>
   </section>
 
-  <!-- GALLERY =================================================================== -->
-  <section class="gallery" aria-labelledby="gallery-title">
+  <!-- GALLERY MOSAIC ============================================================ -->
+  <section class="gallery-mosaic" aria-labelledby="gallery-title">
     <div class="container">
-      <header class="section-heading fade-in">
-        <span class="eyebrow">La vie du lieu</span>
-        <h2 id="gallery-title">Quelques instants</h2>
-        <p>Sorties de four, ateliers, détails de la Maison — l'esprit du lieu en images.</p>
+      <header class="gallery-mosaic__heading fade-in">
+        <div>
+          <span class="eyebrow">La vie du lieu</span>
+          <h2 id="gallery-title" class="gallery-mosaic__title">Quelques <em>instants</em></h2>
+        </div>
+        <span class="gallery-mosaic__hint">Photos d'ambiance · Avant-première</span>
       </header>
 
-      <div class="gallery__grid">
-        <button class="gallery__item gallery__item--feature fade-in" type="button" aria-label="L'atelier en action" style="--stagger-index: 0;">
-          <div class="gallery__placeholder">
-            <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
-          </div>
-          <div class="gallery__overlay">
-            <span class="gallery__tag">Atelier</span>
-            <span class="gallery__caption">L'atelier en action</span>
-          </div>
-        </button>
-        <button class="gallery__item fade-in" type="button" aria-label="Sortie de four" style="--stagger-index: 1;">
-          <div class="gallery__placeholder">
-            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bowls"/></svg>
-          </div>
-          <div class="gallery__overlay">
-            <span class="gallery__tag">Rituel</span>
-            <span class="gallery__caption">Sortie de four</span>
-          </div>
-        </button>
-        <button class="gallery__item fade-in" type="button" aria-label="Apéro maison" style="--stagger-index: 2;">
-          <div class="gallery__placeholder">
-            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
-          </div>
-          <div class="gallery__overlay">
-            <span class="gallery__tag">Café</span>
-            <span class="gallery__caption">Apéro maison</span>
-          </div>
-        </button>
-        <button class="gallery__item fade-in" type="button" aria-label="Détails du lieu" style="--stagger-index: 3;">
-          <div class="gallery__placeholder">
-            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-lamp"/></svg>
-          </div>
-          <div class="gallery__overlay">
-            <span class="gallery__tag">Boutique</span>
-            <span class="gallery__caption">Détails du lieu</span>
-          </div>
-        </button>
-        <button class="gallery__item fade-in" type="button" aria-label="Moments partagés" style="--stagger-index: 4;">
-          <div class="gallery__placeholder">
-            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-circle"/></svg>
-          </div>
-          <div class="gallery__overlay">
-            <span class="gallery__tag">Workshops</span>
-            <span class="gallery__caption">Moments partagés</span>
-          </div>
-        </button>
+      <div class="gallery-mosaic__grid">
+        <figure class="gallery-mosaic__item gallery-mosaic__item--feature fade-in" style="--stagger-index: 0;">
+          <img src="https://images.pexels.com/photos/30698564/pexels-photo-30698564.jpeg?auto=compress&cs=tinysrgb&w=900&q=80" alt="Peinture sur céramique" loading="lazy" decoding="async">
+          <figcaption class="gallery-mosaic__overlay">
+            <span class="gallery-mosaic__tag">Atelier</span>
+            <span class="gallery-mosaic__caption">L'atelier en action</span>
+          </figcaption>
+        </figure>
+        <figure class="gallery-mosaic__item fade-in" style="--stagger-index: 1;">
+          <img src="https://images.pexels.com/photos/15279902/pexels-photo-15279902.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Collection céramiques en sortie de four" loading="lazy" decoding="async">
+          <figcaption class="gallery-mosaic__overlay">
+            <span class="gallery-mosaic__tag">Rituel</span>
+            <span class="gallery-mosaic__caption">Sortie de four</span>
+          </figcaption>
+        </figure>
+        <figure class="gallery-mosaic__item fade-in" style="--stagger-index: 2;">
+          <img src="https://images.pexels.com/photos/18699433/pexels-photo-18699433.jpeg?auto=compress&cs=tinysrgb&w=700&q=80" alt="Le café de la Maison" loading="lazy" decoding="async">
+          <figcaption class="gallery-mosaic__overlay">
+            <span class="gallery-mosaic__tag">Café</span>
+            <span class="gallery-mosaic__caption">L'esprit du café</span>
+          </figcaption>
+        </figure>
+        <figure class="gallery-mosaic__item fade-in" style="--stagger-index: 3;">
+          <img src="https://images.pexels.com/photos/6739695/pexels-photo-6739695.jpeg?auto=compress&cs=tinysrgb&w=500&q=80" alt="Détails de pièces en céramique" loading="lazy" decoding="async">
+          <figcaption class="gallery-mosaic__overlay">
+            <span class="gallery-mosaic__tag">Boutique</span>
+            <span class="gallery-mosaic__caption">Détails du lieu</span>
+          </figcaption>
+        </figure>
+        <figure class="gallery-mosaic__item fade-in" style="--stagger-index: 4;">
+          <img src="https://images.unsplash.com/photo-1652722426884-647880c63bf1?auto=format&w=700&q=80&fit=crop" alt="Block print textile indien" loading="lazy" decoding="async">
+          <figcaption class="gallery-mosaic__overlay">
+            <span class="gallery-mosaic__tag">Workshops</span>
+            <span class="gallery-mosaic__caption">Moments partagés</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- JOURNAL =================================================================== -->
-  <section class="journal" id="journal" aria-labelledby="journal-title">
+  <section class="journal-rich" id="journal" aria-labelledby="journal-title">
     <div class="container">
-      <header class="section-heading fade-in">
-        <span class="eyebrow">Le Journal</span>
-        <h2 id="journal-title">Coulisses & inspirations</h2>
-        <p>Les histoires qui se tissent autour de la Maison — rituels, rencontres, recettes.</p>
+      <header class="journal-rich__heading fade-in">
+        <div>
+          <span class="eyebrow">Le Journal</span>
+          <h2 id="journal-title" class="journal-rich__title">Coulisses &amp; <em>inspirations</em></h2>
+        </div>
+        <a href="#" class="journal-rich__link">Lire tous les articles
+          <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+        </a>
       </header>
 
-      <div class="journal__grid">
-        <article class="card--journal fade-in" style="--stagger-index: 0;">
-          <div class="card--journal__image">
-            <svg viewBox="0 0 240 200" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-cityscape"/></svg>
+      <div class="journal-rich__grid">
+        <article class="journal-card fade-in" style="--stagger-index: 0;">
+          <div class="journal-card__media">
+            <img src="https://images.pexels.com/photos/5567008/pexels-photo-5567008.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" alt="L'art du block print indien" loading="lazy" decoding="async">
+            <span class="journal-card__pill journal-card__pill--terra">Atelier</span>
           </div>
-          <div class="card--journal__body">
-            <div class="card--journal__meta">
-              <span>Coulisses</span><span class="dot" aria-hidden="true"></span><span>03 Oct 2026</span>
+          <div class="journal-card__body">
+            <div class="journal-card__meta">
+              <span>Block Print &amp; Céramique</span>
+              <span class="journal-card__date">À paraître · Sept. 2026</span>
             </div>
-            <h4 class="card--journal__title">Pourquoi nous avons choisi La Garenne-Colombes</h4>
-            <a href="#" class="btn--link">Lire l'article</a>
+            <h3 class="journal-card__title">L'art du block print rencontre la céramique</h3>
+            <p class="journal-card__excerpt">Comment les motifs indiens ancestraux inspirent nos pièces de céramique — une histoire de gestes transmis et de pigments naturels.</p>
+            <a href="#newsletter" class="journal-card__cta">M'avertir à la publication
+              <svg class="icon icon--sm btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
           </div>
         </article>
 
-        <article class="card--journal fade-in" style="--stagger-index: 1;">
-          <div class="card--journal__image">
-            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-blockprint-pattern"/></svg>
+        <article class="journal-card fade-in" style="--stagger-index: 1;">
+          <div class="journal-card__media">
+            <img src="https://images.unsplash.com/photo-1708523404059-d9e6c8bcdb78?auto=format&w=800&q=80&fit=crop" alt="Les textiles indiens de la boutique" loading="lazy" decoding="async">
+            <span class="journal-card__pill journal-card__pill--sauge">Boutique</span>
           </div>
-          <div class="card--journal__body">
-            <div class="card--journal__meta">
-              <span>Inspirations</span><span class="dot" aria-hidden="true"></span><span>28 Sept 2026</span>
+          <div class="journal-card__body">
+            <div class="journal-card__meta">
+              <span>Textile &amp; Savoir-faire</span>
+              <span class="journal-card__date">À paraître · Oct. 2026</span>
             </div>
-            <h4 class="card--journal__title">L'art du block print indien, raconté simplement</h4>
-            <a href="#" class="btn--link">Lire l'article</a>
+            <h3 class="journal-card__title">La sélection textile de cet automne</h3>
+            <p class="journal-card__excerpt">Nappes brodées, coussins en block print, étoles en soie végétale — un voyage sensoriel depuis le Rajasthan jusqu'à La Garenne-Colombes.</p>
+            <a href="#newsletter" class="journal-card__cta">M'avertir à la publication
+              <svg class="icon icon--sm btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
           </div>
         </article>
       </div>
@@ -899,15 +1004,15 @@
   </section>
 
   <!-- NEWSLETTER ================================================================ -->
-  <section class="newsletter" aria-labelledby="newsletter-title">
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
     <div class="container newsletter__inner">
-      <span class="eyebrow eyebrow--on-dark">Rester proche</span>
-      <h2 class="newsletter__title" id="newsletter-title">Recevoir des nouvelles <em>de la Maison</em></h2>
-      <p class="newsletter__text">Les prochaines dates, les rituels saisonniers, les nouvelles pièces — une lettre par mois, jamais plus.</p>
+      <span class="eyebrow eyebrow--on-dark">Avant-première</span>
+      <h2 class="newsletter__title" id="newsletter-title">Être prévenu·e <em>à l'ouverture</em></h2>
+      <p class="newsletter__text">Un carnet d'avant-première par mois — les dates, les coulisses, les premières pièces. Pas de spam, jamais.</p>
       <form class="newsletter__form" novalidate>
         <label class="sr-only" for="newsletter-email">Votre adresse email</label>
         <input class="newsletter__input" id="newsletter-email" type="email" placeholder="Votre adresse email" required>
-        <button class="btn btn--primary" type="submit">S'abonner</button>
+        <button class="btn btn--primary" type="submit">Recevoir le carnet</button>
       </form>
       <p class="newsletter__feedback" role="status" aria-live="polite"></p>
     </div>
@@ -918,7 +1023,7 @@
 <!-- ============================================================================
      FOOTER
      ============================================================================ -->
-<footer class="footer" role="contentinfo">
+<footer class="footer" id="contact" role="contentinfo">
   <div class="container">
     <div class="footer__grid">
       <div>
@@ -944,7 +1049,7 @@
           <li><a href="#cafe">Le Café</a></li>
           <li><a href="#boutique">La Boutique</a></li>
           <li><a href="#calendrier">Calendrier</a></li>
-          <li><a href="#journal">Le Journal</a></li>
+          <li><a href="#histoire">Histoire</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>

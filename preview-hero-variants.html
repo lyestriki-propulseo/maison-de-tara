@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 variantes hero · lisibilité — Maison de Tara</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================================
+   TOKENS BRAND MAISON DE TARA (charte officielle)
+   ========================================================================== */
+:root {
+  --mdt-sable:      #F4EDE0;
+  --mdt-sable-warm: #E8DCC4;
+  --mdt-sable-deep: #DCC9A5;
+  --mdt-greige:     #B5A998;
+
+  --mdt-terracotta: #C75B3C;
+  --mdt-terra-dark: #8B4A2E;
+
+  --mdt-sauge:      #4A5D2E;
+  --mdt-sauge-light:#7A8043;
+  --mdt-olive-deep: #3a4a24;
+
+  --mdt-noir:       #1A1815;
+  --mdt-noir-soft:  #2C2419;
+  --mdt-laiton:     #B8924D;
+
+  --mdt-text:       #2C2419;
+  --mdt-text-soft:  #5F4F3F;
+  --mdt-line:       rgba(74, 93, 46, 0.18);
+
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-script:  'Caveat', cursive;
+
+  --container: 1280px;
+  --ease-mdt:  cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: #ededed;
+  color: var(--mdt-noir);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select { font-family: inherit; }
+button { cursor: pointer; border: 0; background: none; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+/* ============================================================================
+   STICKY NAV ENTRE VARIANTES
+   ========================================================================== */
+.variants-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--mdt-noir);
+  color: var(--mdt-sable);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(184, 146, 77, 0.3);
+}
+.variants-bar__brand {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--mdt-laiton);
+  letter-spacing: 0.05em;
+}
+.variants-bar__brand strong {
+  font-weight: 500;
+  font-style: normal;
+  color: var(--mdt-sable);
+  margin-left: 6px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 11px;
+}
+.variants-bar nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.variants-bar a {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-sable-warm);
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.variants-bar a:hover,
+.variants-bar a:focus-visible {
+  color: var(--mdt-sable);
+  border-color: var(--mdt-laiton);
+}
+
+/* ============================================================================
+   LABEL DE VARIANTE (en haut de chaque section)
+   ========================================================================== */
+.variant {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid var(--mdt-noir);
+}
+.variant-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  align-items: stretch;
+  background: var(--mdt-noir-soft);
+  color: var(--mdt-sable);
+  padding: 0;
+}
+.variant-label__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--mdt-laiton);
+  padding: 14px 16px;
+  background: var(--mdt-noir);
+  display: flex;
+  align-items: center;
+}
+.variant-label__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 18px;
+  gap: 2px;
+}
+.variant-label__name {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-sable);
+  font-weight: 500;
+}
+.variant-label__desc {
+  font-size: 11px;
+  color: var(--mdt-sable-warm);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ============================================================================
+   ========================  VARIANTE 1  ====================================
+   ÉDITORIAL APARTAMENTO
+   Fond sable plat, h1 Cormorant énorme, hairlines laiton, contraste AAA
+   ========================================================================== */
+.v1 { background: var(--mdt-sable); padding: 90px 0 0; min-height: 100vh; }
+.v1__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 40px clamp(24px, 5vw, 64px) 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+@media (max-width: 980px) { .v1__inner { grid-template-columns: 1fr; gap: 48px; } }
+.v1__logo {
+  margin-bottom: 56px;
+  display: inline-block;
+}
+.v1__logo img {
+  height: 76px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+.v1__eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--mdt-laiton);
+  display: inline-block;
+  margin-bottom: 36px;
+}
+.v1__tabs {
+  display: flex;
+  gap: 36px;
+  margin-bottom: 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--mdt-line);
+}
+.v1__tab {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-text-soft);
+  font-weight: 500;
+  padding: 4px 0;
+  position: relative;
+}
+.v1__tab.is-active { color: var(--mdt-noir); }
+.v1__tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -19px;
+  height: 1px;
+  background: var(--mdt-terracotta);
+}
+.v1__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 8.5vw, 116px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  color: var(--mdt-noir);
+  margin-bottom: 28px;
+}
+.v1__h1 em {
+  font-style: italic;
+  color: var(--mdt-terracotta);
+  font-weight: 300;
+}
+.v1__scribble {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 22px;
+  color: var(--mdt-laiton);
+  margin: -12px 0 30px 12px;
+  transform: rotate(-3deg);
+}
+.v1__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--mdt-text-soft);
+  max-width: 520px;
+  margin-bottom: 40px;
+}
+.v1__ctas {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+.v1__btn-primary, .v1__btn-outline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s var(--ease-mdt);
+}
+.v1__btn-primary {
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+}
+.v1__btn-primary:hover { background: var(--mdt-terra-dark); }
+.v1__btn-outline {
+  background: transparent;
+  color: var(--mdt-sauge);
+  border: 1px solid var(--mdt-sauge);
+}
+.v1__btn-outline:hover { background: var(--mdt-sauge); color: var(--mdt-sable); }
+.v1__practical {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--mdt-line);
+  padding-top: 24px;
+}
+.v1__practical > div {
+  padding-right: 22px;
+  border-right: 1px solid var(--mdt-line);
+}
+.v1__practical > div:nth-child(2) { padding-left: 22px; }
+.v1__practical > div:last-child { padding-left: 22px; border-right: 0; }
+.v1__practical-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.v1__practical-value {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--mdt-noir);
+  line-height: 1.45;
+}
+
+/* Booking card V1 — double bordure laiton signature */
+.v1__booking {
+  background: var(--mdt-sable);
+  padding: 36px 32px;
+  border: 1px solid var(--mdt-laiton);
+  position: relative;
+}
+.v1__booking::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--mdt-laiton);
+  transform: translate(8px, 8px);
+  z-index: -1;
+}
+.v1__booking-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--mdt-sauge);
+  margin-bottom: 6px;
+}
+.v1__booking-sub {
+  font-size: 12px;
+  color: var(--mdt-text-soft);
+  margin-bottom: 28px;
+}
+.v1__field { margin-bottom: 18px; }
+.v1__field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.v1__field input, .v1__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--mdt-line);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--mdt-noir);
+  outline: none;
+  appearance: none;
+}
+.v1__field input:focus, .v1__field select:focus { border-bottom-color: var(--mdt-terracotta); }
+.v1__field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.v1__booking-cta {
+  width: 100%;
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+  padding: 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 12px;
+  transition: background 0.3s;
+}
+.v1__booking-cta:hover { background: var(--mdt-terra-dark); }
+.v1__booking-reassurance {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--mdt-text-soft);
+  opacity: 0.7;
+}
+
+/* ============================================================================
+   ========================  VARIANTE 2  ====================================
+   SOMBRE CONFIDENTIEL (Aman/Astier de Villatte)
+   Fond sauge profond, texte sable, contraste AAA inversé, motif filigrane
+   ========================================================================== */
+.v2 {
+  background: var(--mdt-sauge);
+  color: var(--mdt-sable);
+  padding: 90px 0 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.v2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("assets-premium-lp/wallpaper-tara-green.png");
+  background-size: 720px;
+  background-repeat: repeat;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.v2__inner {
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 40px clamp(24px, 5vw, 64px) 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+@media (max-width: 980px) { .v2__inner { grid-template-columns: 1fr; gap: 48px; } }
+.v2__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 64px;
+  color: var(--mdt-sable);
+}
+.v2__logo svg { width: 34px; height: 40px; color: var(--mdt-laiton); flex-shrink: 0; }
+.v2__logo span {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-sable);
+  font-weight: 400;
+}
+.v2__logo em {
+  font-family: var(--font-display);
+  font-style: italic;
+  text-transform: none;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 0 4px;
+  color: var(--mdt-laiton);
+}
+.v2__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 28px;
+  display: inline-block;
+}
+.v2__tabs {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 36px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(244, 237, 224, 0.18);
+}
+.v2__tab {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-sable-warm);
+  opacity: 0.55;
+  padding: 4px 0;
+  position: relative;
+  font-weight: 500;
+}
+.v2__tab.is-active { color: var(--mdt-sable); opacity: 1; }
+.v2__tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -19px;
+  height: 1.5px;
+  background: var(--mdt-laiton);
+}
+.v2__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 8vw, 108px);
+  line-height: 1.02;
+  color: var(--mdt-sable);
+  margin-bottom: 28px;
+  letter-spacing: -0.005em;
+}
+.v2__h1 em {
+  font-style: italic;
+  color: var(--mdt-laiton);
+  font-weight: 300;
+}
+.v2__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--mdt-sable-warm);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+.v2__ctas { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 56px; }
+.v2__btn-primary {
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 30px;
+  transition: background 0.3s;
+}
+.v2__btn-primary:hover { background: var(--mdt-terra-dark); }
+.v2__btn-outline {
+  background: transparent;
+  color: var(--mdt-sable);
+  border: 1px solid var(--mdt-sable);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 30px;
+  transition: all 0.3s;
+}
+.v2__btn-outline:hover { background: var(--mdt-sable); color: var(--mdt-sauge); }
+.v2__practical {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(184, 146, 77, 0.35);
+  padding-top: 24px;
+}
+.v2__practical > div {
+  padding-right: 22px;
+  border-right: 1px solid rgba(184, 146, 77, 0.2);
+}
+.v2__practical > div:nth-child(2) { padding-left: 22px; }
+.v2__practical > div:last-child { padding-left: 22px; border-right: 0; }
+.v2__practical-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.v2__practical-value {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--mdt-sable);
+  line-height: 1.4;
+}
+
+/* Booking card V2 — sable solide sur sauge profond (contraste fort) */
+.v2__booking {
+  background: var(--mdt-sable);
+  color: var(--mdt-noir);
+  padding: 36px 32px;
+  border: 1px solid var(--mdt-laiton);
+  position: relative;
+}
+.v2__booking::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--mdt-laiton);
+  transform: translate(8px, 8px);
+  z-index: -1;
+}
+.v2__booking-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--mdt-sauge);
+  margin-bottom: 6px;
+}
+.v2__booking-sub { font-size: 12px; color: var(--mdt-text-soft); margin-bottom: 28px; }
+.v2__field { margin-bottom: 18px; }
+.v2__field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.v2__field input, .v2__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--mdt-line);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--mdt-noir);
+  outline: none;
+  appearance: none;
+}
+.v2__field input:focus, .v2__field select:focus { border-bottom-color: var(--mdt-terracotta); }
+.v2__field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.v2__booking-cta {
+  width: 100%;
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+  padding: 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.v2__booking-cta:hover { background: var(--mdt-terra-dark); }
+.v2__booking-reassurance { margin-top: 14px; text-align: center; font-size: 11px; color: var(--mdt-text-soft); opacity: 0.7; }
+
+/* ============================================================================
+   ========================  VARIANTE 3  ====================================
+   SPLIT ÉDITORIAL (Condé Nast / Cereal)
+   Photo gauche + texte solide droite + booking flottante au seam
+   ========================================================================== */
+.v3 {
+  background: var(--mdt-sable);
+  min-height: 100vh;
+  padding-top: 90px;
+  position: relative;
+}
+.v3__top {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 30px clamp(24px, 5vw, 64px) 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  border-bottom: 1px solid var(--mdt-line);
+}
+.v3__logo img {
+  height: 60px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+.v3__tabs { display: flex; gap: 28px; }
+.v3__tab {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-text-soft);
+  font-weight: 500;
+  padding: 6px 0;
+}
+.v3__tab.is-active {
+  color: var(--mdt-sauge);
+  border-bottom: 1.5px solid var(--mdt-terracotta);
+}
+.v3__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+@media (max-width: 900px) { .v3__split { grid-template-columns: 1fr; } }
+.v3__media {
+  height: 720px;
+  position: relative;
+  overflow: hidden;
+  background: var(--mdt-sable-deep);
+}
+@media (max-width: 900px) { .v3__media { height: 420px; } }
+.v3__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.v3__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26, 24, 21, 0) 50%, rgba(26, 24, 21, 0.35) 100%);
+}
+.v3__media-caption {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  font-family: var(--font-script);
+  font-size: 32px;
+  color: var(--mdt-sable);
+  transform: rotate(-2deg);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+.v3__content {
+  background: var(--mdt-sable);
+  padding: 70px clamp(40px, 5vw, 80px) 80px clamp(40px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.v3__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 30px;
+  display: inline-block;
+  border-top: 1px solid var(--mdt-laiton);
+  padding-top: 16px;
+  width: fit-content;
+}
+.v3__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(48px, 5.5vw, 84px);
+  line-height: 1.02;
+  color: var(--mdt-noir);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.v3__h1 em {
+  font-style: italic;
+  color: var(--mdt-terracotta);
+  font-weight: 300;
+}
+.v3__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--mdt-text-soft);
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+.v3__ctas { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 48px; }
+.v3__btn-primary, .v3__btn-outline {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s;
+}
+.v3__btn-primary { background: var(--mdt-terracotta); color: var(--mdt-sable); }
+.v3__btn-primary:hover { background: var(--mdt-terra-dark); }
+.v3__btn-outline { background: transparent; color: var(--mdt-sauge); border: 1px solid var(--mdt-sauge); }
+.v3__btn-outline:hover { background: var(--mdt-sauge); color: var(--mdt-sable); }
+.v3__practical {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  border-top: 1px solid var(--mdt-line);
+  padding-top: 24px;
+  font-size: 13px;
+}
+.v3__practical-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.v3__practical-value {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--mdt-noir);
+  line-height: 1.4;
+}
+
+/* Booking V3 — floating overlapping the photo/text seam */
+.v3__tabs-section { display: flex; gap: 32px; margin-bottom: 30px; }
+.v3__tabs-section .v3__tab.is-active::after { display: none; }
+.v3__booking-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  transform: translateX(-50%);
+  width: min(560px, calc(100% - 48px));
+  z-index: 3;
+}
+@media (max-width: 900px) { .v3__booking-wrap { position: static; transform: none; left: auto; width: 100%; margin: 0 auto -40px; padding: 0 24px; } }
+.v3__booking {
+  background: var(--mdt-sable);
+  border: 1px solid var(--mdt-laiton);
+  padding: 32px;
+  position: relative;
+  box-shadow: 0 20px 48px rgba(26, 24, 21, 0.18);
+}
+.v3__booking-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--mdt-sauge);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.v3__booking-sub { font-size: 12px; color: var(--mdt-text-soft); margin-bottom: 22px; }
+.v3__field-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+@media (max-width: 600px) { .v3__field-grid { grid-template-columns: 1fr; } }
+.v3__field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.v3__field input, .v3__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--mdt-line);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--mdt-noir);
+  outline: none;
+  appearance: none;
+}
+.v3__booking-cta {
+  width: 100%;
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+  padding: 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 6px;
+}
+.v3__booking-cta:hover { background: var(--mdt-terra-dark); }
+.v3__booking-reassurance { margin-top: 12px; text-align: center; font-size: 11px; color: var(--mdt-text-soft); opacity: 0.7; }
+/* Add bottom padding to v3 so the floating booking has room */
+.v3 { padding-bottom: 90px; }
+
+/* ============================================================================
+   ========================  VARIANTE 4  ====================================
+   BRUTALISTE ÉDITORIAL SÉRIF (Cabana Magazine, vintage poster)
+   H1 massif, bordures laiton 1.5px, asymétrie, encadrements forts
+   ========================================================================== */
+.v4 {
+  background: var(--mdt-sable-warm);
+  padding: 90px 0 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.v4__pattern {
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 380px;
+  height: 380px;
+  opacity: 0.08;
+  pointer-events: none;
+  color: var(--mdt-sauge);
+}
+.v4__inner {
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 36px clamp(24px, 5vw, 64px) 80px;
+}
+.v4__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1.5px solid var(--mdt-laiton);
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.v4__logo img { height: 64px; width: auto; mix-blend-mode: multiply; }
+.v4__top-meta {
+  display: flex;
+  gap: 22px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 500;
+}
+.v4__top-meta span:not(:last-child)::after {
+  content: '·';
+  margin-left: 22px;
+  color: var(--mdt-laiton);
+}
+.v4__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(340px, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+@media (max-width: 980px) { .v4__grid { grid-template-columns: 1fr; gap: 48px; } }
+.v4__tabs {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid var(--mdt-laiton);
+  width: fit-content;
+  margin-bottom: 36px;
+}
+.v4__tab {
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--mdt-noir);
+  font-weight: 500;
+  padding: 14px 22px;
+  background: transparent;
+  border-right: 1.5px solid var(--mdt-laiton);
+}
+.v4__tab:last-child { border-right: 0; }
+.v4__tab.is-active { background: var(--mdt-noir); color: var(--mdt-sable); }
+.v4__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(64px, 13vw, 168px);
+  line-height: 0.9;
+  color: var(--mdt-noir);
+  margin-bottom: 36px;
+  letter-spacing: -0.02em;
+}
+.v4__h1 em {
+  font-style: italic;
+  color: var(--mdt-terracotta);
+  font-weight: 300;
+  display: block;
+}
+.v4__rule {
+  height: 1.5px;
+  background: var(--mdt-laiton);
+  width: 80px;
+  margin-bottom: 26px;
+}
+.v4__lead {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--mdt-text);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+.v4__ctas { display: flex; gap: 0; margin-bottom: 56px; }
+.v4__btn-primary, .v4__btn-outline {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 30px;
+  border: 1.5px solid var(--mdt-noir);
+  transition: all 0.2s;
+}
+.v4__btn-primary { background: var(--mdt-terracotta); color: var(--mdt-sable); border-color: var(--mdt-terracotta); }
+.v4__btn-primary:hover { background: var(--mdt-terra-dark); border-color: var(--mdt-terra-dark); }
+.v4__btn-outline { background: transparent; color: var(--mdt-noir); border-left: 0; }
+.v4__btn-outline:hover { background: var(--mdt-noir); color: var(--mdt-sable); }
+.v4__practical {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid var(--mdt-laiton);
+}
+.v4__practical > div {
+  padding: 20px 22px;
+  border-right: 1.5px solid var(--mdt-laiton);
+}
+.v4__practical > div:last-child { border-right: 0; }
+.v4__practical-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.v4__practical-value {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--mdt-noir);
+  line-height: 1.35;
+}
+
+/* Booking V4 — flat rectangle, bordure noir épaisse */
+.v4__booking {
+  background: var(--mdt-sable);
+  padding: 32px 28px;
+  border: 1.5px solid var(--mdt-noir);
+}
+.v4__booking-head {
+  padding-bottom: 18px;
+  border-bottom: 1.5px solid var(--mdt-laiton);
+  margin-bottom: 22px;
+}
+.v4__booking-eyebrow {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.v4__booking-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--mdt-noir);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.v4__booking-title em { font-style: italic; color: var(--mdt-terracotta); }
+.v4__field { margin-bottom: 18px; }
+.v4__field label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mdt-sauge);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.v4__field input, .v4__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid var(--mdt-noir);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--mdt-noir);
+  outline: none;
+  appearance: none;
+}
+.v4__field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.v4__booking-cta {
+  width: 100%;
+  background: var(--mdt-noir);
+  color: var(--mdt-sable);
+  padding: 18px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.v4__booking-cta:hover { background: var(--mdt-noir-soft); }
+.v4__booking-reassurance { margin-top: 14px; text-align: center; font-size: 10px; color: var(--mdt-text-soft); letter-spacing: 0.05em; }
+
+/* ============================================================================
+   ========================  VARIANTE 5  ====================================
+   ATMOSPHÈRE CHAUDE (full photo + scrim sable + booking card dark)
+   Photo full-bleed, scrim fort, contraste maximal, card dark surprenante
+   ========================================================================== */
+.v5 {
+  position: relative;
+  min-height: 100vh;
+  background: var(--mdt-sable);
+  overflow: hidden;
+}
+.v5__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.v5__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(244, 237, 224, 0.95) 0%, rgba(244, 237, 224, 0.88) 42%, rgba(244, 237, 224, 0.42) 100%);
+  z-index: 1;
+}
+.v5__inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 130px clamp(24px, 5vw, 64px) 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+@media (max-width: 980px) { .v5__inner { grid-template-columns: 1fr; gap: 48px; } }
+.v5__top {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 30px clamp(24px, 5vw, 64px) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.v5__logo img {
+  height: 56px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+.v5__tabs { display: flex; gap: 24px; }
+.v5__tab {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mdt-text);
+  font-weight: 500;
+  padding: 6px 0;
+}
+.v5__tab.is-active {
+  color: var(--mdt-terracotta);
+  border-bottom: 1.5px solid var(--mdt-terracotta);
+}
+.v5__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 28px;
+  display: inline-block;
+}
+.v5__h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 7.5vw, 100px);
+  line-height: 1.02;
+  color: var(--mdt-noir);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(244, 237, 224, 0.6);
+}
+.v5__h1 em {
+  font-style: italic;
+  color: var(--mdt-terracotta);
+  font-weight: 300;
+}
+.v5__lead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--mdt-text);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+.v5__ctas { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 40px; }
+.v5__btn-primary, .v5__btn-outline {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 18px 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s;
+}
+.v5__btn-primary { background: var(--mdt-terracotta); color: var(--mdt-sable); }
+.v5__btn-primary:hover { background: var(--mdt-terra-dark); }
+.v5__btn-outline {
+  background: rgba(244, 237, 224, 0.6);
+  color: var(--mdt-sauge);
+  border: 1px solid var(--mdt-sauge);
+}
+.v5__btn-outline:hover { background: var(--mdt-sauge); color: var(--mdt-sable); }
+.v5__practical-line {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--mdt-noir);
+  padding-top: 22px;
+  border-top: 1px solid var(--mdt-line);
+}
+.v5__practical-line strong {
+  font-style: normal;
+  font-weight: 500;
+  margin-right: 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+}
+
+/* Booking card V5 — DARK noir-soft card sur scrim sable (contraste pop unique) */
+.v5__booking {
+  background: var(--mdt-noir-soft);
+  color: var(--mdt-sable);
+  padding: 36px 32px;
+  border: 1px solid var(--mdt-laiton);
+  position: relative;
+}
+.v5__booking::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--mdt-laiton);
+  transform: translate(8px, 8px);
+  z-index: -1;
+}
+.v5__booking-eyebrow {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.v5__booking-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--mdt-sable);
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+.v5__booking-title em { font-style: italic; color: var(--mdt-laiton); }
+.v5__field { margin-bottom: 18px; }
+.v5__field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-laiton);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.v5__field input, .v5__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(184, 146, 77, 0.45);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--mdt-sable);
+  outline: none;
+  appearance: none;
+}
+.v5__field input::-webkit-calendar-picker-indicator { filter: invert(0.8) sepia(0.5) hue-rotate(15deg); }
+.v5__field input:focus, .v5__field select:focus { border-bottom-color: var(--mdt-terracotta); }
+.v5__field select option { background: var(--mdt-noir-soft); color: var(--mdt-sable); }
+.v5__field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.v5__booking-cta {
+  width: 100%;
+  background: var(--mdt-terracotta);
+  color: var(--mdt-sable);
+  padding: 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.v5__booking-cta:hover { background: var(--mdt-terra-dark); }
+.v5__booking-reassurance { margin-top: 14px; text-align: center; font-size: 11px; color: var(--mdt-sable-warm); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================================
+     SVG SPRITE (tulipe pour V2 sombre où le logo.jpg sauge serait invisible)
+     ============================================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-tulip" viewBox="0 0 28 32">
+      <path d="M14 4c-3.5 0-5 3-5 7 0 1.5.5 3 1 4 1 .5 2.5 1 4 1s3-.5 4-1c.5-1 1-2.5 1-4 0-4-1.5-7-5-7z" fill="currentColor" opacity="0.95"/>
+      <path d="M14 6c-1.2 1.5-1.5 4-1.5 6 .5.3 1 .5 1.5.5s1-.2 1.5-.5c0-2-.3-4.5-1.5-6z" fill="var(--mdt-sable, #F4EDE0)" opacity="0.35"/>
+      <path d="M14 16v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M14 22c-2-.5-4 .5-5 2.5 1.5 1 3.5.5 5-1z" fill="currentColor" opacity="0.85"/>
+      <path d="M14 25c2-.5 4 .5 5 2.5-1.5 1-3.5.5-5-1z" fill="currentColor" opacity="0.85"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================================
+     STICKY NAV — naviguer entre les 5 variantes
+     ============================================================================ -->
+<header class="variants-bar">
+  <span class="variants-bar__brand"><em>5 variantes hero</em> <strong>Maison de Tara</strong></span>
+  <nav aria-label="Navigation variantes">
+    <a href="#v1">V1 · Éditorial sobre</a>
+    <a href="#v2">V2 · Sombre confidentiel</a>
+    <a href="#v3">V3 · Split éditorial</a>
+    <a href="#v4">V4 · Brutaliste sérif</a>
+    <a href="#v5">V5 · Atmosphère chaude</a>
+  </nav>
+</header>
+
+<!-- ============================================================================
+     VARIANTE 1 — ÉDITORIAL APARTAMENTO
+     ============================================================================ -->
+<section class="variant v1" id="v1">
+  <header class="variant-label">
+    <span class="variant-label__num">01</span>
+    <span class="variant-label__text">
+      <span class="variant-label__name">Éditorial sobre</span>
+      <span class="variant-label__desc">Sable plat · Cormorant XL · hairlines laiton · AAA</span>
+    </span>
+  </header>
+
+  <div class="v1__inner">
+    <div>
+      <a href="#" class="v1__logo" aria-label="Maison de Tara">
+        <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara">
+      </a>
+
+      <span class="v1__eyebrow">La Garenne-Colombes · Ouverture Automne 2026</span>
+
+      <div class="v1__tabs">
+        <button class="v1__tab is-active" type="button">L'Atelier</button>
+        <button class="v1__tab" type="button">Le Café</button>
+        <button class="v1__tab" type="button">La Boutique</button>
+      </div>
+
+      <h1 class="v1__h1">La maison où l'on<br><em>prend le temps</em>.</h1>
+      <span class="v1__scribble">— le temps de peindre</span>
+
+      <p class="v1__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
+      <div class="v1__ctas">
+        <a href="#reserver" class="v1__btn-primary">Réserver un moment</a>
+        <a href="#explorer" class="v1__btn-outline">Découvrir le lieu</a>
+      </div>
+
+      <div class="v1__practical">
+        <div>
+          <span class="v1__practical-label">Adresse</span>
+          <span class="v1__practical-value">La Garenne-Colombes<br>92250</span>
+        </div>
+        <div>
+          <span class="v1__practical-label">Horaires</span>
+          <span class="v1__practical-value">Mar–Ven 10h–19h<br>Sam 10h–20h</span>
+        </div>
+        <div>
+          <span class="v1__practical-label">Contact</span>
+          <span class="v1__practical-value">01 47 XX XX XX</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="v1__booking">
+      <h3 class="v1__booking-title">Réserver un moment</h3>
+      <p class="v1__booking-sub">Sessions de 2 heures · groupes et duos</p>
+      <div class="v1__field">
+        <label>Personnes</label>
+        <select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+ personnes</option></select>
+      </div>
+      <div class="v1__field-row">
+        <div class="v1__field">
+          <label>Date</label>
+          <input type="date" value="2026-10-15">
+        </div>
+        <div class="v1__field">
+          <label>Créneau</label>
+          <select><option>10h00 – 12h00</option><option>14h00 – 16h00</option><option>16h30 – 18h30</option></select>
+        </div>
+      </div>
+      <div class="v1__field">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 XX XX XX XX">
+      </div>
+      <button class="v1__booking-cta" type="button">Confirmer la réservation</button>
+      <p class="v1__booking-reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================================
+     VARIANTE 2 — SOMBRE CONFIDENTIEL
+     ============================================================================ -->
+<section class="variant v2" id="v2">
+  <header class="variant-label">
+    <span class="variant-label__num">02</span>
+    <span class="variant-label__text">
+      <span class="variant-label__name">Sombre confidentiel</span>
+      <span class="variant-label__desc">Sauge profond · sable inversé · filigrane · AAA</span>
+    </span>
+  </header>
+
+  <div class="v2__inner">
+    <div>
+      <a href="#" class="v2__logo" aria-label="Maison de Tara">
+        <svg aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+        <span>MAISON <em>de</em> TARA</span>
+      </a>
+
+      <span class="v2__eyebrow">La Garenne-Colombes · Ouverture Automne 2026</span>
+
+      <div class="v2__tabs">
+        <button class="v2__tab is-active" type="button">L'Atelier</button>
+        <button class="v2__tab" type="button">Le Café</button>
+        <button class="v2__tab" type="button">La Boutique</button>
+      </div>
+
+      <h1 class="v2__h1">La maison où l'on<br><em>prend le temps</em>.</h1>
+
+      <p class="v2__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
+      <div class="v2__ctas">
+        <a href="#reserver" class="v2__btn-primary">Réserver un moment</a>
+        <a href="#explorer" class="v2__btn-outline">Découvrir le lieu</a>
+      </div>
+
+      <div class="v2__practical">
+        <div>
+          <span class="v2__practical-label">Adresse</span>
+          <span class="v2__practical-value">La Garenne-Colombes<br>92250</span>
+        </div>
+        <div>
+          <span class="v2__practical-label">Horaires</span>
+          <span class="v2__practical-value">Mar–Ven 10h–19h<br>Sam 10h–20h</span>
+        </div>
+        <div>
+          <span class="v2__practical-label">Contact</span>
+          <span class="v2__practical-value">01 47 XX XX XX</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="v2__booking">
+      <h3 class="v2__booking-title">Réserver un moment</h3>
+      <p class="v2__booking-sub">Sessions de 2 heures · groupes et duos</p>
+      <div class="v2__field">
+        <label>Personnes</label>
+        <select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+ personnes</option></select>
+      </div>
+      <div class="v2__field-row">
+        <div class="v2__field">
+          <label>Date</label>
+          <input type="date" value="2026-10-15">
+        </div>
+        <div class="v2__field">
+          <label>Créneau</label>
+          <select><option>10h00 – 12h00</option><option>14h00 – 16h00</option><option>16h30 – 18h30</option></select>
+        </div>
+      </div>
+      <div class="v2__field">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 XX XX XX XX">
+      </div>
+      <button class="v2__booking-cta" type="button">Confirmer la réservation</button>
+      <p class="v2__booking-reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================================
+     VARIANTE 3 — SPLIT ÉDITORIAL
+     ============================================================================ -->
+<section class="variant v3" id="v3">
+  <header class="variant-label">
+    <span class="variant-label__num">03</span>
+    <span class="variant-label__text">
+      <span class="variant-label__name">Split éditorial</span>
+      <span class="variant-label__desc">Photo gauche · zone texte solide droite · booking flottante</span>
+    </span>
+  </header>
+
+  <div class="v3__top">
+    <a href="#" class="v3__logo" aria-label="Maison de Tara">
+      <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara">
+    </a>
+    <div class="v3__tabs">
+      <button class="v3__tab is-active" type="button">L'Atelier</button>
+      <button class="v3__tab" type="button">Le Café</button>
+      <button class="v3__tab" type="button">La Boutique</button>
+    </div>
+    <span style="font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mdt-laiton); font-weight: 500;">Ouverture · Automne 2026</span>
+  </div>
+
+  <div class="v3__split">
+    <figure class="v3__media">
+      <img src="https://images.pexels.com/photos/5567008/pexels-photo-5567008.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80" alt="Atelier de peinture sur céramique" loading="lazy">
+      <figcaption class="v3__media-caption">Maison de Tara</figcaption>
+    </figure>
+
+    <div class="v3__content">
+      <span class="v3__eyebrow">La Garenne-Colombes</span>
+      <h1 class="v3__h1">La maison où l'on <em>prend le temps</em>.</h1>
+      <p class="v3__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
+      <div class="v3__ctas">
+        <a href="#reserver" class="v3__btn-primary">Réserver un moment</a>
+        <a href="#explorer" class="v3__btn-outline">Découvrir le lieu</a>
+      </div>
+
+      <div class="v3__practical">
+        <div>
+          <span class="v3__practical-label">Adresse</span>
+          <span class="v3__practical-value">La Garenne-Colombes</span>
+        </div>
+        <div>
+          <span class="v3__practical-label">Horaires</span>
+          <span class="v3__practical-value">Mar–Sam 10h–20h</span>
+        </div>
+        <div>
+          <span class="v3__practical-label">Contact</span>
+          <span class="v3__practical-value">01 47 XX XX XX</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v3__booking-wrap">
+      <aside class="v3__booking">
+        <h3 class="v3__booking-title">Réserver une session</h3>
+        <p class="v3__booking-sub">Sessions de 2 heures · groupes et duos</p>
+        <div class="v3__field-grid">
+          <div class="v3__field">
+            <label>Personnes</label>
+            <select><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+          </div>
+          <div class="v3__field">
+            <label>Date</label>
+            <input type="date" value="2026-10-15">
+          </div>
+          <div class="v3__field">
+            <label>Créneau</label>
+            <select><option>10h–12h</option><option>14h–16h</option><option>16h30–18h30</option></select>
+          </div>
+        </div>
+        <button class="v3__booking-cta" type="button">Confirmer la réservation</button>
+        <p class="v3__booking-reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     VARIANTE 4 — BRUTALISTE ÉDITORIAL SÉRIF
+     ============================================================================ -->
+<section class="variant v4" id="v4">
+  <header class="variant-label">
+    <span class="variant-label__num">04</span>
+    <span class="variant-label__text">
+      <span class="variant-label__name">Brutaliste sérif</span>
+      <span class="variant-label__desc">H1 massif · bordures laiton 1.5px · Cabana magazine</span>
+    </span>
+  </header>
+
+  <svg class="v4__pattern" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <g fill="currentColor" opacity="0.9">
+      <path d="M100 30 Q88 60 100 100 Q112 60 100 30 Z"/>
+      <ellipse cx="100" cy="26" rx="7" ry="11"/>
+      <line x1="100" y1="90" x2="100" y2="170" stroke="currentColor" stroke-width="2"/>
+      <path d="M100 130 Q80 125 70 145 Q90 150 100 138 Z"/>
+      <path d="M100 145 Q120 140 130 160 Q110 165 100 153 Z"/>
+    </g>
+  </svg>
+
+  <div class="v4__inner">
+    <div class="v4__top">
+      <a href="#" class="v4__logo" aria-label="Maison de Tara">
+        <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara">
+      </a>
+      <div class="v4__top-meta">
+        <span>Volume 01</span>
+        <span>Automne 2026</span>
+        <span>La Garenne-Colombes</span>
+      </div>
+    </div>
+
+    <div class="v4__grid">
+      <div>
+        <div class="v4__tabs">
+          <button class="v4__tab is-active" type="button">L'Atelier</button>
+          <button class="v4__tab" type="button">Le Café</button>
+          <button class="v4__tab" type="button">La Boutique</button>
+        </div>
+
+        <h1 class="v4__h1">La maison où l'on<em>prend le temps.</em></h1>
+        <div class="v4__rule"></div>
+        <p class="v4__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
+        <div class="v4__ctas">
+          <a href="#reserver" class="v4__btn-primary">Réserver un moment</a>
+          <a href="#explorer" class="v4__btn-outline">Découvrir le lieu</a>
+        </div>
+
+        <div class="v4__practical">
+          <div>
+            <span class="v4__practical-label">Adresse</span>
+            <span class="v4__practical-value">La Garenne-Colombes<br>92250</span>
+          </div>
+          <div>
+            <span class="v4__practical-label">Horaires</span>
+            <span class="v4__practical-value">Mar–Ven 10h–19h<br>Sam 10h–20h</span>
+          </div>
+          <div>
+            <span class="v4__practical-label">Contact</span>
+            <span class="v4__practical-value">01 47 XX XX XX</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="v4__booking">
+        <div class="v4__booking-head">
+          <span class="v4__booking-eyebrow">Section · Réservation</span>
+          <h3 class="v4__booking-title">Réserver <em>un moment</em></h3>
+        </div>
+        <div class="v4__field">
+          <label>Personnes</label>
+          <select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+ personnes</option></select>
+        </div>
+        <div class="v4__field-row">
+          <div class="v4__field">
+            <label>Date</label>
+            <input type="date" value="2026-10-15">
+          </div>
+          <div class="v4__field">
+            <label>Créneau</label>
+            <select><option>10h – 12h</option><option>14h – 16h</option><option>16h30 – 18h30</option></select>
+          </div>
+        </div>
+        <div class="v4__field">
+          <label>Téléphone</label>
+          <input type="tel" placeholder="06 XX XX XX XX">
+        </div>
+        <button class="v4__booking-cta" type="button">Confirmer la réservation</button>
+        <p class="v4__booking-reassurance">AUCUNE CARTE REQUISE · CONFIRMATION PAR SMS</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     VARIANTE 5 — ATMOSPHÈRE CHAUDE
+     ============================================================================ -->
+<section class="variant v5" id="v5">
+  <header class="variant-label">
+    <span class="variant-label__num">05</span>
+    <span class="variant-label__text">
+      <span class="variant-label__name">Atmosphère chaude</span>
+      <span class="variant-label__desc">Photo full-bleed · scrim sable fort · booking card noir</span>
+    </span>
+  </header>
+
+  <img class="v5__photo" src="https://images.pexels.com/photos/30698564/pexels-photo-30698564.jpeg?auto=compress&cs=tinysrgb&w=2000&q=85" alt="Atelier de peinture sur céramique" loading="lazy">
+  <div class="v5__scrim"></div>
+
+  <div class="v5__top">
+    <a href="#" class="v5__logo" aria-label="Maison de Tara">
+      <img src="assets-premium-lp/logo.jpg" alt="Maison de Tara">
+    </a>
+    <div class="v5__tabs">
+      <button class="v5__tab is-active" type="button">L'Atelier</button>
+      <button class="v5__tab" type="button">Le Café</button>
+      <button class="v5__tab" type="button">La Boutique</button>
+    </div>
+  </div>
+
+  <div class="v5__inner">
+    <div>
+      <span class="v5__eyebrow">La Garenne-Colombes · Ouverture Automne 2026</span>
+      <h1 class="v5__h1">La maison où l'on<br><em>prend le temps</em>.</h1>
+      <p class="v5__lead">Un lieu hybride entre atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne — pensé comme une maison vivante.</p>
+
+      <div class="v5__ctas">
+        <a href="#reserver" class="v5__btn-primary">Réserver un moment</a>
+        <a href="#explorer" class="v5__btn-outline">Découvrir le lieu</a>
+      </div>
+
+      <p class="v5__practical-line">
+        <strong>Visite·</strong> Mar – Dim · 10h – 19h · La Garenne-Colombes (92) · 01 47 XX XX XX
+      </p>
+    </div>
+
+    <aside class="v5__booking">
+      <span class="v5__booking-eyebrow">Atelier · Session</span>
+      <h3 class="v5__booking-title">Réserver <em>un moment</em></h3>
+      <div class="v5__field">
+        <label>Personnes</label>
+        <select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+ personnes</option></select>
+      </div>
+      <div class="v5__field-row">
+        <div class="v5__field">
+          <label>Date</label>
+          <input type="date" value="2026-10-15">
+        </div>
+        <div class="v5__field">
+          <label>Créneau</label>
+          <select><option>10h00 – 12h00</option><option>14h00 – 16h00</option><option>16h30 – 18h30</option></select>
+        </div>
+      </div>
+      <div class="v5__field">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 XX XX XX XX">
+      </div>
+      <button class="v5__booking-cta" type="button">Confirmer la réservation</button>
+      <p class="v5__booking-reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
+    </aside>
+  </div>
+</section>
+
+</body>
+</html>

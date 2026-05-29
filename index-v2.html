@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison de Tara V2 — Atelier céramique · Café · Boutique · La Garenne-Colombes</title>
+<meta name="description" content="Atelier de peinture sur céramique, café et boutique d'inspiration indienne à La Garenne-Colombes. Une maison vivante où créer, partager et prolonger le moment.">
+
+<!--
+  ============================================================================
+  CHANGELOG V0 → V1
+  ----------------------------------------------------------------------------
+  - Refactor en 3 fichiers : index.html / styles.css / scripts.js
+  - Classes BEM-ish (.btn--primary, .card--universe, .card--event...)
+  - Main tag + skip link + aria-* + roles
+  - Logo : picto SVG tulipe block-print intégré avant le wordmark
+  - Emojis remplacés par SVG line-art (phone, pin, envelope, clock)
+  - Burger mobile + drawer overlay full-screen
+  - Hero ambitieux : changement complet d'univers par tab (atelier/café/boutique)
+  - SVG sprite (<symbol>) pour factoriser les icônes répétées
+  - Stagger-index sur les éléments .fade-in pour animations orchestrées
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fonts : uniquement les weights réellement utilisés (perf optim) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Caveat&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles-v2.css">
+
+<!-- Theme color matche le hero (sauge) -->
+<meta name="theme-color" content="#4A5D2E">
+</head>
+<body>
+
+<!-- ============================================================================
+     SVG SPRITE — icônes réutilisables (line-art, 1.5px stroke, sauge/laiton)
+     ============================================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Téléphone -->
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M5 4c0-.6.4-1 1-1h2.5c.4 0 .8.3.9.7l1 3.3c.1.4 0 .8-.3 1L8 9.5c1 2.3 2.9 4.2 5.2 5.2l1.5-2.1c.2-.3.6-.4 1-.3l3.3 1c.4.1.7.5.7.9V17c0 .6-.4 1-1 1A14 14 0 0 1 5 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Pin localisation -->
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <!-- Enveloppe -->
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Horloge -->
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <!-- Croix (close) -->
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <!-- Flèche droite -->
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Instagram -->
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="17" cy="7" r="0.7" fill="currentColor"/>
+    </symbol>
+    <!-- Pinterest -->
+    <symbol id="i-pinterest" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M11 7c3 0 5 1.7 5 4.5S14 16 12 16c-.9 0-1.5-.4-1.8-1L9 19m1.5-9.5l-.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <!-- Tulipe — picto signature MdT (block print stylisé) -->
+    <symbol id="i-tulip" viewBox="0 0 28 32">
+      <!-- Fleur stylisée block-print indien -->
+      <path d="M14 4c-3.5 0-5 3-5 7 0 1.5.5 3 1 4 1 .5 2.5 1 4 1s3-.5 4-1c.5-1 1-2.5 1-4 0-4-1.5-7-5-7z" fill="currentColor" opacity="0.95"/>
+      <!-- Pétale central plus clair pour relief block print -->
+      <path d="M14 6c-1.2 1.5-1.5 4-1.5 6 .5.3 1 .5 1.5.5s1-.2 1.5-.5c0-2-.3-4.5-1.5-6z" fill="var(--mdt-sable, #F4EDE0)" opacity="0.35"/>
+      <!-- Tige -->
+      <path d="M14 16v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Feuilles latérales -->
+      <path d="M14 22c-2-.5-4 .5-5 2.5 1.5 1 3.5.5 5-1z" fill="currentColor" opacity="0.85"/>
+      <path d="M14 25c2-.5 4 .5 5 2.5-1.5 1-3.5.5-5-1z" fill="currentColor" opacity="0.85"/>
+    </symbol>
+
+    <!-- ====================================================================
+         ILLUSTRATIONS ÉDITORIALES (line-art, sauge/sable + accents terracotta)
+         ==================================================================== -->
+
+    <!-- Arrangement : tasse + tulipe en vase (welcome, atelier feature) -->
+    <symbol id="i-illu-arrangement" viewBox="0 0 240 280">
+      <!-- Plateau bas -->
+      <line x1="20" y1="240" x2="220" y2="240" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Tasse à gauche -->
+      <path d="M55 165 L55 220 Q55 235 70 235 L115 235 Q130 235 130 220 L130 165 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M130 180 Q150 180 150 195 Q150 210 130 210" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif sur la tasse -->
+      <path d="M92 185 Q86 195 92 205 Q98 195 92 185 Z" fill="currentColor" opacity="0.4"/>
+      <ellipse cx="92" cy="184" rx="3" ry="4" fill="currentColor" opacity="0.4"/>
+      <!-- Vase à droite -->
+      <path d="M150 150 Q145 155 145 170 L145 220 Q145 235 165 235 L195 235 Q215 235 215 220 L215 170 Q215 155 210 150 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Col du vase -->
+      <line x1="155" y1="155" x2="205" y2="155" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tulipe dans le vase -->
+      <line x1="170" y1="155" x2="170" y2="100" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="190" y1="155" x2="190" y2="115" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M170 90 Q160 70 170 50 Q180 70 170 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="170" cy="48" rx="6" ry="9" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <path d="M190 105 Q183 90 190 75 Q197 90 190 105 Z" fill="currentColor" opacity="0.7"/>
+      <ellipse cx="190" cy="73" rx="5" ry="7" fill="currentColor" opacity="0.7"/>
+      <!-- Feuilles -->
+      <path d="M170 130 Q160 128 155 135 Q165 138 170 134 Z" fill="currentColor" opacity="0.6"/>
+      <path d="M190 140 Q200 138 205 145 Q195 148 190 144 Z" fill="currentColor" opacity="0.6"/>
+      <!-- Petits éléments décoratifs -->
+      <circle cx="35" cy="225" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- Devanture boutique stylisée (location) -->
+    <symbol id="i-illu-storefront" viewBox="0 0 280 320">
+      <!-- Façade contour -->
+      <path d="M40 280 L40 100 Q40 80 60 80 L220 80 Q240 80 240 100 L240 280" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Sol -->
+      <line x1="20" y1="280" x2="260" y2="280" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Enseigne -->
+      <line x1="60" y1="120" x2="220" y2="120" stroke="currentColor" stroke-width="1"/>
+      <text x="140" y="106" font-family="Cormorant Garamond, serif" font-size="14" letter-spacing="2" fill="currentColor" text-anchor="middle" opacity="0.85">MAISON DE TARA</text>
+      <!-- Auvent / store -->
+      <path d="M40 130 L60 145 L80 130 L100 145 L120 130 L140 145 L160 130 L180 145 L200 130 L220 145 L240 130" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Vitrine grande -->
+      <rect x="60" y="160" width="80" height="100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Élément dans la vitrine : tulipe -->
+      <path d="M100 220 Q92 240 100 255 Q108 240 100 220 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.8"/>
+      <ellipse cx="100" cy="218" rx="5" ry="7" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.8"/>
+      <line x1="100" y1="240" x2="100" y2="260" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Porte -->
+      <rect x="155" y="160" width="60" height="120" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="205" cy="220" r="2" fill="currentColor"/>
+      <!-- Plante en pot devant -->
+      <ellipse cx="40" cy="275" rx="12" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M30 270 Q35 240 40 260 Q42 235 47 255 Q52 240 50 270" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Petite tulipe à droite -->
+      <ellipse cx="250" cy="275" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="250" y1="270" x2="250" y2="245" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M250 245 Q245 235 250 225 Q255 235 250 245 Z" fill="currentColor" opacity="0.6"/>
+    </symbol>
+
+    <!-- Bols empilés (sortie de four / atelier) -->
+    <symbol id="i-illu-bowls" viewBox="0 0 200 200">
+      <!-- Bol du bas -->
+      <path d="M30 130 Q30 175 100 175 Q170 175 170 130" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="100" cy="130" rx="70" ry="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif sur le bol bas -->
+      <g opacity="0.4">
+        <circle cx="70" cy="150" r="3" fill="currentColor"/>
+        <circle cx="100" cy="155" r="3" fill="currentColor"/>
+        <circle cx="130" cy="150" r="3" fill="currentColor"/>
+      </g>
+      <!-- Bol du milieu -->
+      <path d="M45 95 Q45 125 100 125 Q155 125 155 95" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="100" cy="95" rx="55" ry="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tasse du haut -->
+      <path d="M75 50 L75 88 Q75 92 80 92 L115 92 Q120 92 120 88 L120 50 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M120 60 Q132 60 132 70 Q132 80 120 80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Vapeur stylisée au-dessus -->
+      <path d="M85 35 Q82 28 88 22 Q92 16 87 10" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <path d="M100 35 Q97 28 103 22 Q107 16 102 10" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <path d="M115 35 Q112 28 118 22" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+    </symbol>
+
+    <!-- Verres qui trinquent (café / apéro / soirée vins) -->
+    <symbol id="i-illu-cheers" viewBox="0 0 200 200">
+      <!-- Verre gauche (incliné droite) -->
+      <path d="M55 50 L70 50 L78 110 Q78 125 70 130 L60 135 Q50 135 50 125 L50 110 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <line x1="58" y1="148" x2="58" y2="170" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <line x1="48" y1="172" x2="68" y2="172" stroke="currentColor" stroke-width="1.5" transform="rotate(-12 65 92)"/>
+      <!-- Vin dans le verre gauche -->
+      <path d="M55 88 L75 88 L77 110 Q77 122 70 126 L62 130 Q52 130 53 120 L55 110 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5" transform="rotate(-12 65 92)"/>
+      <!-- Verre droit (incliné gauche) -->
+      <path d="M130 50 L145 50 L150 110 Q150 125 142 130 L132 135 Q122 135 122 125 L125 110 Z" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <line x1="135" y1="148" x2="135" y2="170" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <line x1="125" y1="172" x2="145" y2="172" stroke="currentColor" stroke-width="1.5" transform="rotate(12 138 92)"/>
+      <!-- Vin dans le verre droit -->
+      <path d="M130 88 L145 88 L149 110 Q149 122 142 126 L134 130 Q124 130 125 120 L128 110 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5" transform="rotate(12 138 92)"/>
+      <!-- Étincelle de "tchin" entre les deux -->
+      <g opacity="0.7">
+        <path d="M100 55 L100 75 M93 65 L107 65 M95 60 L105 70 M105 60 L95 70" stroke="var(--mdt-laiton, #B8924D)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      </g>
+    </symbol>
+
+    <!-- Lampe pendante motif indien (boutique / détails) -->
+    <symbol id="i-illu-lamp" viewBox="0 0 200 200">
+      <!-- Fil de suspension -->
+      <line x1="100" y1="20" x2="100" y2="55" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Cap supérieur -->
+      <ellipse cx="100" cy="55" rx="14" ry="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Corps de lampe (forme indienne arrondie) -->
+      <path d="M86 55 Q70 80 70 105 Q70 135 100 145 Q130 135 130 105 Q130 80 114 55" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif géométrique indien (losanges/croisillons) -->
+      <g opacity="0.6">
+        <path d="M85 85 L100 75 L115 85 L100 95 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+        <path d="M85 110 L100 100 L115 110 L100 120 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="100" cy="85" r="2" fill="var(--mdt-laiton, #B8924D)"/>
+        <circle cx="100" cy="110" r="2" fill="var(--mdt-laiton, #B8924D)"/>
+      </g>
+      <!-- Frange de la lampe -->
+      <g opacity="0.8">
+        <line x1="75" y1="140" x2="75" y2="150" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="85" y1="143" x2="85" y2="155" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="95" y1="144" x2="95" y2="158" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="105" y1="144" x2="105" y2="158" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="115" y1="143" x2="115" y2="155" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="125" y1="140" x2="125" y2="150" stroke="currentColor" stroke-width="1.5"/>
+      </g>
+      <!-- Lueur subtile -->
+      <circle cx="100" cy="100" r="22" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.08"/>
+    </symbol>
+
+    <!-- Bouquet (workshop fleurs / journal) -->
+    <symbol id="i-illu-bouquet" viewBox="0 0 200 200">
+      <!-- Vase -->
+      <path d="M75 130 Q72 135 72 145 L72 175 Q72 185 82 185 L118 185 Q128 185 128 175 L128 145 Q128 135 125 130 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="78" y1="132" x2="122" y2="132" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Tiges -->
+      <line x1="90" y1="132" x2="85" y2="80" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="100" y1="132" x2="100" y2="60" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="110" y1="132" x2="115" y2="75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="120" y1="132" x2="135" y2="95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="80" y1="132" x2="65" y2="95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Fleurs (tulipe centrale + autres) -->
+      <path d="M100 50 Q92 35 100 20 Q108 35 100 50 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="100" cy="18" rx="5" ry="7" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <!-- Fleur ronde 1 -->
+      <circle cx="85" cy="75" r="9" fill="var(--mdt-laiton, #B8924D)" opacity="0.7"/>
+      <circle cx="85" cy="75" r="3" fill="currentColor" opacity="0.5"/>
+      <!-- Fleur ronde 2 -->
+      <circle cx="115" cy="70" r="8" fill="currentColor" opacity="0.6"/>
+      <circle cx="115" cy="70" r="2.5" fill="var(--mdt-laiton, #B8924D)"/>
+      <!-- Petits boutons -->
+      <circle cx="65" cy="90" r="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.6"/>
+      <circle cx="135" cy="90" r="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.5"/>
+      <!-- Feuilles -->
+      <path d="M93 110 Q83 105 78 115 Q88 118 93 113 Z" fill="currentColor" opacity="0.5"/>
+      <path d="M107 110 Q117 105 122 115 Q112 118 107 113 Z" fill="currentColor" opacity="0.5"/>
+    </symbol>
+
+    <!-- Étoile ornementale (kids Noël) -->
+    <symbol id="i-illu-star" viewBox="0 0 200 200">
+      <!-- Étoile à 8 branches (ornement indien) -->
+      <g transform="translate(100 100)">
+        <path d="M0 -55 L8 -12 L55 0 L8 12 L0 55 L-8 12 L-55 0 L-8 -12 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+        <path d="M0 -40 L0 40 M-40 0 L40 0 M-28 -28 L28 28 M-28 28 L28 -28" stroke="var(--mdt-sable, #F4EDE0)" stroke-width="1.5" opacity="0.4"/>
+        <circle r="8" fill="var(--mdt-laiton, #B8924D)"/>
+      </g>
+      <!-- Petits points décoratifs autour -->
+      <g fill="currentColor" opacity="0.4">
+        <circle cx="40" cy="40" r="2"/>
+        <circle cx="160" cy="40" r="2"/>
+        <circle cx="40" cy="160" r="2"/>
+        <circle cx="160" cy="160" r="2"/>
+        <circle cx="100" cy="25" r="1.5"/>
+        <circle cx="100" cy="175" r="1.5"/>
+      </g>
+      <!-- Tige -->
+      <line x1="100" y1="155" x2="100" y2="180" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    </symbol>
+
+    <!-- Mains en cercle (workshops / moments partagés) -->
+    <symbol id="i-illu-circle" viewBox="0 0 200 200">
+      <!-- Cercle central (objet partagé) -->
+      <circle cx="100" cy="100" r="22" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Motif tulipe au centre -->
+      <path d="M100 90 Q94 100 100 110 Q106 100 100 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.7"/>
+      <ellipse cx="100" cy="88" rx="4" ry="5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.7"/>
+      <!-- Cercles concentriques (rayonnement) -->
+      <circle cx="100" cy="100" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" stroke-dasharray="2 4"/>
+      <circle cx="100" cy="100" r="65" fill="none" stroke="currentColor" stroke-width="1" opacity="0.22" stroke-dasharray="2 6"/>
+      <!-- Points autour (participants) -->
+      <g fill="var(--mdt-laiton, #B8924D)">
+        <circle cx="100" cy="35" r="4"/>
+        <circle cx="165" cy="100" r="4"/>
+        <circle cx="100" cy="165" r="4"/>
+        <circle cx="35" cy="100" r="4"/>
+      </g>
+      <g fill="currentColor" opacity="0.55">
+        <circle cx="146" cy="54" r="3.5"/>
+        <circle cx="146" cy="146" r="3.5"/>
+        <circle cx="54" cy="146" r="3.5"/>
+        <circle cx="54" cy="54" r="3.5"/>
+      </g>
+    </symbol>
+
+    <!-- Cityscape silhouette (journal Garenne-Colombes) -->
+    <symbol id="i-illu-cityscape" viewBox="0 0 240 200">
+      <!-- Bâtiments stylisés en silhouette -->
+      <path d="M0 175 L20 175 L20 130 L40 130 L40 110 L60 110 L60 95 L75 95 L75 80 L85 80 L85 105 L100 105 L100 75 L120 75 L120 90 L140 90 L140 65 L155 65 L155 85 L170 85 L170 100 L190 100 L190 120 L210 120 L210 140 L240 140 L240 175 Z" fill="currentColor" opacity="0.55"/>
+      <!-- Détails : fenêtres -->
+      <g fill="var(--mdt-laiton, #B8924D)" opacity="0.7">
+        <rect x="28" y="140" width="3" height="3"/>
+        <rect x="48" y="120" width="3" height="3"/>
+        <rect x="65" y="105" width="3" height="3"/>
+        <rect x="108" y="85" width="3" height="3"/>
+        <rect x="125" y="100" width="3" height="3"/>
+        <rect x="160" y="75" width="3" height="3"/>
+        <rect x="178" y="110" width="3" height="3"/>
+        <rect x="200" y="130" width="3" height="3"/>
+      </g>
+      <!-- Maison Tara mise en valeur (au centre avec store) -->
+      <rect x="100" y="105" width="20" height="70" fill="none" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="1.5"/>
+      <path d="M100 100 L120 100" stroke="var(--mdt-terracotta, #C75B3C)" stroke-width="2"/>
+      <!-- Sol -->
+      <line x1="0" y1="175" x2="240" y2="175" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Petits éléments en avant-plan -->
+      <ellipse cx="20" cy="180" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <ellipse cx="220" cy="180" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+    </symbol>
+
+    <!-- Block print pattern carré (journal block print, gallery décor) -->
+    <symbol id="i-illu-blockprint-pattern" viewBox="0 0 200 200">
+      <!-- 4 tulipes en grille avec liaison -->
+      <g fill="currentColor" opacity="0.78">
+        <!-- HG -->
+        <path d="M50 35 Q44 50 50 70 Q56 50 50 35 Z"/>
+        <ellipse cx="50" cy="33" rx="3.5" ry="5"/>
+        <line x1="50" y1="60" x2="50" y2="85" stroke="currentColor" stroke-width="1.2"/>
+        <!-- HD -->
+        <path d="M150 35 Q144 50 150 70 Q156 50 150 35 Z"/>
+        <ellipse cx="150" cy="33" rx="3.5" ry="5"/>
+        <line x1="150" y1="60" x2="150" y2="85" stroke="currentColor" stroke-width="1.2"/>
+        <!-- BG -->
+        <path d="M50 130 Q44 145 50 165 Q56 145 50 130 Z"/>
+        <ellipse cx="50" cy="128" rx="3.5" ry="5"/>
+        <line x1="50" y1="155" x2="50" y2="180" stroke="currentColor" stroke-width="1.2"/>
+        <!-- BD -->
+        <path d="M150 130 Q144 145 150 165 Q156 145 150 130 Z"/>
+        <ellipse cx="150" cy="128" rx="3.5" ry="5"/>
+        <line x1="150" y1="155" x2="150" y2="180" stroke="currentColor" stroke-width="1.2"/>
+      </g>
+      <!-- Lignes de liaison -->
+      <g stroke="currentColor" stroke-width="1" opacity="0.32" fill="none">
+        <path d="M50 100 L150 100" stroke-dasharray="3 5"/>
+        <path d="M100 50 L100 150" stroke-dasharray="3 5"/>
+      </g>
+      <!-- Tulipe centrale accent -->
+      <path d="M100 90 Q92 105 100 120 Q108 105 100 90 Z" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <ellipse cx="100" cy="88" rx="4" ry="5.5" fill="var(--mdt-terracotta, #C75B3C)" opacity="0.85"/>
+      <!-- Bordure intérieure éditoriale -->
+      <rect x="20" y="20" width="160" height="160" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Skip link a11y -->
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+
+<!-- ============================================================================
+     TOP BAR — contact + ouverture
+     ============================================================================ -->
+<div class="topbar" role="region" aria-label="Informations de contact">
+  <div class="container topbar__inner">
+    <ul class="topbar__info">
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span class="sr-only">Téléphone :</span>
+        <a href="tel:0147XXXXXX" aria-label="Appeler le 01 47 XX XX XX">01 47 XX XX XX</a>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
+        <span class="sr-only">Adresse :</span>
+        <span>La Garenne-Colombes, 92</span>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span class="sr-only">Email :</span>
+        <a href="mailto:hello@maisondetara.com">hello@maisondetara.com</a>
+      </li>
+    </ul>
+    <div class="topbar__opening">Ouverture · Automne 2026</div>
+  </div>
+</div>
+
+<!-- ============================================================================
+     HEADER — logo + nav + CTA + burger
+     ============================================================================ -->
+<header class="header" role="banner">
+  <div class="container header__inner">
+    <a href="#" class="logo" aria-label="Maison de Tara — Accueil">
+      <svg class="logo__mark" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+      <span class="logo__text">MAISON <em>de</em> TARA</span>
+    </a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#atelier">Atelier</a>
+      <a href="#concept">Le lieu</a>
+      <a href="#calendrier">Calendrier</a>
+      <a href="#boutique">Boutique</a>
+      <a href="#journal">Le journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header__cta">
+      <a href="#reserver" class="btn btn--primary">Réserver un moment</a>
+      <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
+        <span class="burger__lines"><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================================
+     MOBILE DRAWER (overlay)
+     ============================================================================ -->
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__header">
+      <span class="logo" id="drawer-title">
+        <svg class="logo__mark" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+        <span class="logo__text">MAISON <em>de</em> TARA</span>
+      </span>
+      <button class="drawer__close" type="button" aria-label="Fermer le menu" data-drawer-close>
+        <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <nav class="drawer__nav" aria-label="Navigation mobile">
+      <a href="#atelier" data-drawer-close>L'<em>Atelier</em></a>
+      <a href="#concept" data-drawer-close>Le <em>lieu</em></a>
+      <a href="#calendrier" data-drawer-close>Le <em>calendrier</em></a>
+      <a href="#boutique" data-drawer-close>La <em>boutique</em></a>
+      <a href="#journal" data-drawer-close>Le <em>journal</em></a>
+      <a href="#contact" data-drawer-close>Contact</a>
+    </nav>
+
+    <div class="drawer__cta">
+      <a href="#reserver" class="btn btn--primary" data-drawer-close>Réserver un moment</a>
+    </div>
+
+    <div class="drawer__contact">
+      <a href="tel:0147XXXXXX">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        01 47 XX XX XX
+      </a>
+      <a href="mailto:hello@maisondetara.com">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        hello@maisondetara.com
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================================
+     MAIN CONTENT
+     ============================================================================ -->
+<main id="main">
+
+  <!-- HERO ====================================================================== -->
+  <section class="hero" data-tab="atelier" aria-labelledby="hero-title">
+    <!-- Tulipes décoratives (purement visuelles) -->
+    <svg class="hero__tulip hero__tulip--1" viewBox="0 0 28 32" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+    <svg class="hero__tulip hero__tulip--2" viewBox="0 0 28 32" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+
+    <div class="container hero__inner">
+      <div class="hero__content fade-in" style="--stagger-index: 0;">
+        <div class="hero__eyebrow">La Garenne-Colombes · Ouverture Automne 2026</div>
+        <h1 class="hero__title" id="hero-title">Atelier céramique, café & boutique <em>d'inspiration indienne</em>.</h1>
+        <p class="hero__lead">Maison de Tara réunit peinture sur céramique, café de quartier et objets choisis dans une maison vivante à La Garenne-Colombes.</p>
+        <p class="hero__promise">Créer. Partager. Prolonger le moment.</p>
+
+        <div class="hero__tabs" role="tablist" aria-label="Choisir un univers">
+          <button class="hero__tab is-active" type="button" data-tab="atelier" role="tab" aria-selected="true">L'Atelier</button>
+          <button class="hero__tab" type="button" data-tab="cafe" role="tab" aria-selected="false">Le Café</button>
+          <button class="hero__tab" type="button" data-tab="boutique" role="tab" aria-selected="false">La Boutique</button>
+        </div>
+
+        <div class="hero__cta-group">
+          <a href="#reserver" class="btn btn--primary">
+            Réserver un moment
+            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+          </a>
+          <a href="#concept" class="btn btn--outline-light">Découvrir le lieu</a>
+        </div>
+
+        <dl class="hero__proofs" aria-label="Informations clés">
+          <div>
+            <dt>2h</dt>
+            <dd>par session atelier</dd>
+          </div>
+          <div>
+            <dt>Sans résa</dt>
+            <dd>pour le café</dd>
+          </div>
+          <div>
+            <dt>92</dt>
+            <dd>La Garenne-Colombes</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Booking card — contenu pilote par data-tab du hero -->
+      <aside class="card--booking fade-in" id="reserver" aria-label="Réserver une session" style="--stagger-index: 2;">
+        <div data-booking-variant="atelier">
+          <h3 class="card--booking__title">Réserver un moment</h3>
+          <p class="card--booking__subtitle">Sessions de 2 heures · groupes et duos</p>
+          <ul class="booking-reassurance" aria-label="Ce qui est inclus">
+            <li>Choix de la pièce sur place</li>
+            <li>Peinture libre, sans niveau requis</li>
+            <li>Cuisson puis retrait environ une semaine après</li>
+          </ul>
+
+          <div class="field">
+            <label class="field__label" for="b-people">Personnes</label>
+            <select class="field__select" id="b-people">
+              <option>1 personne</option>
+              <option>2 personnes</option>
+              <option>3 personnes</option>
+              <option>4 personnes</option>
+              <option>5 personnes</option>
+              <option>6 personnes</option>
+              <option>7+ personnes (groupe)</option>
+            </select>
+          </div>
+
+          <div class="field--row">
+            <div class="field">
+              <label class="field__label" for="b-date">Date</label>
+              <input class="field__input" id="b-date" type="date" value="2026-10-15">
+            </div>
+            <div class="field">
+              <label class="field__label" for="b-slot">Créneau</label>
+              <select class="field__select" id="b-slot">
+                <option>10h00 – 12h00</option>
+                <option>14h00 – 16h00</option>
+                <option>16h30 – 18h30</option>
+                <option>19h00 – 21h00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="b-phone">Téléphone</label>
+            <input class="field__input" id="b-phone" type="tel" placeholder="06 XX XX XX XX">
+          </div>
+
+          <button class="btn btn--primary" type="button">Confirmer la réservation</button>
+          <p class="booking-note">Prototype V2 · le module réel gérera les disponibilités et rappels automatiques.</p>
+        </div>
+
+        <div data-booking-variant="cafe" hidden>
+          <h3 class="card--booking__alt-title">Le café <em>sans réservation</em></h3>
+          <p class="card--booking__alt-text">Poussez la porte, choisissez une table, prenez le temps. C'est tout.</p>
+          <div class="card--booking__alt-info">
+            <strong>Horaires d'ouverture</strong>
+            <p>Mardi — Vendredi · 10h00 – 19h00<br>Samedi · 10h00 – 20h00<br>Dimanche · 11h00 – 18h00</p>
+          </div>
+          <a href="#cafe" class="btn btn--outline">Voir l'esprit du café</a>
+        </div>
+
+        <div data-booking-variant="boutique" hidden>
+          <h3 class="card--booking__alt-title">Nous <em>rendre visite</em></h3>
+          <p class="card--booking__alt-text">La sélection se découvre sur place — chaque saison apporte ses nouveautés.</p>
+          <div class="card--booking__alt-info">
+            <strong>L'adresse</strong>
+            <p>Adresse à confirmer<br>La Garenne-Colombes, 92250</p>
+          </div>
+          <a href="#contact" class="btn btn--outline">Voir le lieu</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SIGNATURE ================================================================ -->
+  <section class="brand-note bg-blockprint" aria-labelledby="brand-note-title">
+    <div class="container brand-note__inner">
+      <div class="brand-note__ornament fade-in" style="--stagger-index: 0;" aria-hidden="true">
+        <svg viewBox="0 0 200 200" focusable="false"><use href="#i-illu-blockprint-pattern"/></svg>
+      </div>
+      <div class="brand-note__copy fade-in" style="--stagger-index: 1;">
+        <span class="eyebrow">L'esprit de la Maison</span>
+        <h2 id="brand-note-title">Un luxe silencieux, jamais pressé.</h2>
+        <p>Maison de Tara n'est pas un coffee shop standardisé, ni un atelier enfantin. C'est un lieu de temps long, de gestes simples et d'objets que l'on garde.</p>
+      </div>
+      <ul class="brand-note__principles fade-in" style="--stagger-index: 2;">
+        <li><span>Créer</span><small>peindre librement</small></li>
+        <li><span>Partager</span><small>s'attabler simplement</small></li>
+        <li><span>Prolonger</span><small>emporter une trace</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- WELCOME =================================================================== -->
+  <section class="welcome" id="concept" aria-labelledby="welcome-title">
+    <div class="container welcome__inner">
+      <div class="welcome__image fade-in" style="--stagger-index: 0;">
+        <div class="welcome__image-placeholder">
+          <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
+        </div>
+      </div>
+      <div class="welcome__content fade-in" style="--stagger-index: 1;">
+        <span class="eyebrow">Bienvenue</span>
+        <h2 class="welcome__title" id="welcome-title">Une maison née entre <em>deux cultures</em>, deux rythmes.</h2>
+        <p class="welcome__text welcome__text--lead">Maison de Tara est née d'un équilibre entre la France et l'Inde. Une maison familiale, communautaire, où l'on prend le temps de créer, partager et se retrouver.</p>
+        <p class="welcome__text">Entre tradition artisanale et élégance contemporaine, un lieu où la matière, les gestes et les objets ont du sens. Un lieu que l'on habite, le temps d'un moment.</p>
+        <p class="welcome__text welcome__text--quote">« On ne vous apprend pas à peindre. On vous laisse essayer. »</p>
+
+        <div class="signature">
+          <div class="signature__name">Tara</div>
+          <div class="signature__role">Fondatrice</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERSES ================================================================= -->
+  <section class="universes" id="atelier" aria-labelledby="universes-title">
+    <div class="container">
+      <header class="section-heading fade-in">
+        <span class="eyebrow">Trois univers, un seul lieu</span>
+        <h2 id="universes-title">Créer. Partager. <em>Prolonger.</em></h2>
+        <p>Chaque pièce de la Maison vit selon son propre rythme — mais ensemble, elles racontent une seule histoire.</p>
+      </header>
+
+      <div class="universes__grid">
+        <article class="card--universe fade-in" style="--stagger-index: 0;">
+          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path d="M32 8 Q22 24 32 44 Q42 24 32 8 Z"/>
+            <ellipse cx="32" cy="7" rx="5" ry="7"/>
+            <line x1="32" y1="32" x2="32" y2="56"/>
+            <path d="M22 44 Q12 40 8 50"/>
+            <path d="M42 44 Q52 40 56 50"/>
+          </svg>
+          <h3 class="card--universe__title">L'Atelier</h3>
+          <p class="card--universe__desc">Choisissez une pièce en céramique, installez-vous, peignez librement. Repartez avec votre création une semaine plus tard, cuite à 1000°C.</p>
+          <ul class="card--universe__features">
+            <li>Sessions de 2 heures en autonomie</li>
+            <li>Café, thé et inspirations à disposition</li>
+            <li>Bons cadeaux et workshops thématiques</li>
+          </ul>
+          <a href="#reserver" class="btn btn--outline">Réserver une session</a>
+        </article>
+
+        <article class="card--universe fade-in" id="cafe" style="--stagger-index: 1;">
+          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path d="M16 20 L48 20 L46 48 Q46 54 40 54 L24 54 Q18 54 18 48 Z"/>
+            <path d="M48 24 Q56 24 56 32 Q56 40 48 40"/>
+            <line x1="24" y1="12" x2="24" y2="18"/>
+            <line x1="32" y1="10" x2="32" y2="18"/>
+            <line x1="40" y1="12" x2="40" y2="18"/>
+          </svg>
+          <h3 class="card--universe__title">Le Café</h3>
+          <p class="card--universe__desc">Un espace pour s'attabler sans réserver. Café spécialité, thés rares, pâtisseries du jour et charcuterie — pensés comme à la maison.</p>
+          <ul class="card--universe__features">
+            <li>Ouvert sans réservation</li>
+            <li>Carte saisonnière, produits artisans locaux</li>
+            <li>Boissons avec et sans alcool</li>
+          </ul>
+          <a href="#cafe" class="btn btn--outline">Voir l'esprit du café</a>
+        </article>
+
+        <article class="card--universe fade-in" id="boutique" style="--stagger-index: 2;">
+          <svg class="card--universe__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <rect x="12" y="20" width="40" height="32" rx="2"/>
+            <path d="M20 20 V14 Q20 8 26 8 L38 8 Q44 8 44 14 V20"/>
+            <line x1="18" y1="30" x2="46" y2="30"/>
+            <circle cx="32" cy="40" r="3"/>
+          </svg>
+          <h3 class="card--universe__title">La Boutique</h3>
+          <p class="card--universe__desc">Une sélection de pièces de décoration d'inspiration indienne — nappes brodées, lampes en céramique, textiles en block print, objets choisis.</p>
+          <ul class="card--universe__features">
+            <li>Pièces renouvelées chaque saison</li>
+            <li>Sélection artisanale et confidentielle</li>
+            <li>Nouveautés présentées sur place</li>
+          </ul>
+          <a href="#boutique" class="btn btn--outline">Découvrir la boutique</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS ============================================================== -->
+  <section class="how bg-blockprint" aria-labelledby="how-title">
+    <div class="container" style="position: relative; z-index: 2;">
+      <header class="section-heading fade-in">
+        <span class="eyebrow">Le parcours</span>
+        <h2 id="how-title">Comment ça se passe ?</h2>
+        <p>Quatre étapes simples, depuis votre arrivée jusqu'au retour chez vous avec votre pièce.</p>
+      </header>
+
+      <div class="how__steps">
+        <div class="step fade-in" style="--stagger-index: 0;">
+          <span class="step__number" aria-hidden="true">01</span>
+          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path d="M6 24 Q6 6 18 6 Q30 6 30 24 Q30 28 18 28 Q6 28 6 24 Z"/>
+            <line x1="18" y1="28" x2="18" y2="32"/>
+          </svg>
+          <h4 class="step__title">Choisir</h4>
+          <p class="step__text">Parcourez les pièces — tasses, bols, assiettes, vases — et choisissez celle que vous voulez peindre.</p>
+        </div>
+        <div class="step fade-in" style="--stagger-index: 1;">
+          <span class="step__number" aria-hidden="true">02</span>
+          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <rect x="8" y="14" width="20" height="14" rx="1"/>
+            <path d="M12 14 V10 Q12 6 16 6 L20 6 Q24 6 24 10 V14"/>
+          </svg>
+          <h4 class="step__title">S'installer</h4>
+          <p class="step__text">Prenez place à une table, un café à la main. Les pinceaux, palettes et inspirations vous attendent.</p>
+        </div>
+        <div class="step fade-in" style="--stagger-index: 2;">
+          <span class="step__number" aria-hidden="true">03</span>
+          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path d="M8 28 L20 16 Q22 14 24 16 L28 20 Q30 22 28 24 L16 36"/>
+            <line x1="24" y1="6" x2="30" y2="12"/>
+          </svg>
+          <h4 class="step__title">Peindre</h4>
+          <p class="step__text">2 heures pour laisser couler les idées. Sans pression, sans recherche de perfection.</p>
+        </div>
+        <div class="step fade-in" style="--stagger-index: 3;">
+          <span class="step__number" aria-hidden="true">04</span>
+          <svg class="step__icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path d="M10 28 L26 28 L24 12 L12 12 Z"/>
+            <path d="M14 12 V8 Q14 6 16 6 L20 6 Q22 6 22 8 V12"/>
+            <line x1="18" y1="18" x2="18" y2="24"/>
+          </svg>
+          <h4 class="step__title">Repartir</h4>
+          <p class="step__text">Votre pièce part en cuisson à 1000°C. Vous la récupérez 7 jours plus tard, prête à habiter votre maison.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS ==================================================================== -->
+  <section class="events" id="calendrier" aria-labelledby="events-title">
+    <div class="container events__inner">
+      <header class="section-heading fade-in">
+        <span class="eyebrow eyebrow--on-dark">À venir</span>
+        <h2 id="events-title">Les <em>rendez-vous</em> de la Maison</h2>
+        <p>Workshops, soirées, collaborations avec artistes et artisans — la Maison vit au rythme des saisons.</p>
+      </header>
+
+      <div class="events__grid">
+        <article class="card--event fade-in" style="--stagger-index: 0;">
+          <div class="card--event__image">
+            <div class="card--event__date">
+              <strong>15</strong>
+              <span>Nov</span>
+            </div>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bouquet"/></svg>
+          </div>
+          <div class="card--event__body">
+            <div class="card--event__meta">Workshop · Avec Anaïs Fleurs</div>
+            <h4 class="card--event__title">Atelier fleurs séchées et céramique</h4>
+            <div class="card--event__time">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+              Samedi · 14h00 – 17h00
+            </div>
+            <a href="#" class="card--event__cta">Réserver cette session
+              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card--event fade-in" style="--stagger-index: 1;">
+          <div class="card--event__image">
+            <div class="card--event__date">
+              <strong>28</strong>
+              <span>Nov</span>
+            </div>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
+          </div>
+          <div class="card--event__body">
+            <div class="card--event__meta">Soirée · Vins nature & céramique</div>
+            <h4 class="card--event__title">Apéro créatif du vendredi soir</h4>
+            <div class="card--event__time">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+              Vendredi · 19h00 – 22h00
+            </div>
+            <a href="#" class="card--event__cta">Réserver cette session
+              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card--event fade-in" style="--stagger-index: 2;">
+          <div class="card--event__image">
+            <div class="card--event__date">
+              <strong>06</strong>
+              <span>Déc</span>
+            </div>
+            <svg class="illu" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-star"/></svg>
+          </div>
+          <div class="card--event__body">
+            <div class="card--event__meta">Kids · Spécial Noël</div>
+            <h4 class="card--event__title">Workshop enfants — décorations de Noël</h4>
+            <div class="card--event__time">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+              Samedi · 10h00 – 12h00
+            </div>
+            <a href="#" class="card--event__cta">Réserver cette session
+              <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="events__footer">
+        <a href="#" class="btn btn--outline-light">Voir tout le calendrier</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION ================================================================== -->
+  <section class="location" id="contact" aria-labelledby="location-title">
+    <div class="container location__inner">
+      <div class="location__image fade-in" style="--stagger-index: 0;">
+        <svg viewBox="0 0 280 320" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-storefront"/></svg>
+      </div>
+      <div class="fade-in" style="--stagger-index: 1;">
+        <span class="eyebrow">Le lieu</span>
+        <h2 class="location__title" id="location-title">Nous rendre visite</h2>
+        <p class="location__intro">Au cœur de La Garenne-Colombes, dans une boutique vert sauge — vous reconnaîtrez la Maison à sa façade.</p>
+
+        <ul class="hours">
+          <li><span class="hours__day">Lundi</span> <span class="hours__closed">Fermé</span></li>
+          <li><span class="hours__day">Mardi — Vendredi</span> <span class="hours__time">10h00 – 19h00</span></li>
+          <li><span class="hours__day">Samedi</span> <span class="hours__time">10h00 – 20h00</span></li>
+          <li><span class="hours__day">Dimanche</span> <span class="hours__time">11h00 – 18h00</span></li>
+        </ul>
+
+        <div class="contact">
+          <span class="eyebrow">Nous appeler</span>
+          <a href="tel:0147XXXXXX" class="contact__phone">01 47 XX XX XX</a>
+          <p class="contact__address">Adresse à confirmer · La Garenne-Colombes, 92250</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY =================================================================== -->
+  <section class="gallery" aria-labelledby="gallery-title">
+    <div class="container">
+      <header class="section-heading fade-in">
+        <span class="eyebrow">La vie du lieu</span>
+        <h2 id="gallery-title">Quelques instants</h2>
+        <p>Sorties de four, ateliers, détails de la Maison — l'esprit du lieu en images.</p>
+      </header>
+
+      <div class="gallery__grid">
+        <button class="gallery__item gallery__item--feature fade-in" type="button" aria-label="L'atelier en action" style="--stagger-index: 0;">
+          <div class="gallery__placeholder">
+            <svg viewBox="0 0 240 280" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-arrangement"/></svg>
+          </div>
+          <div class="gallery__overlay">
+            <span class="gallery__tag">Atelier</span>
+            <span class="gallery__caption">L'atelier en action</span>
+          </div>
+        </button>
+        <button class="gallery__item fade-in" type="button" aria-label="Sortie de four" style="--stagger-index: 1;">
+          <div class="gallery__placeholder">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-bowls"/></svg>
+          </div>
+          <div class="gallery__overlay">
+            <span class="gallery__tag">Rituel</span>
+            <span class="gallery__caption">Sortie de four</span>
+          </div>
+        </button>
+        <button class="gallery__item fade-in" type="button" aria-label="Apéro maison" style="--stagger-index: 2;">
+          <div class="gallery__placeholder">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-cheers"/></svg>
+          </div>
+          <div class="gallery__overlay">
+            <span class="gallery__tag">Café</span>
+            <span class="gallery__caption">Apéro maison</span>
+          </div>
+        </button>
+        <button class="gallery__item fade-in" type="button" aria-label="Détails du lieu" style="--stagger-index: 3;">
+          <div class="gallery__placeholder">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-lamp"/></svg>
+          </div>
+          <div class="gallery__overlay">
+            <span class="gallery__tag">Boutique</span>
+            <span class="gallery__caption">Détails du lieu</span>
+          </div>
+        </button>
+        <button class="gallery__item fade-in" type="button" aria-label="Moments partagés" style="--stagger-index: 4;">
+          <div class="gallery__placeholder">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-circle"/></svg>
+          </div>
+          <div class="gallery__overlay">
+            <span class="gallery__tag">Workshops</span>
+            <span class="gallery__caption">Moments partagés</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL =================================================================== -->
+  <section class="journal" id="journal" aria-labelledby="journal-title">
+    <div class="container">
+      <header class="section-heading fade-in">
+        <span class="eyebrow">Le Journal</span>
+        <h2 id="journal-title">Coulisses & inspirations</h2>
+        <p>Les histoires qui se tissent autour de la Maison — rituels, rencontres, recettes.</p>
+      </header>
+
+      <div class="journal__grid">
+        <article class="card--journal fade-in" style="--stagger-index: 0;">
+          <div class="card--journal__image">
+            <svg viewBox="0 0 240 200" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><use href="#i-illu-cityscape"/></svg>
+          </div>
+          <div class="card--journal__body">
+            <div class="card--journal__meta">
+              <span>Coulisses</span><span class="dot" aria-hidden="true"></span><span>03 Oct 2026</span>
+            </div>
+            <h4 class="card--journal__title">Pourquoi nous avons choisi La Garenne-Colombes</h4>
+            <a href="#" class="btn--link">Lire l'article</a>
+          </div>
+        </article>
+
+        <article class="card--journal fade-in" style="--stagger-index: 1;">
+          <div class="card--journal__image">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#i-illu-blockprint-pattern"/></svg>
+          </div>
+          <div class="card--journal__body">
+            <div class="card--journal__meta">
+              <span>Inspirations</span><span class="dot" aria-hidden="true"></span><span>28 Sept 2026</span>
+            </div>
+            <h4 class="card--journal__title">L'art du block print indien, raconté simplement</h4>
+            <a href="#" class="btn--link">Lire l'article</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER ================================================================ -->
+  <section class="newsletter" aria-labelledby="newsletter-title">
+    <div class="container newsletter__inner">
+      <span class="eyebrow eyebrow--on-dark">Rester proche</span>
+      <h2 class="newsletter__title" id="newsletter-title">Recevoir des nouvelles <em>de la Maison</em></h2>
+      <p class="newsletter__text">Les prochaines dates, les rituels saisonniers, les nouvelles pièces — une lettre par mois, jamais plus.</p>
+      <form class="newsletter__form" novalidate>
+        <label class="sr-only" for="newsletter-email">Votre adresse email</label>
+        <input class="newsletter__input" id="newsletter-email" type="email" placeholder="Votre adresse email" required>
+        <button class="btn btn--primary" type="submit">S'abonner</button>
+      </form>
+      <p class="newsletter__feedback" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================================
+     FOOTER
+     ============================================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="#" class="logo" aria-label="Maison de Tara — Accueil">
+          <svg class="logo__mark" aria-hidden="true" focusable="false"><use href="#i-tulip"/></svg>
+          <span class="logo__text">MAISON <em>de</em> TARA</span>
+        </a>
+        <p class="footer__about">Atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne, au cœur de La Garenne-Colombes. Un lieu où l'on prend le temps.</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Suivez-nous sur Instagram">
+            <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg>
+          </a>
+          <a href="#" aria-label="Suivez-nous sur Pinterest">
+            <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-pinterest"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav aria-label="Liens du pied de page">
+        <h5 class="footer__heading">Explorer</h5>
+        <ul>
+          <li><a href="#atelier">L'Atelier</a></li>
+          <li><a href="#cafe">Le Café</a></li>
+          <li><a href="#boutique">La Boutique</a></li>
+          <li><a href="#calendrier">Calendrier</a></li>
+          <li><a href="#journal">Le Journal</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h5 class="footer__heading">Contact</h5>
+        <div class="footer__contact-item">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
+          <span>La Garenne-Colombes, 92250</span>
+        </div>
+        <div class="footer__contact-item">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+          <a href="tel:0147XXXXXX">01 47 XX XX XX</a>
+        </div>
+        <div class="footer__contact-item">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+          <a href="mailto:hello@maisondetara.com">hello@maisondetara.com</a>
+        </div>
+        <div class="footer__contact-item" style="margin-top: 20px; font-style: italic; opacity: 0.7;">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
+          <span>Mar — Dim · 10h–19h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div>© 2026 Maison de Tara · Tous droits réservés</div>
+      <div class="footer__bottom-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGV</a>
+        <a href="#">Confidentialité</a>
+        <a href="#" style="opacity: 0.5;">Site par Propul'SEO</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="mobile-reserve" href="#reserver">Réserver un moment</a>
+
+<script src="scripts-v2.js" defer></script>
+</body>
+</html>

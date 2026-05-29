@@ -212,6 +212,116 @@
   })();
 
   /* ==========================================================================
+     EXPERIENCE STEPS — module parcours avec rotation automatique
+     ========================================================================== */
+  const experienceSteps = (() => {
+    const section = document.querySelector('[data-experience-steps]');
+    if (!section) return { init() {} };
+
+    const media = section.querySelector('.experience-how__media');
+    const image = section.querySelector('[data-experience-image]');
+    const counter = section.querySelector('[data-experience-counter]');
+    const title = section.querySelector('[data-experience-title]');
+    const subtitle = section.querySelector('[data-experience-subtitle]');
+    const text = section.querySelector('[data-experience-text]');
+    const note = section.querySelector('[data-experience-note]');
+    const buttons = Array.from(section.querySelectorAll('[data-experience-step]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeIndex = 0;
+    let timer = null;
+
+    if (!media || !image || !counter || !title || !subtitle || !text || !buttons.length) {
+      return { init() {} };
+    }
+
+    function setStep(nextIndex) {
+      const nextButton = buttons[nextIndex];
+      if (!nextButton) return;
+
+      activeIndex = nextIndex;
+      buttons.forEach((button, index) => {
+        const isActive = index === activeIndex;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-selected', String(isActive));
+      });
+
+      media.classList.add('is-switching');
+
+      window.setTimeout(() => {
+        image.src = nextButton.dataset.image;
+        image.alt = nextButton.dataset.alt;
+        counter.textContent = `${activeIndex + 1}/${buttons.length}`;
+        title.textContent = nextButton.dataset.title;
+        subtitle.textContent = nextButton.dataset.subtitle;
+        text.textContent = nextButton.dataset.text;
+        if (note) note.textContent = nextButton.dataset.note || '';
+        media.classList.remove('is-switching');
+      }, 180);
+    }
+
+    function stop() {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    function start() {
+      stop();
+      if (reducedMotion.matches || buttons.length < 2) return;
+      timer = window.setInterval(() => {
+        setStep((activeIndex + 1) % buttons.length);
+      }, 4200);
+    }
+
+    return {
+      init() {
+        buttons.forEach((button, index) => {
+          button.addEventListener('click', () => {
+            setStep(index);
+            start();
+          });
+        });
+
+        start();
+      }
+    };
+  })();
+
+  /* ==========================================================================
+     COUNTDOWN — jours restants avant ouverture
+     ========================================================================== */
+  const countdown = (() => {
+    const node = document.querySelector('[data-countdown]');
+    if (!node) return { init() {} };
+
+    const target = node.getAttribute('data-countdown-target');
+    const out = node.querySelector('[data-countdown-days]');
+    if (!target || !out) return { init() {} };
+
+    function update() {
+      const targetDate = new Date(target + 'T00:00:00');
+      const now = new Date();
+      const diffMs = targetDate.getTime() - now.getTime();
+      const days = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+      out.textContent = days;
+
+      if (days === 0) {
+        node.classList.add('countdown--open');
+        const line = node.querySelector('.countdown__line span');
+        if (line) line.textContent = 'La Maison est ouverte. Venez nous voir.';
+      }
+    }
+
+    return {
+      init() {
+        update();
+        // Refresh once per hour (no need to poll faster)
+        setInterval(update, 60 * 60 * 1000);
+      }
+    };
+  })();
+
+  /* ==========================================================================
      NEWSLETTER — feedback simulé (pas de backend en V1)
      ========================================================================== */
   const newsletter = (() => {
@@ -250,6 +360,8 @@
     mobileMenu.init();
     heroTabs.init();
     scrollObserver.init();
+    experienceSteps.init();
+    countdown.init();
     newsletter.init();
   });
 

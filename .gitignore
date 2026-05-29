@@ -45,3 +45,12 @@ Thumbs.db
 
 # Third-party references (not redistributable)
 Restan v1.3/
+Envato/
+V3/
+
+# Heavy local reference material (not for repo)
+Document Tara/
+
+# Local tooling cache & session planning
+.kombai/
+.planning/

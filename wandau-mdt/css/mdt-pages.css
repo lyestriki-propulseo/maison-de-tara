@@ -210,3 +210,14 @@
   .cal-num { font-size: .78rem; }
   .cal-head h2 { font-size: 1.3rem; min-width: 150px; }
 }
+
+/* ============================ HISTOIRE (coquille) ============================ */
+.mdt-placeholder-note {
+  background: rgba(186,119,112,.12); border: 1px dashed var(--mdt-rose); border-radius: 10px;
+  padding: 14px 18px; color: var(--mdt-terracotta); font-size: .9rem; max-width: 760px;
+  margin: 0 auto 32px; text-align: center;
+}
+.mdt-letter { max-width: 720px; margin: 0 auto; }
+.mdt-letter p { color: var(--mdt-text-soft); line-height: 1.9; font-size: 1.05rem; margin: 0 0 20px; }
+.mdt-letter .lead { font-family: var(--mdt-font-display); font-size: 1.4rem; font-style: italic; color: var(--mdt-ink); }
+.mdt-signature { font-family: var(--mdt-font-script); font-size: 2.2rem; color: var(--mdt-terracotta); margin-top: 24px; }

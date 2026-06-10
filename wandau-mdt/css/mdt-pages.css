@@ -95,3 +95,45 @@
 .mdt-form .field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .mdt-form .form-msg { margin-top: 14px; color: var(--mdt-olive-deep); font-weight: 500; min-height: 1.2em; }
 @media (max-width: 600px) { .mdt-form .field--row { grid-template-columns: 1fr; } }
+
+/* ============================ BOUTIQUE ============================ */
+
+/* Récit d'intro */
+.mdt-recit { max-width: 760px; margin: 0 auto; }
+.mdt-recit p { color: var(--mdt-text-soft); line-height: 1.85; font-size: 1.06rem; margin: 0 0 18px; }
+.mdt-recit p.lead {
+  font-family: var(--mdt-font-display); font-size: 1.45rem; line-height: 1.5;
+  color: var(--mdt-ink); font-style: italic;
+}
+
+/* Image d'ambiance pleine largeur */
+.mdt-ambiance { border-radius: 18px; overflow: hidden; margin: 8px 0 4px; line-height: 0; }
+.mdt-ambiance img { width: 100%; height: clamp(260px, 42vw, 520px); object-fit: cover; display: block; }
+
+/* Grille des univers de la boutique */
+.mdt-boutique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.mdt-boutique-card {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 26px 24px;
+  position: relative; overflow: hidden;
+}
+.mdt-boutique-card::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--mdt-rose);
+}
+.mdt-boutique-card h3 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: 1.3rem; margin: 0 0 8px;
+}
+.mdt-boutique-card p { color: var(--mdt-text-soft); line-height: 1.6; margin: 0; font-size: .95rem; }
+
+/* Bloc artisanat (aplat vert) */
+.mdt-artisanat {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 18px;
+  padding: clamp(32px, 5vw, 56px); text-align: center;
+}
+.mdt-artisanat h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 0 0 16px; }
+.mdt-artisanat p { max-width: 640px; margin: 0 auto; line-height: 1.8; opacity: .92; }
+
+/* Encart « passez nous voir » */
+.mdt-visit-note { text-align: center; max-width: 620px; margin: 0 auto; }
+.mdt-visit-note p { color: var(--mdt-text-soft); line-height: 1.7; }

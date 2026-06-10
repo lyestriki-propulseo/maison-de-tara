@@ -257,6 +257,10 @@
   }
 
 
+  // Conteneur smooth-scroll (absent sur les pages à scroll natif) + handle Locomotive partagé
+  var smoothEl = document.querySelector('.smooth-scroll');
+  var locoScroll = null;
+
   // PRELOADER
   let settings = {
     progressSize: 320,
@@ -311,6 +315,10 @@
 
 
   preloader = document.getElementById('preloader');
+
+  // Pages sans preloader dans le DOM (coquilles internes, calendrier/lab) : sauter toute l'animation
+  // pour ne pas planter sur progressBar null ni bloquer le scroll du body.
+  if (preloader && document.getElementById('progress-bar')) {
 
   let progressBar = document.getElementById('progress-bar'),
     images = document.images,
@@ -415,27 +423,31 @@
   function hidePreloader() {
     setTimeout(function () {
       $("body").addClass("page-loaded");
-      locoScroll.update();
+      if (locoScroll) locoScroll.update();
       document.body.style.overflowY = '';
     }, settings.preloaderAnimationDuration + 100);
   }
+
+  } // fin garde preloader (if preloader && #progress-bar)
   var resizeTimer;
 
 
-  // LOCOMOTIVE
-  const locoScroll = new LocomotiveScroll({
-    el: document.querySelector(".smooth-scroll"),
-    smooth: true,
-    class: 'is-inview',
-    getSpeed: true,
-    getDirection: true,
-    smartphone: {
-      smooth: false,
-    },
-    tablet: {
-      smooth: false,
-    },
-  });
+  // LOCOMOTIVE — init seulement si la page a un conteneur .smooth-scroll (sinon scroll natif)
+  if (smoothEl) {
+    locoScroll = new LocomotiveScroll({
+      el: smoothEl,
+      smooth: true,
+      class: 'is-inview',
+      getSpeed: true,
+      getDirection: true,
+      smartphone: {
+        smooth: false,
+      },
+      tablet: {
+        smooth: false,
+      },
+    });
+  }
 
 
 

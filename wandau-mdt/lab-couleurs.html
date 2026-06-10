@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lab couleurs · Maison de Tara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--mdt-font-body); color: var(--mdt-ink); background: #fbf9f2; }
+  .lab-topbar { padding: 20px 28px; border-bottom: 1px solid rgba(44,36,25,.12); background: #fff; }
+  .lab-topbar h1 { font-family: var(--mdt-font-display); font-weight: 500; margin: 0 0 4px; font-size: 1.5rem; }
+  .lab-topbar p { margin: 0; color: #6b6354; font-size: .9rem; }
+  .lab { display: grid; grid-template-columns: 340px 1fr; gap: 0; min-height: calc(100vh - 74px); }
+  .controls { padding: 24px; border-right: 1px solid rgba(44,36,25,.12); background: #fff; overflow-y: auto; }
+  .zone { margin-bottom: 22px; }
+  .zone h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #6b6354; margin: 0 0 10px; font-weight: 600; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { cursor: pointer; border: 2px solid transparent; border-radius: 10px; width: 56px; height: 48px; display: flex; align-items: flex-end; justify-content: center; padding: 4px; font-size: .62rem; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); background: #ddd; transition: transform .12s, border-color .12s; }
+  .swatch:hover { transform: translateY(-2px); }
+  .swatch[aria-pressed="true"] { border-color: var(--mdt-ink); box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+  .swatch.is-font { color: var(--mdt-ink); text-shadow: none; align-items: center; font-size: .72rem; width: auto; padding: 0 12px; }
+  /* Aperçu : lit les --lab-* (modifiés au clic) */
+  .preview { --lab-bg: var(--mdt-olive); --lab-header: var(--mdt-beige); --lab-cta: var(--mdt-terracotta); --lab-title: var(--mdt-terracotta); --mdt-font-body: 'Inter', sans-serif; --lab-pattern-opacity: .18; }
+  .preview { overflow-y: auto; }
+  .pv-header { background: var(--lab-header); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(44,36,25,.08); }
+  .pv-header .brand { font-family: var(--mdt-font-display); font-size: 1.25rem; color: var(--mdt-ink); }
+  .pv-header nav a { font-family: var(--mdt-font-body); color: var(--mdt-ink); margin-left: 18px; text-decoration: none; font-size: .9rem; }
+  .pv-hero { position: relative; overflow: hidden; background: var(--lab-bg); padding: 90px 40px; text-align: center; }
+  .pv-hero::before { content: ""; position: absolute; inset: 0; background: url(../assets-premium-lp/wallpaper-tara-green.png) center / 720px repeat; opacity: var(--lab-pattern-opacity); mix-blend-mode: screen; pointer-events: none; }
+  .pv-hero h1 { position: relative; font-family: var(--mdt-font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 3.4rem); color: var(--lab-title); margin: 0 0 14px; }
+  .pv-hero p { position: relative; font-family: var(--mdt-font-body); color: var(--mdt-beige); max-width: 540px; margin: 0 auto 26px; line-height: 1.6; }
+  .pv-script { font-family: var(--mdt-font-script); font-size: 1.6rem; color: var(--mdt-beige); position: relative; }
+  .cta { display: inline-block; position: relative; background: var(--lab-cta); color: #fff; font-family: var(--mdt-font-body); font-weight: 500; padding: 13px 28px; border-radius: 999px; text-decoration: none; border: none; cursor: pointer; }
+  .pv-section { padding: 56px 40px; background: var(--mdt-beige); }
+  .pv-section h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--lab-title); font-size: 1.9rem; margin: 0 0 12px; }
+  .pv-section p { font-family: var(--mdt-font-body); color: #5f4f3f; max-width: 620px; line-height: 1.7; }
+  .pv-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+  .pv-card { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 8px 24px rgba(44,36,25,.06); }
+  .pv-card h3 { font-family: var(--mdt-font-display); color: var(--mdt-ink); margin: 0 0 8px; font-weight: 500; }
+  .pv-card span { font-family: var(--mdt-font-body); color: #6b6354; font-size: .88rem; }
+  .export { padding: 18px 24px; border-top: 1px solid rgba(44,36,25,.12); background: #fff; position: sticky; bottom: 0; }
+  .export h3 { margin: 0 0 8px; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #6b6354; }
+  .export pre { margin: 0; background: #2c2419; color: #f0ecdb; padding: 12px 14px; border-radius: 8px; font-size: .8rem; overflow-x: auto; }
+  .export button { margin-top: 10px; background: var(--mdt-ink); color: #fff; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-family: var(--mdt-font-body); }
+  @media (max-width: 900px) { .lab { grid-template-columns: 1fr; } .controls { border-right: none; border-bottom: 1px solid rgba(44,36,25,.12); } .pv-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="lab-topbar">
+  <h1>Lab couleurs · Maison de Tara</h1>
+  <p>Cliquez une option par zone pour tester en direct. La palette retenue s'affiche en bas — copiez-la pour la verrouiller dans <code>css/tokens.css</code>.</p>
+</div>
+<div class="lab">
+  <aside class="controls" aria-label="Réglages des couleurs"><!-- zones injectées par lab.js --></aside>
+  <main class="preview" id="preview">
+    <div class="pv-header">
+      <span class="brand">Maison de Tara</span>
+      <nav><a>L'Atelier</a><a>La Boutique</a><a>Le Calendrier</a><a>Contact</a></nav>
+    </div>
+    <section class="pv-hero">
+      <div class="pv-script">On prend le temps</div>
+      <h1>Bienvenue à la Maison de Tara</h1>
+      <p>Peinture sur céramique · salon de thé · boutique déco. Un lieu où l'on crée de ses mains et où l'on s'attable sans se presser.</p>
+      <a class="cta">Réserver un moment</a>
+    </section>
+    <section class="pv-section">
+      <h2>À découvrir à la maison</h2>
+      <p>Un échantillon de texte courant pour juger la lisibilité du corps de page sur le fond beige de la charte, avec un lien <a href="#">mis en couleur</a> au fil de la lecture.</p>
+      <div class="pv-cards">
+        <div class="pv-card"><h3>L'envie de créer</h3><span>Sessions de 2 heures, à votre rythme.</span></div>
+        <div class="pv-card"><h3>Une sélection</h3><span>Déco, textiles et idées cadeaux.</span></div>
+        <div class="pv-card"><h3>Le moment</h3><span>Café, thé et douceurs.</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+<aside class="export">
+  <h3>Palette retenue</h3>
+  <pre id="export-out"></pre>
+  <button type="button" id="copy-btn">Copier</button>
+</aside>
+<script src="js/lab.js"></script>
+</body>
+</html>

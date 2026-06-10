@@ -221,3 +221,23 @@
 .mdt-letter p { color: var(--mdt-text-soft); line-height: 1.9; font-size: 1.05rem; margin: 0 0 20px; }
 .mdt-letter .lead { font-family: var(--mdt-font-display); font-size: 1.4rem; font-style: italic; color: var(--mdt-ink); }
 .mdt-signature { font-family: var(--mdt-font-script); font-size: 2.2rem; color: var(--mdt-terracotta); margin-top: 24px; }
+
+/* ============================ ATELIER — étapes en blocs larges ============================ */
+.mdt-steps { display: grid; gap: 26px; max-width: 1000px; margin: 0 auto; }
+.mdt-step-row {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 16px; overflow: hidden;
+}
+.mdt-step-row:nth-child(even) .mdt-step-img { order: 2; }
+.mdt-step-img { min-height: 240px; }
+.mdt-step-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mdt-step-body { padding: clamp(24px, 3vw, 40px); }
+.mdt-step-num { font-family: var(--mdt-font-script); font-size: 1.5rem; color: var(--mdt-rose); display: block; }
+.mdt-step-body h3 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta); font-size: 1.5rem; margin: 2px 0 12px; }
+.mdt-step-body p { color: var(--mdt-text-soft); line-height: 1.7; margin: 0 0 12px; }
+.mdt-step-price { background: rgba(138,151,108,.14); border-radius: 10px; padding: 12px 14px; color: var(--mdt-olive-deep); font-size: .92rem; }
+.mdt-step-price ul { margin: 6px 0 0; padding-left: 18px; }
+@media (max-width: 768px) {
+  .mdt-step-row { grid-template-columns: 1fr; }
+  .mdt-step-row:nth-child(even) .mdt-step-img { order: 0; }
+}

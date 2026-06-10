@@ -137,3 +137,30 @@
 /* Encart « passez nous voir » */
 .mdt-visit-note { text-align: center; max-width: 620px; margin: 0 auto; }
 .mdt-visit-note p { color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* ============================ ATELIER ============================ */
+
+/* Carte de réservation */
+.mdt-reserve {
+  max-width: 680px; margin: 0 auto; background: #fff; border: 1px solid var(--mdt-line);
+  border-radius: 18px; padding: clamp(24px, 4vw, 40px);
+}
+.mdt-reserve .mdt-acompte {
+  background: rgba(138,151,108,.16); border-radius: 10px; padding: 12px 16px;
+  color: var(--mdt-olive-deep); font-size: .92rem; margin: 0 0 22px; line-height: 1.5;
+}
+.mdt-reserve .mdt-note-8 { font-size: .85rem; color: var(--mdt-text-soft); margin: 6px 0 16px; }
+
+/* Privatisation (aplat vert + occasions) */
+.mdt-privatisation {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 18px;
+  padding: clamp(32px, 5vw, 56px); text-align: center;
+}
+.mdt-privatisation h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 0 0 14px; }
+.mdt-privatisation p { max-width: 640px; margin: 0 auto; line-height: 1.8; opacity: .92; }
+.mdt-occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+.mdt-occasions span {
+  background: rgba(240,236,219,.14); border: 1px solid rgba(240,236,219,.32);
+  border-radius: 999px; padding: 7px 16px; font-size: .9rem;
+}

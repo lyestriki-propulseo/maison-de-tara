@@ -28,10 +28,8 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/mdt-override.css">
 <link rel="stylesheet" href="css/mdt-pages.css">
-<title>Le Calendrier · Maison de Tara</title>
-<meta name="description" content="Les ateliers, brunchs, événements et nouveautés de la boutique à venir à la Maison de Tara, à La Garenne-Colombes.">
-<meta property="og:title" content="Le Calendrier · Maison de Tara">
-<meta property="og:description" content="Les ateliers, brunchs, événements et nouveautés de la boutique à venir à la Maison de Tara, à La Garenne-Colombes.">
+<title>Page introuvable · Maison de Tara</title>
+<meta name="robots" content="noindex">
 </head>
 <body>
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
@@ -158,20 +156,31 @@
   </div>
 </div>
 <!-- ====== /HEADER MDT ====== -->
-<main id="main" class="mdt-natural-scroll">
-  <section class="content-section mdt-floral-soft">
-    <div class="container">
-      <div class="mdt-page-intro">
-        <span class="mdt-eyebrow">Le calendrier</span>
-        <h1>Les prochains rendez-vous</h1>
-        <p>Ateliers, brunchs, événements et nouveautés de la boutique : tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
+<div class="smooth-scroll">
+  <div class="section-wrapper" data-scroll-section id="main">
+    <section class="content-section mdt-floral-soft">
+      <div class="container">
+        <div class="mdt-page-intro">
+          <span class="mdt-eyebrow">Erreur 404</span>
+          <h1>Cette page s'est égarée</h1>
+          <p>La page que vous cherchez n'existe pas ou a été déplacée. Revenez à l'accueil — on vous remet sur le bon chemin.</p>
+          <p style="margin-top:24px"><a href="index.html" class="btn btn--primary">Retour à l'accueil</a></p>
+        </div>
       </div>
-      <div id="calendar" class="mdt-calendar"></div>
-    </div>
-  </section>
-</main>
-<!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
+    </section>
+  </div>
+</div>
+<!-- JS FILES -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/locomotive-scroll.min.js"></script>
+<script src="js/kinetic-slider.js"></script>
+<script src="js/fancybox.min.js"></script>
+<script src="js/odometer.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/scripts.js"></script>
+
+<!-- Menu mobile (drawer) — extrait en js/drawer.js, partagé avec scripts-min.html (DRY) -->
 <script src="js/drawer.js"></script>
-<script type="module">import { initCalendar } from './js/calendar.js'; initCalendar('calendar');</script>
 </body>
 </html>

@@ -1,0 +1,97 @@
+/* ============================================================
+   MDT Pages — styles spécifiques aux pages internes (Contact,
+   Boutique, Atelier, Calendrier). Chargé après mdt-override.css.
+   Couleurs/polices : toujours via les tokens charte (var(--mdt-*)).
+   ============================================================ */
+
+/* --- Conteneur scroll natif (pages sans Locomotive : calendrier) --- */
+.mdt-natural-scroll { display: block; }
+
+/* --- Bandeau d'intro de page interne --- */
+.mdt-page-intro { text-align: center; padding-top: 140px; }
+.mdt-page-intro .mdt-eyebrow {
+  font-family: var(--mdt-font-script); font-size: 1.6rem; color: var(--mdt-rose);
+  display: block; margin-bottom: 6px;
+}
+.mdt-page-intro h1 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 0 0 16px;
+}
+.mdt-page-intro p { max-width: 620px; margin: 0 auto; color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* ============================ CONTACT ============================ */
+
+/* Coordonnées rapides */
+.mdt-coords {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px; margin: 40px 0;
+}
+.mdt-coord {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 20px 22px;
+}
+.mdt-coord .icon { width: 26px; height: 26px; color: var(--mdt-terracotta); flex: none; margin-top: 2px; }
+.mdt-coord h3 { font-family: var(--mdt-font-body); font-size: .78rem; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--mdt-text-soft); margin: 0 0 4px; font-weight: 600; }
+.mdt-coord a, .mdt-coord p { color: var(--mdt-ink); text-decoration: none; margin: 0; font-size: 1.02rem; }
+.mdt-coord a:hover { color: var(--mdt-terracotta); }
+
+/* Accès (train / tram / bus / voiture) */
+.mdt-access { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.mdt-access .mdt-access-card {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 24px;
+}
+.mdt-access-card h3 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-olive-deep);
+  font-size: 1.25rem; margin: 0 0 10px;
+}
+.mdt-access-card p { color: var(--mdt-text-soft); line-height: 1.6; margin: 0; font-size: .95rem; }
+
+/* Horaires */
+.mdt-hours-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+.mdt-hours {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 16px; padding: 28px 30px;
+}
+.mdt-hours h3 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: 1.4rem; margin: 0 0 16px; }
+.mdt-hours ul { list-style: none; margin: 0; padding: 0; }
+.mdt-hours li { display: flex; justify-content: space-between; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid rgba(240,236,219,.18); font-size: .95rem; }
+.mdt-hours li:last-child { border-bottom: none; }
+.mdt-hours li span:first-child { opacity: .85; }
+.mdt-hours li.is-closed span:last-child { opacity: .6; font-style: italic; }
+
+/* Carte */
+.mdt-map { border-radius: 16px; overflow: hidden; border: 1px solid var(--mdt-line); line-height: 0; }
+.mdt-map iframe { width: 100%; height: 420px; border: 0; display: block; }
+
+/* FAQ (details natifs) */
+.mdt-faq { max-width: 820px; margin: 0 auto; }
+.mdt-faq details {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 12px;
+  margin-bottom: 12px; padding: 0 22px;
+}
+.mdt-faq summary {
+  cursor: pointer; list-style: none; padding: 18px 0; font-family: var(--mdt-font-display);
+  font-size: 1.12rem; color: var(--mdt-ink); display: flex; justify-content: space-between; align-items: center;
+}
+.mdt-faq summary::-webkit-details-marker { display: none; }
+.mdt-faq summary::after { content: "+"; color: var(--mdt-terracotta); font-size: 1.5rem; line-height: 1; }
+.mdt-faq details[open] summary::after { content: "–"; }
+.mdt-faq details > p { margin: 0 0 18px; color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* Formulaire MDT */
+.mdt-form { max-width: 640px; margin: 0 auto; }
+.mdt-form .field { margin-bottom: 16px; }
+.mdt-form label { display: block; font-size: .85rem; color: var(--mdt-text-soft); margin-bottom: 6px; font-weight: 500; }
+.mdt-form input, .mdt-form select, .mdt-form textarea {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--mdt-line); border-radius: 10px;
+  font-family: var(--mdt-font-body); font-size: 1rem; background: #fff; color: var(--mdt-ink);
+}
+.mdt-form textarea { min-height: 130px; resize: vertical; }
+.mdt-form input:focus, .mdt-form select:focus, .mdt-form textarea:focus {
+  outline: none; border-color: var(--mdt-terracotta); box-shadow: 0 0 0 3px rgba(121,48,30,.12);
+}
+.mdt-form .field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mdt-form .form-msg { margin-top: 14px; color: var(--mdt-olive-deep); font-weight: 500; min-height: 1.2em; }
+@media (max-width: 600px) { .mdt-form .field--row { grid-template-columns: 1fr; } }

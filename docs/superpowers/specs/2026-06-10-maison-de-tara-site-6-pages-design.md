@@ -112,7 +112,7 @@ Le repo couvre ~90 % des layouts. ⚠️ **Chemins exacts** : les pages réutili
 | Page | Base réutilisée (chemin exact) | Blocs réels | À créer / corriger |
 |---|---|---|---|
 | **Accueil** | `wandau-mdt/index.html` (déjà MDT) — désormais édité dans `_src/index.html` | hero, preloader, nav, footer, newsletter | textes + couleurs + teaser boutique #50 |
-| **Contact** | `wandau-mdt/contact.html` | `#contactForm` (4 champs) + iframe Maps + boxes infos | **trad FR**, contenu doc, **bloc accès/transports**, horaires ouverture, FAQ, **carte = mauvaise localisation (cimetière Kiev) à remplacer**, **form poste vers `contact.php` (PHP) → inactif en preview statique → choisir backend** (Formspree/Netlify/n8n) |
+| **Contact** | `wandau-mdt/contact.html` | `#contactForm` (4 champs) + iframe Maps + boxes infos | **trad FR**, contenu doc, **bloc accès/transports**, horaires ouverture, FAQ, **carte = mauvaise localisation (cimetière Kiev) à remplacer**, **form poste vers `contact.php` (PHP) → inactif en statique → remplacé par Supabase (cf. §6.4)** |
 | **Boutique** | `wandau-mdt/collections.html` + `wandau-mdt/collection-detail.html` | grille **éditoriale** 3 col (cartes sans prix/panier) + fiche détail | adapter déco/textiles, trad FR, couleurs MDT |
 | **Histoire** | **contenu/layout MDT = `about-concept-previews.html` (racine)** : 4 variantes **A** Maison de famille · **B** Manifeste premium · **C** Lettre de Tara · **D** Magazine sensoriel. Base structurelle = `wandau-mdt/about.html` (anglais, à repeindre) | 4 mises en page MDT prêtes | poser le texte (en attente de Tara) |
 | **Atelier** | `wandau-mdt/visit.html` (accordéon FAQ + liste à icônes horaires) **+ modèle process = `premium-section-lab.html` (racine) `#process`, DÉJÀ en 4 étapes** | FAQ, liste icônes, **4 étapes** | formulaire réservation + remplacer le texte des 4 étapes |
@@ -140,16 +140,24 @@ Le repo couvre ~90 % des layouts. ⚠️ **Chemins exacts** : les pages réutili
 ### 6.2 Formulaire de réservation Atelier
 - Base : `#contactForm` de `wandau-mdt/contact.html`.
 - Champs ajoutés : **date**, **créneau** (créneaux ateliers du doc), **nb participants** (**max 8 → message « appeler / passer à la boutique », cf. #17**).
-- Acompte : **6 €/personne** (doc Contact). Backend à décider (cf. Contact).
+- Acompte : **6 €/personne** (doc Contact). Backend : **Supabase** (cf. §6.4).
 
 ### 6.3 Section « comment ça se passe » (Atelier)
 - Base : **variante A « 4 étapes claires » de `premium-section-lab.html` `#process` (déjà 4 étapes)** — il n'y a **rien à étendre**, juste **remplacer le texte** par : **Réserver → Peindre → Confier la pièce → Revenir la retrouver** (retours #38-44, doc Contact). Variante B « Parcours maison » en alternative narrative.
+
+### 6.4 Backend des formulaires — Supabase
+Les deux formulaires (Contact §5, Réservation §6.2) postent vers **Supabase** :
+- Table `submissions` : `id` · `type` (`contact` | `reservation`) · `payload` (jsonb) · `created_at` (ou 2 tables dédiées).
+- Insertion **côté client** via le client JS Supabase (CDN) avec l'**anon key** (publique).
+- 🔐 **RLS `insert-only`** : policy autorisant uniquement l'`insert`, **aucune lecture publique** des soumissions. L'URL projet + l'anon key peuvent être publiques **à condition** que la RLS soit active. **Jamais de `service_role` key côté client.**
+- Config (URL projet + anon key) dans un petit `js/supabase-config.js`.
+- Notification Tara par email : via **trigger / Edge Function** Supabase (optionnel, Phases 3/5).
 
 ---
 
 ## 7. Contenus & ton
 
-- **Règle de ton** : **« je »** pour le récit/perso (Boutique, Histoire) ; **« nous »** pour le pratique (Atelier, Contact, FAQ, réservation).
+- **Règle de ton (décidé)** : **tout en « je »** (voix de Tara) sur **l'ensemble du site**, y compris les pages pratiques (Atelier, Contact, FAQ, réservation) — les formulations collectives deviennent « je » (« je vous accueille », « je vous recommande »). Harmonise le mélange signalé par Tara.
 - **« Bla-bla »** : FAQ + texte Boutique → version resserrée **à côté** de l'originale, Tara tranche.
 - **Coordonnées** (source unique, footer + Contact) : `contact@maisondetara.com` · `+33 6 50 53 51 49` · 1 Rue Gabriel Péri, 92250 La Garenne-Colombes · Insta `@maison_de_tara`.
 - **Accès / « Venir à la maison »** (page Contact, doc) : **train** (gare La Garenne-Colombes / Paris Saint-Lazare ligne L) · **tram T2** Les Fauvelles · **bus 163, 164, 178, 278** · **voiture** (stationnement + parking public).
@@ -170,7 +178,7 @@ Le repo couvre ~90 % des layouts. ⚠️ **Chemins exacts** : les pages réutili
 | **0b — Squelette + migration** | squelette canonique (header hors `.smooth-scroll`) ; 5 pages Wandau réécrites dans `_src/` ; `head.html` (tokens+override+fonts) branché sur les 6 ; `scripts-min.html` | **aucun hex Wandau résiduel** (grep) ; chaque page build sans page blanche | interne |
 | **1 — Lab couleur** | `lab-couleurs.html` (configurateur, zones primaires bloquantes) | 3 zones primaires commutent en live ; encart palette exporte les tokens | **Tara verrouille la palette** |
 | **2 — Accueil** | Accueil repeinte (palette figée) + textes Pastel + #8/#22/#23 + **teaser boutique #50** | retours Accueil appliqués ; responsive | toi → **Tara** |
-| **3 — Contact** | textes doc + **accès/transports** + horaires ouverture + FAQ + **carte corrigée** + **backend form** | infos/coordonnées/accès exacts ; carte = bonne adresse ; form branché | toi → **Tara** |
+| **3 — Contact** | textes doc + **accès/transports** + horaires ouverture + FAQ + **carte corrigée** + **form → Supabase** | infos/coordonnées/accès exacts ; carte = bonne adresse ; form insère dans Supabase | toi → **Tara** |
 | **4 — Boutique** | texte doc (récit « je ») + grille déco | grille + fiche aux couleurs MDT ; FR ; responsive | toi → **Tara** |
 | **5 — Atelier** | 4 étapes (`#process`) + réservation (max 8/#17) + privatisation (#45/**#47**) | formulaire + étapes ; responsive | toi → **Tara** |
 | **6a — Calendrier (rendu)** | grille mensuelle + `events.json` sur les bonnes dates (scroll natif) | 1 mois correct ; events bien placés | interne |
@@ -188,11 +196,10 @@ Le repo couvre ~90 % des layouts. ⚠️ **Chemins exacts** : les pages réutili
 
 **Hypothèses :** preview = serveur statique local ; déploiement non traité ici (lien domaine à venir de Tara) ; pas d'intégration Pastel Auto-Fix automatisée (pas d'Action GitHub sur ce repo) → retours appliqués en semi-manuel.
 
-**Points ouverts (non bloquants) à trancher :**
-- Validation règle de ton « je/nous ».
+**Décisions actées (2026-06-10) :** ton = **tout en « je »** · backend formulaires = **Supabase** (§6.4) · emplacement = **`wandau-mdt/`**.
+
+**Points ouverts (non bloquants) :**
 - Pairing police de corps (sortira du lab).
-- **Backend du formulaire** (contact.php prod ? sinon Formspree/Netlify/n8n).
-- **Emplacement** : 6 pages dans `wandau-mdt/` (proposé) vs racine — **trancher avant Phase 2**.
 - **#46 anniversaires enfants** : Tara réfléchit (partenariat externe) → différé, **hors livrable Phase 5**.
 - **#35** (« ce bouton va où ? ») à clarifier ; **#48** fermé via FAQ→Calendrier.
 - **Texte page Histoire** : en attente de Tara (bloquant nommé Phase 7).

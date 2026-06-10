@@ -1,0 +1,14 @@
+/* tokens.css — source unique de la charte Maison de Tara. */
+:root {
+  /* Couleurs charte */
+  --mdt-terracotta: #79301E;   /* accent fort */
+  --mdt-rose:       #BA7770;   /* accent doux */
+  --mdt-olive:      #8A976C;   /* vert de marque (clair) */
+  --mdt-olive-deep: #5A6347;   /* vert foncé pour fonds/texte sombres (dérivé) */
+  --mdt-beige:      #F0ECDB;   /* fond / base */
+  --mdt-ink:        #2C2419;   /* texte courant */
+  /* Polices charte */
+  --mdt-font-display: "Playfair Display", Georgia, serif;
+  --mdt-font-script:  "La Belle Aurore", cursive;
+  --mdt-font-body:    "Inter", system-ui, sans-serif; /* provisoire, finalisé via le lab */
+}

@@ -4,37 +4,33 @@
    Chargé APRES style.css pour gagner en specificity
    ============================================================ */
 
-/* --- Tokens officiels MDT (source: PROMPT-MASTER-MDT.md) --- */
+/* --- Alias charte : tout le fichier passe par var(--mdt-*), on remappe ici
+   les variables historiques (Wandau) vers les tokens charte de css/tokens.css.
+   terracotta / olive-deep / polices ne sont PLUS redéfinis ici : tokens.css est
+   la source unique (chargé avant ce fichier). --- */
 :root {
-  /* Base — 60% du visuel */
-  --mdt-sable:      #F4EDE0;
-  --mdt-sable-warm: #E8DCC4;
+  /* Base — beige charte */
+  --mdt-sable:      var(--mdt-beige);
+  --mdt-sable-warm: #E8DCC4;   /* nuances beige conservées (dérivés neutres) */
   --mdt-sable-deep: #DCC9A5;
   --mdt-greige:     #B5A998;
 
-  /* Primary — 25% */
-  --mdt-terracotta: #C75B3C;
-  --mdt-terra-dark: #8B4A2E;
+  /* Primary — terracotta charte (#79301E via tokens.css) */
+  --mdt-terra-dark: #5E2417;   /* hover : terracotta charte assombrie */
 
-  /* Accent — 16% */
-  --mdt-sauge:      #4A5D2E;
-  --mdt-sauge-light:#7A8043;
-  --mdt-olive-deep: #3A4A24;
+  /* Accent — vert charte */
+  --mdt-sauge:      var(--mdt-olive-deep);  /* aplats / fonds verts foncés */
+  --mdt-sauge-light:var(--mdt-olive);       /* vert de marque clair */
 
-  /* Highlight — 5% */
-  --mdt-noir:       #1A1815;
-  --mdt-noir-soft:  #2C2419;
-  --mdt-laiton:     #B8924D;
+  /* Highlight — encre charte */
+  --mdt-noir:       var(--mdt-ink);
+  --mdt-noir-soft:  var(--mdt-ink);
+  --mdt-laiton:     var(--mdt-rose);  /* ancien doré → accent doux charte (à valider via lab) */
 
   /* Sémantique */
-  --mdt-text:       #2C2419;
-  --mdt-text-soft:  #5F4F3F;
-  --mdt-line:       rgba(74,93,46,0.18);
-
-  /* Typo */
-  --mdt-font-display: 'Cormorant Garamond', Georgia, serif;
-  --mdt-font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mdt-font-script:  'Caveat', cursive;
+  --mdt-text:       var(--mdt-ink);
+  --mdt-text-soft:  #5F4F3F;   /* brun doux, texte secondaire (neutre) */
+  --mdt-line:       rgba(90,99,71,0.18);  /* olive-deep #5A6347 @ 18% */
 
   /* Espacements */
   --mdt-section-pad: clamp(64px, 8vw, 120px);
@@ -377,7 +373,7 @@ a.custom-button {
   opacity: 0.9;
 }
 
-/* H1 Cormorant — taille réduite vs Wandau 126px pour tenir sur 1-2 lignes
+/* H1 Playfair — taille réduite vs Wandau 126px pour tenir sur 1-2 lignes
    sans déborder sur la booking card à droite */
 .slider .slider-texts .swiper-slide h1 {
   font-family: var(--mdt-font-display) !important;

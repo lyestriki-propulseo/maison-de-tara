@@ -7,6 +7,8 @@
   --mdt-olive-deep: #5A6347;   /* vert foncé pour fonds/texte sombres (dérivé) */
   --mdt-beige:      #F0ECDB;   /* fond / base */
   --mdt-ink:        #2C2419;   /* texte courant */
+  --mdt-text-soft:  #5F4F3F;   /* texte secondaire (brun doux) */
+  --mdt-line:       rgba(90,99,71,0.18); /* filets / bordures (olive-deep @ 18%) */
   /* Polices charte */
   --mdt-font-display: "Playfair Display", Georgia, serif;
   --mdt-font-script:  "La Belle Aurore", cursive;

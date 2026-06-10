@@ -27,10 +27,8 @@
   --mdt-noir-soft:  var(--mdt-ink);
   --mdt-laiton:     var(--mdt-rose);  /* ancien doré → accent doux charte (à valider via lab) */
 
-  /* Sémantique */
+  /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
   --mdt-text:       var(--mdt-ink);
-  --mdt-text-soft:  #5F4F3F;   /* brun doux, texte secondaire (neutre) */
-  --mdt-line:       rgba(90,99,71,0.18);  /* olive-deep #5A6347 @ 18% */
 
   /* Espacements */
   --mdt-section-pad: clamp(64px, 8vw, 120px);

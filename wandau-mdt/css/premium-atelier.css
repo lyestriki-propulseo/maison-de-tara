@@ -82,9 +82,10 @@
 
 /* ---------- primitives ---------- */
 .premium-atelier .wrap{max-width:78rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4rem)}
+/* Annotations manuscrites : DROITES (retour client — pas d'inclinaison) */
 .premium-atelier .eyebrow{
   font-family:var(--hand);font-size:clamp(1.4rem,2.4vw,1.8rem);line-height:1.2;
-  color:var(--laiton);display:inline-block;transform:rotate(-2deg);
+  color:var(--laiton);display:inline-block;
 }
 .premium-atelier .rule{width:64px;height:1px;background:var(--laiton);border:0;margin:1.4rem 0}
 .premium-atelier .rule--c{margin-inline:auto}
@@ -138,7 +139,9 @@
 /* ============================================================
    HERO — compact et raffiné
    ============================================================ */
-.premium-atelier .hero{padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(3rem,7vw,6rem);background:var(--creme)}
+/* Padding haut = topbar (42px) + header fixe (~110px) + respiration : la photo
+   en arche ne passe plus sous le header (transparent en haut de page). */
+.premium-atelier .hero{padding:clamp(11rem,9rem + 5vw,13.5rem) 0 clamp(3rem,7vw,6rem);background:var(--creme)}
 .premium-atelier .hero__grid{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);
   gap:clamp(2rem,6vw,5.5rem);align-items:end;
@@ -153,7 +156,7 @@
 .premium-atelier .hero__fig{aspect-ratio:4/5;max-width:21rem;justify-self:end;width:100%}
 .premium-atelier .hero__fig figcaption{
   font-family:var(--hand);font-size:1.25rem;color:var(--laiton);
-  text-align:center;margin-top:1.4rem;transform:rotate(-2.5deg);
+  text-align:center;margin-top:1.4rem;
 }
 
 /* ============================================================
@@ -193,7 +196,7 @@
 .premium-atelier .chap--even .chap__fig{justify-self:end;width:100%}
 .premium-atelier .chap__kicker{
   font-family:var(--hand);font-size:1.5rem;color:var(--laiton);
-  display:block;margin-bottom:.2rem;transform:rotate(-2deg);transform-origin:left;
+  display:block;margin-bottom:.2rem;
 }
 .premium-atelier .chap__body h3{
   font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.2vw,2.4rem);
@@ -203,7 +206,7 @@
 .premium-atelier .chap__body p:last-of-type{margin-bottom:0}
 .premium-atelier .chap__marge{
   font-family:var(--hand);font-size:1.45rem;color:var(--laiton);
-  display:inline-block;margin-top:1.4rem;transform:rotate(-3.5deg);
+  display:inline-block;margin-top:1.4rem;
 }
 .premium-atelier .chap--sable{background:var(--sable)}
 
@@ -221,7 +224,7 @@
 }
 .premium-atelier .note-atelier__label{
   font-family:var(--hand);font-size:1.7rem;color:var(--terracotta);
-  display:block;margin-bottom:1rem;transform:rotate(-2deg);
+  display:block;margin-bottom:1rem;
 }
 .premium-atelier .note-atelier p{font-size:1rem;color:var(--encre)}
 .premium-atelier .note-atelier ul{
@@ -259,7 +262,7 @@
 .premium-atelier .horaires h3{
   font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:.3rem 0 1.4rem;
 }
-.premium-atelier .horaires__eyebrow{font-family:var(--hand);font-size:1.5rem;color:var(--laiton);transform:rotate(-2deg);display:inline-block}
+.premium-atelier .horaires__eyebrow{font-family:var(--hand);font-size:1.5rem;color:var(--laiton);display:inline-block}
 .premium-atelier .horaires ul{list-style:none}
 .premium-atelier .horaires li{
   display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
@@ -317,6 +320,30 @@
 .premium-atelier .fld select:focus{outline:none;border-bottom-color:var(--terracotta)}
 .premium-atelier .fld input:focus-visible,
 .premium-atelier .fld select:focus-visible{outline:none;border-bottom-color:var(--terracotta);box-shadow:0 1px 0 0 var(--terracotta)}
+/* pastilles créneau / participants (radios stylées — meilleure UX qu'un menu) */
+.premium-atelier .fld--pills{border:0;margin:0;padding:0;min-width:0}
+.premium-atelier .fld--pills legend{
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(44,36,25,.65);margin-bottom:.55rem;padding:0;border:0;
+  font-family:var(--sans);line-height:1.4;display:block;width:auto;
+}
+.premium-atelier .pills{display:flex;flex-wrap:wrap;gap:.55rem}
+.premium-atelier .pill{position:relative;cursor:pointer;margin:0}
+.premium-atelier .pill input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.premium-atelier .pill span{
+  display:inline-block;font-size:.88rem;letter-spacing:.04em;color:var(--encre);
+  padding:.55rem 1.05rem;border:1px solid rgba(184,146,77,.55);border-radius:999px;
+  background:var(--creme);line-height:normal;
+  transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+}
+.premium-atelier .pill:hover span{border-color:var(--laiton);background:var(--sable)}
+.premium-atelier .pill input:checked + span{background:var(--terracotta);border-color:var(--terracotta);color:var(--creme);font-weight:500}
+.premium-atelier .pill input:focus-visible + span{outline:2px solid var(--laiton);outline-offset:3px}
+.premium-atelier .pills--num .pill span{min-width:2.7rem;text-align:center;padding:.5rem .55rem}
+.premium-atelier .fld--span{grid-column:1/-1}
+.premium-atelier .fld label .opt{font-weight:400;letter-spacing:.02em;text-transform:none;color:rgba(44,36,25,.45)}
+.premium-atelier .fld input[type="date"]{color-scheme:light}
+.premium-atelier .btn--block{display:block;width:100%;text-align:center;padding:1.15rem 2rem}
 .premium-atelier .note-8{font-size:.82rem;font-style:italic;color:rgba(44,36,25,.65);margin-top:.6rem;line-height:1.6}
 .premium-atelier .reserve .form-msg{margin-top:1rem;font-size:.9rem;font-style:italic;color:var(--sauge);min-height:0;font-weight:400}
 .premium-atelier .reserve .form-msg:empty{display:none}
@@ -324,9 +351,10 @@
 /* ============================================================
    PRIVATISATION — bande terracotta profonde
    ============================================================ */
+/* Section resserrée (retour client) : moins haute, photos agrandies. */
 .premium-atelier .priva{
   background:var(--terracotta);color:var(--creme);
-  padding:clamp(4rem,9vw,7rem) 0;position:relative;overflow:hidden;
+  padding:clamp(2.6rem,6vw,4.2rem) 0;position:relative;overflow:hidden;
 }
 .premium-atelier .priva::after{
   content:"";position:absolute;inset:0;pointer-events:none;
@@ -334,31 +362,35 @@
   opacity:.06;
 }
 .premium-atelier .priva .wrap{position:relative;z-index:1}
-.premium-atelier .priva__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
+.premium-atelier .priva__grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+/* !important : mdt-override force la couleur des h1-h6 du site */
 .premium-atelier .priva h2{
-  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4vw,3rem);
-  line-height:1.15;margin-bottom:1.4rem;color:var(--creme);
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.4vw,2.5rem);
+  line-height:1.15;margin-bottom:1.1rem;color:var(--creme) !important;
 }
-.premium-atelier .priva h2 em{font-style:italic;color:var(--laiton)}
-.premium-atelier .priva p{max-width:34rem;color:rgba(251,247,236,.88);font-size:.98rem;line-height:1.75}
-.premium-atelier .occ{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.8rem 0 2.2rem}
+.premium-atelier .priva h2 em{font-style:italic;color:var(--laiton) !important}
+.premium-atelier .priva p{max-width:34rem;color:rgba(251,247,236,.88);font-size:.95rem;line-height:1.7}
+.premium-atelier .occ{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.4rem 0 1.8rem}
 .premium-atelier .occ span{
-  font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
-  padding:.55rem 1.2rem;border:1px solid var(--laiton);border-radius:999px;
+  font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  padding:.45rem 1rem;border:1px solid var(--laiton);border-radius:999px;
   color:var(--creme);transition:background .35s var(--ease), color .35s var(--ease);
 }
 .premium-atelier .occ span:hover{background:var(--laiton);color:var(--encre)}
-.premium-atelier .priva__gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;align-self:center}
+/* photos agrandies : colonne 6/12 (au lieu de 4/12), arches pleines,
+   celle du centre légèrement surélevée pour le rythme */
+.premium-atelier .priva__gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-self:center}
 .premium-atelier .priva__gallery img{
   width:100%;aspect-ratio:3/4;object-fit:cover;
   border-radius:999px 999px 0 0;
-  border:1px solid rgba(184,146,77,.6);padding:.3rem;background:rgba(251,247,236,.06);
-  filter:saturate(.9);
+  border:1px solid rgba(184,146,77,.7);padding:.35rem;background:rgba(251,247,236,.06);
+  filter:saturate(.92);
 }
+.premium-atelier .priva__gallery img:nth-child(2){transform:translateY(-14px)}
 .premium-atelier .priva__gallery figcaption,
 .premium-atelier .priva__hint{
   font-family:var(--hand);font-size:1.2rem;color:var(--laiton);
-  margin-top:1rem;text-align:center;transform:rotate(-2deg);
+  margin-top:1.1rem;text-align:center;
 }
 
 /* ============================================================
@@ -378,6 +410,8 @@
   .premium-atelier .priva__gallery{max-width:26rem}
 }
 @media (max-width:560px){
+  .premium-atelier .hero{padding-top:9.5rem}
   .premium-atelier .fgrid{grid-template-columns:1fr}
   .premium-atelier .chap{padding:2.8rem 0}
+  .premium-atelier .priva__gallery img:nth-child(2){transform:none}
 }

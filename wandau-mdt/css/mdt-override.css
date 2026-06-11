@@ -1124,6 +1124,14 @@ body.has-hero .mdt-hero-photo { top: calc(50% + 5vh); }
   body.has-hero .mdt-hero-photo { top: auto; }
 }
 
+/* Pages intérieures (hero clair, js/header-pages.js) : header transparent
+   tout en haut, fond beige dès le premier défilement. Le hero étant clair,
+   la nav reste encre et le logo garde sa taille/couleur normales. */
+body.hero-clair:not(.is-scrolled) .mdt-header {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
 /* État transparent du HEADER (accueil, avant scroll) — nav blanche sur le hero.
    La topbar, elle, reste crème + terracotta en permanence (voir bloc .topbar). */
 body.has-hero:not(.is-scrolled) .mdt-header {

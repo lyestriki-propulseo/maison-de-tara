@@ -217,46 +217,18 @@
 }
 
 /* ============================================================
-   La lettre — colonne de lecture + marginalia
+   La lettre — variante B « pleine page » (validée 12/06) :
+   colonne unique de lecture, photos intercalées entre les
+   paragraphes (duo en arches + bandeau panoramique).
    ============================================================ */
 .premium-histoire .lettre{
   padding:clamp(4rem, 9vw, 8rem) var(--gutter) clamp(3rem, 7vw, 6rem);
   background:var(--blanc);
 }
-.premium-histoire .lettre__head{
+.premium-histoire .lettre__col{
   max-width:var(--mesure);
-  margin:0 auto clamp(2.5rem, 5vw, 4rem);
-  text-align:center;
-}
-.premium-histoire .lettre__head .eyebrow{
-  display:inline-flex; align-items:center; gap:.9rem;
-  font-family:var(--sans);
-  font-size:.72rem; font-weight:500;
-  letter-spacing:.28em; text-transform:uppercase;
-  color:var(--laiton);
-}
-.premium-histoire .lettre__head .eyebrow::before,
-.premium-histoire .lettre__head .eyebrow::after{
-  content:""; width:2.6rem; height:1px; background:var(--laiton);
-}
-
-.premium-histoire .lettre-row{
-  display:grid;
-  grid-template-columns:
-    1fr
-    minmax(0, 230px)
-    clamp(1.5rem, 3.5vw, 3.25rem)
-    minmax(0, var(--mesure))
-    clamp(1.5rem, 3.5vw, 3.25rem)
-    minmax(0, 230px)
-    1fr;
-  align-items:start;
-  max-width:1280px;
   margin:0 auto;
 }
-.premium-histoire .lettre-row > .corps{ grid-column:4; }
-.premium-histoire .lettre-row > .marge--g{ grid-column:2; }
-.premium-histoire .lettre-row > .marge--d{ grid-column:6; }
 
 .premium-histoire .corps p{
   margin:0 0 1.6em;
@@ -282,53 +254,47 @@
   color:var(--terracotta);
 }
 
-/* citations en marge — fragments exacts, décoratifs */
-.premium-histoire .marge-quote{
-  font-family:var(--script);
-  font-weight:400;
-  font-size:clamp(1.45rem, 1.2rem + .9vw, 1.9rem);
-  line-height:1.25;
-  color:var(--laiton);
-  margin:.25em 0 0;
-  transform:rotate(-1.5deg);
-}
-.premium-histoire .marge-quote::before{
-  content:"";
-  display:block;
-  width:2.8rem; height:1px;
-  background:var(--laiton);
-  margin-bottom:.7rem;
-  transform:rotate(1.5deg);
-}
-
-/* photos flottantes en marge */
-.premium-histoire .marge-photo{ margin:.3em 0 0; }
-.premium-histoire .marge-photo .cadre{
+/* photos intercalées dans la lettre (variante B) */
+.premium-histoire .lettre .cadre{
   position:relative;
   display:block;
-}
-.premium-histoire .marge-photo .cadre::before{
-  content:"";
-  position:absolute; inset:0;
   border:1px solid var(--laiton);
-  transform:translate(8px, 8px);
+  padding:9px;
+  background:var(--blanc);
+}
+.premium-histoire .lettre .cadre::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border:1px solid var(--laiton);
+  transform:translate(9px, 9px);
   pointer-events:none;
 }
-.premium-histoire .marge-photo img{
-  aspect-ratio:4 / 5;
+.premium-histoire .lettre .cadre img{
+  display:block;
+  width:100%;
   object-fit:cover;
 }
-.premium-histoire .marge-photo--paysage img{ aspect-ratio:5 / 4; }
-.premium-histoire .marge-photo figcaption{
+.premium-histoire .lettre .cadre--arche,
+.premium-histoire .lettre .cadre--arche::before{ border-radius:999px 999px 0 0; }
+.premium-histoire .lettre .cadre--arche img{ border-radius:993px 993px 0 0; }
+.premium-histoire .lettre__duo{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(1.2rem, 3vw, 2rem);
+  margin:clamp(1.8rem, 4vw, 2.8rem) 0;
+}
+.premium-histoire .lettre__duo img{ aspect-ratio:3 / 3.4; }
+.premium-histoire .lettre__inter{ margin:clamp(1.8rem, 4vw, 2.8rem) 0; }
+.premium-histoire .lettre__inter img{ aspect-ratio:16 / 7; }
+.premium-histoire .lettre figcaption{
   font-family:var(--script);
   font-weight:400;
   font-size:1.3rem;
   line-height:1.2;
   color:var(--terracotta);
   margin-top:1rem;
-  transform:rotate(-1.2deg);
+  text-align:center;
 }
-.premium-histoire .marge--g .marge-photo .cadre::before{ transform:translate(-8px, 8px); }
 
 /* signature */
 .premium-histoire .signature{
@@ -501,29 +467,12 @@
 }
 
 /* ============================================================
-   Responsive — les marges deviennent des insertions
+   Responsive — lettre (variante B)
    ============================================================ */
-@media (max-width: 1023px){
-  .premium-histoire .lettre-row{
-    grid-template-columns:1fr;
-  }
-  .premium-histoire .lettre-row > .corps,
-  .premium-histoire .lettre-row > .marge--g,
-  .premium-histoire .lettre-row > .marge--d{
-    grid-column:1;
-    max-width:var(--mesure);
-    margin-left:auto; margin-right:auto;
-    width:100%;
-  }
-  .premium-histoire .marge-quote{
-    margin:.4em 0 1.8em;
-    transform:rotate(-1deg);
-  }
-  .premium-histoire .marge-photo{
-    margin:0 0 2.2em;
-    max-width:340px;
-  }
-  .premium-histoire .marge--g .marge-photo .cadre::before{ transform:translate(8px, 8px); }
+@media (max-width: 620px){
+  .premium-histoire .lettre__duo{ grid-template-columns:1fr; }
+  .premium-histoire .lettre__duo img{ aspect-ratio:4 / 3.4; }
+  .premium-histoire .lettre__inter img{ aspect-ratio:16 / 10; }
 }
 
 @media (max-width: 860px){

@@ -124,13 +124,11 @@
 
 
   // SLIDER
+  // Hero MDT = UNE seule diapo : autoplay + loop retirés (sinon Swiper "tourne"
+  // vers un clone masqué toutes les 9,5 s → voile blanc/flash sur le fond).
   var sliderimages = new Swiper('.slider-images', {
     spaceBetween: 0,
     direction: 'vertical',
-    autoplay: {
-      delay: 9500,
-      disableOnInteraction: false,
-    },
     navigation: {
       nextEl: '.button-next',
       prevEl: '.button-prev',
@@ -142,9 +140,7 @@
       type: 'fraction',
     },
 
-
-    loop: true,
-    loopedSlides: 1,
+    loop: false,
     thumbs: {
       swiper: slidertexts
     }
@@ -158,8 +154,7 @@
     slidesPerView: 1,
     touchRatio: 0,
     slideToClickedSlide: false,
-    loop: true,
-    loopedSlides: 1,
+    loop: false,
 
     pagination: {
       el: '.swiper-pagination',

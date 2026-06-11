@@ -154,13 +154,11 @@
   color:var(--encre);
 }
 
-/* Récit en exergue littéraire */
+/* Récit en exergue littéraire — colonne unique :
+   exergue → devanture verte → suite (retour client) */
 .premium-boutique .recit{
-  display:grid;
-  grid-template-columns:minmax(0,7fr) minmax(0,5fr);
-  gap:clamp(2rem,5vw,4.5rem);
-  align-items:end;
-  margin-top:clamp(2.5rem,6vw,4.5rem);
+  max-width:48rem;
+  margin:clamp(2.5rem,6vw,4.5rem) auto 0;
 }
 .premium-boutique .recit-lead{
   font-family:var(--f-titre);
@@ -181,32 +179,12 @@
 }
 .premium-boutique .recit-suite{
   max-width:46ch;
+  margin-inline:auto;
   border-left:1px solid var(--laiton);
   padding-left:clamp(1.25rem,2.5vw,2rem);
   color:color-mix(in srgb, var(--encre) 86%, var(--blanc));
 }
 
-/* Duo photo asymétrique — arche XXL + contrepoint */
-.premium-boutique .hero-visuel{
-  margin-top:clamp(3rem,7vw,5.5rem);
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  align-items:end;
-  gap:clamp(1rem,3vw,2.5rem);
-}
-.premium-boutique .hero-arche{
-  grid-column:1 / span 8;
-  position:relative;
-}
-.premium-boutique .hero-arche .cadre{
-  border-radius:999px 999px 0 0;
-  overflow:hidden;
-}
-.premium-boutique .hero-arche .cadre img{
-  width:100%;height:auto;
-  aspect-ratio:4/4.6;
-  object-fit:cover;
-}
 /* double-bordure laiton décalée */
 .premium-boutique .double-bordure{position:relative}
 .premium-boutique .double-bordure::before{
@@ -219,15 +197,16 @@
   pointer-events:none;
   z-index:-1;
 }
-.premium-boutique .hero-contrepoint{
-  grid-column:9 / span 4;
-  margin-bottom:clamp(2rem,6vw,4.5rem);
+/* Devanture verte de la maison, au cœur du récit (retour client) */
+.premium-boutique .hero-devanture{
+  max-width:34rem;
+  margin:clamp(2rem,4.5vw,3.2rem) auto;
 }
-.premium-boutique .hero-contrepoint .cadre{overflow:hidden}
-.premium-boutique .hero-contrepoint img{
-  width:100%;aspect-ratio:3/4;object-fit:cover;
+.premium-boutique .hero-devanture .cadre{overflow:hidden}
+.premium-boutique .hero-devanture img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
 }
-.premium-boutique .hero-contrepoint figcaption,
+.premium-boutique .hero-devanture figcaption,
 .premium-boutique .legende-libre{
   font-size:.8125rem;
   letter-spacing:.04em;
@@ -501,15 +480,7 @@
    Responsive
    ============================================================ */
 @media (max-width: 900px){
-  .premium-boutique .recit{grid-template-columns:1fr;align-items:start}
   .premium-boutique .recit-suite{max-width:60ch}
-  .premium-boutique .hero-visuel{align-items:start}
-  .premium-boutique .hero-arche{grid-column:1 / span 12}
-  .premium-boutique .hero-contrepoint{
-    grid-column:5 / span 8;
-    margin-top:clamp(-3rem,-8vw,-5rem);
-    margin-bottom:0;
-  }
   .premium-boutique .murs{grid-template-columns:repeat(6,1fr)}
   .premium-boutique .piece--01{grid-column:1 / span 5;grid-row:auto}
   .premium-boutique .piece--02{grid-column:2 / span 5;grid-row:auto;margin-top:0}
@@ -530,5 +501,4 @@
   .premium-boutique .piece--05,
   .premium-boutique .piece--06,
   .premium-boutique .piece--accent{grid-column:1}
-  .premium-boutique .hero-contrepoint{grid-column:3 / span 10}
 }

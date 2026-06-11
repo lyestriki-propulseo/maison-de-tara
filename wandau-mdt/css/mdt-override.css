@@ -1131,6 +1131,9 @@ body.hero-clair:not(.is-scrolled) .mdt-header {
   background: transparent;
   border-bottom-color: transparent;
 }
+/* Au scroll : header compacté en hauteur (tailles texte/logo inchangées) */
+.mdt-header { transition: background-color .35s ease, border-color .35s ease, padding .35s ease; }
+body.is-scrolled .mdt-header { padding: 8px 0; }
 
 /* État transparent du HEADER (accueil, avant scroll) — nav blanche sur le hero.
    La topbar, elle, reste crème + terracotta en permanence (voir bloc .topbar). */
@@ -1796,40 +1799,41 @@ body.boutique-v4 .bv-4 { display: block; }
    seule ligne avec le crédit Propul'SEO centré et cliquable.
    ============================================================ */
 .mdt-footer {
-  background: var(--mdt-sauge) !important;
+  /* vert profond exact de la preview validée (plus sombre que la sauge) */
+  background: #3F4731 !important;
   color: var(--mdt-sable);
-  padding: clamp(52px, 7vw, 84px) 0 0;
+  padding: clamp(48px, 7vw, 84px) 0 0;
   border-top: none;
   position: relative;
   overflow: hidden;
 }
-/* Wallpaper floral en screen, comme le fond du hero */
+/* Texture florale discrète, comme la preview */
 .mdt-footer::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
-  background-size: 720px;
+  background-size: 560px;
   background-repeat: repeat;
   background-position: center;
-  opacity: 0.22;
-  mix-blend-mode: screen;
+  opacity: 0.08;
   pointer-events: none;
 }
 .mdt-footer .container { max-width: var(--mdt-container); position: relative; z-index: 2; }
 .mdt-footer-inner { text-align: center; }
 .mdt-footer-tag {
   font-family: var(--mdt-font-script);
-  font-size: clamp(26px, 4vw, 40px);
+  font-size: clamp(28px, 4vw, 44px);
   color: var(--mdt-laiton);
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 .mdt-footer-name {
   font-family: var(--mdt-font-display);
-  font-size: clamp(30px, 4.5vw, 48px);
+  font-size: clamp(30px, 4.5vw, 52px);
   font-weight: 500;
   color: var(--mdt-sable);
+  letter-spacing: 0.01em;
   line-height: 1.1;
 }
 .mdt-footer-nav {
@@ -1882,13 +1886,14 @@ body.boutique-v4 .bv-4 { display: block; }
 /* Barre du bas : UNE ligne — © à gauche, crédit centré, légal à droite */
 .mdt-footer-bottom {
   margin-top: 26px;
-  border-top: 1px solid rgba(240, 236, 219, 0.22);
+  border-top: 1px solid rgba(184, 146, 77, 0.35);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 18px;
-  padding: 15px 0 17px;
-  font-size: 12.5px;
+  padding: 16px 0 18px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
   color: rgba(240, 236, 219, 0.6);
 }
 .mdt-footer-bottom .fb-l { justify-self: start; white-space: nowrap; }

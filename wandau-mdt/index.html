@@ -564,82 +564,9 @@
           <a href="calendrier.html" class="btn btn--outline">Voir tout le calendrier</a>
         </header>
 
-        <article class="event-row event-row--featured" data-scroll>
-          <div class="event-row__date event-row__date--featured">
-            <strong>15</strong>
-            <span>Oct</span>
-          </div>
-          <div class="event-row__body">
-            <span class="event-row__badge">Première session · 2026</span>
-            <div class="event-row__meta">Soirée d'ouverture · Maison de Tara</div>
-            <h3 class="event-row__title">La Maison ouvre ses portes</h3>
-            <div class="event-row__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Jeudi · 18h00 – 22h00 · Plus que <strong>12 places</strong>
-            </div>
-          </div>
-          <a href="calendrier.html" class="btn btn--primary event-row__cta">
-            Je m'inscris
-            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-          </a>
-        </article>
-
-        <article class="event-row" data-scroll>
-          <div class="event-row__date">
-            <strong>15</strong>
-            <span>Nov</span>
-          </div>
-          <div class="event-row__body">
-            <div class="event-row__meta">Workshop · Avec Anaïs Fleurs</div>
-            <h4 class="event-row__title">Atelier fleurs séchées et céramique</h4>
-            <div class="event-row__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Samedi · 14h00 – 17h00 · <span class="event-row__seats">Plus que 4 places</span>
-            </div>
-          </div>
-          <a href="calendrier.html" class="btn btn--outline event-row__cta">
-            Réserver
-            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-          </a>
-        </article>
-
-        <article class="event-row" data-scroll>
-          <div class="event-row__date">
-            <strong>28</strong>
-            <span>Nov</span>
-          </div>
-          <div class="event-row__body">
-            <div class="event-row__meta">Soirée · Vins nature & céramique</div>
-            <h4 class="event-row__title">Apéro créatif du vendredi soir</h4>
-            <div class="event-row__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Vendredi · 19h00 – 22h00
-            </div>
-          </div>
-          <a href="calendrier.html" class="btn btn--outline event-row__cta">
-            Réserver
-            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-          </a>
-        </article>
-
-        <article class="event-row event-row--full" data-scroll>
-          <div class="event-row__date">
-            <strong>06</strong>
-            <span>Déc</span>
-          </div>
-          <div class="event-row__body">
-            <div class="event-row__meta">Kids · Spécial Noël</div>
-            <h4 class="event-row__title">Workshop enfants — décorations de Noël</h4>
-            <div class="event-row__time">
-              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg>
-              Samedi · 10h00 – 12h00 · <span class="event-row__seats event-row__seats--full">Complet · Liste d'attente</span>
-            </div>
-          </div>
-          <a href="calendrier.html" class="btn btn--outline event-row__cta">
-            Liste d'attente
-            <svg class="icon btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg>
-          </a>
-        </article>
+        <!-- Rendez-vous rendus depuis data/events.json (même source que la
+             page Calendrier — retour client 12/06) par js/home-events.js -->
+        <div id="home-events" aria-label="Prochains rendez-vous"></div>
       </div>
     </section>
 
@@ -742,6 +669,8 @@
   import { bindForm } from './js/forms-supabase.js';
   bindForm(document.getElementById('newsletterForm'), 'newsletter');
 </script>
+<!-- Rendez-vous de l'accueil depuis data/events.json -->
+<script src="js/home-events.js"></script>
 <!-- Panneau de réglages hero (visible seulement avec ?lab) -->
 <script src="js/hero-lab.js"></script>
 </body>

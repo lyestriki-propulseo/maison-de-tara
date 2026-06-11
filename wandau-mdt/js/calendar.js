@@ -61,10 +61,40 @@ export async function initCalendar(rootId) {
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function formatDate(iso) {
-    const [y, m, d] = iso.split('-').map(Number);
-    return `${d} ${MOIS[m - 1]} ${y}`;
+  render();
+}
+
+function formatDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${MOIS[m - 1]} ${y}`;
+}
+
+// Colonne « à venir » (proposition v2 du calendrier) : les 3 prochains
+// événements à partir d'aujourd'hui, mêmes données que la grille.
+export async function initUpcoming(rootId) {
+  const root = document.getElementById(rootId);
+  if (!root) return;
+
+  let events = [];
+  try {
+    events = await fetch('data/events.json').then((r) => r.json());
+  } catch (e) {
+    return;
   }
 
-  render();
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
+  const next = sorted.filter((e) => e.date >= today).slice(0, 3);
+  // Avant l'ouverture (aucun event passé/futur proche), montrer les 3 premiers.
+  const list = next.length ? next : sorted.slice(0, 3);
+
+  root.innerHTML = '<h3>À venir</h3>' + (list.length
+    ? list.map((e) => `
+      <article class="up-card">
+        <span class="up-date">${formatDate(e.date)}</span>
+        <h4>${e.titre}</h4>
+        <p>${e.description || ''}</p>
+      </article>`).join('')
+    : '<p class="up-empty">Les prochains rendez-vous seront bientôt annoncés.</p>');
 }

@@ -1,13 +1,13 @@
 // Configurateur couleur — chaque zone applique une CSS custom property sur #preview, en live.
 const ZONES = [
-  { key: 'bg',      label: 'Fond vert (hero)',          prop: '--lab-bg',
-    options: ['#8A976C', '#5A6347', '#9AA67E', '#7C8A5E'] },
+  { key: 'bg',      label: 'Fond vert hero — 3 variantes + claires (#13)', prop: '--lab-bg',
+    options: ['#5A6347', '#8A976C', '#9AA67E', '#A7B488'] },
   { key: 'header',  label: 'Barre header',              prop: '--lab-header',
     options: ['#F0ECDB', '#FBF9F1', '#E7E0C8', '#8A976C'] },
-  { key: 'cta',     label: 'Boutons (CTA)',             prop: '--lab-cta',
-    options: ['#79301E', '#BA7770', '#8A976C', '#5A6347'] },
+  { key: 'cta',     label: 'Terracotta boutons — 6 variantes',  prop: '--lab-cta',
+    options: ['#79301E', '#8B3A26', '#9C4030', '#A84A33', '#B84F3E', '#C2542F'] },
   { key: 'title',   label: 'Titres',                    prop: '--lab-title',
-    options: ['#79301E', '#5A6347', '#2C2419', '#BA7770'] },
+    options: ['#79301E', '#B84F3E', '#5A6347', '#2C2419', '#BA7770'] },
   { key: 'body',    label: 'Police du corps',           prop: '--mdt-font-body', font: true,
     options: ['Inter, sans-serif', 'Mulish, sans-serif', 'Karla, sans-serif', 'Nunito Sans, sans-serif'] },
   { key: 'pattern', label: 'Motif floral (opacité)',    prop: '--lab-pattern-opacity',

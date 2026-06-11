@@ -432,8 +432,13 @@
   var resizeTimer;
 
 
-  // LOCOMOTIVE — init seulement si la page a un conteneur .smooth-scroll (sinon scroll natif)
-  if (smoothEl) {
+  // LOCOMOTIVE — init seulement si la page a un conteneur .smooth-scroll (sinon scroll natif).
+  // Mode ?lab (panneau réglages) : Locomotive est DÉSACTIVÉ — ses positions en
+  // cache cassent l'affichage à chaque bascule de variante ; le scroll natif
+  // est 100% stable. body.lab-native révèle les éléments gated par is-inview.
+  var labNative = /[?&]lab\b/.test(location.search);
+  if (labNative) document.body.classList.add('lab-native');
+  if (smoothEl && !labNative) {
     locoScroll = new LocomotiveScroll({
       el: smoothEl,
       smooth: true,
@@ -447,7 +452,32 @@
         smooth: false,
       },
     });
+    // Instance partagée (utilisée par le panneau hero-lab pour scroller vers une section)
+    window.__mdtLoco = locoScroll;
   }
+
+
+  // HEADER MDT — transparent sur le hero, fond beige + texte foncé au scroll (comportement v1).
+  // La bascule .is-scrolled se branche sur l'événement Locomotive (scroll virtuel) avec repli natif.
+  (function () {
+    var hasHero = !!document.querySelector('header.slider');
+    if (hasHero) document.body.classList.add('has-hero');
+    // Pages internes (sans hero) : header solide d'emblée, rien à brancher.
+    if (!hasHero) return;
+    var THRESHOLD = 60;
+    function apply(y) {
+      document.body.classList.toggle('is-scrolled', y > THRESHOLD);
+    }
+    if (locoScroll && typeof locoScroll.on === 'function') {
+      locoScroll.on('scroll', function (obj) {
+        var y = (obj && obj.scroll && typeof obj.scroll.y === 'number') ? obj.scroll.y : 0;
+        apply(y);
+      });
+    } else {
+      window.addEventListener('scroll', function () { apply(window.pageYOffset || 0); }, { passive: true });
+      apply(window.pageYOffset || 0);
+    }
+  })();
 
 
 

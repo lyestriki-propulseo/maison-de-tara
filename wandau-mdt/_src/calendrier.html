@@ -18,10 +18,14 @@
         <p>Ateliers, brunchs, événements et nouveautés de la boutique : tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
       </div>
       <div id="calendar" class="mdt-calendar"></div>
+      <!-- Proposition v2 : colonne « à venir » (masquée en v1, css/mdt-variants.css) -->
+      <aside id="mdt-upcoming" class="mdt-upcoming" aria-label="Prochains rendez-vous"></aside>
     </div>
   </section>
+  <!-- include: footer -->
 </main>
 <!-- include: scripts-min -->
-<script type="module">import { initCalendar } from './js/calendar.js'; initCalendar('calendar');</script>
+<script type="module">import { initCalendar, initUpcoming } from './js/calendar.js'; initCalendar('calendar'); initUpcoming('mdt-upcoming');</script>
+<script src="js/page-lab.js"></script>
 </body>
 </html>

@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 <!-- include: head -->
-<title>Notre Histoire · Maison de Tara</title>
+<title>Mon Histoire · Maison de Tara</title>
 <meta name="description" content="L'histoire de la Maison de Tara : un équilibre entre l'Inde et la France, une maison vivante où l'on prend le temps de créer, partager et se retrouver.">
-<meta property="og:title" content="Notre Histoire · Maison de Tara">
+<meta property="og:title" content="Mon Histoire · Maison de Tara">
 <meta property="og:description" content="Un équilibre entre deux cultures, l'Inde et la France. Une maison vivante où la matière, les gestes et les objets ont du sens.">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <section class="content-section mdt-floral-soft">
       <div class="container">
         <div class="mdt-page-intro">
-          <span class="mdt-eyebrow">Notre histoire</span>
+          <span class="mdt-eyebrow">Mon histoire</span>
           <h1>Entre l'Inde et la France</h1>
         </div>
       </div>
@@ -23,6 +23,9 @@
 
     <section class="content-section">
       <div class="container">
+        <!-- .mdt-letter-wrap + figure = proposition v2 (lettre + photo côte à côte),
+             figure masquée en v1 (css/mdt-variants.css) -->
+        <div class="mdt-letter-wrap">
         <div class="mdt-letter">
           <p class="lead">Maison de Tara est née d'un équilibre entre deux cultures, deux rythmes, deux façons de vivre.</p>
           <p>J'ai grandi entre l'Inde et la France, dans une maison remplie de tissus, de motifs et de gestes artisanaux transmis naturellement. J'y ai appris la culture du fait main et du temps long — et, en même temps, le goût du détail, la simplicité élégante et le sens de l'espace.</p>
@@ -31,35 +34,73 @@
           <p>Ici, on vient ralentir. On choisit une pièce en céramique, on s'installe, on peint librement. On prend un café, on reste un peu plus longtemps que prévu. Et tout autour, des objets et des matières racontent une autre façon de vivre — si certains vous accompagnent chez vous, c'est simplement qu'ils vous ont trouvé.</p>
           <p class="mdt-signature">Tara</p>
         </div>
+        <figure class="mdt-letter-photo">
+          <img src="../assets-charte/interieur-vase.jpg" alt="L'intérieur de la Maison de Tara" loading="lazy">
+        </figure>
+        </div>
       </div>
     </section>
 
+    <!-- Bloc « esprit de la maison » rapatrié de l'accueil (demande Tara) -->
     <section class="content-section mdt-floral-soft">
       <div class="container">
-        <div class="section-title text-center">
-          <h6>L'esprit de la maison</h6>
-          <h2>Créer · Partager · Prolonger</h2>
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="section-title text-center">
+              <figure class="mdt-title-shape"><img src="../Logo/capsule_sage.png" alt=""></figure>
+              <h6>L'esprit de la maison</h6>
+              <h2>Un lieu que l'on habite,<br>
+                le temps d'un moment.</h2>
+            </div>
+            <!-- end section-title -->
+          </div>
+          <!-- end col-12 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="text-content" data-scroll data-scroll-speed="-1">
+              <h6>L'origine</h6>
+              <p>Maison de Tara est née d'un équilibre entre la <strong>France</strong> et l'<strong>Inde</strong>. Une maison familiale, communautaire, où l'on prend le temps de créer, partager et se retrouver.</p>
+            </div>
+            <!-- end text-content -->
+          </div>
+          <!-- end col-4 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="text-content" data-scroll data-scroll-speed="0.5">
+              <h6>L'esprit</h6>
+              <p>Entre tradition artisanale et élégance contemporaine, un lieu où la <strong>matière</strong>, les <strong>gestes</strong> et les objets ont du sens. Une maison vivante, qu'on habite le temps d'un moment.</p>
+            </div>
+            <!-- end text-content -->
+          </div>
+          <!-- end col-4 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="text-content" data-scroll data-scroll-speed="1">
+              <h6>Le geste</h6>
+              <p>On ne vous <strong>apprend</strong> pas à peindre. On vous <strong>laisse</strong> essayer. Deux heures pour laisser couler les idées. Sans pression, sans recherche de perfection.</p>
+            </div>
+            <!-- end text-content -->
+          </div>
+          <!-- end col-4 -->
         </div>
-        <div class="mdt-access">
-          <div class="mdt-access-card"><h3>Créer</h3><p>Peindre une pièce en céramique, librement, à votre rythme.</p></div>
-          <div class="mdt-access-card"><h3>Partager</h3><p>Un café, un moment, une conversation qui s'installe.</p></div>
-          <div class="mdt-access-card"><h3>Prolonger</h3><p>Emporter chez soi un objet choisi, qui a une histoire.</p></div>
-        </div>
+        <!-- end row -->
       </div>
+      <!-- end container -->
     </section>
 
+    <!-- Bande verte : Créer · Partager · Prolonger (reprend les anciennes cartes,
+         « Le geste » couvrant désormais « On ne vous apprend pas à peindre ») -->
     <section class="content-section mdt-floral-line">
       <div class="container">
         <div class="mdt-privatisation" data-scroll>
-          <h2>On ne vous apprend pas à peindre.</h2>
-          <p>On vous laisse essayer. Deux heures pour laisser couler les idées, sans pression et sans recherche de perfection. Le reste, c'est vous qui l'écrivez.</p>
-          <p style="margin-top:24px"><a href="atelier.html#reserver" class="btn btn--primary">Réserver un moment</a></p>
+          <h2>Créer · Partager · Prolonger</h2>
+          <p>Peindre une pièce en céramique librement, à votre rythme. Partager un café, une conversation qui s'installe. Emporter chez soi un objet choisi, qui a une histoire.</p>
+          <p class="mdt-priva-cta"><a href="atelier.html#reserver" class="btn btn--primary">Réserver un moment</a></p>
         </div>
       </div>
     </section>
 
+    <!-- include: footer -->
   </div>
 </div>
 <!-- include: scripts -->
+<script src="js/page-lab.js"></script>
 </body>
 </html>

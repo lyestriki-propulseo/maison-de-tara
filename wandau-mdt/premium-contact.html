@@ -1,0 +1,653 @@
+<!doctype html>
+<!-- PREVIEW premium exploratoire — non buildée, à arbitrer puis intégrer -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Maison de Tara — Preview premium</title>
+<meta name="description" content="Venir à la Maison de Tara : adresse, accès (train, tram, bus, voiture), horaires et formulaire de contact. La Garenne-Colombes (92).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=La+Belle+Aurore&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PREVIEW premium — « La carte de visite »
+   Charte Maison de Tara : terracotta / vieux rose / sauge /
+   sable / laiton / encre / blanc cassé. Aucune autre couleur.
+   ============================================================ */
+:root{
+  --terracotta:#79301E;
+  --rose:#BA7770;
+  --sauge:#8A976C;
+  --sable:#F0ECDB;
+  --laiton:#B8924D;
+  --encre:#2c2419;
+  --blanc:#FBF7EC;
+
+  --serif:"Playfair Display", Georgia, serif;
+  --script:"La Belle Aurore", cursive;
+  --sans:"Inter", system-ui, sans-serif;
+
+  --fs-h1:clamp(2.4rem, 1.4rem + 4.2vw, 4.4rem);
+  --fs-h2:clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+  --fs-h3:clamp(1.1rem, 1rem + .5vw, 1.35rem);
+  --fs-body:clamp(.98rem, .92rem + .25vw, 1.08rem);
+  --fs-small:.86rem;
+
+  --maxw:1180px;
+  --pad:clamp(1.25rem, 4vw, 3rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  font-family:var(--sans);
+  font-size:var(--fs-body);
+  line-height:1.65;
+  color:var(--encre);
+  background:var(--blanc);
+}
+/* Texture florale légère, fixe, très discrète */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:url("../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background-size:520px;
+  opacity:.06;
+  pointer-events:none;
+  z-index:0;
+}
+main, header.site, footer.site{position:relative; z-index:1}
+
+::selection{background:var(--laiton); color:var(--blanc)}
+
+a{color:var(--terracotta); text-decoration-color:color-mix(in srgb, var(--laiton) 60%, transparent); text-underline-offset:3px; transition:color .25s ease, text-decoration-color .25s ease}
+a:hover{color:var(--laiton); text-decoration-color:var(--laiton)}
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible{
+  outline:2px solid var(--terracotta);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+h1,h2,h3{font-family:var(--serif); font-weight:500; line-height:1.12; margin:0}
+
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--pad)}
+
+/* ---------- Header sticky minimal ---------- */
+header.site{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--blanc) 88%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid color-mix(in srgb, var(--laiton) 45%, transparent);
+}
+.site-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-block:.85rem;
+}
+.brand{
+  font-family:var(--serif);
+  font-size:1.25rem;
+  letter-spacing:.04em;
+  color:var(--encre);
+  text-decoration:none;
+}
+.brand em{font-family:var(--script); font-style:normal; color:var(--terracotta); font-size:1.45rem; margin-left:.15rem}
+.back-link{font-size:var(--fs-small); letter-spacing:.02em; text-decoration:none; border-bottom:1px solid transparent}
+.back-link:hover{border-bottom-color:var(--laiton)}
+
+/* ---------- Filets & ornements ---------- */
+.rule{
+  display:flex; align-items:center; gap:.9rem;
+  color:var(--laiton);
+  margin-block:1.1rem;
+}
+.rule::before,.rule::after{
+  content:""; flex:1; height:1px;
+  background:linear-gradient(to right, transparent, var(--laiton), transparent);
+}
+.rule span{
+  font-family:var(--script);
+  font-size:1.35rem;
+  line-height:1;
+  color:var(--laiton);
+}
+
+.eyebrow{
+  font-family:var(--script);
+  font-size:clamp(1.3rem, 1.1rem + .9vw, 1.8rem);
+  color:var(--sauge);
+  display:block;
+  margin-bottom:.35rem;
+}
+.kicker{
+  font-family:var(--sans);
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--laiton);
+  display:block;
+  margin-bottom:.6rem;
+}
+
+/* ---------- Écran 1 : intro + fiche ---------- */
+.hero{padding-block:clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem)}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:clamp(1.5rem, 4vw, 4rem);
+  align-items:center;
+}
+.hero h1{font-size:var(--fs-h1); color:var(--terracotta)}
+.hero-intro{max-width:54ch; margin-top:1rem; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
+
+.arch-photo{
+  justify-self:end;
+  width:min(100%, 340px);
+  aspect-ratio:3/4;
+  border-radius:50% 50% 8px 8px / 38% 38% 8px 8px; /* arche indienne */
+  overflow:hidden;
+  border:1px solid var(--laiton);
+  box-shadow:0 0 0 6px var(--blanc), 0 0 0 7px var(--laiton);
+}
+.arch-photo img{width:100%; height:100%; object-fit:cover; display:block}
+
+/* La fiche — carte de visite papeterie, double-bordure laiton */
+.fiche{
+  position:relative;
+  background:var(--sable);
+  border:1px solid var(--laiton);
+  box-shadow:0 18px 40px -28px color-mix(in srgb, var(--encre) 45%, transparent);
+  padding:clamp(1.4rem, 4vw, 3rem);
+  margin-top:clamp(1.8rem, 4vw, 3rem);
+}
+.fiche::before{
+  content:"";
+  position:absolute; inset:9px;
+  border:1px solid color-mix(in srgb, var(--laiton) 75%, transparent);
+  pointer-events:none;
+}
+.fiche-inner{position:relative}
+.fiche-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.coords h2{font-size:1rem; letter-spacing:.18em; text-transform:uppercase; font-family:var(--sans); font-weight:600; color:var(--laiton); margin-bottom:1.1rem}
+.coord{padding-block:.85rem; border-bottom:1px solid color-mix(in srgb, var(--laiton) 35%, transparent)}
+.coord:last-child{border-bottom:0}
+.coord h3{font-size:.72rem; font-family:var(--sans); font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--sauge); margin-bottom:.25rem}
+.coord p, .coord a{
+  font-family:var(--serif);
+  font-size:clamp(1.05rem, .95rem + .6vw, 1.4rem);
+  margin:0;
+  color:var(--encre);
+  text-decoration:none;
+}
+.coord a{border-bottom:1px solid transparent; transition:border-color .25s ease, color .25s ease}
+.coord a:hover{color:var(--terracotta); border-bottom-color:var(--laiton)}
+
+.hours h3{
+  font-size:var(--fs-h3);
+  color:var(--terracotta);
+  margin-bottom:.9rem;
+  padding-bottom:.55rem;
+  border-bottom:1px solid var(--laiton);
+}
+.hours ul{list-style:none; margin:0; padding:0}
+.hours li{
+  display:flex; justify-content:space-between; gap:1rem;
+  padding-block:.42rem;
+  font-size:.95rem;
+  border-bottom:1px dotted color-mix(in srgb, var(--laiton) 45%, transparent);
+}
+.hours li:last-child{border-bottom:0}
+.hours li span:first-child{font-weight:500}
+.hours li span:last-child{font-variant-numeric:tabular-nums; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+.hours li.is-closed span{font-style:italic; font-weight:400; color:color-mix(in srgb, var(--encre) 45%, var(--blanc))}
+
+.fiche-cta{margin-top:clamp(1.4rem, 3vw, 2rem); text-align:center}
+
+.btn{
+  display:inline-block;
+  font-family:var(--sans);
+  font-size:.92rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--blanc);
+  background:var(--terracotta);
+  border:1px solid var(--terracotta);
+  padding:.85rem 2.2rem;
+  cursor:pointer;
+  transition:background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.btn:hover{background:var(--laiton); border-color:var(--laiton); color:var(--blanc); box-shadow:0 10px 24px -16px var(--encre)}
+
+/* ---------- Écran 2 : carte + accès ---------- */
+.locate{padding-block:clamp(2.5rem, 6vw, 5rem)}
+.section-head{text-align:center; max-width:640px; margin-inline:auto; margin-bottom:clamp(1.6rem, 4vw, 2.8rem)}
+.section-head h2{font-size:var(--fs-h2); color:var(--terracotta)}
+
+.map-frame{
+  position:relative;
+  border:1px solid var(--laiton);
+  padding:10px;
+  background:var(--sable);
+  border-radius:240px 240px 10px 10px;
+}
+.map-frame iframe{
+  display:block;
+  width:100%;
+  height:clamp(320px, 46vw, 460px);
+  border:1px solid color-mix(in srgb, var(--laiton) 70%, transparent);
+  border-radius:230px 230px 4px 4px;
+  filter:sepia(.18) saturate(.92);
+}
+
+.access{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:0;
+  margin-top:clamp(1.8rem, 4vw, 3rem);
+}
+.access-col{
+  padding:1.2rem clamp(.9rem, 2vw, 1.6rem);
+  border-left:1px solid color-mix(in srgb, var(--laiton) 50%, transparent);
+}
+.access-col:first-child{border-left:0}
+.access-cap{
+  font-family:var(--serif);
+  font-size:clamp(2.4rem, 2rem + 1.6vw, 3.4rem);
+  line-height:1;
+  color:var(--rose);
+  display:block;
+}
+.access-col h3{
+  font-size:var(--fs-h3);
+  color:var(--terracotta);
+  margin:.5rem 0 .45rem;
+}
+.access-col p{margin:0; font-size:.93rem; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+
+/* ---------- Écran 3 : FAQ + formulaire ---------- */
+.write{
+  padding-block:clamp(2.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+}
+.write-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:clamp(2rem, 5vw, 4.5rem);
+  align-items:start;
+}
+.col-head h2{font-size:var(--fs-h2); color:var(--terracotta); margin-bottom:.4rem}
+.col-head p{margin:.4rem 0 1.4rem; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+
+.faq details{border-bottom:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+.faq details:first-of-type{border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+.faq summary{
+  list-style:none;
+  display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+  cursor:pointer;
+  padding:1rem .15rem;
+  font-family:var(--serif);
+  font-size:clamp(1.02rem, .95rem + .4vw, 1.2rem);
+  color:var(--encre);
+  transition:color .25s ease;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--terracotta)}
+.faq summary::after{
+  content:"+";
+  font-family:var(--serif);
+  font-size:1.4rem;
+  line-height:1;
+  color:var(--laiton);
+  flex:none;
+  transition:transform .3s ease;
+}
+.faq details[open] summary{color:var(--terracotta)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 .15rem 1.1rem; max-width:60ch; color:color-mix(in srgb, var(--encre) 85%, var(--blanc)); font-size:.95rem}
+@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
+
+/* Formulaire — champs soulignés fins */
+.form-card{
+  background:var(--sable);
+  border:1px solid var(--laiton);
+  padding:clamp(1.4rem, 3vw, 2.2rem);
+  position:relative;
+}
+.form-card::before{
+  content:"";
+  position:absolute; inset:8px;
+  border:1px solid color-mix(in srgb, var(--laiton) 70%, transparent);
+  pointer-events:none;
+}
+.form-card form{position:relative}
+.field{margin-bottom:1.3rem}
+.field--row{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem}
+.field label{
+  display:block;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--sauge);
+  margin-bottom:.3rem;
+}
+.field input, .field textarea{
+  width:100%;
+  font:inherit;
+  color:var(--encre);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid color-mix(in srgb, var(--encre) 35%, transparent);
+  padding:.45rem .1rem;
+  transition:border-color .25s ease;
+}
+.field input:hover, .field textarea:hover{border-bottom-color:var(--laiton)}
+.field input:focus, .field textarea:focus{border-bottom-color:var(--terracotta); outline:none}
+.field input:focus-visible, .field textarea:focus-visible{outline:none; border-bottom:2px solid var(--terracotta)}
+.field textarea{min-height:130px; resize:vertical}
+.form-msg{font-size:var(--fs-small); font-style:italic; color:var(--sauge); margin:.8rem 0 0; min-height:1.2em}
+
+/* ---------- Footer minimal ---------- */
+footer.site{
+  border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent);
+  background:var(--sable);
+  padding-block:1.6rem;
+}
+.foot{
+  display:flex; flex-wrap:wrap; gap:.6rem 1.6rem;
+  align-items:center; justify-content:space-between;
+  font-size:var(--fs-small);
+  color:color-mix(in srgb, var(--encre) 75%, var(--blanc));
+}
+.foot a{text-decoration:none}
+.foot .sig{font-family:var(--script); font-size:1.25rem; color:var(--terracotta)}
+
+/* ---------- Reveals doux ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+.reveal.is-in{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1; transform:none; transition:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .arch-photo{justify-self:center; width:min(100%, 300px)}
+  .fiche-grid{grid-template-columns:1fr 1fr}
+  .fiche-grid .coords{grid-column:1 / -1}
+  .access{grid-template-columns:1fr 1fr}
+  .access-col:nth-child(3){border-left:0}
+  .access-col{border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+  .access-col:nth-child(-n+2){border-top:0}
+  .write-grid{grid-template-columns:1fr}
+  .map-frame, .map-frame iframe{border-radius:120px 120px 8px 8px}
+}
+@media (max-width:640px){
+  .fiche-grid{grid-template-columns:1fr}
+  .access{grid-template-columns:1fr}
+  .access-col{border-left:0}
+  .access-col:nth-child(-n+2){border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+  .access-col:first-child{border-top:0}
+  .field--row{grid-template-columns:1fr}
+  .map-frame, .map-frame iframe{border-radius:70px 70px 6px 6px}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-bar">
+    <a class="brand" href="index.html">Maison <em>de Tara</em></a>
+    <a class="back-link" href="contact.html">&larr; version actuelle</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ ÉCRAN 1 — Intro + la fiche ============ -->
+  <section class="hero wrap" id="s-intro">
+    <div class="hero-grid reveal">
+      <div>
+        <span class="eyebrow">Une question&nbsp;?</span>
+        <h1>Venir à la maison</h1>
+        <p class="hero-intro">La Maison de Tara vous accueille au 1 Rue Gabriel Péri, à La Garenne-Colombes. Passez quand vous voulez pour découvrir la boutique, ou réservez votre atelier — on prend le temps de bien vous recevoir.</p>
+      </div>
+      <figure class="arch-photo" style="margin:0">
+        <img src="../assets-premium-lp/tara-storefront-01.jpeg" alt="La devanture de la Maison de Tara, 1 Rue Gabriel Péri à La Garenne-Colombes" loading="eager">
+      </figure>
+    </div>
+
+    <article class="fiche reveal" aria-label="Coordonnées et horaires de la Maison de Tara">
+      <div class="fiche-inner">
+        <div class="fiche-grid">
+          <div class="coords">
+            <h2>Coordonnées</h2>
+            <div class="coord">
+              <h3>Adresse</h3>
+              <p>1 Rue Gabriel Péri<br>92250 La Garenne-Colombes</p>
+            </div>
+            <div class="coord">
+              <h3>Téléphone</h3>
+              <a href="tel:+33650535149">+33 6 50 53 51 49</a>
+            </div>
+            <div class="coord">
+              <h3>Email</h3>
+              <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+            </div>
+            <div class="coord">
+              <h3>Instagram</h3>
+              <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" title="Maison de Tara sur Instagram (nouvel onglet)">@maison_de_tara</a>
+            </div>
+          </div>
+
+          <div class="hours">
+            <h3>Ouverture de la maison</h3>
+            <ul>
+              <li class="is-closed"><span>Lundi</span><span>Fermé</span></li>
+              <li><span>Mardi</span><span>12h – 18h</span></li>
+              <li><span>Mercredi</span><span>9h – 18h</span></li>
+              <li><span>Jeudi</span><span>9h – 21h</span></li>
+              <li><span>Vendredi</span><span>9h – 21h</span></li>
+              <li><span>Samedi</span><span>9h – 21h</span></li>
+              <li><span>Dimanche</span><span>9h – 15h</span></li>
+            </ul>
+          </div>
+
+          <div class="hours">
+            <h3>Ateliers (sessions de 2h)</h3>
+            <ul>
+              <li class="is-closed"><span>Lundi</span><span>Fermé</span></li>
+              <li><span>Mardi</span><span>13h · 16h</span></li>
+              <li><span>Mercredi</span><span>10h · 13h · 16h</span></li>
+              <li><span>Jeudi</span><span>10h · 13h · 16h · 19h</span></li>
+              <li><span>Vendredi</span><span>10h · 13h · 16h · 19h</span></li>
+              <li><span>Samedi</span><span>10h · 13h · 16h · 19h</span></li>
+              <li><span>Dimanche</span><span>10h · 13h</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="fiche-cta"><a href="atelier.html#reserver" class="btn">Réserver un atelier</a></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ ÉCRAN 2 — Carte + accès ============ -->
+  <section class="locate wrap" id="s-carte">
+    <div class="section-head reveal">
+      <span class="kicker">Nous situer</span>
+      <h2>Sur la carte.</h2>
+      <div class="rule" aria-hidden="true"><span>~</span></div>
+    </div>
+
+    <div class="map-frame reveal">
+      <iframe title="Carte — Maison de Tara, 1 Rue Gabriel Péri, La Garenne-Colombes"
+        src="https://www.google.com/maps?q=1%20Rue%20Gabriel%20P%C3%A9ri%2C%2092250%20La%20Garenne-Colombes&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:clamp(2.2rem,5vw,3.6rem)">
+      <span class="kicker">Comment venir</span>
+      <h2>À deux pas, par tous les chemins.</h2>
+    </div>
+
+    <div class="access reveal" id="s-acces">
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3>En train</h3>
+        <p>À quelques minutes à pied de la gare de La Garenne-Colombes, facilement accessible depuis Paris Saint-Lazare (Ligne L).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3>En tramway</h3>
+        <p>À proximité du T2 « Les Fauvelles », reliant La Défense et Porte de Versailles.</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">B</span>
+        <h3>En bus</h3>
+        <p>Desservie par les lignes 163, 164, 178 et 278, avec des arrêts à proximité (Colombes, Courbevoie, Bois-Colombes, La Défense).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">V</span>
+        <h3>En voiture</h3>
+        <p>Plusieurs places de stationnement dans les rues avoisinantes. Un parking public payant est également accessible à proximité.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉCRAN 3 — FAQ + formulaire ============ -->
+  <section class="write wrap" id="s-ecrire">
+    <div class="write-grid">
+
+      <div class="faq reveal" id="s-faq">
+        <div class="col-head">
+          <span class="kicker">Questions fréquentes</span>
+          <h2>Tout ce qu'il faut savoir.</h2>
+        </div>
+        <details>
+          <summary>Faut-il savoir peindre&nbsp;?</summary>
+          <p>Non, aucune expérience n'est nécessaire. On vous laisse essayer, à votre rythme.</p>
+        </details>
+        <details>
+          <summary>Combien de temps dure une session&nbsp;?</summary>
+          <p>Environ 2 heures.</p>
+        </details>
+        <details>
+          <summary>Quand récupérer ma pièce&nbsp;?</summary>
+          <p>Quelques jours après la cuisson. Nous conviendrons ensemble de la date estimée de récupération le jour de votre atelier.</p>
+        </details>
+        <details>
+          <summary>À partir de quel âge&nbsp;?</summary>
+          <p>Il n'y a pas d'âge pour peindre&nbsp;! Les plus jeunes sont bien sûr les bienvenus lorsqu'ils sont accompagnés d'un adulte.</p>
+        </details>
+        <details>
+          <summary>Dois-je réserver pour un atelier&nbsp;?</summary>
+          <p>Oui, nous vous recommandons de réserver votre session à l'avance afin de vous accueillir dans les meilleures conditions et vous garantir une place. Les réservations se font en ligne, par téléphone ou directement à la boutique, sous réserve des disponibilités.</p>
+        </details>
+        <details>
+          <summary>Dois-je payer mon atelier à l'avance&nbsp;?</summary>
+          <p>Non, le règlement s'effectue sur place le jour de votre atelier. Lors de la réservation, un acompte de 6&nbsp;€ par personne est demandé pour confirmer votre place&nbsp;; il est déduit de votre facture finale. Cette participation nous permet de limiter les absences de dernière minute.</p>
+        </details>
+        <details>
+          <summary>Puis-je aussi découvrir la boutique&nbsp;?</summary>
+          <p>Avec plaisir&nbsp;! Vous pouvez passer librement, sans réservation, pendant les horaires d'ouverture. Vous y trouverez une sélection de décoration, textiles, céramiques et idées cadeaux, renouvelée au fil des saisons.</p>
+        </details>
+        <details>
+          <summary>Puis-je organiser un anniversaire, un EVJF, un team building&nbsp;?</summary>
+          <p>Bien sûr. Nous serions ravis de vous accueillir pour célébrer un anniversaire, un EVJF, un team building, une baby shower ou tout autre moment qui vous tient à cœur. Pour toute réservation de plus de 8 personnes, contactez-nous directement pour imaginer ensemble la formule la plus adaptée.</p>
+        </details>
+        <details>
+          <summary>Comment savoir ce qui se passe à la Maison de Tara&nbsp;?</summary>
+          <p>Le meilleur moyen est de vous inscrire à la Lettre de la Maison&nbsp;: ateliers à venir, événements et nouveautés de la boutique. Vous pouvez aussi consulter <a href="calendrier.html">le calendrier</a> et nous suivre sur <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">Instagram</a>.</p>
+        </details>
+      </div>
+
+      <div class="reveal">
+        <div class="col-head">
+          <span class="kicker">Écrivez-nous</span>
+          <h2>Une question&nbsp;? Un projet&nbsp;?</h2>
+          <p>On vous répond avec plaisir. Pour une réservation d'atelier, passez plutôt par la page <a href="atelier.html#reserver">Atelier</a>.</p>
+        </div>
+        <div class="form-card">
+          <form id="contactForm" novalidate>
+            <div class="field--row">
+              <div class="field">
+                <label for="cf-nom">Votre nom</label>
+                <input id="cf-nom" name="nom" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="cf-email">Votre email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="cf-sujet">Sujet</label>
+              <input id="cf-sujet" name="sujet" type="text">
+            </div>
+            <div class="field">
+              <label for="cf-message">Votre message</label>
+              <textarea id="cf-message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap foot">
+    <span class="sig">Maison de Tara</span>
+    <span>1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+    <span><a href="tel:+33650535149">+33 6 50 53 51 49</a> &middot; <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Reveals doux — désactivés si prefers-reduced-motion */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach(function(el){ el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Formulaire : preview non connectée (forms-supabase.js branché à l'intégration) */
+  var form = document.getElementById("contactForm");
+  if (form) {
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var msg = form.querySelector(".form-msg");
+      if (msg) { msg.textContent = "Preview — formulaire non connecté dans cette version exploratoire."; }
+    });
+  }
+})();
+</script>
+</body>
+</html>

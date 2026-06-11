@@ -54,3 +54,9 @@ Document Tara/
 # Local tooling cache & session planning
 .kombai/
 .planning/
+
+# tokenade — per-project cache / scaffold flag / dedup refs
+.tokenade/
+
+# tokenade — legacy per-project embedding model cache (now global)
+.fastembed_cache/

@@ -7,6 +7,15 @@
 /* --- Conteneur scroll natif (pages sans Locomotive : calendrier) --- */
 .mdt-natural-scroll { display: block; }
 
+/* Pages légales (mentions, confidentialité) */
+.mdt-legal { max-width: 760px; margin: 24px auto 0; }
+.mdt-legal h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: 1.35rem; margin: 34px 0 10px; }
+.mdt-legal p, .mdt-legal li { color: var(--mdt-text-soft); line-height: 1.8; }
+.mdt-legal ul { padding-left: 20px; }
+.mdt-legal .todo { background: rgba(184, 79, 62, .08); border: 1px dashed var(--mdt-terracotta);
+  padding: 1px 6px; border-radius: 4px; }
+
 /* --- Bandeau d'intro de page interne --- */
 .mdt-page-intro { text-align: center; padding-top: 140px; }
 .mdt-page-intro .mdt-eyebrow {
@@ -163,6 +172,18 @@
 .mdt-occasions span {
   background: rgba(240,236,219,.14); border: 1px solid rgba(240,236,219,.32);
   border-radius: 999px; padding: 7px 16px; font-size: .9rem;
+}
+/* Galerie privatisation — placeholders petit format (retour Pastel #45) */
+.mdt-priva-gallery {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px;
+}
+.mdt-priva-gallery img {
+  width: 180px; height: 130px; object-fit: cover; border-radius: 12px;
+  border: 1px solid rgba(240,236,219,.32); display: block;
+}
+.mdt-priva-cta { margin-top: 26px; }
+@media (max-width: 560px) {
+  .mdt-priva-gallery img { width: 132px; height: 96px; }
 }
 
 /* ============================ CALENDRIER ============================ */

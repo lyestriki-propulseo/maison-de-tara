@@ -1,0 +1,153 @@
+<!doctype html>
+<!-- COMPARATEUR — outil interne d'arbitrage (non buildé, non lié depuis le site).
+     Une page + une version → affichage en iframe. v2/v3 sont appliquées via
+     ?lab&v=N&nopanel (géré par js/page-lab.js). À supprimer après verrouillage. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Comparateur des versions · Maison de Tara</title>
+<style>
+  :root {
+    --terracotta: #79301E;
+    --laiton: #B8924D;
+    --sable: #F0ECDB;
+    --encre: #2c2419;
+    --creme: #FBF7EC;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--creme);
+    color: var(--encre);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    padding: 12px 18px 10px;
+    border-bottom: 1px solid rgba(44, 36, 25, .15);
+    background: var(--sable);
+    flex: 0 0 auto;
+  }
+  header h1 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  header h1 a { color: var(--laiton); font-size: 11px; letter-spacing: .06em; text-transform: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .row:last-child { margin-bottom: 0; }
+  .row .lbl {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(44, 36, 25, .55);
+    width: 64px;
+    flex: 0 0 auto;
+  }
+  button {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    padding: 8px 14px;
+    background: #ece7da;
+    font: 12px/1 Inter, system-ui, sans-serif;
+    color: var(--encre);
+  }
+  button[aria-pressed="true"] {
+    border-color: var(--terracotta);
+    background: #f6e9e4;
+    font-weight: 600;
+  }
+  button:focus-visible { outline: 2px solid var(--laiton); outline-offset: 2px; }
+  .open-link {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--terracotta);
+  }
+  iframe { flex: 1 1 auto; width: 100%; border: 0; background: #fff; }
+  .note { font-size: 11px; color: rgba(44,36,25,.6); font-style: italic; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Comparateur des versions <a href="index.html?lab" target="_blank" rel="noopener">Accueil &amp; ses réglages détaillés ↗</a></h1>
+  <div class="row" id="rowPages"><span class="lbl">Page</span></div>
+  <div class="row" id="rowVariants"><span class="lbl">Version</span><a class="open-link" id="openLink" href="#" target="_blank" rel="noopener">ouvrir dans un onglet ↗</a></div>
+</header>
+<iframe id="frame" title="Aperçu de la version sélectionnée"></iframe>
+<script>
+(function () {
+  var PAGES = [
+    ['atelier', "L'Atelier"],
+    ['boutique', 'La Boutique'],
+    ['calendrier', 'Le Calendrier'],
+    ['contact', 'Contact'],
+    ['histoire', 'Mon Histoire'],
+  ];
+  var VARIANTS = [
+    ['v1', 'v1 · actuelle'],
+    ['v2', 'v2'],
+    ['v3', 'v3'],
+    ['premium', 'Premium ✦'],
+  ];
+
+  var state = { page: 'atelier', variant: 'v1' };
+  var h = location.hash.replace('#', '').split('|');
+  if (h.length === 2 && PAGES.some(function (p) { return p[0] === h[0]; })
+      && VARIANTS.some(function (v) { return v[0] === h[1]; })) {
+    state.page = h[0];
+    state.variant = h[1];
+  }
+
+  function src() {
+    if (state.variant === 'premium') return 'premium-' + state.page + '.html';
+    if (state.variant === 'v1') return state.page + '.html';
+    return state.page + '.html?lab&v=' + state.variant.slice(1) + '&nopanel';
+  }
+
+  function makeButtons(rowId, items, key) {
+    var row = document.getElementById(rowId);
+    items.forEach(function (it) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = it[1];
+      b.dataset.val = it[0];
+      b.addEventListener('click', function () {
+        state[key] = it[0];
+        update();
+      });
+      row.insertBefore(b, rowId === 'rowVariants' ? document.getElementById('openLink') : null);
+    });
+  }
+
+  function update() {
+    ['rowPages', 'rowVariants'].forEach(function (id, i) {
+      var key = i === 0 ? 'page' : 'variant';
+      document.getElementById(id).querySelectorAll('button').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.dataset.val === state[key] ? 'true' : 'false');
+      });
+    });
+    var u = src();
+    document.getElementById('frame').src = u;
+    document.getElementById('openLink').href = u;
+    location.hash = state.page + '|' + state.variant;
+  }
+
+  makeButtons('rowPages', PAGES, 'page');
+  makeButtons('rowVariants', VARIANTS, 'variant');
+  update();
+})();
+</script>
+</body>
+</html>

@@ -159,12 +159,18 @@
           </div>
 
           <div>
-            <p class="acompte">Un acompte de <strong>6&nbsp;€ par personne</strong> est demandé pour confirmer la réservation. Il est déduit de votre facture finale, et le reste se règle sur place le jour de l'atelier.</p>
+            <!-- Pas d'acompte tant que le site n'a pas de paiement en ligne :
+                 le règlement se fait sur place (retour client 11/06). -->
+            <p class="acompte">La réservation ne demande <strong>aucun paiement en ligne</strong>&nbsp;: tout se règle sur place, le jour de votre atelier.</p>
             <form id="reservationForm" novalidate>
               <div class="fgrid">
                 <div class="fld">
-                  <label for="rf-date">Date souhaitée</label>
-                  <input id="rf-date" name="date" type="date" required>
+                  <label for="rf-date-btn">Date souhaitée</label>
+                  <div class="dp">
+                    <button type="button" class="dp__field" id="rf-date-btn" aria-haspopup="dialog" aria-expanded="false">Choisir une date</button>
+                    <input type="hidden" id="rf-date" name="date">
+                    <div class="dp__pop" hidden></div>
+                  </div>
                 </div>
                 <fieldset class="fld fld--pills">
                   <legend>Créneau</legend>
@@ -242,16 +248,10 @@
 </main>
 <!-- include: scripts-min -->
 <script src="js/header-pages.js"></script>
+<script src="js/mdt-datepicker.js"></script>
 <script>
 (function(){
   "use strict";
-
-  /* Date de réservation : pas de date passée */
-  var rfDate = document.getElementById("rf-date");
-  if (rfDate) {
-    var t = new Date();
-    rfDate.min = t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
-  }
 
   /* Reveals au scroll — IntersectionObserver, respecte prefers-reduced-motion */
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

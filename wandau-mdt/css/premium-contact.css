@@ -1,0 +1,429 @@
+/* ============================================================
+   PREMIUM CONTACT — « La carte de visite »
+   Intégration de la preview validée, scope .premium-contact
+   (classe portée par <main>). Charte : terracotta / vieux rose /
+   sauge / sable / laiton / encre / blanc cassé.
+   Poids de fonts limités à ceux chargés par le head du site :
+   Playfair 400/500/600 (+ital), La Belle Aurore 400, Inter 300/400/500.
+   ============================================================ */
+
+.premium-contact{
+  --terracotta:#79301E;
+  --rose:#BA7770;
+  --sauge:#8A976C;
+  --sable:#F0ECDB;
+  --laiton:#B8924D;
+  --encre:#2c2419;
+  --blanc:#FBF7EC;
+
+  --serif:"Playfair Display", Georgia, serif;
+  --script:"La Belle Aurore", cursive;
+  --sans:"Inter", system-ui, sans-serif;
+
+  --fs-h1:clamp(2.4rem, 1.4rem + 4.2vw, 4.4rem);
+  --fs-h2:clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+  --fs-h3:clamp(1.1rem, 1rem + .5vw, 1.35rem);
+  --fs-body:clamp(.98rem, .92rem + .25vw, 1.08rem);
+  --fs-small:.86rem;
+
+  --maxw:1180px;
+  --pad:clamp(1.25rem, 4vw, 3rem);
+}
+
+.premium-contact,
+.premium-contact *,
+.premium-contact *::before,
+.premium-contact *::after{box-sizing:border-box}
+
+/* Typo / fond de page (équivalent body de la preview) */
+.premium-contact{
+  margin:0;
+  font-family:var(--sans);
+  font-size:var(--fs-body);
+  line-height:1.65;
+  color:var(--encre);
+  background:var(--blanc);
+  position:relative;
+}
+/* Texture florale légère, fixe, très discrète */
+.premium-contact::before{
+  content:"";
+  position:fixed; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background-size:520px;
+  opacity:.06;
+  pointer-events:none;
+  z-index:0;
+}
+.premium-contact > *{position:relative; z-index:1}
+
+.premium-contact ::selection{background:var(--laiton); color:var(--blanc)}
+
+/* Ré-affirmation typo : le template Wandau style les balises nues
+   (a noir, p, h1-h6 avec !important dans mdt-override.css). */
+.premium-contact p{margin:0 0 1rem}
+
+.premium-contact a{
+  color:var(--terracotta);
+  text-decoration:underline;
+  text-decoration-color:color-mix(in srgb, var(--laiton) 60%, transparent);
+  text-underline-offset:3px;
+  transition:color .25s ease, text-decoration-color .25s ease;
+}
+.premium-contact a:hover{color:var(--laiton); text-decoration-color:var(--laiton)}
+.premium-contact a:focus-visible,
+.premium-contact button:focus-visible,
+.premium-contact input:focus-visible,
+.premium-contact textarea:focus-visible,
+.premium-contact summary:focus-visible{
+  outline:2px solid var(--terracotta);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.premium-contact h1,
+.premium-contact h2,
+.premium-contact h3{
+  font-family:var(--serif) !important;
+  font-weight:500 !important;
+  color:var(--encre) !important;
+  line-height:1.12;
+  letter-spacing:-0.01em;
+  margin:0;
+}
+
+.premium-contact .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--pad)}
+
+/* ---------- Filets & ornements ---------- */
+.premium-contact .rule{
+  display:flex; align-items:center; gap:.9rem;
+  color:var(--laiton);
+  margin-block:1.1rem;
+}
+.premium-contact .rule::before,
+.premium-contact .rule::after{
+  content:""; flex:1; height:1px;
+  background:linear-gradient(to right, transparent, var(--laiton), transparent);
+}
+.premium-contact .rule span{
+  font-family:var(--script);
+  font-size:1.35rem;
+  line-height:1;
+  color:var(--laiton);
+}
+
+.premium-contact .eyebrow{
+  font-family:var(--script) !important;
+  font-size:clamp(1.3rem, 1.1rem + .9vw, 1.8rem) !important;
+  font-weight:400 !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  color:var(--sauge) !important;
+  display:block;
+  margin-bottom:.35rem;
+}
+.premium-contact .kicker{
+  font-family:var(--sans);
+  font-size:.78rem;
+  font-weight:500;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--laiton);
+  display:block;
+  margin-bottom:.6rem;
+}
+
+/* ---------- Écran 1 : intro + fiche ---------- */
+.premium-contact .hero{padding-block:clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem)}
+.premium-contact .hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:clamp(1.5rem, 4vw, 4rem);
+  align-items:center;
+}
+.premium-contact .hero h1{font-size:var(--fs-h1) !important; color:var(--terracotta) !important; font-weight:500 !important}
+.premium-contact .hero-intro{max-width:54ch; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
+
+.premium-contact .arch-photo{
+  justify-self:end;
+  width:min(100%, 340px);
+  aspect-ratio:3/4;
+  border-radius:50% 50% 8px 8px / 38% 38% 8px 8px; /* arche indienne */
+  overflow:hidden;
+  border:1px solid var(--laiton);
+  box-shadow:0 0 0 6px var(--blanc), 0 0 0 7px var(--laiton);
+}
+.premium-contact .arch-photo img{width:100%; height:100%; object-fit:cover; display:block}
+
+/* La fiche — carte de visite papeterie, double-bordure laiton */
+.premium-contact .fiche{
+  position:relative;
+  background:var(--sable);
+  border:1px solid var(--laiton);
+  box-shadow:0 18px 40px -28px color-mix(in srgb, var(--encre) 45%, transparent);
+  padding:clamp(1.4rem, 4vw, 3rem);
+  margin-top:clamp(1.8rem, 4vw, 3rem);
+}
+.premium-contact .fiche::before{
+  content:"";
+  position:absolute; inset:9px;
+  border:1px solid color-mix(in srgb, var(--laiton) 75%, transparent);
+  pointer-events:none;
+}
+.premium-contact .fiche-inner{position:relative}
+.premium-contact .fiche-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.premium-contact .coords h2{
+  font-family:var(--sans) !important;
+  font-size:1rem !important;
+  font-weight:500 !important;
+  letter-spacing:.18em !important;
+  text-transform:uppercase;
+  color:var(--laiton) !important;
+  margin-bottom:1.1rem;
+}
+.premium-contact .coord{padding-block:.85rem; border-bottom:1px solid color-mix(in srgb, var(--laiton) 35%, transparent)}
+.premium-contact .coord:last-child{border-bottom:0}
+.premium-contact .coord h3{
+  font-family:var(--sans) !important;
+  font-size:.72rem !important;
+  font-weight:500 !important;
+  letter-spacing:.2em !important;
+  text-transform:uppercase;
+  color:var(--sauge) !important;
+  margin-bottom:.25rem;
+}
+.premium-contact .coord p,
+.premium-contact .coord a{
+  font-family:var(--serif);
+  font-size:clamp(1.05rem, .95rem + .6vw, 1.4rem);
+  margin:0;
+  color:var(--encre);
+  text-decoration:none;
+}
+.premium-contact .coord a{border-bottom:1px solid transparent; transition:border-color .25s ease, color .25s ease}
+.premium-contact .coord a:hover{color:var(--terracotta); border-bottom-color:var(--laiton); text-decoration:none}
+
+.premium-contact .hours h3{
+  font-size:var(--fs-h3) !important;
+  color:var(--terracotta) !important;
+  margin-bottom:.9rem;
+  padding-bottom:.55rem;
+  border-bottom:1px solid var(--laiton);
+}
+.premium-contact .hours ul{list-style:none; margin:0; padding:0}
+.premium-contact .hours li{
+  display:flex; justify-content:space-between; gap:1rem;
+  padding-block:.42rem;
+  font-size:.95rem;
+  border-bottom:1px dotted color-mix(in srgb, var(--laiton) 45%, transparent);
+}
+.premium-contact .hours li:last-child{border-bottom:0}
+.premium-contact .hours li span:first-child{font-weight:500}
+.premium-contact .hours li span:last-child{font-variant-numeric:tabular-nums; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+.premium-contact .hours li.is-closed span{font-style:italic; font-weight:400; color:color-mix(in srgb, var(--encre) 45%, var(--blanc))}
+
+.premium-contact .fiche-cta{margin-top:clamp(1.4rem, 3vw, 2rem); margin-bottom:0; text-align:center}
+
+/* Bouton — ré-affirmé contre .btn du template (bootstrap + mdt-override)
+   et button[type="submit"] de style.css (70px vert menthe). */
+.premium-contact .btn{
+  display:inline-block;
+  width:auto;
+  height:auto;
+  font-family:var(--sans);
+  font-size:.92rem;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  line-height:1.65;
+  color:var(--blanc);
+  background:var(--terracotta);
+  border:1px solid var(--terracotta);
+  border-radius:0;
+  box-shadow:none;
+  padding:.85rem 2.2rem;
+  cursor:pointer;
+  transition:background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.premium-contact .btn:hover{background:var(--laiton); border-color:var(--laiton); color:var(--blanc); text-decoration:none; box-shadow:0 10px 24px -16px var(--encre)}
+
+/* ---------- Écran 2 : carte + accès ---------- */
+.premium-contact .locate{padding-block:clamp(2.5rem, 6vw, 5rem)}
+.premium-contact .section-head{text-align:center; max-width:640px; margin-inline:auto; margin-bottom:clamp(1.6rem, 4vw, 2.8rem)}
+.premium-contact .section-head h2{font-size:var(--fs-h2) !important; color:var(--terracotta) !important}
+
+.premium-contact .map-frame{
+  position:relative;
+  border:1px solid var(--laiton);
+  padding:10px;
+  background:var(--sable);
+  border-radius:240px 240px 10px 10px;
+}
+.premium-contact .map-frame iframe{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:clamp(320px, 46vw, 460px);
+  border:1px solid color-mix(in srgb, var(--laiton) 70%, transparent);
+  border-radius:230px 230px 4px 4px;
+  filter:sepia(.18) saturate(.92);
+}
+
+.premium-contact .access{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:0;
+  margin-top:clamp(1.8rem, 4vw, 3rem);
+}
+.premium-contact .access-col{
+  padding:1.2rem clamp(.9rem, 2vw, 1.6rem);
+  border-left:1px solid color-mix(in srgb, var(--laiton) 50%, transparent);
+}
+.premium-contact .access-col:first-child{border-left:0}
+.premium-contact .access-cap{
+  font-family:var(--serif);
+  font-size:clamp(2.4rem, 2rem + 1.6vw, 3.4rem);
+  line-height:1;
+  color:var(--rose);
+  display:block;
+}
+.premium-contact .access-col h3{
+  font-size:var(--fs-h3) !important;
+  color:var(--terracotta) !important;
+  margin:.5rem 0 .45rem;
+}
+.premium-contact .access-col p{margin:0; font-size:.93rem; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+
+/* ---------- Écran 3 : FAQ + formulaire ---------- */
+.premium-contact .write{
+  padding-block:clamp(2.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+}
+.premium-contact .write-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:clamp(2rem, 5vw, 4.5rem);
+  align-items:start;
+}
+.premium-contact .col-head h2{font-size:var(--fs-h2) !important; color:var(--terracotta) !important; margin-bottom:.4rem}
+.premium-contact .col-head p{margin:.4rem 0 1.4rem; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
+
+/* <details>/<summary> — protégés contre les styles génériques du template */
+.premium-contact .faq details{border-bottom:1px solid color-mix(in srgb, var(--laiton) 50%, transparent); margin:0; padding:0; background:transparent}
+.premium-contact .faq details:first-of-type{border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+.premium-contact .faq summary{
+  list-style:none;
+  display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+  cursor:pointer;
+  padding:1rem .15rem;
+  margin:0;
+  font-family:var(--serif);
+  font-size:clamp(1.02rem, .95rem + .4vw, 1.2rem);
+  font-weight:500;
+  color:var(--encre);
+  transition:color .25s ease;
+}
+.premium-contact .faq summary::-webkit-details-marker{display:none}
+.premium-contact .faq summary::marker{content:""}
+.premium-contact .faq summary:hover{color:var(--terracotta)}
+.premium-contact .faq summary::after{
+  content:"+";
+  font-family:var(--serif);
+  font-size:1.4rem;
+  line-height:1;
+  color:var(--laiton);
+  flex:none;
+  transition:transform .3s ease;
+}
+.premium-contact .faq details[open] summary{color:var(--terracotta)}
+.premium-contact .faq details[open] summary::after{transform:rotate(45deg)}
+.premium-contact .faq details p{margin:0 .15rem 1.1rem; max-width:60ch; color:color-mix(in srgb, var(--encre) 85%, var(--blanc)); font-size:.95rem}
+@media (prefers-reduced-motion:reduce){.premium-contact .faq summary::after{transition:none}}
+
+/* Formulaire — champs soulignés fins
+   (ré-affirmé contre style.css : input 70px/420px, textarea 520px/padding 30px) */
+.premium-contact .form-card{
+  background:var(--sable);
+  border:1px solid var(--laiton);
+  padding:clamp(1.4rem, 3vw, 2.2rem);
+  position:relative;
+}
+.premium-contact .form-card::before{
+  content:"";
+  position:absolute; inset:8px;
+  border:1px solid color-mix(in srgb, var(--laiton) 70%, transparent);
+  pointer-events:none;
+}
+.premium-contact .form-card form{position:relative; margin:0}
+.premium-contact .field{margin-bottom:1.3rem}
+.premium-contact .field--row{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem}
+.premium-contact .field label{
+  display:block;
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--sauge);
+  margin-bottom:.3rem;
+}
+.premium-contact .field input,
+.premium-contact .field textarea{
+  width:100%;
+  max-width:100%;
+  height:auto;
+  font:inherit;
+  color:var(--encre);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid color-mix(in srgb, var(--encre) 35%, transparent);
+  border-radius:0;
+  box-shadow:none;
+  padding:.45rem .1rem;
+  transition:border-color .25s ease;
+}
+.premium-contact .field input:hover,
+.premium-contact .field textarea:hover{border-bottom-color:var(--laiton)}
+.premium-contact .field input:focus,
+.premium-contact .field textarea:focus{border-bottom-color:var(--terracotta); outline:none}
+.premium-contact .field input:focus-visible,
+.premium-contact .field textarea:focus-visible{outline:none; border-bottom:2px solid var(--terracotta)}
+.premium-contact .field textarea{min-height:130px; height:auto; resize:vertical}
+.premium-contact .form-msg{font-size:var(--fs-small); font-style:italic; color:var(--sauge); margin:.8rem 0 0; min-height:1.2em}
+
+/* ---------- Reveals doux ---------- */
+.premium-contact .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+.premium-contact .reveal.is-in{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){
+  .premium-contact .reveal{opacity:1; transform:none; transition:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .premium-contact .hero-grid{grid-template-columns:1fr}
+  .premium-contact .arch-photo{justify-self:center; width:min(100%, 300px)}
+  .premium-contact .fiche-grid{grid-template-columns:1fr 1fr}
+  .premium-contact .fiche-grid .coords{grid-column:1 / -1}
+  .premium-contact .access{grid-template-columns:1fr 1fr}
+  .premium-contact .access-col:nth-child(3){border-left:0}
+  .premium-contact .access-col{border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+  .premium-contact .access-col:nth-child(-n+2){border-top:0}
+  .premium-contact .write-grid{grid-template-columns:1fr}
+  .premium-contact .map-frame,
+  .premium-contact .map-frame iframe{border-radius:120px 120px 8px 8px}
+}
+@media (max-width:640px){
+  .premium-contact .fiche-grid{grid-template-columns:1fr}
+  .premium-contact .access{grid-template-columns:1fr}
+  .premium-contact .access-col{border-left:0}
+  .premium-contact .access-col:nth-child(-n+2){border-top:1px solid color-mix(in srgb, var(--laiton) 50%, transparent)}
+  .premium-contact .access-col:first-child{border-top:0}
+  .premium-contact .field--row{grid-template-columns:1fr}
+  .premium-contact .map-frame,
+  .premium-contact .map-frame iframe{border-radius:70px 70px 6px 6px}
+}

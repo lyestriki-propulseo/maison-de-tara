@@ -235,8 +235,8 @@
   swatchGroup(4, 'Bande « La lettre de la maison » (fond)',
     'L’avant-dernière section, juste au-dessus du footer. La carte d’inscription reste lisible quel que soit le fond.',
     '--mdt-newsletter-bg', [
-      { nom: 'Sauge grisée (actuel)', hex: '#9CA68C', cur: true },
-      { nom: 'Fond principal du site (beige)', hex: '#F0ECDB' },
+      { nom: 'Fond du site — crème (actuel)', hex: '#F0ECDB', cur: true },
+      { nom: 'Sauge grisée', hex: '#9CA68C' },
       { nom: 'Sable chaud', hex: '#E8DCC4' },
       { nom: 'Vert d’eau pâle', hex: '#CBD3BC' },
       { nom: 'Rosé poudré', hex: '#E3C9C2' },

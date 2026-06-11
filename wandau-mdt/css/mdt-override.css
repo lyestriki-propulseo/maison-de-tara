@@ -1135,7 +1135,8 @@ body.has-hero header.slider { height: 100vh !important; }
    occupe l'espace dès le haut. La photo encadrée s'équilibre dessus. */
 body.has-hero .slider .slider-texts .swiper-slide {
   align-items: flex-start;
-  padding-top: calc(96px + 12vh);
+  /* 12vh → 6vh : le bloc texte remonte sous le header (retour client 12/06) */
+  padding-top: calc(96px + 6vh);
 }
 body.has-hero .mdt-hero-photo { top: calc(50% + 5vh); }
 @media (max-width: 1440px) {

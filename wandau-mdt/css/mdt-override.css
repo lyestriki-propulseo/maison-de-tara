@@ -1790,13 +1790,15 @@ body.boutique-v4 .bv-4 { display: block; }
 }
 
 /* ============================================================
-   Footer MDT — Variante B (3 colonnes), fond vert + motif floral
-   (même recette que le hero, demande client)
+   Footer MDT — « Invitation » (variante B validée le 11/06) :
+   fond vert floral (recette hero conservée), signature manuscrite
+   centrée, nav et coordonnées sur une ligne, barre du bas sur UNE
+   seule ligne avec le crédit Propul'SEO centré et cliquable.
    ============================================================ */
 .mdt-footer {
   background: var(--mdt-sauge) !important;
   color: var(--mdt-sable);
-  padding: clamp(64px, 7vw, 96px) 0 36px;
+  padding: clamp(52px, 7vw, 84px) 0 0;
   border-top: none;
   position: relative;
   overflow: hidden;
@@ -1815,80 +1817,96 @@ body.boutique-v4 .bv-4 { display: block; }
   pointer-events: none;
 }
 .mdt-footer .container { max-width: var(--mdt-container); position: relative; z-index: 2; }
-.mdt-footer-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 60px;
-  align-items: start;
+.mdt-footer-inner { text-align: center; }
+.mdt-footer-tag {
+  font-family: var(--mdt-font-script);
+  font-size: clamp(26px, 4vw, 40px);
+  color: var(--mdt-laiton);
+  display: block;
+  margin-bottom: 2px;
 }
 .mdt-footer-name {
   font-family: var(--mdt-font-display);
-  font-size: 32px;
-  font-weight: 400;
+  font-size: clamp(30px, 4.5vw, 48px);
+  font-weight: 500;
   color: var(--mdt-sable);
-  margin-bottom: 14px;
+  line-height: 1.1;
 }
-.mdt-footer-tag {
-  font-family: var(--mdt-font-script);
-  font-size: 26px;
-  color: var(--mdt-laiton);
-  margin-bottom: 16px;
+.mdt-footer-nav {
+  margin: 30px 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 30px;
 }
-.mdt-footer-brand p {
-  font-size: 15px;
-  color: rgba(240, 236, 219, 0.78);
-  max-width: 320px;
-  margin: 0;
-}
-.mdt-footer-wtitle {
-  font-family: var(--mdt-font-body) !important;
+.mdt-footer-nav a {
+  color: var(--mdt-sable);
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 500 !important;
-  font-size: 12px !important;
-  color: var(--mdt-sable) !important;
-  margin-bottom: 22px;
-  opacity: 0.7;
-}
-.mdt-footer-menu { list-style: none; padding: 0; margin: 0; }
-.mdt-footer-menu li { margin-bottom: 12px; }
-.mdt-footer-menu a {
-  font-family: var(--mdt-font-display);
-  font-size: 19px;
-  color: var(--mdt-sable);
   transition: color .25s;
 }
-.mdt-footer-menu a:hover { color: var(--mdt-laiton); }
-.mdt-footer-address {
-  font-style: normal;
-  font-size: 15px;
-  color: rgba(240, 236, 219, 0.85);
-  line-height: 1.9;
-}
-.mdt-footer-address strong { color: #fff; font-weight: 500; }
-.mdt-footer-address a { color: rgba(240, 236, 219, 0.85); }
-.mdt-footer-address a:hover { color: var(--mdt-laiton); }
-.mdt-footer-bottom {
-  margin-top: 56px;
-  padding-top: 26px;
-  border-top: 1px solid rgba(240, 236, 219, 0.22);
+.mdt-footer-nav a:hover { color: var(--mdt-laiton); }
+.mdt-footer-coords {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
-  font-size: 13px;
-  color: rgba(240, 236, 219, 0.65);
+  justify-content: center;
+  gap: 8px 14px;
+  font-size: 13.5px;
+  color: rgba(240, 236, 219, 0.85);
 }
-.mdt-footer-bottom a { color: rgba(240, 236, 219, 0.85); }
+.mdt-footer-coords a {
+  color: rgba(240, 236, 219, 0.85);
+  border-bottom: 1px solid rgba(184, 146, 77, 0.5);
+  transition: color .25s, border-color .25s;
+}
+.mdt-footer-coords a:hover { color: var(--mdt-laiton); border-bottom-color: var(--mdt-laiton); }
+.mdt-footer-coords .dot { color: var(--mdt-laiton); }
+.mdt-footer-filet {
+  width: 72px;
+  height: 1px;
+  background: var(--mdt-laiton);
+  margin: 30px auto 0;
+  position: relative;
+}
+.mdt-footer-filet::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--mdt-laiton);
+}
+/* Barre du bas : UNE ligne — © à gauche, crédit centré, légal à droite */
+.mdt-footer-bottom {
+  margin-top: 26px;
+  border-top: 1px solid rgba(240, 236, 219, 0.22);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 0 17px;
+  font-size: 12.5px;
+  color: rgba(240, 236, 219, 0.6);
+}
+.mdt-footer-bottom .fb-l { justify-self: start; white-space: nowrap; }
+.mdt-footer-bottom .fb-c { justify-self: center; text-align: center; }
+.mdt-footer-bottom .fb-r { justify-self: end; white-space: nowrap; }
+.mdt-footer-bottom a { color: rgba(240, 236, 219, 0.8); transition: color .25s; }
 .mdt-footer-bottom a:hover { color: var(--mdt-laiton); }
-/* Crédit agence : seul, centré, sous la ligne © / légal / réseaux */
 .mdt-footer-credit {
-  flex-basis: 100%;
-  text-align: center;
-  margin-top: 10px;
-  opacity: 0.85;
+  font-family: var(--mdt-font-script);
+  font-size: 17px;
+  color: var(--mdt-laiton) !important;
+  border-bottom: 0 !important;
 }
+.mdt-footer-credit:hover { color: var(--mdt-sable) !important; }
 
-@media (max-width: 860px) {
-  .mdt-footer-grid { grid-template-columns: 1fr; gap: 40px; }
+@media (max-width: 760px) {
+  .mdt-footer-bottom { grid-template-columns: 1fr; gap: 6px; text-align: center; }
+  .mdt-footer-bottom .fb-l,
+  .mdt-footer-bottom .fb-c,
+  .mdt-footer-bottom .fb-r { justify-self: center; }
 }

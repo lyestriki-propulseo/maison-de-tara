@@ -6,26 +6,53 @@
 <meta name="description" content="Les ateliers, brunchs, événements et nouveautés de la boutique à venir à la Maison de Tara, à La Garenne-Colombes.">
 <meta property="og:title" content="Le Calendrier · Maison de Tara">
 <meta property="og:description" content="Les ateliers, brunchs, événements et nouveautés de la boutique à venir à la Maison de Tara, à La Garenne-Colombes.">
+<link rel="stylesheet" href="css/premium-calendrier.css">
 </head>
 <body>
 <!-- include: header -->
-<main id="main" class="mdt-natural-scroll">
-  <section class="content-section mdt-floral-soft">
+<main id="main" class="mdt-natural-scroll premium-calendrier">
+
+  <!-- En-tête éditorial -->
+  <section class="hero">
     <div class="container">
-      <div class="mdt-page-intro">
-        <span class="mdt-eyebrow">Le calendrier</span>
-        <h1>Les prochains rendez-vous</h1>
-        <p>Ateliers, brunchs, événements et nouveautés de la boutique : tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
-      </div>
-      <div id="calendar" class="mdt-calendar"></div>
-      <!-- Proposition v2 : colonne « à venir » (masquée en v1, css/mdt-variants.css) -->
-      <aside id="mdt-upcoming" class="mdt-upcoming" aria-label="Prochains rendez-vous"></aside>
+      <span class="script" aria-hidden="true">Le calendrier</span>
+      <h1>Les prochains rendez-vous</h1>
+      <p class="intro">Ateliers, brunchs, événements et nouveautés de la boutique&nbsp;: tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
+    </div>
+    <div class="arches" aria-hidden="true">
+      <figure class="arch"><img src="../assets-premium-lp/atelier-action.jpg" alt="" loading="lazy"></figure>
+      <figure class="arch"><img src="../assets-charte/cuisine-cafe.jpg" alt="" loading="lazy"></figure>
+      <figure class="arch"><img src="../assets-premium-lp/sortie-four.jpg" alt="" loading="lazy"></figure>
     </div>
   </section>
+
+  <!-- Programme + grille -->
+  <section class="container body-grid">
+
+    <div class="prog-col">
+      <h2 class="prog-heading">Le programme de la maison</h2>
+      <p class="prog-heading-note">Par ordre de date</p>
+      <ol class="prog-list" id="programme" aria-label="Programme des événements"></ol>
+    </div>
+
+    <aside class="cal-col" aria-label="Calendrier mensuel">
+      <div class="cal-card" id="calendar"></div>
+    </aside>
+
+  </section>
+
+  <!-- Bande finale -->
+  <section class="band">
+    <div class="container">
+      <span class="script" aria-hidden="true">Restons en lien</span>
+      <h2>Le meilleur moyen de ne rien manquer</h2>
+      <a class="btn-newsletter" href="index.html#newsletter">S&rsquo;inscrire à la newsletter</a>
+    </div>
+  </section>
+
   <!-- include: footer -->
 </main>
 <!-- include: scripts-min -->
-<script type="module">import { initCalendar, initUpcoming } from './js/calendar.js'; initCalendar('calendar'); initUpcoming('mdt-upcoming');</script>
-<script src="js/page-lab.js"></script>
+<script src="js/premium-calendrier.js"></script>
 </body>
 </html>

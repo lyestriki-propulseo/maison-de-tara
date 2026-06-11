@@ -69,7 +69,9 @@
     'body.cl-bg-light header.slider .hero-meta__ic{fill:#79301E !important;}',
     'body.cl-bg-light .mdt-footer :where(.mdt-footer-name,.mdt-footer-nav a,.mdt-footer-coords,',
     '  .mdt-footer-coords a,.fb-l,.fb-c a,.fb-r a){color:#2c2419 !important;}',
-    'body.cl-bg-light .mdt-footer .mdt-footer-coords{color:rgba(44,36,25,.85) !important;}'
+    'body.cl-bg-light .mdt-footer .mdt-footer-coords{color:rgba(44,36,25,.85) !important;}',
+    /* Bande newsletter sur fond clair : texture florale allégée pour matcher les autres sections */
+    'body.cl-nl-light .mdt-newsletter::before{opacity:.07 !important;}'
   ].join('');
   var style = document.createElement('style');
   style.textContent = css;
@@ -224,7 +226,7 @@
     'L’avant-dernière section, juste au-dessus du footer. La carte d’inscription reste lisible quel que soit le fond.',
     '--mdt-newsletter-bg', [
       { nom: 'Sauge grisée (actuel)', hex: '#9CA68C', cur: true },
-      { nom: 'Crème (charte)', hex: '#F0ECDB' },
+      { nom: 'Fond principal du site (beige)', hex: '#F0ECDB' },
       { nom: 'Sable chaud', hex: '#E8DCC4' },
       { nom: 'Vert d’eau pâle', hex: '#CBD3BC' },
       { nom: 'Rosé poudré', hex: '#E3C9C2' },
@@ -232,7 +234,10 @@
       { nom: 'Sauge', hex: '#5A6347' },
       { nom: 'Vert profond', hex: '#3F4731' },
       { nom: 'Terracotta profond', hex: '#79301E' }
-    ]);
+    ], function (c) {
+      // Fond clair : on allège la texture florale pour fondre la bande dans le site
+      document.body.classList.toggle('cl-nl-light', isLight(c.hex));
+    });
 
   var reset = el('button', 'cl-reset', 'Tout remettre aux couleurs actuelles');
   reset.type = 'button';

@@ -1,0 +1,218 @@
+<!doctype html>
+<!-- PREVIEWS FOOTER — outil interne d'arbitrage (non buildé, non lié, noindex).
+     3 directions premium, pleine largeur (plus d'espaces vides latéraux),
+     barre du bas = UNE ligne avec « Fait avec passion » centré.
+     Après choix : intégrer la gagnante dans _partials/footer.html + CSS. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Previews footer · Maison de Tara</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terracotta:#79301E; --rose:#BA7770; --sauge:#8A976C; --sable:#F0ECDB;
+    --laiton:#B8924D; --encre:#2c2419; --creme:#FBF7EC; --vert:#3F4731;
+    --serif:"Playfair Display",Georgia,serif; --hand:"La Belle Aurore",cursive;
+    --sans:Inter,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:var(--sans);background:#e9e4d6;color:var(--encre)}
+  .tag{
+    max-width:1100px;margin:46px auto 14px;padding:0 24px;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);font-weight:500;
+  }
+  .tag small{display:block;margin-top:4px;color:rgba(44,36,25,.6);letter-spacing:.04em;text-transform:none;font-size:12px}
+  footer{display:block}
+  footer a{text-decoration:none;transition:color .25s,border-color .25s,opacity .25s}
+
+  /* ---- barre du bas commune : UNE ligne, crédit centré ---- */
+  .bb{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;
+    padding:16px clamp(20px,4vw,56px);font-size:12px;letter-spacing:.04em;
+  }
+  .bb .l{justify-self:start;white-space:nowrap}
+  .bb .c{justify-self:center;text-align:center;white-space:nowrap}
+  .bb .r{justify-self:end;white-space:nowrap}
+  @media(max-width:760px){.bb{grid-template-columns:1fr;gap:6px;text-align:center}.bb .l,.bb .c,.bb .r{justify-self:center}}
+
+  /* ============ A — SABLE, QUATRE COLONNES PLEINE LARGEUR ============ */
+  .fA{background:var(--sable);border-top:1px solid var(--laiton);position:relative}
+  .fA::before{content:"";position:absolute;top:4px;left:0;right:0;height:1px;background:var(--laiton);opacity:.5}
+  .fA .grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(28px,4vw,64px);
+    padding:clamp(44px,6vw,72px) clamp(20px,4vw,56px) clamp(34px,5vw,56px);
+  }
+  .fA .name{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:500;line-height:1.1}
+  .fA .tagline{font-family:var(--hand);font-size:22px;color:var(--laiton);margin:6px 0 14px}
+  .fA p.desc{font-size:13.5px;line-height:1.75;color:rgba(44,36,25,.75);max-width:34ch}
+  .fA h6{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--terracotta);margin-bottom:14px;font-weight:500}
+  .fA ul{list-style:none;padding:0}
+  .fA li{margin-bottom:9px}
+  .fA a{color:var(--encre);font-size:14px;border-bottom:1px solid transparent}
+  .fA a:hover{color:var(--terracotta);border-bottom-color:var(--laiton)}
+  .fA address{font-style:normal;font-size:14px;line-height:2}
+  .fA .bb{border-top:1px solid rgba(184,146,77,.45);color:rgba(44,36,25,.65)}
+  .fA .bb .c{font-family:var(--hand);font-size:17px;color:var(--terracotta)}
+  .fA .bb a{color:rgba(44,36,25,.65)}
+  .fA .bb a:hover{color:var(--terracotta)}
+  @media(max-width:900px){.fA .grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.fA .grid{grid-template-columns:1fr}}
+
+  /* ============ B — VERT PROFOND, INVITATION CENTRÉE ============ */
+  .fB{background:var(--vert);color:var(--sable);position:relative;overflow:hidden}
+  .fB::after{content:"";position:absolute;inset:0;pointer-events:none;background:url("../assets-premium-lp/wallpaper-tara-green.png") center/560px repeat;opacity:.08}
+  .fB .inner{position:relative;z-index:1;text-align:center;padding:clamp(48px,7vw,84px) clamp(20px,4vw,56px) clamp(30px,4vw,44px)}
+  .fB .tagline{font-family:var(--hand);font-size:clamp(28px,4vw,44px);color:var(--laiton);display:block;margin-bottom:6px}
+  .fB .name{font-family:var(--serif);font-size:clamp(30px,4.5vw,52px);font-weight:500;letter-spacing:.01em}
+  .fB nav{margin:30px 0 26px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 30px}
+  .fB nav a{color:var(--sable);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase}
+  .fB nav a:hover{color:var(--laiton)}
+  .fB .coords{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;font-size:13.5px;color:rgba(240,236,219,.85)}
+  .fB .coords a{color:rgba(240,236,219,.85);border-bottom:1px solid rgba(184,146,77,.5)}
+  .fB .coords a:hover{color:var(--laiton)}
+  .fB .coords .dot{color:var(--laiton)}
+  .fB .filet{width:72px;height:1px;background:var(--laiton);margin:30px auto 0;position:relative}
+  .fB .filet::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;transform:translateX(-50%) rotate(45deg);background:var(--laiton)}
+  .fB .bb{position:relative;z-index:1;border-top:1px solid rgba(184,146,77,.35);color:rgba(240,236,219,.6)}
+  .fB .bb .c{font-family:var(--hand);font-size:17px;color:var(--laiton)}
+  .fB .bb a{color:rgba(240,236,219,.6)}
+  .fB .bb a:hover{color:var(--laiton)}
+
+  /* ============ C — TERRACOTTA, WORDMARK MONUMENTAL ============ */
+  .fC{background:var(--terracotta);color:var(--creme);position:relative;overflow:hidden}
+  .fC .ghost{
+    position:absolute;left:50%;bottom:-.18em;transform:translateX(-50%);
+    font-family:var(--serif);font-style:italic;font-weight:500;white-space:nowrap;
+    font-size:clamp(90px,14vw,200px);line-height:1;color:rgba(240,236,219,.07);
+    pointer-events:none;user-select:none;
+  }
+  .fC .inner{position:relative;z-index:1;padding:clamp(44px,6vw,72px) clamp(20px,4vw,56px) clamp(70px,9vw,120px)}
+  .fC .row1{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:18px 40px;margin-bottom:30px}
+  .fC .name{font-family:var(--serif);font-size:clamp(24px,2.6vw,34px);font-weight:500}
+  .fC .name small{font-family:var(--hand);font-size:20px;color:var(--laiton);margin-left:12px}
+  .fC nav{display:flex;flex-wrap:wrap;gap:8px 26px}
+  .fC nav a{color:var(--creme);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.92}
+  .fC nav a:hover{color:var(--laiton);opacity:1}
+  .fC .row2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 40px;border-top:1px solid rgba(184,146,77,.5);padding-top:22px;font-size:13.5px;color:rgba(251,247,236,.85)}
+  .fC .row2 a{color:rgba(251,247,236,.85);border-bottom:1px solid rgba(184,146,77,.5)}
+  .fC .row2 a:hover{color:var(--laiton)}
+  .fC .bb{position:relative;z-index:1;border-top:1px solid rgba(240,236,219,.25);color:rgba(251,247,236,.65)}
+  .fC .bb .c{font-family:var(--hand);font-size:17px;color:var(--laiton)}
+  .fC .bb a{color:rgba(251,247,236,.65)}
+  .fC .bb a:hover{color:var(--laiton)}
+</style>
+</head>
+<body>
+
+<div class="tag">Footer A · Sable, quatre colonnes pleine largeur
+  <small>Clair et complet : la marque + la navigation + les coordonnées + les horaires occupent toute la largeur, plus d'espaces vides. Continuité avec les pages claires.</small>
+</div>
+<footer class="fA">
+  <div class="grid">
+    <div>
+      <div class="name">Maison de Tara</div>
+      <div class="tagline">On prend le temps.</div>
+      <p class="desc">Un atelier de peinture sur céramique, un café et une boutique déco sous le même toit. Un lieu pour faire de ses mains, s'attabler et repartir avec un objet qui a une histoire.</p>
+    </div>
+    <div>
+      <h6>La maison</h6>
+      <ul>
+        <li><a href="atelier.html">L'atelier</a></li>
+        <li><a href="boutique.html">La boutique</a></li>
+        <li><a href="calendrier.html">Le calendrier</a></li>
+        <li><a href="histoire.html">Mon histoire</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6>Nous trouver</h6>
+      <address>
+        1 Rue Gabriel Péri<br>
+        92250 La Garenne-Colombes<br>
+        <a href="tel:+33650535149">+33 6 50 53 51 49</a><br>
+        <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+      </address>
+    </div>
+    <div>
+      <h6>Vous accueillir</h6>
+      <ul>
+        <li>Du mardi au dimanche</li>
+        <li>Fermé le lundi</li>
+        <li><a href="atelier.html#reserver">Réserver une place</a></li>
+        <li><a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">Instagram @maison_de_tara</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bb">
+    <span class="l">© 2026 Maison de Tara</span>
+    <span class="c">Fait avec passion par Propul'SEO</span>
+    <span class="r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+  </div>
+</footer>
+
+<div class="tag">Footer B · Vert profond, invitation centrée
+  <small>Théâtral et chaleureux : la signature manuscrite en grand, la navigation en une ligne, les coordonnées en une ligne. Le plus « maison ».</small>
+</div>
+<footer class="fB">
+  <div class="inner">
+    <span class="tagline">On prend le temps.</span>
+    <div class="name">Maison de Tara</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="atelier.html">L'atelier</a>
+      <a href="boutique.html">La boutique</a>
+      <a href="calendrier.html">Le calendrier</a>
+      <a href="histoire.html">Mon histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="coords">
+      <span>1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+      <span class="dot">·</span>
+      <a href="tel:+33650535149">+33 6 50 53 51 49</a>
+      <span class="dot">·</span>
+      <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+      <span class="dot">·</span>
+      <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">@maison_de_tara</a>
+    </div>
+    <div class="filet" aria-hidden="true"></div>
+  </div>
+  <div class="bb">
+    <span class="l">© 2026 Maison de Tara</span>
+    <span class="c">Fait avec passion par Propul'SEO</span>
+    <span class="r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+  </div>
+</footer>
+
+<div class="tag">Footer C · Terracotta, wordmark monumental
+  <small>Le plus graphique : « Maison de Tara » en filigrane géant, deux rangées pleine largeur (marque + nav, coordonnées + horaires). Signature forte en fin de page.</small>
+</div>
+<footer class="fC">
+  <span class="ghost" aria-hidden="true">Maison de Tara</span>
+  <div class="inner">
+    <div class="row1">
+      <div class="name">Maison de Tara<small>On prend le temps.</small></div>
+      <nav>
+        <a href="index.html">Accueil</a>
+        <a href="atelier.html">L'atelier</a>
+        <a href="boutique.html">La boutique</a>
+        <a href="calendrier.html">Le calendrier</a>
+        <a href="histoire.html">Mon histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="row2">
+      <span>1 Rue Gabriel Péri, 92250 La Garenne-Colombes · <a href="tel:+33650535149">+33 6 50 53 51 49</a> · <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a></span>
+      <span>Du mardi au dimanche · Fermé le lundi · <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">@maison_de_tara</a></span>
+    </div>
+  </div>
+  <div class="bb">
+    <span class="l">© 2026 Maison de Tara</span>
+    <span class="c">Fait avec passion par Propul'SEO</span>
+    <span class="r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

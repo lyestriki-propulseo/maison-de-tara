@@ -93,11 +93,15 @@
     var t = document.querySelector(sel);
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  // Luminance perçue d'un hex #RRGGBB (0 = noir, 1 = blanc)
+  // Luminance perçue d'un hex #RRGGBB (0 = noir, 1 = blanc).
+  // Seuil 0.64 calé sur la palette : les sauges actuelles (#9CA68C 0.63,
+  // #8A976C 0.56) restent « foncées » (texte clair + texture pleine = rendu réel),
+  // seuls les vrais pastels (#A3AE88 0.65, crèmes/sables) basculent en clair.
   function isLight(hex) {
+    if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return false;
     var n = parseInt(hex.slice(1), 16);
     var r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6;
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.64;
   }
 
   // --- Panneau ---

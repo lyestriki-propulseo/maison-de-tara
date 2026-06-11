@@ -1,0 +1,548 @@
+/* ============================================================
+   Page Mon Histoire — design premium « La lettre illustrée »
+   Intégré depuis premium-histoire.html (preview validée).
+   Tout est scopé sous .premium-histoire (classe sur <main>).
+   Charte Maison de Tara : terracotta / vieux rose / sauge /
+   sable / laiton / encre / blanc cassé. Aucune autre couleur.
+   Fonts chargées par le head du site : Playfair Display
+   400/500/600 (+ italiques), La Belle Aurore 400,
+   Inter 300/400/500 — aucun autre poids utilisé ici.
+   ============================================================ */
+
+.premium-histoire{
+  --terracotta:#79301E;
+  --vieux-rose:#BA7770;
+  --sauge:#8A976C;
+  --sable:#F0ECDB;
+  --laiton:#B8924D;
+  --encre:#2c2419;
+  --blanc:#FBF7EC;
+
+  --serif:"Playfair Display", Georgia, serif;
+  --script:"La Belle Aurore", cursive;
+  --sans:"Inter", system-ui, sans-serif;
+
+  --mesure:62ch;
+  --gutter:clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.premium-histoire,
+.premium-histoire *,
+.premium-histoire *::before,
+.premium-histoire *::after{ box-sizing:border-box; }
+
+/* base (équivalent body de la preview, scopé) */
+.premium-histoire{
+  margin:0;
+  background:var(--blanc);
+  color:var(--encre);
+  font-family:var(--sans);
+  font-size:clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ré-affirmation typo : le template Wandau style les balises nues avant nous */
+.premium-histoire p{
+  font-family:var(--sans);
+  font-weight:400;
+  color:var(--encre);
+  line-height:1.75;
+  margin:0 0 1.6em;
+}
+.premium-histoire h1,
+.premium-histoire h2,
+.premium-histoire h6{
+  font-family:var(--serif);
+  color:var(--encre);
+  text-transform:none;
+}
+.premium-histoire figure{ margin:0; }
+.premium-histoire hr{ border:0; }
+
+.premium-histoire img{ max-width:100%; height:auto; display:block; }
+
+.premium-histoire a{
+  color:var(--terracotta);
+  text-decoration-color:rgba(184,146,77,.6);
+  text-underline-offset:.2em;
+}
+.premium-histoire a:hover{ color:var(--encre); }
+
+.premium-histoire :focus-visible{
+  outline:2px solid var(--laiton);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.premium-histoire ::selection{ background:var(--laiton); color:var(--blanc); }
+
+/* ---------- texture florale légère ---------- */
+.premium-histoire .floral{ position:relative; }
+.premium-histoire .floral::after{
+  content:"";
+  position:absolute; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background-size:420px auto;
+  opacity:.07;
+  pointer-events:none;
+}
+.premium-histoire .floral > *{ position:relative; z-index:1; }
+
+/* ---------- reveals ---------- */
+.premium-histoire .reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.premium-histoire .reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .premium-histoire .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ============================================================
+   Ouverture — « Mon histoire » + duo Inde × France
+   ============================================================ */
+.premium-histoire .hero{
+  background:var(--sable);
+  overflow:hidden;
+}
+.premium-histoire .hero__inner{
+  max-width:1280px; margin:0 auto;
+  padding:clamp(3.5rem, 9vw, 7.5rem) var(--gutter) clamp(4rem, 10vw, 8.5rem);
+  display:grid;
+  grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
+  gap:clamp(2.5rem, 6vw, 6rem);
+  align-items:center;
+}
+.premium-histoire .hero__script{
+  display:block;
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(3.2rem, 8vw, 6.8rem);
+  line-height:.9;
+  color:var(--laiton);
+  margin:0 0 .2em -0.06em;
+}
+.premium-histoire .hero h1{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(2.4rem, 5.6vw, 4.6rem);
+  line-height:1.08;
+  letter-spacing:-.01em;
+  margin:0 0 1.6rem;
+  color:var(--encre);
+  text-wrap:balance;
+}
+.premium-histoire .hero__filet{
+  width:120px; height:1px;
+  background:linear-gradient(90deg, var(--laiton), rgba(184,146,77,0));
+  border:0; margin:0 0 1.5rem;
+}
+.premium-histoire .hero__intro{
+  max-width:36ch;
+  font-size:clamp(1rem, 1vw + .6rem, 1.15rem);
+  color:rgba(44,36,25,.82);
+  margin:0;
+}
+.premium-histoire .hero__intro em{
+  font-family:var(--serif);
+  font-style:italic;
+  color:var(--terracotta);
+}
+
+/* duo photos : arche (Inde) + chevauchement (France) */
+.premium-histoire .hero__duo{
+  position:relative;
+  justify-self:center;
+  width:min(100%, 460px);
+  padding:0 0 4.5rem 0;
+}
+.premium-histoire .hero__arch{
+  margin:0;
+  position:relative;
+  width:78%;
+  margin-left:auto;
+}
+.premium-histoire .hero__arch img{
+  aspect-ratio:3 / 4.2;
+  object-fit:cover;
+  border-radius:999px 999px 0 0;
+}
+.premium-histoire .hero__arch::before{
+  content:"";
+  position:absolute; inset:0;
+  border:1px solid var(--laiton);
+  border-radius:999px 999px 0 0;
+  transform:translate(12px, 12px);
+  pointer-events:none;
+}
+.premium-histoire .hero__overlap{
+  margin:0;
+  position:absolute;
+  left:0; bottom:0;
+  width:52%;
+  box-shadow:0 24px 48px -24px rgba(44,36,25,.45);
+}
+.premium-histoire .hero__overlap img{
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  border:6px solid var(--blanc);
+}
+.premium-histoire .hero__overlap::before{
+  content:"";
+  position:absolute; inset:-6px;
+  border:1px solid var(--laiton);
+  transform:translate(10px, 10px);
+  pointer-events:none;
+}
+.premium-histoire .hero__tag{
+  position:absolute;
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.5rem, 2.4vw, 2rem);
+  color:var(--terracotta);
+  line-height:1;
+  white-space:nowrap;
+}
+.premium-histoire .hero__tag--inde{ top:-1.6em; right:8%; }
+.premium-histoire .hero__tag--france{ left:2%; bottom:-1.7em; }
+.premium-histoire .hero__tag::after{
+  content:"";
+  display:block;
+  width:2.4em; height:1px;
+  background:var(--laiton);
+  margin-top:.25em;
+}
+
+/* ============================================================
+   La lettre — colonne de lecture + marginalia
+   ============================================================ */
+.premium-histoire .lettre{
+  padding:clamp(4rem, 9vw, 8rem) var(--gutter) clamp(3rem, 7vw, 6rem);
+  background:var(--blanc);
+}
+.premium-histoire .lettre__head{
+  max-width:var(--mesure);
+  margin:0 auto clamp(2.5rem, 5vw, 4rem);
+  text-align:center;
+}
+.premium-histoire .lettre__head .eyebrow{
+  display:inline-flex; align-items:center; gap:.9rem;
+  font-family:var(--sans);
+  font-size:.72rem; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:var(--laiton);
+}
+.premium-histoire .lettre__head .eyebrow::before,
+.premium-histoire .lettre__head .eyebrow::after{
+  content:""; width:2.6rem; height:1px; background:var(--laiton);
+}
+
+.premium-histoire .lettre-row{
+  display:grid;
+  grid-template-columns:
+    1fr
+    minmax(0, 230px)
+    clamp(1.5rem, 3.5vw, 3.25rem)
+    minmax(0, var(--mesure))
+    clamp(1.5rem, 3.5vw, 3.25rem)
+    minmax(0, 230px)
+    1fr;
+  align-items:start;
+  max-width:1280px;
+  margin:0 auto;
+}
+.premium-histoire .lettre-row > .corps{ grid-column:4; }
+.premium-histoire .lettre-row > .marge--g{ grid-column:2; }
+.premium-histoire .lettre-row > .marge--d{ grid-column:6; }
+
+.premium-histoire .corps p{
+  margin:0 0 1.6em;
+  font-size:clamp(1.05rem, .98rem + .3vw, 1.2rem);
+  line-height:1.85;
+  color:rgba(44,36,25,.9);
+}
+.premium-histoire .corps .lead{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  line-height:1.55;
+  color:var(--encre);
+  margin-bottom:1.4em;
+}
+.premium-histoire .corps .lead::first-letter{
+  font-family:var(--serif);
+  font-weight:600;
+  float:left;
+  font-size:4.9em;
+  line-height:.78;
+  padding:.06em .14em 0 0;
+  color:var(--terracotta);
+}
+
+/* citations en marge — fragments exacts, décoratifs */
+.premium-histoire .marge-quote{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.45rem, 1.2rem + .9vw, 1.9rem);
+  line-height:1.25;
+  color:var(--laiton);
+  margin:.25em 0 0;
+  transform:rotate(-1.5deg);
+}
+.premium-histoire .marge-quote::before{
+  content:"";
+  display:block;
+  width:2.8rem; height:1px;
+  background:var(--laiton);
+  margin-bottom:.7rem;
+  transform:rotate(1.5deg);
+}
+
+/* photos flottantes en marge */
+.premium-histoire .marge-photo{ margin:.3em 0 0; }
+.premium-histoire .marge-photo .cadre{
+  position:relative;
+  display:block;
+}
+.premium-histoire .marge-photo .cadre::before{
+  content:"";
+  position:absolute; inset:0;
+  border:1px solid var(--laiton);
+  transform:translate(8px, 8px);
+  pointer-events:none;
+}
+.premium-histoire .marge-photo img{
+  aspect-ratio:4 / 5;
+  object-fit:cover;
+}
+.premium-histoire .marge-photo--paysage img{ aspect-ratio:5 / 4; }
+.premium-histoire .marge-photo figcaption{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:1.3rem;
+  line-height:1.2;
+  color:var(--terracotta);
+  margin-top:1rem;
+  transform:rotate(-1.2deg);
+}
+.premium-histoire .marge--g .marge-photo .cadre::before{ transform:translate(-8px, 8px); }
+
+/* signature */
+.premium-histoire .signature{
+  max-width:var(--mesure);
+  margin:clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  text-align:right;
+}
+.premium-histoire .signature .nom{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(4rem, 9vw, 6.5rem);
+  line-height:.9;
+  color:var(--terracotta);
+  display:inline-block;
+  transform:rotate(-3deg);
+  margin:0;
+}
+.premium-histoire .signature .filet{
+  border:0;
+  height:1px;
+  margin:1.4rem 0 0;
+  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
+}
+
+/* ============================================================
+   Triptyque — L'origine / L'esprit / Le geste
+   ============================================================ */
+.premium-histoire .triptyque{
+  background:var(--sable);
+  padding:clamp(4rem, 9vw, 8rem) var(--gutter);
+}
+.premium-histoire .triptyque__head{
+  max-width:760px; margin:0 auto clamp(3rem, 6vw, 5rem);
+  text-align:center;
+}
+.premium-histoire .triptyque__head h6{
+  margin:0 0 1.1rem;
+  font-family:var(--sans);
+  font-size:.72rem; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:var(--laiton);
+}
+.premium-histoire .triptyque__head h2{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(1.9rem, 4.2vw, 3.2rem);
+  line-height:1.18;
+  color:var(--encre);
+}
+.premium-histoire .triptyque__grid{
+  max-width:1180px; margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0;
+}
+.premium-histoire .triptyque__cell{
+  padding:clamp(1.5rem, 3vw, 2.75rem);
+  position:relative;
+}
+.premium-histoire .triptyque__cell + .triptyque__cell{
+  border-left:1px solid rgba(184,146,77,.45);
+}
+.premium-histoire .triptyque__num{
+  display:block;
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(2.6rem, 4vw, 3.4rem);
+  line-height:1;
+  color:var(--laiton);
+  margin-bottom:.4rem;
+}
+.premium-histoire .triptyque__cell h6{
+  margin:0 0 .9rem;
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:1.25rem;
+  letter-spacing:.02em;
+  text-transform:none;
+  color:var(--terracotta);
+}
+.premium-histoire .triptyque__cell h6::after{
+  content:"";
+  display:block;
+  width:2.4rem; height:1px;
+  background:var(--laiton);
+  margin-top:.8rem;
+}
+.premium-histoire .triptyque__cell p{
+  margin:0;
+  color:rgba(44,36,25,.85);
+  line-height:1.8;
+}
+.premium-histoire .triptyque__cell strong{
+  color:var(--encre);
+  font-weight:500;
+}
+
+/* ============================================================
+   Finale — Créer · Partager · Prolonger
+   ============================================================ */
+.premium-histoire .finale{
+  background:
+    linear-gradient(rgba(44,36,25,.22), rgba(44,36,25,.22)),
+    var(--sauge);
+  color:var(--blanc);
+  text-align:center;
+  padding:clamp(4.5rem, 10vw, 8.5rem) var(--gutter);
+  position:relative;
+  overflow:hidden;
+}
+.premium-histoire .finale::after{
+  content:"";
+  position:absolute; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background-size:420px auto;
+  opacity:.08;
+  pointer-events:none;
+}
+.premium-histoire .finale > *{ position:relative; z-index:1; }
+.premium-histoire .finale h2{
+  margin:0 0 1.6rem;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(2rem, 5.2vw, 3.8rem);
+  line-height:1.15;
+  letter-spacing:.01em;
+  color:var(--blanc);
+  text-wrap:balance;
+}
+.premium-histoire .finale h2 .point{
+  font-style:normal;
+  color:var(--laiton);
+  padding:0 .28em;
+  font-size:.55em;
+  vertical-align:.28em;
+}
+.premium-histoire .finale p{
+  max-width:56ch;
+  margin:0 auto 2.4rem;
+  font-size:clamp(1rem, .96rem + .3vw, 1.15rem);
+  line-height:1.8;
+  color:rgba(251,247,236,.92);
+}
+.premium-histoire .finale .filet{
+  border:0; height:1px;
+  width:min(280px, 60%);
+  margin:0 auto 2.2rem;
+  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton), rgba(184,146,77,0));
+}
+.premium-histoire .btn{
+  display:inline-block;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:.92rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--blanc);
+  background:var(--terracotta);
+  border:1px solid var(--terracotta);
+  border-radius:0;
+  padding:1.05rem 2.6rem;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.premium-histoire .btn:hover{
+  background:var(--blanc);
+  color:var(--terracotta);
+}
+
+/* ============================================================
+   Responsive — les marges deviennent des insertions
+   ============================================================ */
+@media (max-width: 1023px){
+  .premium-histoire .lettre-row{
+    grid-template-columns:1fr;
+  }
+  .premium-histoire .lettre-row > .corps,
+  .premium-histoire .lettre-row > .marge--g,
+  .premium-histoire .lettre-row > .marge--d{
+    grid-column:1;
+    max-width:var(--mesure);
+    margin-left:auto; margin-right:auto;
+    width:100%;
+  }
+  .premium-histoire .marge-quote{
+    margin:.4em 0 1.8em;
+    transform:rotate(-1deg);
+  }
+  .premium-histoire .marge-photo{
+    margin:0 0 2.2em;
+    max-width:340px;
+  }
+  .premium-histoire .marge--g .marge-photo .cadre::before{ transform:translate(8px, 8px); }
+}
+
+@media (max-width: 860px){
+  .premium-histoire .hero__inner{
+    grid-template-columns:1fr;
+    gap:4.5rem;
+  }
+  .premium-histoire .hero__duo{ justify-self:start; }
+  .premium-histoire .triptyque__grid{
+    grid-template-columns:1fr;
+    max-width:560px;
+  }
+  .premium-histoire .triptyque__cell + .triptyque__cell{
+    border-left:0;
+    border-top:1px solid rgba(184,146,77,.45);
+  }
+}
+
+@media (max-width: 480px){
+  .premium-histoire .hero__tag--inde{ right:0; }
+  .premium-histoire .corps .lead::first-letter{ font-size:3.8em; }
+}

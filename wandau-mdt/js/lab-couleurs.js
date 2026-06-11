@@ -135,10 +135,10 @@
     ], 'header.slider');
 
   swatchGroup('4 · Footer (fond)',
-    'Le pied de page, sur toutes les pages.',
+    'Identique au hero par défaut. Choisir ici le découple du hero.',
     '--mdt-footer-bg', [
-      { nom: 'Vert profond (actuel)', hex: '#3F4731' },
-      { nom: 'Sauge', hex: '#5A6347' },
+      { nom: 'Sauge — comme le hero (actuel)', hex: '#5A6347' },
+      { nom: 'Vert profond', hex: '#3F4731' },
       { nom: 'Sauge profonde', hex: '#49513A' },
       { nom: 'Encre brune', hex: '#2C2419' },
       { nom: 'Brun cacao', hex: '#4A372A' },

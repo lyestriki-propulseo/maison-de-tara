@@ -27,8 +27,8 @@
   --mdt-noir-soft:  var(--mdt-ink);
   --mdt-laiton:     #B8924D;  /* doré v1 exact (laiton) — récupéré de l'historique, demandé par le client */
   /* Réglables en direct via le laboratoire de couleurs (?lab sur l'accueil) */
-  --mdt-hero-bg:    var(--mdt-sauge);   /* fond du hero */
-  --mdt-footer-bg:  #3F4731;            /* vert profond footer (preview validée) */
+  --mdt-hero-bg:    var(--mdt-sauge);      /* fond du hero */
+  --mdt-footer-bg:  var(--mdt-hero-bg);    /* footer = même vert que le hero */
 
   /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
   --mdt-text:       var(--mdt-ink);

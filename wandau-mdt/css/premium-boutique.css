@@ -84,7 +84,7 @@
 .premium-boutique .floral::before{
   content:"";
   position:absolute;inset:0;
-  background:url("../../assets-premium-lp/wallpaper-tara-green.png") center/420px repeat;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") center/420px repeat;
   opacity:.07;
   pointer-events:none;
 }
@@ -502,3 +502,8 @@
   .premium-boutique .piece--06,
   .premium-boutique .piece--accent{grid-column:1}
 }
+
+/* Contraste (revue expert 12/06) */
+.premium-boutique .eyebrow{color:#8A6A30}
+.premium-boutique .galerie .surtitre{color:#8A6A30}
+

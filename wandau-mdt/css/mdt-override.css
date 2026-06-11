@@ -359,7 +359,7 @@ a.custom-button {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
   background-size: 720px;
   background-repeat: repeat;
   background-position: center;
@@ -970,12 +970,31 @@ nav.navbar { display: none !important; }
 .burger__lines span { top: 50%; transform: translateY(-50%); display: block; }
 .burger__lines::after { bottom: 0; }
 
+/* Tél du header : caché tant que la topbar (qui porte déjà le numéro) est visible */
+.mdt-header__tel { display: none; }
+
 @media (max-width: 900px) {
   .mdt-nav { display: none; }
   /* Le CTA reste visible en compact à côté du burger : depuis que le hero
      est en « photo seule », c'est le seul bouton Réserver au-dessus du pli. */
   .mdt-header__cta .btn--primary { padding: 9px 14px !important; font-size: 10px !important; }
   .burger { display: inline-flex; }
+}
+@media (max-width: 600px) {
+  /* La topbar masque ses infos : le téléphone bascule dans le header
+     (commerce local : l'appel est le premier geste mobile). */
+  .mdt-header__tel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--mdt-laiton);
+    border-radius: 999px;
+    color: var(--mdt-terracotta);
+  }
+  .mdt-header__tel .icon { width: 16px; height: 16px; }
+  body.has-hero:not(.is-scrolled) .mdt-header__tel { color: var(--mdt-sable); }
 }
 
 /* NAV BADGE "Bientôt" */
@@ -1182,7 +1201,7 @@ body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
   background-size: 540px;
   background-repeat: repeat;
   background-position: center;
@@ -1261,10 +1280,14 @@ body.lab-native .image-content-box figure img {
    Parcours « Comment ça se passe ? » — textes Tara
    ============================================================ */
 /* Format v1 (arbitrage Tara) : photos alignées, texte révélé au survol de la
-   carte. Plafond Wandau 190px trop bas pour les textes complets → relevé. */
-#parcours .image-icon-box:hover .content-box .expand {
+   carte. Plafond Wandau 190px trop bas pour les textes complets → relevé.
+   :focus / :focus-within = accès clavier (cartes avec tabindex="0"). */
+#parcours .image-icon-box:hover .content-box .expand,
+#parcours .image-icon-box:focus .content-box .expand,
+#parcours .image-icon-box:focus-within .content-box .expand {
   max-height: 460px;
 }
+#parcours .image-icon-box:focus-visible { outline: 2px solid var(--mdt-laiton); outline-offset: -2px; }
 /* Écrans tactiles (pas de survol possible) : texte toujours visible. */
 @media (hover: none) {
   #parcours .content-box .expand { max-height: none !important; }
@@ -1520,13 +1543,13 @@ body.boutique-v4 .bv-4 { display: block; }
 }
 /* Texture A — wallpaper florale (sections principales) */
 .mdt-floral-soft::before {
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 600px repeat;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 600px repeat;
   opacity: 0.07;
 }
 /* Texture B — meme florale, tile plus dense + opacite legerement
    superieure (alternance de rythme, lisible sur fond clair/blanc). */
 .mdt-floral-line::before {
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 380px repeat;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 380px repeat;
   opacity: 0.09;
 }
 .mdt-floral-soft > *,
@@ -1548,7 +1571,7 @@ body.boutique-v4 .bv-4 { display: block; }
   content: '';
   position: absolute;
   inset: 0;
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 560px repeat;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 560px repeat;
   opacity: 0.3;
   pointer-events: none;
   z-index: 0;
@@ -1801,6 +1824,8 @@ body.boutique-v4 .bv-4 { display: block; }
 .mdt-footer {
   /* vert profond exact de la preview validée (plus sombre que la sauge) */
   background: #3F4731 !important;
+  /* couture laiton : adoucit la transition page claire → vert (revue expert) */
+  border-top: 1px solid var(--mdt-laiton) !important;
   color: var(--mdt-sable);
   padding: clamp(48px, 7vw, 84px) 0 0;
   border-top: none;
@@ -1812,7 +1837,7 @@ body.boutique-v4 .bv-4 { display: block; }
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
   background-size: 560px;
   background-repeat: repeat;
   background-position: center;

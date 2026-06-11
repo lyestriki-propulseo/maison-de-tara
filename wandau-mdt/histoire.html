@@ -9,6 +9,37 @@
 <!-- SOCIAL MEDIA META (commun ; <title>, description et og:title/description sont spécifiques par page, placés après l'include) -->
 <meta property="og:site_name" content="Maison de Tara">
 <meta property="og:type" content="website">
+<!-- ⚠️ Domaine à confirmer avant mise en ligne (déduit de l'email contact@maisondetara.com) -->
+<meta property="og:image" content="https://maisondetara.com/images/og-maison-de-tara.jpg">
+<meta property="og:image:alt" content="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
+
+<!-- DONNÉES STRUCTURÉES — référencement local (horaires réels du dossier) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Maison de Tara",
+  "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
+  "url": "https://maisondetara.com/",
+  "telephone": "+33650535149",
+  "email": "contact@maisondetara.com",
+  "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Rue Gabriel Péri",
+    "postalCode": "92250",
+    "addressLocality": "La Garenne-Colombes",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/maison_de_tara/"]
+}
+</script>
 
 <!-- FAVICON FILES -->
 <link rel="icon" type="image/svg+xml" href="ico/favicon-mdt.svg">
@@ -120,6 +151,10 @@
       <a href="contact.html">Contact</a>
     </nav>
     <div class="mdt-header__cta">
+      <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
+      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+      </a>
       <a href="atelier.html#reserver" class="btn btn--primary">Réserver un moment</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
         <span class="burger__lines"><span></span></span>
@@ -248,8 +283,11 @@
     </div>
   </section>
 
-  <!-- (Bande verte « Créer · Partager · Prolonger » supprimée — retour client 12/06,
-       elle cassait le reste de la page) -->
+  <!-- Sortie de page douce : une ligne, pas de bande (revue expert 12/06) -->
+  <div class="page-envoi reveal">
+    <p class="page-envoi__script">Envie de venir &eacute;crire la suite&nbsp;?</p>
+    <a class="btn" href="atelier.html#reserver">R&eacute;server un moment</a>
+  </div>
 
 <footer class="mdt-footer mdt-floral-line">
   <div class="container">

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Domaine à confirmer avant mise en ligne
+Sitemap: https://maisondetara.com/sitemap.xml

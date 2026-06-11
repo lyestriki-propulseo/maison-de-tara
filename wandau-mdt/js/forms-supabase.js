@@ -14,12 +14,36 @@ function getClient() {
   return clientPromise;
 }
 
+// Validation douce côté client (les formulaires sont en novalidate) :
+// champs requis non vides + email plausible. Retourne le message d'erreur, ou ''.
+function validate(formEl) {
+  const missing = [...formEl.querySelectorAll('[required]')].filter((el) => {
+    if (el.type === 'radio') return !formEl.querySelector(`[name="${el.name}"]:checked`);
+    return !el.value.trim();
+  });
+  // champ date du sélecteur maison (input hidden, required natif inopérant)
+  const date = formEl.querySelector('input[name="date"][type="hidden"]');
+  if (date && !date.value) missing.push(date);
+  if (missing.length) return 'Il manque quelques informations : merci de compléter les champs avant d\'envoyer.';
+  const email = formEl.querySelector('input[type="email"]');
+  if (email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
+    return 'L\'adresse email ne semble pas valide, pouvez-vous la vérifier ?';
+  }
+  return '';
+}
+
 export function bindForm(formEl, type) {
   if (!formEl) return;
   formEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = formEl.querySelector('.form-msg') || formEl;
     const btn = formEl.querySelector('[type="submit"]');
+
+    const problem = validate(formEl);
+    if (problem) {
+      msg.textContent = problem;
+      return;
+    }
 
     if (!CONFIGURED) {
       msg.textContent = 'Le formulaire sera actif très bientôt. En attendant, écrivez-nous à contact@maisondetara.com.';

@@ -83,7 +83,7 @@
 .premium-histoire .floral::after{
   content:"";
   position:absolute; inset:0;
-  background:url("../../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
   background-size:420px auto;
   opacity:.07;
   pointer-events:none;
@@ -409,7 +409,7 @@
 .premium-histoire .finale::after{
   content:"";
   position:absolute; inset:0;
-  background:url("../../assets-premium-lp/wallpaper-tara-green.png") repeat;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
   background-size:420px auto;
   opacity:.08;
   pointer-events:none;
@@ -466,6 +466,20 @@
   color:var(--terracotta);
 }
 
+/* Sortie de page : une ligne manuscrite + bouton, sur le sable du triptyque */
+.premium-histoire .page-envoi{
+  background:var(--sable);
+  text-align:center;
+  padding:0 var(--gutter) clamp(3.5rem, 7vw, 6rem);
+}
+.premium-histoire .page-envoi__script{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.7rem, 1.4rem + 1vw, 2.2rem);
+  color:var(--laiton);
+  margin:0 0 1.2rem;
+}
+
 /* ============================================================
    Responsive — lettre (variante B)
    ============================================================ */
@@ -495,3 +509,7 @@
   .premium-histoire .hero__tag--inde{ right:0; }
   .premium-histoire .corps .lead::first-letter{ font-size:3.8em; }
 }
+
+/* Contraste (revue expert 12/06) */
+.premium-histoire .triptyque__head h6{color:#8A6A30}
+

@@ -130,6 +130,15 @@
     });
   }
 
+  // 0 · VERSION DE LA PAGE — v1 actuelle / v2 premium (css/mdt-accueil-v2.css)
+  var gVer = group('0 · Version de la page', 'v2 premium = boutons pilule, titres manuscrits, photos en arche — le langage des pages intérieures.');
+  buttonGroup(gVer, [
+    { label: 'v1 · actuelle', on: false },
+    { label: 'v2 · premium', on: true },
+  ], function (it) {
+    document.body.classList.toggle('av2', it.on);
+  }, null);
+
   // 1 · UNIVERS — titre de la section (demande Tara : remplace « Créer. Partager. Prolonger. »)
   var gUt = group('1 · Univers — titre de la section', 'Deux propositions de Tara.');
   buttonGroup(gUt, [

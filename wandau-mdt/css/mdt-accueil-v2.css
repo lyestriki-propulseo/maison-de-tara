@@ -1,0 +1,93 @@
+/* ============================================================
+   ACCUEIL v2 « premium » — proposition arbitrable via ?lab
+   (groupe « Version de la page » du panneau hero-lab → body.av2).
+   Objectif : aligner l'accueil sur le langage des pages intérieures
+   premium — boutons pilule, eyebrows manuscrits, photos en arche
+   indienne, cadres laiton. Sans body.av2, ce fichier est inerte.
+   Verrouillage : fusionner dans mdt-override.css puis supprimer.
+   ============================================================ */
+
+/* ---------- Boutons : pilules premium (comme les pages intérieures) */
+body.av2 .btn,
+body.av2 .mdt-nl-form button,
+body.av2 .mdt-occasions-cta .btn {
+  border-radius: 999px !important;
+  letter-spacing: .14em !important;
+}
+body.av2 .play-now .play-btn { border-radius: 50%; }
+
+/* ---------- Eyebrows : manuscrit La Belle Aurore (signature premium) */
+body.av2 .section-title h6,
+body.av2 .events-eyebrow {
+  font-family: var(--mdt-font-script) !important;
+  font-size: clamp(24px, 2.6vw, 32px) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: var(--mdt-laiton) !important;
+  font-weight: 400 !important;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+body.av2 .hero-eyebrow {
+  font-family: var(--mdt-font-script) !important;
+  font-size: clamp(20px, 2.2vw, 26px) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 400 !important;
+}
+
+/* ---------- Univers : photos des 3 cartes en arche indienne */
+body.av2 .exhibition-box > figure {
+  border: 1px solid var(--mdt-laiton);
+  border-radius: 999px 999px 0 0;
+  padding: 8px;
+  background: #FBF7EC;
+  overflow: hidden;
+}
+body.av2 .exhibition-box > figure img { border-radius: 993px 993px 0 0; }
+body.av2 .exhibition-box > figure .info { border-radius: 0; }
+
+/* ---------- Parcours : photos en arche + cadre laiton */
+body.av2 #parcours .content-image {
+  border: 1px solid var(--mdt-laiton);
+  border-radius: 999px 999px 0 0;
+  padding: 8px;
+  background: #FBF7EC;
+}
+body.av2 #parcours .content-image img { border-radius: 993px 993px 0 0; }
+body.av2 #parcours .image-icon-box { border-right: none; }
+body.av2 #parcours .icon.mdt-step-icon { border-radius: 50%; }
+
+/* ---------- Réalisations : galerie adoucie, cadre laiton fin */
+body.av2 #realisations .image-box img {
+  border-radius: 12px;
+  border: 1px solid rgba(184, 146, 77, .45);
+}
+
+/* ---------- Boutique (teaser) : photos adoucies */
+body.av2 #section-boutique .image-box img,
+body.av2 #section-boutique figure img {
+  border-radius: 12px;
+}
+
+/* ---------- Les rendez-vous : rangées en cartes douces */
+body.av2 .event-row {
+  border: 1px solid rgba(184, 146, 77, .35);
+  border-radius: 14px;
+  background: rgba(251, 247, 236, .55);
+  padding-left: 18px;
+  padding-right: 18px;
+}
+body.av2 .event-row--featured { border-color: var(--mdt-laiton); background: #FBF7EC; }
+
+/* ---------- Grandes occasions : mini-arches */
+body.av2 .mdt-occasions-lp img {
+  border-radius: 999px 999px 0 0;
+  height: 150px;
+}
+
+/* ---------- Newsletter : double filet laiton signature */
+body.av2 .mdt-newsletter .container .row > div > * { position: relative; }
+body.av2 #newsletter form button { border-radius: 999px !important; }
+
+/* ---------- Footer & header héritent déjà du langage premium ✓ */

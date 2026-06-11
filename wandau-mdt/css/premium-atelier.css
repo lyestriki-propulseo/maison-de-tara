@@ -75,7 +75,7 @@
 .premium-atelier .tex{position:relative}
 .premium-atelier .tex::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:url(../../assets-premium-lp/wallpaper-tara-green.png) center/520px repeat;
+  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/520px repeat;
   opacity:.07;
 }
 .premium-atelier .tex > *{position:relative;z-index:1}
@@ -412,7 +412,7 @@
 }
 .premium-atelier .priva::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:url(../../assets-premium-lp/wallpaper-tara-green.png) center/560px repeat;
+  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/560px repeat;
   opacity:.06;
 }
 .premium-atelier .priva .wrap{position:relative;z-index:1}
@@ -469,3 +469,7 @@
   .premium-atelier .chap{padding:2.8rem 0}
   .premium-atelier .priva__gallery img:nth-child(2){transform:none}
 }
+
+/* Contraste (revue expert 12/06) : petites capitales en laiton fonce sur fond clair */
+.premium-atelier .dp__weekdays span{color:#8A6A30}
+

@@ -1,10 +1,9 @@
 /* ============================================================
-   ACCUEIL v2 « premium » — proposition arbitrable via ?lab
-   (groupe « Version de la page » du panneau hero-lab → body.av2).
-   Objectif : aligner l'accueil sur le langage des pages intérieures
-   premium — boutons pilule, eyebrows manuscrits, photos en arche
-   indienne, cadres laiton. Sans body.av2, ce fichier est inerte.
-   Verrouillage : fusionner dans mdt-override.css puis supprimer.
+   ACCUEIL v2 « premium » — VERROUILLÉE (arbitrage client 12/06).
+   body.av2 est posé en dur dans _src/index.html ; ce fichier
+   s'applique donc en permanence. Objectif : aligner l'accueil sur
+   le langage des pages intérieures premium — boutons pilule,
+   eyebrows manuscrits, photos en arche indienne, cadres laiton.
    ============================================================ */
 
 /* ---------- Boutons : pilules premium (comme les pages intérieures) */

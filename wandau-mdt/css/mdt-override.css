@@ -26,6 +26,9 @@
   --mdt-noir:       var(--mdt-ink);
   --mdt-noir-soft:  var(--mdt-ink);
   --mdt-laiton:     #B8924D;  /* doré v1 exact (laiton) — récupéré de l'historique, demandé par le client */
+  /* Réglables en direct via le laboratoire de couleurs (?lab sur l'accueil) */
+  --mdt-hero-bg:    var(--mdt-sauge);   /* fond du hero */
+  --mdt-footer-bg:  #3F4731;            /* vert profond footer (preview validée) */
 
   /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
   --mdt-text:       var(--mdt-ink);
@@ -350,7 +353,7 @@ a.custom-button {
 /* Fond sauge + wallpaper fleuri (repris du Hero V2 de l'ancienne LP) */
 .slider .slider-images .swiper-slide.mdt-slide-bg,
 .slider .slider-images .swiper-slide.mdt-slide-bg .mobile-slide {
-  background: var(--mdt-sauge) !important;
+  background: var(--mdt-hero-bg) !important;
   background-image: none !important;
 }
 
@@ -1256,12 +1259,8 @@ body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
 .exhibition-box .content-box p { margin-bottom: 14px !important; }
 .exhibition-box .content-box p:last-of-type { margin-bottom: 24px !important; }
 
-/* Cartes univers : deux variantes du texte de Tara — texte entier (défaut)
-   ou résumé à puces. La bascule se fait via body.univers-bullets (panneau ?lab) ;
-   une fois la version choisie, supprimer l'autre du HTML. */
-.uv-bullets { display: none; }
-body.univers-bullets .uv-full { display: none; }
-body.univers-bullets .uv-bullets { display: block; }
+/* Cartes univers : version « résumé à puces » verrouillée (arbitrage 12/06) —
+   .uv-bullets est un simple conteneur, le texte entier a été retiré du HTML. */
 
 /* ============================================================
    Mode lab (?lab) — scroll natif : Locomotive est coupé, donc la
@@ -1293,16 +1292,8 @@ body.lab-native .image-content-box figure img {
 @media (hover: none) {
   #parcours .content-box .expand { max-height: none !important; }
 }
-/* 2 jeux de titres (longs par défaut), basculés via body.parcours-short
-   (panneau ?lab). Le texte = résumé unique (choix « texte entier » retiré). */
-.pt-short { display: none; }
-body.parcours-short .pt-long { display: none; }
-body.parcours-short .pt-short { display: inline; }
-/* Titre de la section univers : 2 propositions Tara (remplacent
-   « Créer. Partager. Prolonger. »), bascule via body.univers-title-b (?lab). */
-.ut-b { display: none; }
-body.univers-title-b .ut-a { display: none; }
-body.univers-title-b .ut-b { display: inline; }
+/* Titres du parcours (complets) et titre univers (« À découvrir à la maison »)
+   verrouillés (arbitrage 12/06) — variantes retirées du HTML. */
 #parcours .content-box .expand p { margin-bottom: 12px; }
 /* Alignement strict des 4 étapes : aucune marge parasite, photos toutes au
    même niveau et à la même hauteur (la 4e dérivait). */
@@ -1377,39 +1368,8 @@ body.lab-native .horizontal-scroll .scroll-inner {
   to   { transform: translateX(-100vw); }
 }
 
-/* Section boutique : 4 mises en scène (V1 défaut). La bascule se fait via
-   body.boutique-v2/-v3/-v4 (panneau ?lab) ; une fois la version choisie,
-   supprimer les autres du HTML. */
-.bv-2, .bv-3, .bv-4 { display: none; }
-body.boutique-v2 .bv-1 { display: none; }
-body.boutique-v2 .bv-2 { display: block; }
-body.boutique-v3 .bv-1 { display: none; }
-body.boutique-v3 .bv-3 { display: block; }
-body.boutique-v4 .bv-1 { display: none; }
-body.boutique-v4 .bv-4 { display: block; }
-
-/* V2 — split photo / texte */
-.mdt-boutique-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 4vw, 64px);
-  align-items: center;
-}
-.mdt-boutique-split figure { margin: 0; }
-.mdt-boutique-split img {
-  width: 100%;
-  height: clamp(300px, 30vw, 480px);
-  object-fit: cover;
-  display: block;
-  border: 1px solid var(--mdt-laiton);
-}
-.mdt-boutique-split .section-title { margin-bottom: 24px; }
-.mdt-boutique-split__text p { margin-bottom: 16px; }
-@media (max-width: 860px) {
-  .mdt-boutique-split { grid-template-columns: 1fr; }
-}
-
-/* V3 — vitrine 3 photos */
+/* Section boutique : mise en scène « vitrine 3 photos » verrouillée
+   (arbitrage 12/06) — autres variantes retirées du HTML et du CSS. */
 .mdt-boutique-gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1823,8 +1783,7 @@ body.boutique-v4 .bv-4 { display: block; }
    seule ligne avec le crédit Propul'SEO centré et cliquable.
    ============================================================ */
 .mdt-footer {
-  /* vert profond exact de la preview validée (plus sombre que la sauge) */
-  background: #3F4731 !important;
+  background: var(--mdt-footer-bg) !important;
   /* couture laiton : adoucit la transition page claire → vert (revue expert) */
   border-top: 1px solid var(--mdt-laiton) !important;
   color: var(--mdt-sable);

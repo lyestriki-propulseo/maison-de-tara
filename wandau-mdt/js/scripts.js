@@ -433,9 +433,9 @@
 
 
   // LOCOMOTIVE — init seulement si la page a un conteneur .smooth-scroll (sinon scroll natif).
-  // Mode ?lab (panneau réglages) : Locomotive est DÉSACTIVÉ — ses positions en
-  // cache cassent l'affichage à chaque bascule de variante ; le scroll natif
-  // est 100% stable. body.lab-native révèle les éléments gated par is-inview.
+  // Mode ?lab (laboratoire de couleurs) : Locomotive est DÉSACTIVÉ — le scroll
+  // natif est 100% stable pour les essais en direct. body.lab-native révèle
+  // les éléments gated par is-inview.
   var labNative = /[?&]lab\b/.test(location.search);
   if (labNative) document.body.classList.add('lab-native');
   if (smoothEl && !labNative) {
@@ -452,7 +452,7 @@
         smooth: false,
       },
     });
-    // Instance partagée (utilisée par le panneau hero-lab pour scroller vers une section)
+    // Instance partagée (exposée pour d'éventuels scrollTo programmatiques)
     window.__mdtLoco = locoScroll;
   }
 

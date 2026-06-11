@@ -29,6 +29,7 @@
   /* Réglables en direct via le laboratoire de couleurs (?lab sur l'accueil) */
   --mdt-hero-bg:    var(--mdt-sauge);      /* fond du hero */
   --mdt-footer-bg:  var(--mdt-hero-bg);    /* footer = même vert que le hero */
+  --mdt-newsletter-bg: #9CA68C;            /* bande « La lettre de la maison » */
 
   /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
   --mdt-text:       var(--mdt-ink);
@@ -1266,7 +1267,12 @@ body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
    eux, respiration avant le CTA. */
 .exhibition-box figure { margin-bottom: 28px !important; }
 .exhibition-box .content-box { padding: 0 12px; }
-.exhibition-box .content-box h4 { margin-bottom: 16px !important; }
+.exhibition-box .content-box h4 {
+  margin-bottom: 14px !important;
+  /* Titres de carte resserrés (12/06) : prenaient trop de place en 30px Wandau. */
+  font-size: clamp(19px, 1.6vw, 23px) !important;
+  line-height: 1.2 !important;
+}
 .exhibition-box .content-box p { margin-bottom: 14px !important; }
 .exhibition-box .content-box p:last-of-type { margin-bottom: 24px !important; }
 
@@ -1545,7 +1551,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
    beige + texte noir) posée sur la bande verte florale (design v1).
    ============================================================ */
 .mdt-newsletter {
-  background: #9CA68C !important;   /* sauge claire grisée (fidèle capture v1) */
+  background: var(--mdt-newsletter-bg) !important;   /* réglable via le labo couleurs */
   padding: clamp(48px, 5vw, 72px) 0 !important;
   text-align: center;
   position: relative;

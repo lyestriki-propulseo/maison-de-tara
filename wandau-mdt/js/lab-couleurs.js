@@ -220,6 +220,20 @@
       document.body.classList.toggle('cl-bg-light', isLight(c.hex));
     });
 
+  swatchGroup(4, 'Bande « La lettre de la maison » (fond)',
+    'L’avant-dernière section, juste au-dessus du footer. La carte d’inscription reste lisible quel que soit le fond.',
+    '--mdt-newsletter-bg', [
+      { nom: 'Sauge grisée (actuel)', hex: '#9CA68C', cur: true },
+      { nom: 'Crème (charte)', hex: '#F0ECDB' },
+      { nom: 'Sable chaud', hex: '#E8DCC4' },
+      { nom: 'Vert d’eau pâle', hex: '#CBD3BC' },
+      { nom: 'Rosé poudré', hex: '#E3C9C2' },
+      { nom: 'Olive claire', hex: '#8A976C' },
+      { nom: 'Sauge', hex: '#5A6347' },
+      { nom: 'Vert profond', hex: '#3F4731' },
+      { nom: 'Terracotta profond', hex: '#79301E' }
+    ]);
+
   var reset = el('button', 'cl-reset', 'Tout remettre aux couleurs actuelles');
   reset.type = 'button';
   reset.addEventListener('click', function () { resetFns.forEach(function (f) { f(); }); });

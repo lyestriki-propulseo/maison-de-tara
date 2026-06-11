@@ -1369,12 +1369,6 @@ body.lab-native .image-content-box figure img {
   .mdt-occasions-lp img { height: 110px; }
 }
 
-/* « Certaines réalisations » : motif floral nettement visible (le filigrane
-   générique à 9% ne se voyait pas — demande client). */
-#realisations::before {
-  opacity: 0.22 !important;
-  background-size: 640px !important;
-}
 
 /* Mode lab (Locomotive coupé) : la galerie « Certaines réalisations »
    défile toute seule en va-et-vient doux, faute de parallaxe au scroll. */
@@ -1543,6 +1537,32 @@ body.lab-native .horizontal-scroll .scroll-inner {
 }
 .mdt-floral-soft > *,
 .mdt-floral-line > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   FOND CONTINU DE L'ACCUEIL (12/06) — UNE seule couche florale derrière
+   toutes les sections crème, au lieu d'un motif par section. Garantit :
+   couleur EXACTEMENT identique partout + motif ALIGNÉ d'une section à
+   l'autre (plus de cassure ni de « voile »). Accueil uniquement
+   (body.has-hero) ; les pages intérieures ne sont pas touchées.
+   ============================================================ */
+body.has-hero .section-wrapper { position: relative; background-color: var(--mdt-sable); }
+body.has-hero .section-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") top center / 600px repeat;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+body.has-hero .section-wrapper > * { position: relative; z-index: 1; }
+/* Les sections crème deviennent transparentes → laissent voir la couche continue */
+body.has-hero .content-section { background: transparent !important; }
+/* On neutralise les motifs PAR SECTION sur l'accueil (doublon + cassures) */
+body.has-hero .mdt-floral-soft::before,
+body.has-hero .mdt-floral-line::before,
+body.has-hero #realisations::before,
+body.has-hero .mdt-newsletter::before { display: none !important; }
 
 /* ============================================================
    Newsletter MDT — carte beige cadrée or (retour Pastel #9 : fond

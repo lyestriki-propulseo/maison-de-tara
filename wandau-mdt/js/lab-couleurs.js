@@ -123,27 +123,17 @@
       { nom: 'Encre', hex: '#2C2419' },
     ], null);
 
-  swatchGroup('3 · Hero (fond)',
-    'Le grand fond vert du haut de page (texture fleurie conservée).',
+  swatchGroup('3 · Hero + footer (fond)',
+    'Une seule couleur pour le grand fond du haut ET le pied de page (texture fleurie conservée).',
     '--mdt-hero-bg', [
       { nom: 'Sauge (actuel)', hex: '#5A6347' },
       { nom: 'Sauge claire', hex: '#6B7355' },
       { nom: 'Sauge profonde', hex: '#49513A' },
-      { nom: 'Vert footer (raccord)', hex: '#3F4731' },
-      { nom: 'Terracotta profond', hex: '#79301E' },
-      { nom: 'Brun cacao', hex: '#4A372A' },
-    ], 'header.slider');
-
-  swatchGroup('4 · Footer (fond)',
-    'Identique au hero par défaut. Choisir ici le découple du hero.',
-    '--mdt-footer-bg', [
-      { nom: 'Sauge — comme le hero (actuel)', hex: '#5A6347' },
       { nom: 'Vert profond', hex: '#3F4731' },
-      { nom: 'Sauge profonde', hex: '#49513A' },
       { nom: 'Encre brune', hex: '#2C2419' },
       { nom: 'Brun cacao', hex: '#4A372A' },
       { nom: 'Terracotta profond', hex: '#79301E' },
-    ], '.mdt-footer');
+    ], 'header.slider');
 
   var reset = document.createElement('button');
   reset.type = 'button';

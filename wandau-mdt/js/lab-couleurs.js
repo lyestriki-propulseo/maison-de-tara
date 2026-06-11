@@ -71,7 +71,13 @@
     '  .mdt-footer-coords a,.fb-l,.fb-c a,.fb-r a){color:#2c2419 !important;}',
     'body.cl-bg-light .mdt-footer .mdt-footer-coords{color:rgba(44,36,25,.85) !important;}',
     /* Bande newsletter sur fond clair : texture florale allégée pour matcher les autres sections */
-    'body.cl-nl-light .mdt-newsletter::before{opacity:.07 !important;}'
+    'body.cl-nl-light .mdt-newsletter::before{opacity:.07 !important;}',
+    /* Hero sur fond clair : la texture "screen" (pensée fond vert) disparaîtrait —
+       on bascule en multiply léger comme les sections claires → continuité hero / section 2 */
+    'body.cl-bg-light .slider .slider-images .swiper-slide.mdt-slide-bg::before{',
+    '  mix-blend-mode:multiply !important;opacity:.09 !important;}',
+    /* Footer sur fond clair : texture au même niveau que les sections */
+    'body.cl-bg-light .mdt-footer::before{opacity:.07 !important;}'
   ].join('');
   var style = document.createElement('style');
   style.textContent = css;

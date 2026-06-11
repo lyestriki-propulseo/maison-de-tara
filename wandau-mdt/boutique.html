@@ -35,6 +35,7 @@
 <meta name="description" content="Décoration, textiles block print, lampes, céramiques, art de la table et idées cadeaux choisis avec soin — la boutique de la Maison de Tara, à La Garenne-Colombes.">
 <meta property="og:title" content="La Boutique · Maison de Tara">
 <meta property="og:description" content="Décoration, textiles block print, lampes, céramiques, art de la table et idées cadeaux choisis avec soin — la boutique de la Maison de Tara, à La Garenne-Colombes.">
+<link rel="stylesheet" href="css/premium-boutique.css">
 </head>
 <body>
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
@@ -163,72 +164,155 @@
   </div>
 </div>
 <!-- ====== /HEADER MDT ====== -->
-<div class="smooth-scroll">
-  <div class="section-wrapper" data-scroll-section id="main">
+<main id="main" class="mdt-natural-scroll premium-boutique">
 
-    <section class="content-section mdt-floral-soft">
-      <div class="container">
-        <div class="mdt-page-intro">
-          <span class="mdt-eyebrow">La boutique</span>
-          <h1>La Boutique de la Maison</h1>
-        </div>
-        <!-- VERSION RÉCIT INTÉGRAL (par défaut). Version resserrée proposée pour le choix de Tara :
-             « La boutique est née d'une passion pour les maisons où chaque objet a une histoire.
-               Décoration, textiles block print, céramiques, art de la table et idées cadeaux,
-               choisis au fil de mes voyages et de mes coups de cœur. Aucune réservation : poussez la porte. » -->
-        <div class="mdt-recit">
-          <p class="lead">J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse.</p>
-          <p>La boutique est née de cette passion. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux, choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur.</p>
-        </div>
+  <!-- ====================== HERO ÉDITORIAL ====================== -->
+  <section class="hero floral">
+    <div class="container">
+      <div class="hero-head reveal">
+        <span class="eyebrow">La boutique</span>
+        <h1>La Boutique <span class="ligne2">de la Maison</span></h1>
       </div>
-    </section>
 
-    <section class="content-section no-spacing">
-      <div class="container">
-        <div class="mdt-ambiance">
-          <img src="../assets-premium-lp/boutique-unsplash.jpg" alt="L'intérieur de la boutique de la Maison de Tara" data-scroll data-scroll-speed="-1">
-        </div>
+      <div class="recit">
+        <p class="recit-lead reveal" data-delay="1">J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse.</p>
+        <p class="recit-suite reveal" data-delay="2">La boutique est née de cette passion. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux, choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur.</p>
       </div>
-    </section>
 
-    <section class="content-section">
-      <div class="container">
-        <div class="section-title text-center">
-          <h6>Ce que vous trouverez</h6>
-          <h2>Une sélection pour la maison.</h2>
-        </div>
-        <!-- Figures .mdt-bcard-img = proposition v2 (mosaïque photo), masquées en v1 (css/mdt-variants.css) -->
-        <div class="mdt-boutique-grid">
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-premium-lp/interior-palette.jpg" alt="" loading="lazy"></figure><h3>Décoration</h3><p>Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p></div>
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-premium-lp/blockprint-marigold.jpg" alt="" loading="lazy"></figure><h3>Textiles &amp; block print</h3><p>Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p></div>
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-premium-lp/ceramique-details.jpg" alt="" loading="lazy"></figure><h3>Céramiques</h3><p>Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p></div>
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-charte/salon-terracotta.jpg" alt="" loading="lazy"></figure><h3>Lampes</h3><p>Pour réchauffer la lumière d'une pièce et créer une atmosphère.</p></div>
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-charte/boutique-plateaux.jpg" alt="" loading="lazy"></figure><h3>Art de la table</h3><p>De quoi dresser une jolie table et recevoir comme on aime.</p></div>
-          <div class="mdt-boutique-card"><figure class="mdt-bcard-img"><img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="" loading="lazy"></figure><h3>Idées cadeaux</h3><p>Pour faire plaisir — ou se faire plaisir — au fil des saisons.</p></div>
-        </div>
+      <div class="hero-visuel">
+        <figure class="hero-arche reveal">
+          <div class="cadre cadre--arche double-bordure">
+            <img src="../assets-premium-lp/boutique-unsplash.jpg" alt="L'intérieur de la boutique de la Maison de Tara">
+          </div>
+        </figure>
+        <figure class="hero-contrepoint reveal" data-delay="2">
+          <div class="cadre double-bordure">
+            <img src="../assets-premium-lp/interior-terracotta.jpg" alt="Un salon aux tonalités terracotta, comme une pièce de la maison">
+          </div>
+          <figcaption class="legende-libre"><span class="main">comme à la maison</span>La Garenne-Colombes</figcaption>
+        </figure>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="content-section mdt-floral-line">
-      <div class="container">
-        <div class="mdt-artisanat" data-scroll>
-          <h2>L'artisanat, au cœur de la sélection</h2>
-          <p>Les imprimés block print, le fait main, les belles matières et les savoir-faire transmis font partie de ce qui m'inspire depuis toujours. Certaines pièces sont fabriquées à la main, d'autres imaginées par des créateurs et artisans que j'admire. Toutes ont été choisies pour la même raison : leur capacité à apporter de la couleur, du caractère, de la chaleur et de la personnalité à une maison.</p>
-        </div>
+  <div class="blockprint-row" aria-hidden="true"></div>
+
+  <!-- ====================== GALERIE DES 6 UNIVERS ====================== -->
+  <section class="galerie floral" aria-labelledby="titre-galerie">
+    <div class="container">
+      <div class="galerie-titre reveal">
+        <span class="surtitre">Ce que vous trouverez</span>
+        <h2 id="titre-galerie">Une sélection pour la maison.</h2>
       </div>
-    </section>
 
-    <section class="content-section">
-      <div class="container">
-        <div class="mdt-visit-note">
-          <p>La sélection évolue régulièrement au fil des saisons, des rencontres et des nouvelles découvertes. Que vous cherchiez un cadeau, une pièce pour votre intérieur ou simplement une source d'inspiration, j'espère que vous y trouverez quelque chose qui vous fera sourire et vous donnera envie de rentrer chez vous.</p>
-          <p><strong>Aucune réservation n'est nécessaire pour découvrir la boutique.</strong> Poussez la porte pendant les horaires d'ouverture — ce sera un plaisir de vous accueillir à la maison.</p>
-          <p><a href="contact.html" class="btn btn--primary">Horaires &amp; accès</a></p>
-        </div>
+      <div class="murs">
+
+        <figure class="piece piece--01 reveal">
+          <div class="cadre cadre--arche double-bordure">
+            <img src="../assets-premium-lp/interior-palette.jpg" alt="Objets de décoration aux teintes douces dans un intérieur" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">01</span><h3>Décoration</h3>
+            <p>Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--02 reveal" data-delay="1">
+          <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-premium-lp/blockprint-marigold.jpg" alt="Textile imprimé block print aux motifs orangés" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">02</span><h3>Textiles &amp; block print</h3>
+            <p>Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--interlude reveal">
+          <div class="cadre cadre--portrait">
+            <img src="../assets-charte/interieur-vase.jpg" alt="Un vase posé dans un intérieur baigné de lumière" loading="lazy">
+          </div>
+          <figcaption><span class="main">au détour d'une pièce</span></figcaption>
+        </figure>
+
+        <figure class="piece piece--03 reveal" data-delay="1">
+          <div class="cadre cadre--portrait double-bordure">
+            <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques façonnées à la main" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">03</span><h3>Céramiques</h3>
+            <p>Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--04 reveal">
+          <div class="cadre cadre--arche double-bordure">
+            <img src="../assets-charte/salon-terracotta.jpg" alt="Une lampe réchauffe la lumière d'un salon terracotta" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">04</span><h3>Lampes</h3>
+            <p>Pour réchauffer la lumière d'une pièce et créer une atmosphère.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--05 reveal" data-delay="1">
+          <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux et art de la table présentés en boutique" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">05</span><h3>Art de la table</h3>
+            <p>De quoi dresser une jolie table et recevoir comme on aime.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--06 reveal">
+          <div class="cadre cadre--portrait double-bordure">
+            <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Un paquet cadeau soigneusement emballé" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">06</span><h3>Idées cadeaux</h3>
+            <p>Pour faire plaisir — ou se faire plaisir — au fil des saisons.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--accent reveal" data-delay="2">
+          <div class="cadre">
+            <img src="../assets-charte/tasses-rayees.jpg" alt="Tasses rayées colorées empilées" loading="lazy">
+          </div>
+          <figcaption><span class="main">coup de cœur</span></figcaption>
+        </figure>
+
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="mdt-footer mdt-floral-line">
+  <!-- ====================== BANDE ARTISANAT ====================== -->
+  <section class="artisanat" aria-labelledby="titre-artisanat">
+    <div class="fond" aria-hidden="true">
+      <img src="../assets-premium-lp/blockprint-green.jpg" alt="" loading="lazy">
+    </div>
+    <div class="container reveal">
+      <span class="surtitre">fait main</span>
+      <h2 id="titre-artisanat">L'artisanat, au cœur de la sélection</h2>
+      <div class="filet" aria-hidden="true"><span></span></div>
+      <p>Les imprimés block print, le fait main, les belles matières et les savoir-faire transmis font partie de ce qui m'inspire depuis toujours. Certaines pièces sont fabriquées à la main, d'autres imaginées par des créateurs et artisans que j'admire. Toutes ont été choisies pour la même raison&nbsp;: leur capacité à apporter de la couleur, du caractère, de la chaleur et de la personnalité à une maison.</p>
+    </div>
+  </section>
+
+  <div class="blockprint-row" aria-hidden="true"></div>
+
+  <!-- ====================== INVITATION FINALE ====================== -->
+  <section class="invitation floral">
+    <div class="container">
+      <div class="carte double-bordure reveal">
+        <span class="main-titre">Maison de Tara</span>
+        <p>La sélection évolue régulièrement au fil des saisons, des rencontres et des nouvelles découvertes. Que vous cherchiez un cadeau, une pièce pour votre intérieur ou simplement une source d'inspiration, j'espère que vous y trouverez quelque chose qui vous fera sourire et vous donnera envie de rentrer chez vous.</p>
+        <p><strong>Aucune réservation n'est nécessaire pour découvrir la boutique.</strong> Poussez la porte pendant les horaires d'ouverture — ce sera un plaisir de vous accueillir à la maison.</p>
+        <a href="contact.html" class="btn">Horaires &amp; accès</a>
+      </div>
+    </div>
+  </section>
+
+<footer class="mdt-footer mdt-floral-line">
   <div class="container">
     <div class="mdt-footer-grid">
       <div class="mdt-footer-brand">
@@ -264,20 +348,28 @@
     </div>
   </div>
 </footer>
-  </div>
-</div>
-<!-- JS FILES -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/locomotive-scroll.min.js"></script>
-<script src="js/kinetic-slider.js"></script>
-<script src="js/fancybox.min.js"></script>
-<script src="js/odometer.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/scripts.js"></script>
-
-<!-- Menu mobile (drawer) — extrait en js/drawer.js, partagé avec scripts-min.html (DRY) -->
+</main>
+<!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
 <script src="js/drawer.js"></script>
-<script src="js/page-lab.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach(function(el){ el.classList.add("is-visible"); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
 </body>
 </html>

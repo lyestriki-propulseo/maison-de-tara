@@ -54,6 +54,10 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 400 !important;
   color: var(--mdt-noir) !important;
   letter-spacing: -0.01em;
+  /* Dézoom modéré (12/06) : titres de section ~30 % plus petits que le
+     92px Wandau, pour qu'une section tienne mieux à l'écran. */
+  font-size: clamp(32px, 4.6vw, 64px) !important;
+  line-height: 1.1 !important;
 }
 
 h1 { font-weight: 300 !important; }
@@ -229,7 +233,7 @@ a.custom-button {
 }
 
 /* Espace titre de section ↔ contenu réduit (retour Pastel #34 : 100px Wandau trop grand) */
-.section-title { margin-bottom: 48px; }
+.section-title { margin-bottom: 32px; }
 
 /* Sous-titre éditorial sous le H2 de section */
 .section-title .mdt-section-sub {
@@ -820,7 +824,11 @@ nav.navbar { display: none !important; }
   display: flex;
   align-items: center;
   padding: 0;
+  transition: transform .35s ease;       /* glisse hors champ au scroll */
 }
+/* Au scroll : la topbar s'efface vers le haut et le header remonte d'autant
+   (récupère 42px d'écran). Réversible en remontant. */
+body.is-scrolled .topbar { transform: translateY(-100%); }
 .topbar__inner {
   width: 100%;
   display: flex;
@@ -863,7 +871,10 @@ nav.navbar { display: none !important; }
   right: 0;
   z-index: 140;
   background: var(--mdt-sable);
+  transition: top .35s ease;             /* suit la topbar qui se masque */
 }
+/* Topbar masquée → header collé tout en haut (gagne 42px). */
+body.is-scrolled .mdt-header { top: 0; }
 
 /* Compensation : décaler le contenu sous le header fixe (topbar 42 + header 108 avec logo 68) */
 .smooth-scroll {
@@ -1388,12 +1399,25 @@ body.lab-native .horizontal-scroll .scroll-inner {
   .mdt-boutique-gallery img:last-child { display: none; }
 }
 
-/* Stagger : cartes 1 et 3 alignées en haut, carte 2 (Café) décalée vers le bas
-   — reproduit l'effet Wandau original sans dépendre du parallax JS */
-.exhibition-box#cafe { margin-top: 80px; }
-@media (max-width: 767px) {
-  .exhibition-box#cafe { margin-top: 0; }
+/* Cartes univers (arbitrage 12/06) : mêmes dimensions, alignées en haut ET en
+   bas. On retire le décalage « quinconce » du Café et on force les 3 colonnes
+   à la même hauteur, CTA collé en bas de chaque carte. */
+#univers .row { align-items: stretch; }
+#univers .col-lg-4 { display: flex; }
+#univers .exhibition-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 !important;
 }
+#univers .exhibition-box .content-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+/* Le bloc texte (uv-bullets) occupe l'espace, le CTA se cale en bas */
+#univers .exhibition-box .uv-bullets { flex: 1 1 auto; }
+#univers .exhibition-box .mdt-card-cta { margin-top: auto; align-self: center; }
 
 /* Logo section 3 top-left (signature MDT) */
 .mdt-section-with-logo { position: relative; }

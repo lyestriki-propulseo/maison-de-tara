@@ -210,12 +210,12 @@ a.custom-button {
 .content-section { background: var(--mdt-sable); }
 .content-section.bottom-white { background: var(--mdt-sable) !important; }
 
-/* Espacement vertical des sections réduit de 50% (120→60px desktop, 80→40px mobile).
-   Resserre le passage d'une section à l'autre. Les classes no-spacing /
-   no-bottom-spacing Wandau gardent la priorité (padding 0 inchangé). */
-.content-section { padding: 60px 0; }
+/* Espacement vertical des sections (accueil) : 30px desktop / 20px mobile
+   (encore divisé par 2 le 12/06 à la demande client). Les classes
+   no-spacing / no-bottom-spacing Wandau gardent la priorité (padding 0). */
+.content-section { padding: 30px 0; }
 @media (max-width: 767px) {
-  .content-section { padding: 40px 0; }
+  .content-section { padding: 20px 0; }
 }
 
 /* --- Section-title shape : on neutralise le shape Wandau (souvent un blob jaune) --- */

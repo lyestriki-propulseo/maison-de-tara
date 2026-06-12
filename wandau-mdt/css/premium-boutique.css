@@ -358,8 +358,19 @@
   isolation:isolate;
   padding-block:clamp(2.4rem,5vw,4rem);
   color:var(--blanc);
-  text-align:center;
+  text-align:left;
   overflow:hidden;
+}
+/* 2 colonnes : titre/filet à gauche, texte à droite (remplit la largeur) */
+.premium-boutique .artisanat__grid{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,4.5rem);
+  align-items:center;
+}
+@media (max-width:780px){
+  .premium-boutique .artisanat{text-align:center}
+  .premium-boutique .artisanat__grid{grid-template-columns:1fr;gap:1.3rem}
 }
 .premium-boutique .artisanat .fond{
   position:absolute;inset:0;z-index:-2;
@@ -373,19 +384,19 @@
   background:color-mix(in srgb, var(--sauge) 84%, var(--encre));
   opacity:.92;
 }
-.premium-boutique .artisanat .container{max-width:62rem}
+.premium-boutique .artisanat .container{max-width:72rem}
 .premium-boutique .artisanat .surtitre{color:var(--sable)}
 .premium-boutique .artisanat h2{
   font-family:var(--f-titre);
   font-weight:500 !important;
   font-size:clamp(1.8rem, 1.3rem + 2.4vw, 3.2rem);
   line-height:1.15;
-  margin-bottom:1.75rem;
+  margin-bottom:1.1rem;
   color:var(--blanc) !important;
 }
+.premium-boutique .artisanat__head .filet{margin-inline:0}
 .premium-boutique .artisanat p{
-  max-width:64ch;
-  margin-inline:auto;
+  max-width:60ch;
   font-size:clamp(1rem, .95rem + .35vw, 1.15rem);
   line-height:1.85;
   color:color-mix(in srgb, var(--blanc) 94%, var(--sauge));

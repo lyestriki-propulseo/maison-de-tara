@@ -347,9 +347,9 @@
   margin:0;
   font-family:var(--serif);
   font-weight:500;
-  font-size:clamp(1.9rem, 4.2vw, 3.2rem);
-  line-height:1.18;
-  color:var(--encre);
+  font-size:clamp(1.55rem, 3.2vw, 2.4rem);
+  line-height:1.2;
+  color:var(--terracotta) !important;
 }
 .premium-histoire .triptyque__grid{
   max-width:1240px; margin:0 auto;

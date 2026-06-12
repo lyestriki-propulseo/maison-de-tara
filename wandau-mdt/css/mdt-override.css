@@ -1558,9 +1558,12 @@ body.has-hero .section-wrapper::before {
 body.has-hero .section-wrapper > * { position: relative; z-index: 1; }
 /* Les sections crème deviennent transparentes → laissent voir la couche continue */
 body.has-hero .content-section { background: transparent !important; }
-/* On neutralise les motifs PAR SECTION sur l'accueil (doublon + cassures) */
+/* On neutralise les motifs PAR SECTION sur l'accueil (doublon + cassures).
+   EXCEPTION : le footer (.mdt-footer) porte aussi .mdt-floral-line mais garde
+   SON propre motif (wallpaper vert) — il n'est pas crème, il n'est pas dans le
+   fond continu. On l'exclut donc du display:none. */
 body.has-hero .mdt-floral-soft::before,
-body.has-hero .mdt-floral-line::before,
+body.has-hero .mdt-floral-line:not(.mdt-footer)::before,
 body.has-hero #realisations::before,
 body.has-hero .mdt-newsletter::before { display: none !important; }
 

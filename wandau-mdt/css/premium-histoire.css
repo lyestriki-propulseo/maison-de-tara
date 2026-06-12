@@ -201,9 +201,13 @@
 }
 .premium-histoire .hero__tag{
   position:absolute;
-  font-family:var(--script);
-  font-weight:400;
-  font-size:clamp(1.5rem, 2.4vw, 2rem);
+  /* Playfair italique : le "I" de "l'Inde" était illisible en script (La Belle
+     Aurore). Italique serif = élégant ET lisible, on garde le texte + le filet. */
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(1.25rem, 1.9vw, 1.6rem);
+  letter-spacing:.01em;
   color:var(--terracotta);
   line-height:1;
   white-space:nowrap;

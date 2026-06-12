@@ -134,7 +134,7 @@
 }
 
 /* ---------- Écran 1 : intro + fiche ---------- */
-.premium-contact .hero{padding-block:clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem)}
+.premium-contact .hero{padding-block:clamp(2.2rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem)}
 .premium-contact .hero-grid{
   display:grid;
   grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
@@ -254,7 +254,7 @@
 .premium-contact .btn:hover{background:var(--laiton); border-color:var(--laiton); color:var(--blanc); text-decoration:none; box-shadow:0 10px 24px -16px var(--encre)}
 
 /* ---------- Écran 2 : carte + accès ---------- */
-.premium-contact .locate{padding-block:clamp(2.5rem, 6vw, 5rem)}
+.premium-contact .locate{padding-block:clamp(2.2rem, 5vw, 4rem)}
 .premium-contact .section-head{text-align:center; max-width:640px; margin-inline:auto; margin-bottom:clamp(1.6rem, 4vw, 2.8rem)}
 .premium-contact .section-head h2{font-size:var(--fs-h2) !important; color:var(--terracotta) !important}
 
@@ -302,7 +302,7 @@
 
 /* ---------- Écran 3 : FAQ + formulaire ---------- */
 .premium-contact .write{
-  padding-block:clamp(2.5rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+  padding-block:clamp(2.2rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
 }
 .premium-contact .write-grid{
   display:grid;

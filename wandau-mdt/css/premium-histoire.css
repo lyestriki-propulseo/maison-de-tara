@@ -110,7 +110,7 @@
 }
 .premium-histoire .hero__inner{
   max-width:1280px; margin:0 auto;
-  padding:clamp(3.5rem, 9vw, 7.5rem) var(--gutter) clamp(4rem, 10vw, 8.5rem);
+  padding:clamp(2.8rem, 6vw, 5rem) var(--gutter) clamp(2.8rem, 6vw, 5rem);
   display:grid;
   grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
   gap:clamp(2.5rem, 6vw, 6rem);
@@ -222,7 +222,7 @@
    paragraphes (duo en arches + bandeau panoramique).
    ============================================================ */
 .premium-histoire .lettre{
-  padding:clamp(4rem, 9vw, 8rem) var(--gutter) clamp(3rem, 7vw, 6rem);
+  padding:clamp(2.8rem, 6vw, 5rem) var(--gutter) clamp(2.2rem, 5vw, 4rem);
   background:var(--blanc);
 }
 .premium-histoire .lettre__col{
@@ -324,7 +324,7 @@
    ============================================================ */
 .premium-histoire .triptyque{
   background:var(--sable);
-  padding:clamp(4rem, 9vw, 8rem) var(--gutter);
+  padding:clamp(2.8rem, 6vw, 5rem) var(--gutter);
 }
 .premium-histoire .triptyque__head{
   max-width:760px; margin:0 auto clamp(3rem, 6vw, 5rem);
@@ -402,7 +402,7 @@
     var(--sauge);
   color:var(--blanc);
   text-align:center;
-  padding:clamp(4.5rem, 10vw, 8.5rem) var(--gutter);
+  padding:clamp(3rem, 6vw, 5.5rem) var(--gutter);
   position:relative;
   overflow:hidden;
 }

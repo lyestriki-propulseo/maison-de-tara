@@ -120,7 +120,7 @@
    Hero éditorial — la maison qu'on visite
    ============================================================ */
 .premium-boutique .hero{
-  padding-block:clamp(3.5rem,8vw,6.5rem) 0;
+  padding-block:clamp(2.8rem,5vw,4.5rem) 0;
   background:var(--blanc);
 }
 .premium-boutique .hero-head{
@@ -226,7 +226,7 @@
    Galerie éditoriale — les 6 univers, pièces accrochées
    ============================================================ */
 .premium-boutique .galerie{
-  padding-block:clamp(4rem,9vw,7.5rem);
+  padding-block:clamp(2.8rem,6vw,5rem);
   background:var(--sable);
 }
 .premium-boutique .galerie-titre{
@@ -356,7 +356,7 @@
 .premium-boutique .artisanat{
   position:relative;
   isolation:isolate;
-  padding-block:clamp(5rem,11vw,9rem);
+  padding-block:clamp(3rem,6vw,5.5rem);
   color:var(--blanc);
   text-align:center;
   overflow:hidden;
@@ -398,7 +398,7 @@
    Finale — l'invitation calligraphiée
    ============================================================ */
 .premium-boutique .invitation{
-  padding-block:clamp(4.5rem,10vw,8rem);
+  padding-block:clamp(3rem,6vw,5rem);
   background:var(--blanc);
   text-align:center;
 }

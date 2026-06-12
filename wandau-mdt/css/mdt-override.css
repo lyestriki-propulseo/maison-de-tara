@@ -1573,7 +1573,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
    ============================================================ */
 .mdt-newsletter {
   background: var(--mdt-newsletter-bg) !important;   /* réglable via le labo couleurs */
-  padding: clamp(48px, 5vw, 72px) 0 !important;
+  padding: clamp(26px, 3vw, 40px) 0 !important;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1596,8 +1596,8 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   position: relative;
   background: rgba(252, 250, 244, 0.55);
   border: 1px solid var(--mdt-laiton);
-  padding: clamp(28px, 3vw, 44px) clamp(24px, 3.5vw, 56px);
-  max-width: 640px;
+  padding: clamp(20px, 2.4vw, 30px) clamp(28px, 4vw, 52px);
+  max-width: 880px;   /* élargie : titre sur ~2 lignes au lieu de 4 */
   margin: 0 auto;
 }
 .mdt-nl-card::before {
@@ -1627,11 +1627,11 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 .mdt-nl-title {
   font-family: var(--mdt-font-display) !important;
   font-weight: 300 !important;
-  font-size: clamp(24px, 2.3vw, 34px);
+  font-size: clamp(20px, 1.7vw, 27px);
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--mdt-ink) !important;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .mdt-nl-title em { font-style: italic; color: var(--mdt-laiton); }
 .mdt-nl-lead {

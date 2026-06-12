@@ -141,10 +141,10 @@
    ============================================================ */
 /* Padding haut = topbar (42px) + header fixe (~110px) + respiration : la photo
    en arche ne passe plus sous le header (transparent en haut de page). */
-.premium-atelier .hero{padding:clamp(11rem,9rem + 5vw,13.5rem) 0 clamp(3rem,7vw,6rem);background:var(--creme)}
+.premium-atelier .hero{padding:clamp(9.5rem,8.5rem + 2.5vw,10.5rem) 0 clamp(2.5rem,5vw,4rem);background:var(--creme)}
 .premium-atelier .hero__grid{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);
-  gap:clamp(2rem,6vw,5.5rem);align-items:end;
+  gap:clamp(2rem,6vw,5.5rem);align-items:start;
 }
 .premium-atelier .hero h1{
   font-family:var(--serif);font-weight:500;
@@ -162,7 +162,7 @@
 /* ============================================================
    INTRO DU RITUEL
    ============================================================ */
-.premium-atelier .rituel-head{padding:clamp(3.5rem,8vw,6rem) 0 clamp(1rem,3vw,2rem);text-align:center;background:var(--creme)}
+.premium-atelier .rituel-head{padding:clamp(2.5rem,5vw,4rem) 0 clamp(.8rem,2.5vw,1.6rem);text-align:center;background:var(--creme)}
 .premium-atelier .rituel-head h2{
   font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4vw,3rem);
   line-height:1.15;margin-top:.5rem;
@@ -174,17 +174,20 @@
    ============================================================ */
 .premium-atelier .chap{
   position:relative;
-  padding:clamp(3rem,7vw,6rem) 0;
+  padding:clamp(2.2rem,5vw,4rem) 0;
 }
+/* Numéros fantômes : DERRIÈRE le contenu (z-index 0) et du CÔTÉ TEXTE
+   (pas sous la photo), pour qu'ils ne soient plus « mangés ». */
 .premium-atelier .chap__num{
-  position:absolute;top:clamp(.5rem,2vw,1.5rem);
+  position:absolute;top:clamp(.5rem,2vw,1.5rem);z-index:0;
   font-family:var(--serif);font-weight:500;font-style:italic;
-  font-size:clamp(8rem,19vw,16rem);line-height:1;
-  color:var(--laiton);opacity:.13;pointer-events:none;user-select:none;
+  font-size:clamp(6rem,13vw,11rem);line-height:1;
+  color:var(--laiton);opacity:.12;pointer-events:none;user-select:none;
 }
-.premium-atelier .chap--odd .chap__num{left:clamp(.5rem,3vw,3rem)}
-.premium-atelier .chap--even .chap__num{right:clamp(.5rem,3vw,3rem)}
+.premium-atelier .chap--odd .chap__num{right:clamp(.5rem,3vw,3rem);left:auto}
+.premium-atelier .chap--even .chap__num{left:clamp(.5rem,3vw,3rem);right:auto}
 .premium-atelier .chap__grid{
+  position:relative;z-index:1;
   display:grid;grid-template-columns:repeat(12,1fr);
   gap:clamp(1.5rem,4vw,3.5rem);align-items:center;
 }
@@ -214,8 +217,8 @@
 .premium-atelier .note-atelier{
   position:relative;background:var(--sable);
   border:1px solid var(--laiton);
-  max-width:44rem;margin:clamp(2.5rem,6vw,4rem) auto 0;
-  padding:clamp(2rem,5vw,3.2rem) clamp(1.5rem,5vw,3.5rem) clamp(2.2rem,5vw,3.4rem);
+  max-width:44rem;margin:clamp(1.8rem,4vw,2.6rem) auto 0;
+  padding:clamp(1.6rem,4vw,2.4rem) clamp(1.5rem,5vw,3.5rem) clamp(1.8rem,4vw,2.6rem);
   text-align:center;
 }
 .premium-atelier .note-atelier::before{
@@ -240,8 +243,8 @@
 /* ============================================================
    RÉSERVER UN MOMENT — carton d'invitation
    ============================================================ */
-.premium-atelier .reserve{padding:clamp(4rem,9vw,7rem) 0;background:var(--sable)}
-.premium-atelier .reserve__head{text-align:center;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.premium-atelier .reserve{padding:clamp(2.8rem,6vw,4.5rem) 0;background:var(--sable)}
+.premium-atelier .reserve__head{text-align:center;margin-bottom:clamp(1.5rem,4vw,2.5rem)}
 .premium-atelier .reserve__head h2{
   font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.5vw,3.2rem);
   line-height:1.12;margin-top:.5rem;
@@ -249,7 +252,7 @@
 .premium-atelier .reserve__head h2 em{font-style:italic;color:var(--terracotta)}
 .premium-atelier .carton{
   position:relative;background:var(--creme);border:1px solid var(--laiton);
-  padding:clamp(2rem,5vw,4rem);
+  padding:clamp(1.6rem,4vw,2.8rem);
 }
 .premium-atelier .carton::before{
   content:"";position:absolute;inset:-1px;border:1px solid var(--laiton);
@@ -257,7 +260,7 @@
 }
 .premium-atelier .carton__grid{
   display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
-  gap:clamp(2.5rem,6vw,5rem);
+  gap:clamp(2rem,4.5vw,3.5rem);
 }
 .premium-atelier .horaires h3{
   font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:.3rem 0 1.4rem;

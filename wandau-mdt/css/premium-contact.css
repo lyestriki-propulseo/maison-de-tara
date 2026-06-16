@@ -134,12 +134,19 @@
 }
 
 /* ---------- Écran 1 : intro + fiche ---------- */
-.premium-contact .hero{padding-block:clamp(2.2rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem)}
+.premium-contact .hero{padding-block:0 clamp(2rem, 4vw, 3.5rem)}
+/* Intro plein écran (100vh) : texte + photo centrés, garde header 110px
+   (corrige la photo qui montait sur le header). La fiche suit en dessous. */
 .premium-contact .hero-grid{
+  min-height:100vh;
+  box-sizing:border-box;
+  padding-top:calc(110px + clamp(1rem, 3vw, 2rem));
+  padding-bottom:clamp(1.5rem, 4vw, 3rem);
   display:grid;
   grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
   gap:clamp(1.5rem, 4vw, 4rem);
   align-items:center;
+  align-content:center;
 }
 .premium-contact .hero h1{font-size:var(--fs-h1) !important; color:var(--terracotta) !important; font-weight:500 !important}
 .premium-contact .hero-intro{max-width:54ch; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}

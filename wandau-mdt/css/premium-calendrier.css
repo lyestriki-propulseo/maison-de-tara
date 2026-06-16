@@ -81,8 +81,13 @@
 /* ---------- Hero / intro ---------- */
 .premium-calendrier .hero {
   text-align: center;
-  /* 110px = topbar (42px) + header fixe (68px) du site */
-  padding: calc(110px + clamp(1.5rem, 4vw, 3rem)) 0 clamp(2rem, 4vw, 3rem);
+  /* Plein écran 100vh : titre + arches centrés. 110px = topbar+header fixes. */
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(110px + clamp(1rem, 3vw, 2rem)) 0 clamp(2rem, 4vw, 3rem);
 }
 .premium-calendrier .hero .script {
   display: inline-flex;

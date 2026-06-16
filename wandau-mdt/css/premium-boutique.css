@@ -120,11 +120,26 @@
    Hero éditorial — la maison qu'on visite
    ============================================================ */
 .premium-boutique .hero{
-  padding-block:clamp(2.8rem,5vw,4.5rem) 0;
+  padding-block:0;
   background:var(--blanc);
 }
+/* Hero plein écran 2 colonnes (asymétrique) : devanture en grand à gauche,
+   récit en haut à droite. Garde header 110px, bloc centré verticalement. */
+.premium-boutique .hero-grid{
+  min-height:100vh;
+  box-sizing:border-box;
+  padding-top:calc(110px + clamp(1rem,3vw,2rem));
+  padding-bottom:clamp(1.5rem,4vw,3rem);
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+  gap:clamp(2rem,5vw,5.5rem);
+  align-items:start;
+  align-content:center;
+}
+.premium-boutique .hero-text{ align-self:start; max-width:36rem; }
 .premium-boutique .hero-head{
-  max-width:62ch;
+  max-width:none;
+  margin-bottom:1.6rem;
 }
 .premium-boutique .eyebrow{
   display:inline-flex;align-items:center;gap:.9rem;
@@ -168,18 +183,19 @@
   line-height:1.5;
   color:var(--encre);
 }
+.premium-boutique .recit-lead{ margin-bottom:1.4rem; }
 .premium-boutique .recit-lead::first-letter{
   font-family:var(--f-titre);
   font-style:normal;
   float:left;
-  font-size:3.2em;
+  font-size:2.7em;
   line-height:.82;
   padding-right:.12em;
   color:var(--terracotta);
 }
 .premium-boutique .recit-suite{
-  max-width:46ch;
-  margin-inline:auto;
+  max-width:none;
+  margin-inline:0;
   border-left:1px solid var(--laiton);
   padding-left:clamp(1.25rem,2.5vw,2rem);
   color:color-mix(in srgb, var(--encre) 86%, var(--blanc));
@@ -197,14 +213,17 @@
   pointer-events:none;
   z-index:-1;
 }
-/* Devanture verte de la maison, au cœur du récit (retour client) */
+/* Devanture verte — grande image dominante de la colonne gauche du hero */
 .premium-boutique .hero-devanture{
-  max-width:34rem;
-  margin:clamp(2rem,4.5vw,3.2rem) auto;
+  margin:0;
+  width:100%;
+  max-width:32rem;
+  justify-self:center;
+  align-self:center;
 }
 .premium-boutique .hero-devanture .cadre{overflow:hidden}
 .premium-boutique .hero-devanture img{
-  width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
+  width:100%;aspect-ratio:4/5;object-fit:cover;display:block;
 }
 .premium-boutique .hero-devanture figcaption,
 .premium-boutique .legende-libre{
@@ -491,6 +510,17 @@
    Responsive
    ============================================================ */
 @media (max-width: 900px){
+  /* Hero : empilé (photo en haut, texte dessous), plus de 100vh imposé */
+  .premium-boutique .hero-grid{
+    grid-template-columns:1fr;
+    min-height:0;
+    gap:clamp(1.5rem,4vw,2.5rem);
+    padding-top:calc(110px + 1.5rem);
+    padding-bottom:2rem;
+  }
+  .premium-boutique .hero-devanture{max-width:30rem;justify-self:start}
+  .premium-boutique .hero-devanture img{aspect-ratio:4/3}
+  .premium-boutique .hero-text{max-width:none}
   .premium-boutique .recit-suite{max-width:60ch}
   .premium-boutique .murs{grid-template-columns:repeat(6,1fr)}
   .premium-boutique .piece--01{grid-column:1 / span 5;grid-row:auto}

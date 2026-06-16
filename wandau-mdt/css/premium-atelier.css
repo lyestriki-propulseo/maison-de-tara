@@ -141,10 +141,20 @@
    ============================================================ */
 /* Padding haut = topbar (42px) + header fixe (~110px) + respiration : la photo
    en arche ne passe plus sous le header (transparent en haut de page). */
-.premium-atelier .hero{padding:clamp(9.5rem,8.5rem + 2.5vw,10.5rem) 0 clamp(2.5rem,5vw,4rem);background:var(--creme)}
+/* Hero plein écran (100vh) comme l'accueil : contenu centré verticalement,
+   garde en haut pour ne pas passer sous le header/topbar fixes (~150px). */
+.premium-atelier .hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  box-sizing:border-box;
+  padding:clamp(9rem,8rem + 2.5vw,10rem) 0 clamp(2.5rem,5vw,4rem);
+  background:var(--creme);
+}
+.premium-atelier .hero > .wrap{ width:100%; }
 .premium-atelier .hero__grid{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);
-  gap:clamp(2rem,6vw,5.5rem);align-items:start;
+  gap:clamp(2rem,6vw,5.5rem);align-items:center;
 }
 .premium-atelier .hero h1{
   font-family:var(--serif);font-weight:500;

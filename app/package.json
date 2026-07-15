@@ -22,6 +22,7 @@
     "check": "prettier --check ."
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.110.5",
     "@t3-oss/env-core": "0.13.11",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
@@ -53,6 +54,7 @@
     "eslint": "^9.20.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.1",
+    "supabase": "2.109.1",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
     "vite-tsconfig-paths": "6.1.1",

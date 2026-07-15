@@ -14,6 +14,7 @@ import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
+import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -40,17 +41,24 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAgendaRoute = AdminAgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -59,15 +67,24 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/api/health' | '/admin/'
+  fullPaths:
+    '/' | '/admin' | '/login' | '/admin/agenda' | '/api/health' | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/api/health' | '/admin'
-  id: '__root__' | '/' | '/admin' | '/login' | '/api/health' | '/admin/'
+  to: '/' | '/login' | '/admin/agenda' | '/api/health' | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/admin/agenda'
+    | '/api/health'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -114,14 +131,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/agenda': {
+      id: '/admin/agenda'
+      path: '/agenda'
+      fullPath: '/admin/agenda'
+      preLoaderRoute: typeof AdminAgendaRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
 
 interface AdminRouteRouteChildren {
+  AdminAgendaRoute: typeof AdminAgendaRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminAgendaRoute: AdminAgendaRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

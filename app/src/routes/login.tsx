@@ -9,13 +9,20 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (isSubmitting) return
     setError(null)
-    const { error: signInError } = await signIn(email, password)
-    if (signInError) return setError(signInError)
-    navigate({ to: '/admin' })
+    setIsSubmitting(true)
+    try {
+      const { error: signInError } = await signIn(email, password)
+      if (signInError) return setError(signInError)
+      navigate({ to: '/admin' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -39,8 +46,12 @@ function LoginPage() {
         required
         aria-label="Mot de passe"
       />
-      <button className="bg-black p-2 text-white" type="submit">
-        Se connecter
+      <button
+        className="bg-black p-2 text-white disabled:cursor-not-allowed disabled:opacity-50"
+        type="submit"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Connexion en cours…' : 'Se connecter'}
       </button>
       {error && (
         <p role="alert" className="text-red-600">

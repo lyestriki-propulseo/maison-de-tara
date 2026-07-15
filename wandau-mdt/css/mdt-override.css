@@ -93,7 +93,7 @@ em.mdt {
 .custom-button,
 .navbar-button a,
 a.custom-button {
-  background: var(--mdt-terracotta) !important;
+  background: var(--mdt-sauge) !important;
   color: var(--mdt-sable) !important;
   border: none !important;
   padding: 18px 36px !important;
@@ -117,7 +117,7 @@ a.custom-button {
 
 .custom-button:hover,
 .navbar-button a:hover {
-  background: var(--mdt-terra-dark) !important;
+  background: var(--mdt-olive-deep) !important;
   color: var(--mdt-sable) !important;
   line-height: 1.2 !important;
   text-indent: 0 !important;
@@ -686,7 +686,7 @@ header.slider {
 }
 .slider .slider-nav .button-prev:hover,
 .slider .slider-nav .button-next:hover {
-  background: var(--mdt-terracotta) !important;
+  background: var(--mdt-sauge) !important;
   color: var(--mdt-sable) !important;
 }
 
@@ -697,8 +697,8 @@ header.slider {
 
 /* Alias sémantiques (utilisés par les rules importées) */
 :root {
-  --color-cta-primary:        var(--mdt-terracotta);
-  --color-cta-primary-hover:  var(--mdt-terra-dark);
+  --color-cta-primary:        var(--mdt-sauge);
+  --color-cta-primary-hover:  var(--mdt-olive-deep);
   --color-bg-dark:            var(--mdt-noir-soft);
   --color-text-on-dark:       var(--mdt-sable);
   --color-line:               var(--mdt-line);

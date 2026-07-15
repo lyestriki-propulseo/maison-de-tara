@@ -8,6 +8,7 @@ export async function requireSession() {
 }
 
 export const Route = createFileRoute('/admin')({
+  ssr: false,
   beforeLoad: () => requireSession(),
   component: AdminLayout,
 })

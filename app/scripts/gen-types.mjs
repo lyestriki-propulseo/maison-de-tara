@@ -17,7 +17,10 @@ for (const line of envText.split(/\r?\n/)) {
 
 // TLS CHIFFRÉ sans vérif de CA (= sslmode=require, mode par défaut Supabase pour la connexion
 // directe ; verify-full ne passe pas sur cet endpoint). Choix ASSUMÉ par l'utilisateur, lecture seule.
-const client = new pg.Client({ connectionString: env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } })
+const client = new pg.Client({
+  connectionString: env.SUPABASE_DB_URL,
+  ssl: { rejectUnauthorized: false },
+})
 await client.connect()
 
 const enums = {}
@@ -40,7 +43,20 @@ for (const r of cr.rows) (tables[r.table_name] ||= []).push(r)
 
 function tsType(u) {
   if (enums[u]) return `Database['public']['Enums']['${u}']`
-  if (['timestamptz', 'timestamp', 'date', 'time', 'timetz', 'text', 'varchar', 'bpchar', 'uuid', 'name'].includes(u))
+  if (
+    [
+      'timestamptz',
+      'timestamp',
+      'date',
+      'time',
+      'timetz',
+      'text',
+      'varchar',
+      'bpchar',
+      'uuid',
+      'name',
+    ].includes(u)
+  )
     return 'string'
   if (['int2', 'int4', 'int8', 'numeric', 'float4', 'float8'].includes(u)) return 'number'
   if (u === 'bool') return 'boolean'
@@ -82,4 +98,6 @@ out += `    }\n    CompositeTypes: { [_ in never]: never }\n  }\n}\n`
 
 writeFileSync(join(here, '..', 'src', 'types', 'database.types.ts'), out)
 await client.end()
-console.log(`✅ Types générés : ${Object.keys(tables).length} tables, ${Object.keys(enums).length} enums`)
+console.log(
+  `✅ Types générés : ${Object.keys(tables).length} tables, ${Object.keys(enums).length} enums`,
+)

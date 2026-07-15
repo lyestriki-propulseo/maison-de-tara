@@ -10,7 +10,10 @@ export const getDashboardStats = createServerFn({ method: 'GET' }).handler(async
   const [subscribers, newRequests, upcomingSessions, reservations] = await Promise.all([
     db.from('newsletter_subscribers').select('*', { count: 'exact', head: true }),
     db.from('requests').select('*', { count: 'exact', head: true }).eq('status', 'nouvelle'),
-    db.from('session_instances').select('*', { count: 'exact', head: true }).gte('session_date', today),
+    db
+      .from('session_instances')
+      .select('*', { count: 'exact', head: true })
+      .gte('session_date', today),
     db.from('reservations').select('*', { count: 'exact', head: true }),
   ])
 

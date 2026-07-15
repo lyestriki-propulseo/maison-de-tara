@@ -7,3 +7,4 @@ node_modules
 .tanstack
 dist
 src/routeTree.gen.ts
+src/types/database.types.ts

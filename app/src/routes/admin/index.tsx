@@ -24,7 +24,9 @@ function Dashboard() {
         {CARDS.map((card) => (
           <div key={card.key} className="border border-[#4A5D2E]/25 bg-[#F4EDE0]/50 p-5">
             <p className="text-4xl font-light text-[#4A5D2E]">{stats[card.key]}</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.14em] text-neutral-500">{card.label}</p>
+            <p className="mt-2 text-xs uppercase tracking-[0.14em] text-neutral-500">
+              {card.label}
+            </p>
           </div>
         ))}
       </div>

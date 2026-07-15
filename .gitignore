@@ -54,3 +54,6 @@ Document Tara/
 # Local tooling cache & session planning
 .kombai/
 .planning/
+
+# superpowers scratch (ledger, briefs, reports)
+.superpowers/

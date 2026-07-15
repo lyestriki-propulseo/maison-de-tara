@@ -23,8 +23,8 @@ create table public.gift_cards (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint gift_card_shape check (
-    (gift_type = 'montant' and initial_amount_cents is not null and balance_cents is not null)
-    or (gift_type = 'session' and label is not null)
+    (gift_type = 'montant' and initial_amount_cents is not null and balance_cents is not null and label is null)
+    or (gift_type = 'session' and label is not null and initial_amount_cents is null and balance_cents is null)
   )
 );
 

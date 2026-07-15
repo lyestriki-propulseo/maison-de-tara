@@ -43,10 +43,11 @@ create trigger trg_session_instances_updated_at
 alter table public.session_templates enable row level security;
 alter table public.session_instances enable row level security;
 
--- Le public (site) voit les créneaux ouverts à venir, pour réserver
-create policy "sessions: anon lit les créneaux ouverts à venir"
-  on public.session_instances for select to anon
-  using (status = 'open' and session_date >= current_date);
+-- PAS de policy anon sur session_instances (deny by default). La disponibilité publique est
+-- servie CÔTÉ SERVEUR (server functions, service_role) : le calcul nécessite de compter les
+-- réservations (que anon ne peut pas lire) et la colonne `note` est interne au staff.
+-- Si un jour une lecture anon côté client est nécessaire, exposer une VUE filtrée (colonnes
+-- publiques + status='open' + date >= current_date), pas la table directement.
 
 -- Le staff gère tout
 create policy "session_templates: le staff gère tout"

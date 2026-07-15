@@ -69,8 +69,10 @@ create policy "gallery: le staff gère tout"
   on public.gallery_items for all to authenticated
   using (public.is_staff()) with check (public.is_staff());
 
-create policy "site_settings: anon lecture"
-  on public.site_settings for select to anon using (true);
+-- anon ne lit QU'une liste blanche de clés publiques (jamais une éventuelle clé de config sensible)
+create policy "site_settings: anon lit les clés publiques"
+  on public.site_settings for select to anon
+  using (key in ('hours', 'contact', 'socials'));
 create policy "site_settings: le staff écrit"
   on public.site_settings for all to authenticated
   using (public.is_staff()) with check (public.is_staff());

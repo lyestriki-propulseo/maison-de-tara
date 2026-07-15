@@ -13,13 +13,15 @@ begin
 end;
 $$;
 
--- Rôles applicatifs (Tara = admin ; employés futurs = staff)
-create type public.user_role as enum ('admin', 'staff');
+-- Rôles applicatifs (Tara = admin ; employés futurs = staff).
+-- 'client' = rôle neutre SANS aucune policy (moindre privilège) : tout compte auto-créé via
+-- signup tombe ici et n'a accès à RIEN. Tara est promue 'admin' à la main (voir bas de fichier).
+create type public.user_role as enum ('admin', 'staff', 'client');
 
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
-  role public.user_role not null default 'staff',
+  role public.user_role not null default 'client',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -77,3 +79,8 @@ create policy "profiles: l'admin gère les rôles"
 -- ⚠️ Après création du compte de Tara : lui passer le rôle admin
 --   update public.profiles set role = 'admin'
 --   where id = (select id from auth.users where email = 'abidi.tara@gmail.com');
+--
+-- ⚠️ DÉFENSE EN PROFONDEUR : aucun compte « client » n'est prévu dans ce modèle.
+-- Désactiver les inscriptions publiques dans le dashboard Supabase
+-- (Authentication → Sign In / Providers → Email → « Allow new users to sign up » = OFF).
+-- Même si un signup passait, le rôle par défaut 'client' n'a AUCUNE policy → aucun accès.

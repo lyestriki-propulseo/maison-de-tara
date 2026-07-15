@@ -43,6 +43,9 @@ RLS activée sur **toutes** les tables. Trois niveaux d'accès :
    update public.profiles set role = 'admin'
    where id = (select id from auth.users where email = 'abidi.tara@gmail.com');
    ```
+   ⚠️ **Sécurité** — désactiver les inscriptions publiques : Dashboard → **Authentication →
+   Sign In / Providers → Email** → « Allow new users to sign up » = **OFF**. Aucun compte client
+   n'est prévu ; le rôle par défaut `client` n'a de toute façon aucune policy (moindre privilège).
 5. Récupérer dans **Project Settings → API** : `Project URL`, clé `anon`, clé `service_role`
    → à mettre dans `app/.env` (et plus tard dans Coolify). Voir
    [`docs/phase-2/2026-07-15-checklist-comptes.md`](../../docs/phase-2/2026-07-15-checklist-comptes.md).

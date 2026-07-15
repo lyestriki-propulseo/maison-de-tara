@@ -52,8 +52,10 @@ begin
       from public.session_instances
       where id = new.session_instance_id
       for update;
-    if st = 'blocked' then
-      raise exception 'Créneau bloqué : réservation impossible' using errcode = 'check_violation';
+    -- On refuse une NOUVELLE résa sur un créneau bloqué, mais on n'empêche pas d'éditer une
+    -- résa existante si Tara bloque le créneau après coup (sinon tout UPDATE lèverait l'erreur).
+    if st = 'blocked' and tg_op = 'INSERT' then
+      raise exception 'Créneau bloqué : nouvelle réservation impossible' using errcode = 'check_violation';
     end if;
     select coalesce(sum(party_size), 0) into used
       from public.reservations

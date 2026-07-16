@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, CalendarDays, Inbox, Mail, Users } from 'lucide-react'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { getDashboardStats } from '@/lib/admin-data'
 
 export const Route = createFileRoute('/admin/')({
@@ -6,35 +7,61 @@ export const Route = createFileRoute('/admin/')({
   component: Dashboard,
 })
 
-const CARDS = [
-  { key: 'reservations', label: 'Réservations' },
-  { key: 'upcomingSessions', label: 'Sessions à venir' },
-  { key: 'subscribers', label: 'Abonnés newsletter' },
-  { key: 'newRequests', label: 'Demandes en attente' },
+const LEDGER = [
+  { key: 'reservations', label: 'Réservations', icon: Users },
+  { key: 'upcomingSessions', label: 'Sessions à venir', icon: CalendarDays },
+  { key: 'subscribers', label: 'Abonnés newsletter', icon: Mail },
 ] as const
 
 function Dashboard() {
   const stats = Route.useLoaderData()
   return (
-    <div>
-      <p className="text-xs uppercase tracking-[0.18em] text-[#4A5D2E]">Maison de Tara</p>
-      <h1 className="mt-1 text-2xl font-light text-[#1A1815]">Tableau de bord</h1>
+    <div className="tara-admin-page tara-dashboard">
+      <header className="tara-page-heading">
+        <div>
+          <p>Maison de Tara</p>
+          <h1>Tableau de bord</h1>
+          <span>Une vue claire de l’activité de l’atelier.</span>
+        </div>
+        <Link to="/admin/agenda" className="tara-primary-action">
+          Ouvrir l’agenda <ArrowRight size={16} aria-hidden="true" />
+        </Link>
+      </header>
 
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {CARDS.map((card) => (
-          <div key={card.key} className="border border-[#4A5D2E]/25 bg-[#F4EDE0]/50 p-5">
-            <p className="text-4xl font-light text-[#4A5D2E]">{stats[card.key]}</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.14em] text-neutral-500">
-              {card.label}
-            </p>
+      <div className="tara-dashboard__layout">
+        <section className="tara-dashboard__priority" aria-labelledby="priority-title">
+          <div className="tara-dashboard__priority-icon" aria-hidden="true"><Inbox size={20} /></div>
+          <p>À traiter</p>
+          <strong>{stats.newRequests}</strong>
+          <h2 id="priority-title">Demande{stats.newRequests > 1 ? 's' : ''} en attente</h2>
+          <span>
+            {stats.newRequests === 0
+              ? 'Tout est à jour pour le moment.'
+              : 'Ces demandes nécessitent une réponse de votre part.'}
+          </span>
+        </section>
+
+        <section className="tara-dashboard__ledger" aria-labelledby="activity-title">
+          <div className="tara-dashboard__ledger-heading">
+            <div>
+              <p>Aujourd’hui</p>
+              <h2 id="activity-title">Activité de la maison</h2>
+            </div>
+            <span>Données en direct</span>
           </div>
-        ))}
+          <dl>
+            {LEDGER.map((item) => {
+              const Icon = item.icon
+              return (
+                <div key={item.key}>
+                  <dt><Icon size={17} aria-hidden="true" /> {item.label}</dt>
+                  <dd>{stats[item.key]}</dd>
+                </div>
+              )
+            })}
+          </dl>
+        </section>
       </div>
-
-      <p className="mt-8 text-sm text-neutral-500">
-        Données lues en direct depuis Supabase. Les prochains écrans (agenda, réservations, bons
-        cadeaux…) viendront se brancher ici.
-      </p>
     </div>
   )
 }

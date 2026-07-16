@@ -1829,12 +1829,12 @@ body.lab-native .horizontal-scroll .scroll-inner {
   margin-bottom: 6px;
 }
 .mdt-footer-name {
-  font-family: var(--mdt-font-display);
-  font-size: clamp(30px, 4.5vw, 52px);
-  font-weight: 500;
-  color: var(--mdt-sable);
-  letter-spacing: 0.01em;
-  line-height: 1.1;
+  line-height: 0;
+}
+.mdt-footer-name img {
+  height: clamp(88px, 11vw, 132px);
+  width: auto;
+  filter: brightness(0) invert(1);
 }
 .mdt-footer-nav {
   margin: 30px 0 24px;

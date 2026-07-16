@@ -122,7 +122,7 @@
   font-weight:400;
   font-size:clamp(3.2rem, 8vw, 6.8rem);
   line-height:.9;
-  color:var(--laiton);
+  color:var(--mdt-olive-deep);  /* retour Tara #33 « en vert » (etait laiton, 2.44:1) */
   margin:0 0 .2em -0.06em;
 }
 .premium-histoire .hero h1{

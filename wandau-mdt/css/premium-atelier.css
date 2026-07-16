@@ -151,7 +151,8 @@
   font-size:clamp(2.9rem,7.5vw,5.6rem);line-height:1.02;letter-spacing:-.015em;
   margin:.4rem 0 1.6rem;
 }
-.premium-atelier .hero h1 em{font-style:italic;color:var(--terracotta)}
+/* Retour Tara #16 « en vert olive fonce ? » */
+.premium-atelier .hero h1 em{font-style:italic;color:var(--mdt-olive-deep)}
 .premium-atelier .hero__intro{max-width:33rem;font-size:clamp(1rem,1.4vw,1.125rem);line-height:1.75;color:rgba(44,36,25,.82)}
 .premium-atelier .hero__fig{aspect-ratio:4/5;max-width:21rem;justify-self:end;width:100%}
 .premium-atelier .hero__fig figcaption{
@@ -249,7 +250,8 @@
   font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.5vw,3.2rem);
   line-height:1.12;margin-top:.5rem;
 }
-.premium-atelier .reserve__head h2 em{font-style:italic;color:var(--terracotta)}
+/* Retour Tara #21 « en vert » */
+.premium-atelier .reserve__head h2 em{font-style:italic;color:var(--mdt-olive-deep)}
 .premium-atelier .carton{
   position:relative;background:var(--creme);border:1px solid var(--laiton);
   padding:clamp(2rem,5vw,4rem);

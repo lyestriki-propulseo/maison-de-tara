@@ -145,7 +145,9 @@
   font-size:clamp(2.6rem, 1.8rem + 4.2vw, 5.25rem);
   line-height:1.04;
   letter-spacing:-.01em;
-  color:var(--terracotta) !important;
+  /* Retour Tara #27 « en vert ». !important conserve : mdt-override.css impose
+     h1..h6 { color: var(--mdt-noir) !important } — sans lui le vert saute. */
+  color:var(--mdt-olive-deep) !important;
 }
 .premium-boutique .hero h1 .ligne2{
   display:block;
@@ -175,7 +177,7 @@
   font-size:3.2em;
   line-height:.82;
   padding-right:.12em;
-  color:var(--terracotta);
+  color:var(--mdt-olive-deep);  /* retour Tara #28 « en vert » (lettrine) */
 }
 .premium-boutique .recit-suite{
   max-width:46ch;

@@ -150,8 +150,8 @@
    align-items:center et plus :end — avec une photo plus haute, l'alignement bas
    poussait tout le texte sous la ligne de flottaison. */
 .premium-atelier .hero__grid{
-  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);
-  gap:clamp(2rem,6vw,5.5rem);align-items:end;
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2rem,6vw,5.5rem);align-items:center;
 }
 .premium-atelier .hero h1{
   font-family:var(--serif);font-weight:500;

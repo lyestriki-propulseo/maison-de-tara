@@ -180,7 +180,10 @@
   position:absolute;top:clamp(.5rem,2vw,1.5rem);
   font-family:var(--serif);font-weight:500;font-style:italic;
   font-size:clamp(8rem,19vw,16rem);line-height:1;
-  color:var(--laiton);opacity:.13;pointer-events:none;user-select:none;
+  /* Retours Tara #13/#15/#18/#20 « en vert, plus visible » : le vert seul ne suffit
+     pas, c'est l'opacite qui rendait le filigrane invisible (.13). --mdt-olive-deep
+     et pas --sauge : ici --sauge vaut l'olive CLAIR #8A976C. */
+  color:var(--mdt-olive-deep);opacity:.20;pointer-events:none;user-select:none;
 }
 .premium-atelier .chap--odd .chap__num{left:clamp(.5rem,3vw,3rem)}
 .premium-atelier .chap--even .chap__num{right:clamp(.5rem,3vw,3rem)}

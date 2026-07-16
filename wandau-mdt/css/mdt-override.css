@@ -619,17 +619,18 @@ header.slider {
   z-index: 5;
 }
 .mdt-hero-photo__frame {
-  border: 1px solid var(--mdt-laiton);
+  border: 1px solid var(--mdt-sable-deep);
   padding: 10px;
   background: rgba(240, 236, 219, .08);
   position: relative;
 }
-/* Double-bordure laiton décalée — signature MDT */
+/* Double-bordure beige décalée — signature MDT (retour Tara #2).
+   sable-deep et pas beige : en filet de 1px sur le vert, la crème #F0ECDB se lit blanche. */
 .mdt-hero-photo__frame::before {
   content: '';
   position: absolute;
   inset: -1px;
-  border: 1px solid var(--mdt-laiton);
+  border: 1px solid var(--mdt-sable-deep);
   transform: translate(10px, 10px);
   pointer-events: none;
   z-index: -1;

@@ -141,7 +141,14 @@
    ============================================================ */
 /* Padding haut = topbar (42px) + header fixe (~110px) + respiration : la photo
    en arche ne passe plus sous le header (transparent en haut de page). */
-.premium-atelier .hero{padding:clamp(11rem,9rem + 5vw,13.5rem) 0 clamp(3rem,7vw,6rem);background:var(--creme)}
+/* Le hero doit tenir dans un ecran (demande 16/07) : paddings allteges pour laisser
+   la place a la photo agrandie du retour #17. Le padding haut degage toujours la
+   topbar (42px) + le header (109px) = 151px. */
+.premium-atelier .hero{padding:clamp(9.5rem,8rem + 4vw,11.5rem) 0 clamp(2rem,4vw,3.5rem);background:var(--creme);min-height:100vh;box-sizing:border-box}
+/* Retour Tara #17 « page un peu vide, elargir la photo » : grille rebasculee
+   7fr/4fr -> 6fr/5fr pour donner de la place a la photo (voir .hero__fig).
+   align-items:center et plus :end — avec une photo plus haute, l'alignement bas
+   poussait tout le texte sous la ligne de flottaison. */
 .premium-atelier .hero__grid{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);
   gap:clamp(2rem,6vw,5.5rem);align-items:end;
@@ -154,7 +161,16 @@
 /* Retour Tara #16 « en vert olive fonce ? » */
 .premium-atelier .hero h1 em{font-style:italic;color:var(--mdt-olive-deep)}
 .premium-atelier .hero__intro{max-width:33rem;font-size:clamp(1rem,1.4vw,1.125rem);line-height:1.75;color:rgba(44,36,25,.82)}
-.premium-atelier .hero__fig{aspect-ratio:4/5;max-width:21rem;justify-self:end;width:100%}
+/* Retour Tara #17 : 21rem bridait la photo SOUS la largeur de sa propre colonne
+   (~375px) ; 30rem la laisse remplir les ~469px de la grille 6fr/5fr.
+   Le min() borne en plus la photo par la hauteur d'ecran, pour que le hero tienne
+   dans un ecran sans scroll. La figure est en ratio 4/5 (hauteur = largeur x 1.25)
+   + ~79px de legende ; avec les paddings (184 + 56) -> largeur max = (100vh - 319) x 0.8. */
+.premium-atelier .hero__fig{
+  aspect-ratio:4/5;
+  max-width:min(30rem, calc((100vh - 319px) * 0.8));
+  justify-self:end;width:100%;
+}
 .premium-atelier .hero__fig figcaption{
   font-family:var(--hand);font-size:1.25rem;color:var(--laiton);
   text-align:center;margin-top:1.4rem;

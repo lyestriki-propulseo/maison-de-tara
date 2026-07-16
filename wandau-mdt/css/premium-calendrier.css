@@ -261,13 +261,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--terracotta);
-  border: 1px solid var(--terracotta);
+  /* Couleur d'action = vert (demande cliente 16/07). --mdt-olive-deep et pas
+     --sauge : dans ce fichier --sauge vaut l'olive CLAIR #8A976C, qui echoue au contraste. */
+  color: var(--mdt-olive-deep);
+  border: 1px solid var(--mdt-olive-deep);
   padding: 0.5rem 1.3rem;
   border-radius: 999px;
   transition: background-color .3s var(--ease), color .3s var(--ease);
 }
-.premium-calendrier .btn-reserve:hover { background: var(--terracotta); color: var(--blanc); }
+.premium-calendrier .btn-reserve:hover { background: var(--mdt-olive-deep); color: var(--blanc); }
 
 .premium-calendrier .prog-empty,
 .premium-calendrier .cal-fallback {

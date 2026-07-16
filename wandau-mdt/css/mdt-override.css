@@ -21,6 +21,7 @@
   /* Accent — vert charte */
   --mdt-sauge:      var(--mdt-olive-deep);  /* aplats / fonds verts foncés */
   --mdt-sauge-light:var(--mdt-olive);       /* vert de marque clair */
+  --mdt-olive-dark: #3F4731;                /* hover : olive-deep assombri (pendant vert de --mdt-terra-dark) */
 
   /* Highlight — encre charte */
   --mdt-noir:       var(--mdt-ink);
@@ -95,8 +96,8 @@ em.mdt {
 .custom-button,
 .navbar-button a,
 a.custom-button {
-  background: var(--mdt-terracotta) !important;
-  color: var(--mdt-sable) !important;
+  background: var(--color-cta-primary) !important;
+  color: var(--color-text-on-dark) !important;
   border: none !important;
   padding: 18px 36px !important;
   font-family: var(--mdt-font-body) !important;
@@ -702,8 +703,11 @@ header.slider {
 
 /* Alias sémantiques (utilisés par les rules importées) */
 :root {
-  --color-cta-primary:        var(--mdt-terracotta);
-  --color-cta-primary-hover:  var(--mdt-terra-dark);
+  /* Couleur d'action = vert (demande cliente 16/07). Le terracotta reste en
+     ponctuation (bandeau du haut). Sur le hero vert, le CTA s'inverse :
+     voir « CTA au-dessus du hero » plus bas. */
+  --color-cta-primary:        var(--mdt-olive-deep);
+  --color-cta-primary-hover:  var(--mdt-olive-dark);
   --color-bg-dark:            var(--mdt-noir-soft);
   --color-text-on-dark:       var(--mdt-sable);
   --color-line:               var(--mdt-line);
@@ -1180,6 +1184,21 @@ body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
 }
 @media (max-width: 600px) {
   /* Logo pré-scroll ramené à une taille mobile (le clamp(64px,11.5vh,112px)
+/* CTA au-dessus du hero : la couleur d'action est verte, or le hero EST vert
+   (--mdt-hero-bg = --mdt-sauge) → le bouton disparaîtrait. On l'inverse : crème
+   sur le vert, il redevient vert plein dès le scroll.
+   S'applique a TOUTES les largeurs : le fond vert du hero couvre desormais la zone
+   du header quelle que soit la taille d'ecran (voir « Filet de securite sous le hero »). */
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary {
+  background: var(--mdt-sable);
+  color: var(--mdt-olive-deep);
+}
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:hover,
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
+  background: #FFFFFF;
+  color: var(--mdt-olive-dark);
+}
+
      bat sinon la règle mobile 42px en spécificité → header ~138px qui
      recouvrait le H1) + offset du hero recalé dessous. */
   body.has-hero:not(.is-scrolled) .mdt-logo__image { height: 56px; }
@@ -1629,7 +1648,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
 .mdt-nl-form input:focus { border-bottom-color: var(--mdt-laiton); }
 .mdt-nl-form input::placeholder { color: rgba(44, 36, 25, 0.45); }
 .mdt-nl-form button {
-  background: var(--mdt-terracotta);
+  background: var(--color-cta-primary);
   border: none;
   color: #fff;
   font-family: var(--mdt-font-body);
@@ -1641,7 +1660,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
   padding: 13px 24px;
   transition: background .25s;
 }
-.mdt-nl-form button:hover { background: var(--mdt-terra-dark); }
+.mdt-nl-form button:hover { background: var(--color-cta-primary-hover); }
 @media (max-width: 540px) {
   .mdt-nl-form { flex-direction: column; align-items: stretch; }
 }

@@ -347,6 +347,17 @@ a.custom-button {
   background-image: none !important;
 }
 
+/* Filet de securite sous le hero — corrige une bande creme derriere le header.
+   Swiper mesure la hauteur des slides AVANT que le padding-top (regle <=1440px)
+   ne soit applique : le wrapper est translate de -869px alors que les slides font
+   985px, donc la slide active demarre a y=116 et rien ne couvre les 116px du haut
+   — pile la zone du header. Le creme de la page transparaissait et le logo blanc
+   (regle has-hero) devenait illisible. On peint le vert sur le conteneur lui-meme :
+   toute zone non couverte par une slide reste verte, a n'importe quelle largeur. */
+body.has-hero header.slider {
+  background: var(--mdt-hero-bg);
+}
+
 /* Layer wallpaper tara-green par dessus, mix-blend screen — donne la texture fleurie de la LP */
 .slider .slider-images .swiper-slide.mdt-slide-bg::before {
   content: "";

@@ -1,15 +1,10 @@
-import { createFileRoute, redirect, Outlet, Link } from '@tanstack/react-router'
-import { getSession } from '@/lib/auth'
-
-export async function requireSession() {
-  // ⚠️ DEV UNIQUEMENT : accès direct à l'admin sans login (pas encore de compte créé).
-  // Actif seulement avec `pnpm dev` (MODE='development'). Vite fige MODE='production' au
-  // build → AUCUN contournement en prod. Sous Vitest, MODE='test' → la garde reste testée.
-  if (import.meta.env.MODE === 'development') return null
-  const session = await getSession()
-  if (!session) throw redirect({ to: '/login' })
-  return session
-}
+import type { CSSProperties } from 'react'
+import { CalendarDays, Home } from 'lucide-react'
+import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
+import { requireSession } from '@/lib/admin-auth'
+import taraLogo from '../../../../Logo/mdt_logo_complet_transparent.png?url'
+import taraWallpaper from '../../../../assets-premium-lp/wallpaper-tara-green.png?url'
+import '../../components/admin/admin-shell.css'
 
 export const Route = createFileRoute('/admin')({
   ssr: false,
@@ -18,35 +13,82 @@ export const Route = createFileRoute('/admin')({
 })
 
 function AdminLayout() {
+  const shellStyle = {
+    '--tara-wallpaper': `url(${taraWallpaper})`,
+  } as CSSProperties
+
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-56 border-r border-[#4A5D2E]/15 p-5">
-        <p className="text-xs uppercase tracking-[0.18em] text-[#4A5D2E]">Maison de Tara</p>
-        <nav className="mt-6 flex flex-col gap-1 text-sm">
+    <div className="tara-admin-shell" style={shellStyle}>
+      <header className="tara-admin-mobile-header">
+        <img src={taraLogo} alt="Maison de Tara" />
+        <nav aria-label="Navigation admin">
+          <AdminLink to="/admin" exact>Accueil</AdminLink>
+          <AdminLink to="/admin/agenda">Agenda</AdminLink>
+        </nav>
+      </header>
+
+      <aside className="tara-admin-sidebar">
+        <div className="tara-admin-sidebar__brand">
+          <img src={taraLogo} alt="Maison de Tara" />
+          <p>Espace de gestion</p>
+        </div>
+
+        <p className="tara-admin-sidebar__section">Gestion</p>
+        <nav aria-label="Navigation admin">
           <Link
             to="/admin"
             activeOptions={{ exact: true }}
-            className="rounded px-2 py-1.5 text-neutral-700 transition-colors hover:bg-[#4A5D2E]/10 hover:text-[#4A5D2E]"
-            activeProps={{
-              className: 'rounded px-2 py-1.5 bg-[#4A5D2E]/10 font-medium text-[#4A5D2E]',
-            }}
+            className="tara-admin-nav-link"
+            activeProps={{ className: 'tara-admin-nav-link is-active' }}
           >
-            Tableau de bord
+            <Home size={17} aria-hidden="true" />
+            Accueil
           </Link>
           <Link
             to="/admin/agenda"
-            className="rounded px-2 py-1.5 text-neutral-700 transition-colors hover:bg-[#4A5D2E]/10 hover:text-[#4A5D2E]"
-            activeProps={{
-              className: 'rounded px-2 py-1.5 bg-[#4A5D2E]/10 font-medium text-[#4A5D2E]',
-            }}
+            className="tara-admin-nav-link"
+            activeProps={{ className: 'tara-admin-nav-link is-active' }}
           >
+            <CalendarDays size={17} aria-hidden="true" />
             Agenda
           </Link>
         </nav>
+
+        <div className="tara-admin-sidebar__footer">
+          <div className="tara-admin-sidebar__avatar" aria-hidden="true">MT</div>
+          <div>
+            <strong>Maison de Tara</strong>
+            <span>Administratrice</span>
+          </div>
+        </div>
+        <p className="tara-admin-sidebar__signature">Prendre le temps.</p>
       </aside>
-      <main className="flex-1 p-8">
-        <Outlet />
-      </main>
+
+      <div className="tara-admin-workspace">
+        <div className="tara-admin-pattern" aria-hidden="true" />
+        <main className="tara-admin-main"><Outlet /></main>
+      </div>
     </div>
+  )
+}
+
+function AdminLink({
+  to,
+  exact = false,
+  children,
+}: {
+  to: '/admin' | '/admin/agenda'
+  exact?: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <Link
+      to={to}
+      activeOptions={{ exact }}
+      className="tara-admin-mobile-link"
+      activeProps={{ className: 'tara-admin-mobile-link is-active' }}
+    >
+      {children}
+    </Link>
   )
 }

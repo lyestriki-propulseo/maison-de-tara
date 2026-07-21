@@ -1675,6 +1675,10 @@ body.lab-native .horizontal-scroll .scroll-inner {
 @media (max-width: 540px) {
   .mdt-nl-form { flex-direction: column; align-items: stretch; }
 }
+/* Sous 16px, Safari iOS zoome la page au focus d'un champ. */
+@media (max-width: 600px) {
+  .mdt-nl-form input { font-size: 16px; }
+}
 .mdt-nl-note { font-size: 11px; color: rgba(44, 36, 25, 0.65); }
 .mdt-nl-note a { color: rgba(44, 36, 25, 0.8); text-decoration: underline; }
 .mdt-nl-note a:hover { color: var(--mdt-terracotta); }

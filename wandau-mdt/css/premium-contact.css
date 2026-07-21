@@ -432,3 +432,9 @@
 .premium-contact .kicker{color:#8A6A30}
 .premium-contact .coords h2{color:#8A6A30 !important}
 
+/* Sous 16px, Safari iOS zoome la page au focus d'un champ (font:inherit donnait 15.68px). */
+@media (max-width: 600px) {
+  .premium-contact .field input,
+  .premium-contact .field textarea{font-size:16px}
+}
+

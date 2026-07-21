@@ -454,3 +454,11 @@
 .premium-calendrier .prog-month,
 .premium-calendrier .cal-weekdays{color:#8A6A30}
 
+/* Tactile : 7 colonnes sur petit ecran = cases etroites ; on gagne en largeur
+   (carte moins paddee) et surtout en hauteur (>=44px) pour le doigt. */
+@media (max-width: 600px) {
+  .premium-calendrier .cal-card { padding: 1.4rem 0.9rem; }
+  .premium-calendrier .cal-cell { padding: 0.95rem 0 1.4rem; }
+  .premium-calendrier .cal-nav { width: 44px; height: 44px; }
+}
+

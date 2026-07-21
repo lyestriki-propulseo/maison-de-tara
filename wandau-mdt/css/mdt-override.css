@@ -769,6 +769,10 @@ nav.navbar { display: none !important; }
 }
 .skip-link:focus { top: 16px; }
 
+/* Header fixe (~97px) : sans marge de scroll, les cibles d'ancres
+   (#reserver, #univers, #main…) atterrissent masquées dessous. */
+[id] { scroll-margin-top: 120px; }
+
 /* Icon sizes */
 .icon {
   display: inline-block;
@@ -1002,8 +1006,8 @@ body.is-scrolled .mdt-header { top: 0; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--mdt-laiton);
     border-radius: 999px;
     color: var(--mdt-terracotta);

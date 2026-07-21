@@ -1956,3 +1956,11 @@ body.lab-native .horizontal-scroll .scroll-inner {
   .mdt-footer-bottom .fb-c,
   .mdt-footer-bottom .fb-r { justify-self: center; }
 }
+
+/* Sur mobile, 100vh inclut la barre d'URL : le hero saute quand elle se
+   rétracte. dvh suit la hauteur réellement visible. */
+@supports (min-height: 100dvh) {
+  @media (max-width: 900px) {
+    body.has-hero header.slider { min-height: 100dvh; }
+  }
+}

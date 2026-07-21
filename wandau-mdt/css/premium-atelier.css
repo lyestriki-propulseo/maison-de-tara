@@ -494,3 +494,12 @@
 /* Contraste (revue expert 12/06) : petites capitales en laiton fonce sur fond clair */
 .premium-atelier .dp__weekdays span{color:#8A6A30}
 
+/* Sur mobile, 100vh inclut la barre d'URL (saut au repli) : dvh suit la
+   hauteur reellement visible. Meme correction pour la borne de la photo. */
+@supports (min-height: 100dvh) {
+  @media (max-width: 900px) {
+    .premium-atelier .hero{min-height:100dvh}
+    .premium-atelier .hero__fig{max-width:min(30rem, calc((100dvh - 319px) * 0.8))}
+  }
+}
+

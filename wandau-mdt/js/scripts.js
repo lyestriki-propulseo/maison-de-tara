@@ -373,6 +373,12 @@
 
   }
 
+  // Garde-fou réseau lent : une image qui ne répond jamais ne doit pas
+  // laisser le site bloqué sur le préloader (scroll verrouillé).
+  setTimeout(function () {
+    if (!document.body.classList.contains('page-loaded')) hidePreloader();
+  }, 4000);
+
   function onImageLoad() {
 
     if (running === true) running = false;

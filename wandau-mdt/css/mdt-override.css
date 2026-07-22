@@ -522,7 +522,9 @@ body.has-hero header.slider {
 .play-now text {
   fill: var(--mdt-laiton) !important;
   font-family: var(--mdt-font-body) !important;
-  letter-spacing: 0.22em !important;
+  /* 0.2em : « DÉCOUVRIR LA MAISON » ×2 tombait pile sur les 377 unités du
+     cercle (#47) — on garde ~10 unités de marge pour ne pas rogner le point. */
+  letter-spacing: 0.2em !important;
   font-size: 11px !important;
   font-weight: 500;
 }

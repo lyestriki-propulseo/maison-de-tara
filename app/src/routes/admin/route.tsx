@@ -1,9 +1,7 @@
-import type { CSSProperties } from 'react'
 import { CalendarDays, Home } from 'lucide-react'
 import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
 import { requireSession } from '@/lib/admin-auth'
 import taraLogo from '../../../../Logo/mdt_logo_complet_transparent.png?url'
-import taraWallpaper from '../../../../assets-premium-lp/wallpaper-tara-green.png?url'
 import '../../components/admin/admin-shell.css'
 
 export const Route = createFileRoute('/admin')({
@@ -13,12 +11,8 @@ export const Route = createFileRoute('/admin')({
 })
 
 function AdminLayout() {
-  const shellStyle = {
-    '--tara-wallpaper': `url(${taraWallpaper})`,
-  } as CSSProperties
-
   return (
-    <div className="tara-admin-shell" style={shellStyle}>
+    <div className="tara-admin-shell">
       <header className="tara-admin-mobile-header">
         <img src={taraLogo} alt="Maison de Tara" />
         <nav aria-label="Navigation admin">
@@ -65,7 +59,6 @@ function AdminLayout() {
       </aside>
 
       <div className="tara-admin-workspace">
-        <div className="tara-admin-pattern" aria-hidden="true" />
         <main className="tara-admin-main"><Outlet /></main>
       </div>
     </div>

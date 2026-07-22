@@ -52,16 +52,6 @@
 .tara-admin-sidebar { display: none; }
 .tara-admin-workspace { min-width: 0; }
 
-.tara-admin-pattern {
-  height: 64px;
-  border-bottom: 1px solid #59633d;
-  background-color: var(--tara-brown);
-  background-image: var(--tara-wallpaper);
-  background-position: center 44%;
-  background-repeat: repeat-x;
-  background-size: auto 420px;
-}
-
 .tara-admin-main { min-width: 0; padding: var(--tara-space-6) var(--tara-space-4) var(--tara-space-8); }
 .tara-admin-page { width: 100%; max-width: 1320px; margin: 0 auto; }
 

@@ -1,6 +1,5 @@
 [
   { "date": "2026-10-03", "titre": "Atelier découverte", "type": "atelier", "description": "Session de 2h, débutants bienvenus. Repartez avec votre première pièce.", "lienReservation": "atelier.html#reserver" },
-  { "date": "2026-10-12", "titre": "Brunch & céramique", "type": "evenement", "description": "Un dimanche brunch suivi d'une session de peinture libre." },
   { "date": "2026-10-18", "titre": "Atelier en duo", "type": "atelier", "description": "Venez peindre à deux : un moment à partager autour d'un café.", "lienReservation": "atelier.html#reserver" },
   { "date": "2026-10-25", "titre": "Nouveautés boutique", "type": "boutique", "description": "Découvrez la nouvelle sélection d'automne en boutique." },
   { "date": "2026-11-07", "titre": "Atelier spécial Noël", "type": "atelier", "description": "Préparez vos cadeaux : peignez une pièce à offrir.", "lienReservation": "atelier.html#reserver" }

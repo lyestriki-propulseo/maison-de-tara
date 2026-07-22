@@ -123,8 +123,15 @@
   padding-block:clamp(3.5rem,8vw,6.5rem) 0;
   background:var(--blanc);
 }
+/* Récit en colonne unique centrée (retour client 12/06) → le titre suit le
+   même axe (demande 22/07), filet symétrique de part et d'autre de l'eyebrow. */
 .premium-boutique .hero-head{
   max-width:62ch;
+  margin-inline:auto;
+  text-align:center;
+}
+.premium-boutique .eyebrow::after{
+  content:"";width:3rem;height:1px;background:var(--laiton);
 }
 .premium-boutique .eyebrow{
   display:inline-flex;align-items:center;gap:.9rem;

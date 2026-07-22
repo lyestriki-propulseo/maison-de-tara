@@ -1475,21 +1475,14 @@ body.lab-native .horizontal-scroll .scroll-inner {
   gap: 6px;
   text-align: center;
 }
+/* Retour Propul'SEO #46 : lignes sans puce « · » (le retrait 14px suivait le marqueur) */
 .mdt-features li {
   font-family: var(--mdt-font-body);
   font-size: 13px;
   color: var(--mdt-text-soft);
   line-height: 1.6;
   position: relative;
-  padding-left: 14px;
   display: inline-block;
-}
-.mdt-features li::before {
-  content: "·";
-  position: relative;
-  left: -8px;
-  color: var(--mdt-laiton);
-  font-weight: 700;
 }
 
 /* CTA carte — petit lien éditorial soulign\é sauge */

@@ -320,9 +320,10 @@ a.custom-button {
 
 /* --- Cards / exhibition box --- */
 .exhibition-box,
+/* Retour Propul'SEO #48 : plus de cadre autour du texte des cartes */
 .content-box {
   background: var(--mdt-sable) !important;
-  border: 1px solid var(--mdt-line);
+  border: none;
 }
 
 /* --- Play-now circular text : sauge --- */

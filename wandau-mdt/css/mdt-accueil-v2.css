@@ -68,15 +68,20 @@ body.av2 #section-boutique figure img {
   border-radius: 12px;
 }
 
-/* ---------- Les rendez-vous : rangées en cartes douces */
+/* ---------- Les rendez-vous : rangées en cartes douces.
+   Retour Tara #12 : « plus de vert au lieu de marron » → filets, pastille de
+   date et accents de CETTE section en olive (les autres sections gardent le laiton). */
 body.av2 .event-row {
-  border: 1px solid rgba(184, 146, 77, .35);
+  border: 1px solid rgba(90, 99, 71, .38);
   border-radius: 14px;
   background: rgba(251, 247, 236, .55);
   padding-left: 18px;
   padding-right: 18px;
 }
-body.av2 .event-row--featured { border-color: var(--mdt-laiton); background: #FBF7EC; }
+body.av2 .event-row--featured { border-color: var(--mdt-olive-deep); background: #FBF7EC; }
+body.av2 .event-row__date--featured { background: var(--mdt-olive-deep); }
+body.av2 #calendrier-teaser .events-eyebrow { color: var(--mdt-olive-deep) !important; }
+body.av2 .events-rows__title em { color: var(--mdt-olive-deep); }
 
 /* ---------- Grandes occasions : mini-arches */
 body.av2 .mdt-occasions-lp img {

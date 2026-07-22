@@ -144,9 +144,11 @@
 .premium-contact .hero h1{font-size:var(--fs-h1) !important; color:var(--terracotta) !important; font-weight:500 !important}
 .premium-contact .hero-intro{max-width:54ch; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
 
+/* Retour Tara #38 « élargir la photo » : le plafond 340px sautait sous la
+   largeur de sa colonne (~440px en 1.5fr/1fr) — la photo la remplit désormais. */
 .premium-contact .arch-photo{
   justify-self:end;
-  width:min(100%, 340px);
+  width:100%;
   aspect-ratio:3/4;
   border-radius:50% 50% 8px 8px / 38% 38% 8px 8px; /* arche indienne */
   overflow:hidden;

@@ -130,8 +130,22 @@
   margin-inline:auto;
   text-align:center;
 }
-.premium-boutique .eyebrow::after{
-  content:"";width:3rem;height:1px;background:var(--laiton);
+/* Ligne 1 du titre : l'ancien eyebrow promu — petites capitales vertes
+   agrandies, filets laiton de part et d'autre (demande 22/07). */
+.premium-boutique .hero h1 .ligne1{
+  display:flex;align-items:center;justify-content:center;gap:.9rem;
+  font-family:var(--f-corps);
+  font-size:clamp(.95rem, .7rem + 1.2vw, 1.4rem);
+  font-weight:500;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  font-style:normal;
+  color:var(--mdt-olive-deep);
+  margin:1.8rem 0 1rem;
+}
+.premium-boutique .hero h1 .ligne1::before,
+.premium-boutique .hero h1 .ligne1::after{
+  content:"";flex:0 0 auto;width:clamp(1.4rem,4vw,3rem);height:1px;background:var(--laiton);
 }
 .premium-boutique .eyebrow{
   display:inline-flex;align-items:center;gap:.9rem;

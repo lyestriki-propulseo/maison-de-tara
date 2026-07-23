@@ -107,6 +107,30 @@ body.av2 #newsletter form button { border-radius: 999px !important; }
   body.av2 .mdt-occasions-lp img { height: 120px; }
   /* Reserrer l'espace entre les rangees d'items empilees. */
   body.av2 .event-row { margin-bottom: 10px; }
+
+  /* Univers : carrousel qui glisse au doigt (scroll-snap, sans JS) au lieu
+     d'empiler 3 grandes cartes. On voit une carte + un bout de la suivante. */
+  body.av2 #univers .row.justify-content-center {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px;
+    margin-inline: 0;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  body.av2 #univers .row.justify-content-center::-webkit-scrollbar { display: none; }
+  body.av2 #univers .row.justify-content-center > [class*="col-"] {
+    flex: 0 0 84%;
+    max-width: 84%;
+    scroll-snap-align: center;
+  }
+
+  /* Parcours « Comment ca se passe ? » : les 4 etapes (1-2-3-4) en 2x2, et on
+     MASQUE le texte long (revele au survol sur PC) — pas voulu sur mobile. */
+  body.av2 #parcours .row.g-0 > [class*="col-"] { flex: 0 0 50%; max-width: 50%; }
+  body.av2 #parcours .content-box .expand { display: none; }
 }
 
 /* ---------- Footer & header héritent déjà du langage premium ✓ */

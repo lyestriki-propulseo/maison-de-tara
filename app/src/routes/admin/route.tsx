@@ -1,7 +1,7 @@
 import { CalendarDays, Home } from 'lucide-react'
 import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
 import { requireSession } from '@/lib/admin-auth'
-import taraLogo from '../../../../Logo/mdt_logo_complet_transparent.png?url'
+import taraLogo from '../../assets/mdt_logo_complet_transparent.png?url'
 import '../../components/admin/admin-shell.css'
 
 export const Route = createFileRoute('/admin')({

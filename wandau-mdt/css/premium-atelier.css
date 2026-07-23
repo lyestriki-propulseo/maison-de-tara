@@ -101,7 +101,8 @@
   transition:background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 .premium-atelier .btn:hover{background:var(--encre);border-color:var(--encre);color:var(--creme);transform:translateY(-2px);box-shadow:0 10px 24px rgba(44,36,25,.18)}
-.premium-atelier .btn--ghost{background:transparent;color:var(--creme);border-color:var(--laiton)}
+/* ghost : encre depuis le passage de la section priva en beige (22/07) */
+.premium-atelier .btn--ghost{background:transparent;color:var(--encre);border-color:var(--laiton)}
 .premium-atelier .btn--ghost:hover{background:var(--laiton);border-color:var(--laiton);color:var(--encre)}
 
 /* arche + double bordure laiton */
@@ -166,10 +167,14 @@
    Le min() borne en plus la photo par la hauteur d'ecran, pour que le hero tienne
    dans un ecran sans scroll. La figure est en ratio 4/5 (hauteur = largeur x 1.25)
    + ~79px de legende ; avec les paddings (184 + 56) -> largeur max = (100vh - 319) x 0.8. */
+/* Retour Tara 22/07 « décaler l'image à gauche et l'agrandir » : centrée dans sa
+   colonne (plus collée au bord droit) et cap 30rem -> 34rem. Réserve verticale
+   319px -> 280px : la légende peut mordre (~40px) sous la ligne de flottaison —
+   compromis assumé avec « le hero tient dans un écran » (16/07). */
 .premium-atelier .hero__fig{
   aspect-ratio:4/5;
-  max-width:min(30rem, calc((100vh - 319px) * 0.8));
-  justify-self:end;width:100%;
+  max-width:min(34rem, calc((100vh - 280px) * 0.8));
+  justify-self:center;width:100%;
 }
 .premium-atelier .hero__fig figcaption{
   font-family:var(--hand);font-size:1.25rem;color:var(--laiton);
@@ -184,7 +189,8 @@
   font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4vw,3rem);
   line-height:1.15;margin-top:.5rem;
 }
-.premium-atelier .rituel-head h2 em{font-style:italic;color:var(--terracotta)}
+/* Retour Tara : « tout en douceur » en vert, comme « à votre rythme » (#16) */
+.premium-atelier .rituel-head h2 em{font-style:italic;color:var(--mdt-olive-deep)}
 
 /* ============================================================
    CHAPITRES — quinconce asymétrique, numéros fantômes
@@ -251,10 +257,14 @@
   list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
   gap:.6rem 1rem;margin-top:1.4rem;
 }
+/* Retour Tara #19 « forme plus douce/artistique + plus de vert » — choix C 22/07 :
+   pétales vert olive plein (deux coins ronds opposés), texte crème.
+   --mdt-olive-deep et pas --sauge (ici olive CLAIR #8A976C). */
 .premium-atelier .note-atelier li{
   font-size:.85rem;letter-spacing:.04em;
-  padding:.45rem 1.1rem;border:1px solid var(--laiton);border-radius:999px;
-  background:var(--creme);
+  padding:.5rem 1.3rem;border:1px solid var(--mdt-olive-deep);
+  border-radius:1.5em .4em;
+  background:var(--mdt-olive-deep);color:var(--creme);
 }
 
 /* ============================================================
@@ -424,32 +434,35 @@
 .premium-atelier .reserve .form-msg:empty{display:none}
 
 /* ============================================================
-   PRIVATISATION — bande terracotta profonde
+   PRIVATISATION — sur beige (retour Tara 22/07 : « le fond en beige,
+   comme le reste de la page » — ex-bande terracotta)
    ============================================================ */
 /* Section resserrée (retour client) : moins haute, photos agrandies. */
+/* même fond + même texture que la section .reserve qui précède (retour Tara) */
 .premium-atelier .priva{
-  background:var(--terracotta);color:var(--creme);
+  background:var(--sable);color:var(--encre);
   padding:clamp(2.6rem,6vw,4.2rem) 0;position:relative;overflow:hidden;
 }
 .premium-atelier .priva::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/560px repeat;
-  opacity:.06;
+  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/520px repeat;
+  opacity:.07;
 }
 .premium-atelier .priva .wrap{position:relative;z-index:1}
 .premium-atelier .priva__grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
 /* !important : mdt-override force la couleur des h1-h6 du site */
 .premium-atelier .priva h2{
   font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.4vw,2.5rem);
-  line-height:1.15;margin-bottom:1.1rem;color:var(--creme) !important;
+  line-height:1.15;margin-bottom:1.1rem;color:var(--encre) !important;
 }
-.premium-atelier .priva h2 em{font-style:italic;color:var(--laiton) !important}
-.premium-atelier .priva p{max-width:34rem;color:rgba(251,247,236,.88);font-size:.95rem;line-height:1.7}
+/* em en vert olive, comme les autres titres sur fond clair (retours #16/#21) */
+.premium-atelier .priva h2 em{font-style:italic;color:var(--mdt-olive-deep) !important}
+.premium-atelier .priva p{max-width:34rem;color:rgba(44,36,25,.82);font-size:.95rem;line-height:1.7}
 .premium-atelier .occ{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.4rem 0 1.8rem}
 .premium-atelier .occ span{
   font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
   padding:.45rem 1rem;border:1px solid var(--laiton);border-radius:999px;
-  color:var(--creme);transition:background .35s var(--ease), color .35s var(--ease);
+  color:var(--encre);transition:background .35s var(--ease), color .35s var(--ease);
 }
 .premium-atelier .occ span:hover{background:var(--laiton);color:var(--encre)}
 /* photos agrandies : colonne 6/12 (au lieu de 4/12), arches pleines,
@@ -458,7 +471,7 @@
 .premium-atelier .priva__gallery img{
   width:100%;aspect-ratio:3/4;object-fit:cover;
   border-radius:999px 999px 0 0;
-  border:1px solid rgba(184,146,77,.7);padding:.35rem;background:rgba(251,247,236,.06);
+  border:1px solid rgba(184,146,77,.7);padding:.35rem;background:var(--creme);
   filter:saturate(.92);
 }
 .premium-atelier .priva__gallery img:nth-child(2){transform:translateY(-14px)}

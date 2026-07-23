@@ -98,4 +98,15 @@ body.av2 .mdt-occasions-lp img {
 body.av2 .mdt-newsletter .container .row > div > * { position: relative; }
 body.av2 #newsletter form button { border-radius: 999px !important; }
 
+/* ---------- Mobile : compresser la hauteur (2026-07-23, desktop 100% intact).
+   Les grandes photos en arche prennent presque un ecran entier chacune en pleine
+   largeur → on plafonne. object-fit:cover garde la forme d'arche. */
+@media (max-width: 600px) {
+  body.av2 .exhibition-box > figure img,
+  body.av2 #parcours .content-image img { max-height: 46vh; object-fit: cover; }
+  body.av2 .mdt-occasions-lp img { height: 120px; }
+  /* Reserrer l'espace entre les rangees d'items empilees. */
+  body.av2 .event-row { margin-bottom: 10px; }
+}
+
 /* ---------- Footer & header héritent déjà du langage premium ✓ */

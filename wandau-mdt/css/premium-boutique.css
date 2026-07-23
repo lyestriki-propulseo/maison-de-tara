@@ -120,7 +120,9 @@
    Hero éditorial — la maison qu'on visite
    ============================================================ */
 .premium-boutique .hero{
-  padding-block:clamp(3.5rem,8vw,6.5rem) 0;
+  /* Retour 23/07 : padding bas non nul → « C'est cette envie… » n'est plus collé
+     à la ligne pointillée ; l'espace en dessous égale la marge basse de la photo. */
+  padding-block:clamp(3.5rem,8vw,6.5rem) clamp(1.75rem,3.5vw,2.5rem);
   background:var(--blanc);
 }
 /* Récit en colonne unique centrée (retour client 12/06) → le titre suit le
@@ -223,7 +225,9 @@
 /* Devanture verte de la maison, au cœur du récit (retour client) */
 .premium-boutique .hero-devanture{
   max-width:34rem;
-  margin:clamp(2rem,4.5vw,3.2rem) auto;
+  /* marge basse réduite (retour 23/07) → remonte le paragraphe de suite, espace
+     symétrique avec le padding bas du hero. Marge haute inchangée (respire sous l'exergue). */
+  margin:clamp(2rem,4.5vw,3.2rem) auto clamp(1.75rem,3.5vw,2.5rem);
 }
 .premium-boutique .hero-devanture .cadre{overflow:hidden}
 .premium-boutique .hero-devanture img{

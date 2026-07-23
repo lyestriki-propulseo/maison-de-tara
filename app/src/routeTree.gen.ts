@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AdminPreviewRouteImport } from './routes/admin-preview'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -20,11 +19,6 @@ import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminPreviewRoute = AdminPreviewRouteImport.update({
-  id: '/admin-preview',
-  path: '/admin-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRouteRoute = AdminRouteRouteImport.update({
@@ -56,7 +50,6 @@ const AdminAgendaRoute = AdminAgendaRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/admin-preview': typeof AdminPreviewRoute
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
@@ -64,7 +57,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin-preview': typeof AdminPreviewRoute
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
@@ -74,7 +66,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
-  '/admin-preview': typeof AdminPreviewRoute
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
   '/api/health': typeof ApiHealthRoute
@@ -83,26 +74,13 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/admin'
-    | '/admin-preview'
-    | '/login'
-    | '/admin/agenda'
-    | '/api/health'
-    | '/admin/'
+    '/' | '/admin' | '/login' | '/admin/agenda' | '/api/health' | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/admin-preview'
-    | '/login'
-    | '/admin/agenda'
-    | '/api/health'
-    | '/admin'
+  to: '/' | '/login' | '/admin/agenda' | '/api/health' | '/admin'
   id:
     | '__root__'
     | '/'
     | '/admin'
-    | '/admin-preview'
     | '/login'
     | '/admin/agenda'
     | '/api/health'
@@ -112,7 +90,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  AdminPreviewRoute: typeof AdminPreviewRoute
   LoginRoute: typeof LoginRoute
   ApiHealthRoute: typeof ApiHealthRoute
 }
@@ -124,13 +101,6 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin-preview': {
-      id: '/admin-preview'
-      path: '/admin-preview'
-      fullPath: '/admin-preview'
-      preLoaderRoute: typeof AdminPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -188,7 +158,6 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
-  AdminPreviewRoute: AdminPreviewRoute,
   LoginRoute: LoginRoute,
   ApiHealthRoute: ApiHealthRoute,
 }

@@ -448,5 +448,7 @@
 @media (max-width: 600px) {
   .premium-contact .field input,
   .premium-contact .field textarea{font-size:16px}
+  /* CTA du hero centre sur telephone. */
+  .premium-contact .hero-cta{text-align:center}
 }
 

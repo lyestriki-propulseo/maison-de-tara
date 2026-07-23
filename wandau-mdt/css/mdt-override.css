@@ -864,9 +864,9 @@ body.is-scrolled .topbar { transform: translateY(-100%); }
 .topbar__opening { letter-spacing: 0.04em; }
 
 @media (max-width: 600px) {
-  .topbar { padding: 8px 0; }
-  .topbar__info { display: none; }
-  .topbar__opening { width: 100%; text-align: center; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mdt-beige); }
+  /* Bandeau du haut (topbar terracotta) masque sur telephone : le header est
+     deja pose en top:0 en mobile, on gagne 42px d'ecran. */
+  .topbar { display: none; }
 }
 
 /* HEADER (fixe en haut, sous la topbar) — opaque sable */
@@ -919,7 +919,11 @@ body.is-scrolled .mdt-header { top: 0; }
   display: block;
 }
 @media (max-width: 600px) {
-  .mdt-logo__image { height: 42px; }
+  /* Anti-ecrasement : le logo ne retrecit plus et garde son ratio (contre le
+     img{max-width:100%} global qui le comprimait quand le header etait charge). */
+  .mdt-header__inner { gap: 12px; }
+  .mdt-logo { flex: 0 0 auto; }
+  .mdt-logo__image { height: 42px; width: auto; max-width: none; object-fit: contain; }
 }
 
 /* NAV desktop */
@@ -1003,20 +1007,9 @@ body.is-scrolled .mdt-header { top: 0; }
   .burger { display: inline-flex; }
 }
 @media (max-width: 600px) {
-  /* La topbar masque ses infos : le téléphone bascule dans le header
-     (commerce local : l'appel est le premier geste mobile). */
-  .mdt-header__tel {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--mdt-laiton);
-    border-radius: 999px;
-    color: var(--mdt-terracotta);
-  }
-  .mdt-header__tel .icon { width: 16px; height: 16px; }
-  body.has-hero:not(.is-scrolled) .mdt-header__tel { color: var(--mdt-sable); }
+  /* Icone tel retiree du header mobile : elle surchargeait la barre (logo ecrase)
+     et faisait doublon avec le numero present dans le menu (drawer__contact). */
+  .mdt-header__tel { display: none; }
 }
 
 /* NAV BADGE "Bientôt" */

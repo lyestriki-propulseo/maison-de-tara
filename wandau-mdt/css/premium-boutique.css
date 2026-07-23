@@ -519,15 +519,17 @@
   .premium-boutique .piece--accent{grid-column:3 / span 4;grid-row:auto;margin-bottom:0}
 }
 @media (max-width: 560px){
-  .premium-boutique .murs{grid-template-columns:1fr}
+  /* Boutique : photos en 2x2 (2 par rangee) pour reduire leur taille et
+     raccourcir la page. Interlude et accent restent pleine largeur. */
+  .premium-boutique .murs{grid-template-columns:1fr 1fr; gap:12px; align-items:start}
   .premium-boutique .piece--01,
   .premium-boutique .piece--02,
-  .premium-boutique .piece--interlude,
   .premium-boutique .piece--03,
   .premium-boutique .piece--04,
   .premium-boutique .piece--05,
-  .premium-boutique .piece--06,
-  .premium-boutique .piece--accent{grid-column:1}
+  .premium-boutique .piece--06{grid-column:auto}
+  .premium-boutique .piece--interlude,
+  .premium-boutique .piece--accent{grid-column:1 / -1}
 }
 
 /* Contraste (revue expert 12/06) */

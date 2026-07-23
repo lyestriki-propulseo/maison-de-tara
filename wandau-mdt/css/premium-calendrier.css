@@ -89,6 +89,15 @@
   justify-content: center;
   padding: calc(110px + clamp(1rem, 3vw, 2rem)) 0 clamp(2rem, 4vw, 3rem);
 }
+/* Mobile : le hero plein ecran centre laissait un grand vide au-dessus du titre
+   (contenu centre dans 100vh). On colle le contenu sous le header. */
+@media (max-width: 600px) {
+  .premium-calendrier .hero {
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: 6rem;
+  }
+}
 .premium-calendrier .hero .script {
   display: inline-flex;
   align-items: center;

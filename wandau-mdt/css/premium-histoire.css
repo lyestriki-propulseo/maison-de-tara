@@ -319,133 +319,6 @@
   background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
 }
 
-/* ============================================================
-   Triptyque — L'origine / L'esprit / Le geste
-   ============================================================ */
-.premium-histoire .triptyque{
-  background:var(--sable);
-  padding:clamp(4rem, 9vw, 8rem) var(--gutter);
-}
-.premium-histoire .triptyque__head{
-  max-width:760px; margin:0 auto clamp(3rem, 6vw, 5rem);
-  text-align:center;
-}
-.premium-histoire .triptyque__head h6{
-  margin:0 0 1.1rem;
-  font-family:var(--sans);
-  font-size:.72rem; font-weight:500;
-  letter-spacing:.28em; text-transform:uppercase;
-  color:var(--laiton);
-}
-.premium-histoire .triptyque__head h2{
-  margin:0;
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:clamp(1.9rem, 4.2vw, 3.2rem);
-  line-height:1.18;
-  color:var(--encre);
-}
-.premium-histoire .triptyque__grid{
-  max-width:1180px; margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:0;
-}
-.premium-histoire .triptyque__cell{
-  padding:clamp(1.5rem, 3vw, 2.75rem);
-  position:relative;
-}
-.premium-histoire .triptyque__cell + .triptyque__cell{
-  border-left:1px solid rgba(184,146,77,.45);
-}
-.premium-histoire .triptyque__num{
-  display:block;
-  font-family:var(--script);
-  font-weight:400;
-  font-size:clamp(2.6rem, 4vw, 3.4rem);
-  line-height:1;
-  color:var(--laiton);
-  margin-bottom:.4rem;
-}
-.premium-histoire .triptyque__cell h6{
-  margin:0 0 .9rem;
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:1.25rem;
-  letter-spacing:.02em;
-  text-transform:none;
-  color:var(--terracotta);
-}
-.premium-histoire .triptyque__cell h6::after{
-  content:"";
-  display:block;
-  width:2.4rem; height:1px;
-  background:var(--laiton);
-  margin-top:.8rem;
-}
-.premium-histoire .triptyque__cell p{
-  margin:0;
-  color:rgba(44,36,25,.85);
-  line-height:1.8;
-}
-.premium-histoire .triptyque__cell strong{
-  color:var(--encre);
-  font-weight:500;
-}
-
-/* ============================================================
-   Finale — Créer · Partager · Prolonger
-   ============================================================ */
-.premium-histoire .finale{
-  background:
-    linear-gradient(rgba(44,36,25,.22), rgba(44,36,25,.22)),
-    var(--sauge);
-  color:var(--blanc);
-  text-align:center;
-  padding:clamp(4.5rem, 10vw, 8.5rem) var(--gutter);
-  position:relative;
-  overflow:hidden;
-}
-.premium-histoire .finale::after{
-  content:"";
-  position:absolute; inset:0;
-  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
-  background-size:420px auto;
-  opacity:.08;
-  pointer-events:none;
-}
-.premium-histoire .finale > *{ position:relative; z-index:1; }
-.premium-histoire .finale h2{
-  margin:0 0 1.6rem;
-  font-family:var(--serif);
-  font-style:italic;
-  font-weight:500;
-  font-size:clamp(2rem, 5.2vw, 3.8rem);
-  line-height:1.15;
-  letter-spacing:.01em;
-  color:var(--blanc);
-  text-wrap:balance;
-}
-.premium-histoire .finale h2 .point{
-  font-style:normal;
-  color:var(--laiton);
-  padding:0 .28em;
-  font-size:.55em;
-  vertical-align:.28em;
-}
-.premium-histoire .finale p{
-  max-width:56ch;
-  margin:0 auto 2.4rem;
-  font-size:clamp(1rem, .96rem + .3vw, 1.15rem);
-  line-height:1.8;
-  color:rgba(251,247,236,.92);
-}
-.premium-histoire .finale .filet{
-  border:0; height:1px;
-  width:min(280px, 60%);
-  margin:0 auto 2.2rem;
-  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton), rgba(184,146,77,0));
-}
 .premium-histoire .btn{
   display:inline-block;
   font-family:var(--sans);
@@ -455,30 +328,67 @@
   text-transform:uppercase;
   text-decoration:none;
   color:var(--blanc);
-  background:var(--terracotta);
-  border:1px solid var(--terracotta);
+  background:var(--color-cta-primary);
+  border:1px solid var(--color-cta-primary);
   border-radius:0;
   padding:1.05rem 2.6rem;
   transition:background .3s ease, color .3s ease, border-color .3s ease;
 }
 .premium-histoire .btn:hover{
-  background:var(--blanc);
-  color:var(--terracotta);
+  background:var(--color-cta-primary-hover);
+  border-color:var(--color-cta-primary-hover);
+  color:var(--blanc);
 }
 
-/* Sortie de page : une ligne manuscrite + bouton, sur le sable du triptyque */
+/* Sortie de page : finale verte fusionnée avec le footer (retour 35, choix C 22/07).
+   Vert = --mdt-olive-deep, jamais --sauge (olive clair ici, contraste insuffisant). */
 .premium-histoire .page-envoi{
-  background:var(--sable);
+  position:relative;
+  background:
+    linear-gradient(rgba(44,36,25,.22), rgba(44,36,25,.22)),
+    var(--mdt-olive-deep);
   text-align:center;
-  padding:0 var(--gutter) clamp(3.5rem, 7vw, 6rem);
+  padding:clamp(4.5rem, 8vw, 6.5rem) var(--gutter);
+  overflow:hidden;
 }
+/* couture laiton fondue aux bords, écho du filet de la signature */
+.premium-histoire .page-envoi::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
+  z-index:1;
+}
+/* texture florale, même traitement que le footer */
+.premium-histoire .page-envoi::after{
+  content:"";
+  position:absolute; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
+  background-size:420px auto;
+  opacity:.08;
+  pointer-events:none;
+}
+.premium-histoire .page-envoi > *{ position:relative; z-index:1; }
 .premium-histoire .page-envoi__script{
   font-family:var(--script);
   font-weight:400;
-  font-size:clamp(1.7rem, 1.4rem + 1vw, 2.2rem);
-  color:var(--laiton);
-  margin:0 0 1.2rem;
+  font-size:clamp(1.8rem, 1.5rem + 1.2vw, 2.4rem);
+  color:#D9BC85; /* laiton éclairci : le laiton pur passe sous 3:1 sur ce vert sombre */
+  margin:0 0 1.4rem;
 }
+/* sur fond vert, le CTA s'inverse en crème (convention hero accueil) */
+.premium-histoire .page-envoi .btn{
+  color:var(--mdt-olive-dark, #3F4731);
+  background:var(--blanc);
+  border-color:var(--blanc);
+}
+.premium-histoire .page-envoi .btn:hover{
+  background:var(--sable);
+  border-color:var(--sable);
+  color:var(--mdt-olive-dark, #3F4731);
+}
+/* fusion envoi → footer : ce fichier ne charge que sur la page histoire,
+   on y retire la couture laiton du footer (posée en !important dans mdt-override) */
+.mdt-footer{ border-top:0 !important; }
 
 /* ============================================================
    Responsive — lettre (variante B)
@@ -495,21 +405,10 @@
     gap:4.5rem;
   }
   .premium-histoire .hero__duo{ justify-self:start; }
-  .premium-histoire .triptyque__grid{
-    grid-template-columns:1fr;
-    max-width:560px;
-  }
-  .premium-histoire .triptyque__cell + .triptyque__cell{
-    border-left:0;
-    border-top:1px solid rgba(184,146,77,.45);
-  }
 }
 
 @media (max-width: 480px){
   .premium-histoire .hero__tag--inde{ right:0; }
   .premium-histoire .corps .lead::first-letter{ font-size:3.8em; }
 }
-
-/* Contraste (revue expert 12/06) */
-.premium-histoire .triptyque__head h6{color:#8A6A30}
 

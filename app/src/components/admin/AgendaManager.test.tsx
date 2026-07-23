@@ -70,7 +70,7 @@ describe('AgendaManager', () => {
   test('bascule vers l’éditeur de grille sans ouvrir de modale', () => {
     render(<AgendaManager data={agendaData} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Définir la grille' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Définir les horaires' }))
 
     expect(screen.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('Samedi')).toBeInTheDocument()

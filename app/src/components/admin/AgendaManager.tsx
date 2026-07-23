@@ -170,7 +170,7 @@ export function AgendaManager({ data }: { data: AgendaData }) {
             icon={<Settings2 size={16} aria-hidden="true" />}
             onClick={() => setView('grid')}
           >
-            Définir la grille
+            Définir les horaires
           </ViewButton>
         </div>
       </div>
@@ -262,7 +262,7 @@ function ViewButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex min-h-10 flex-1 items-center justify-center gap-2 rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] sm:flex-none ${
+      className={`flex min-h-10 flex-none items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] ${
         active ? 'bg-[#4A5D2E] text-white' : 'text-neutral-600 hover:bg-[#4A5D2E]/8'
       }`}
       aria-pressed={active}
@@ -956,7 +956,7 @@ function EmptyAgenda({ onDefineGrid }: { onDefineGrid: () => void }) {
         onClick={onDefineGrid}
         className="mt-5 min-h-11 rounded-lg bg-[#4A5D2E] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#3B4B24] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E]"
       >
-        Définir la grille
+        Définir les horaires
       </button>
     </div>
   )

@@ -58,6 +58,8 @@ body.av2 #parcours .content-image {
 }
 body.av2 #parcours .content-image img { border-radius: 993px 993px 0 0; }
 body.av2 #parcours .image-icon-box { border-right: none; }
+/* Retour Tara : marges latérales (la grille était full-bleed, collée aux bords). */
+body.av2 #parcours .container-fluid { padding-inline: clamp(1rem, 4vw, 3.5rem); }
 
 /* ---------- Réalisations : galerie adoucie, cadre laiton fin */
 body.av2 #realisations .image-box img {

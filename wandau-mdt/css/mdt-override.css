@@ -349,7 +349,7 @@ a.custom-button {
 }
 
 /* Filet de securite sous le hero — corrige une bande creme derriere le header.
-   Swiper mesure la hauteur des slides AVANT que le padding-top (regle <=1440px)
+   Swiper mesure la hauteur des slides AVANT que le padding-top (regle <=1200px)
    ne soit applique : le wrapper est translate de -869px alors que les slides font
    985px, donc la slide active demarre a y=116 et rien ne couvre les 116px du haut
    — pile la zone du header. Le creme de la page transparaissait et le logo blanc
@@ -683,7 +683,7 @@ header.slider {
 .field--row .field { margin-bottom: 0; }
 
 /* Responsive : la photo passe sous le texte si pas assez de place */
-@media (max-width: 1440px) {
+@media (max-width: 1200px) {
   .slider .slider-texts .container-fluid { max-width: 100% !important; margin: 0 auto !important; padding: 0 32px !important; }
   .mdt-hero-photo {
     position: relative;
@@ -1161,7 +1161,7 @@ body.has-hero .slider .slider-texts .swiper-slide {
   padding-top: calc(96px + 6vh);
 }
 body.has-hero .mdt-hero-photo { top: calc(50% + 5vh); }
-@media (max-width: 1440px) {
+@media (max-width: 1200px) {
   body.has-hero .slider .slider-texts .swiper-slide { padding-top: 0; }
   body.has-hero .mdt-hero-photo { top: auto; }
 }
@@ -1206,12 +1206,12 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
   color: var(--mdt-olive-dark);
 }
 
-/* Layouts hero empilés (≤1440px) : le hero coule depuis le haut → on dégage
+/* Layouts hero empilés (≤1200px) : le hero coule depuis le haut → on dégage
    l'espace du header fixe, on LIBÈRE la hauteur (texte + photo empilés
    dépassent 100vh, que la règle has-hero ci-dessus forcerait sinon avec
    l'overflow:hidden du template → contenu coupé), et le paragraphe reprend
    sa pleine largeur (le cap 36vw n'a de sens qu'à côté de la photo). */
-@media (max-width: 1440px) {
+@media (max-width: 1200px) {
   body.has-hero header.slider { height: auto !important; min-height: 100vh; padding-top: 176px !important; padding-bottom: 80px !important; }
   .slider .slider-texts .swiper-slide p { max-width: 100%; }
 }
@@ -1334,13 +1334,37 @@ body.lab-native .image-content-box figure img {
 /* Titres du parcours (complets) et titre univers (« À découvrir à la maison »)
    verrouillés (arbitrage 12/06) — variantes retirées du HTML. */
 #parcours .content-box .expand p { margin-bottom: 12px; }
-/* Alignement strict des 4 étapes : aucune marge parasite, photos toutes au
-   même niveau et à la même hauteur (la 4e dérivait). */
-#parcours .image-icon-box { margin: 0 !important; }
+/* Alignement des 4 étapes (retour Tara). Le bloc numéro+titre était ancré en BAS
+   de colonne : sa position dépendait de la longueur du titre (3 vs 4 lignes), d'où
+   les numéros désalignés et les arches partiellement masquées par la boîte crème.
+   Fix : image à hauteur FIXE identique + bloc texte qui coule SOUS l'image (plus
+   d'ancrage bas) → les 4 numéros tombent toujours pile sous les arches. */
+#parcours .image-icon-box { margin: 0 !important; padding-bottom: 0 !important; }
 #parcours .col-lg-3 { margin-top: 0 !important; }
 #parcours .image-icon-box .content-image {
-  aspect-ratio: 3 / 4;
+  height: clamp(300px, 24vw, 420px) !important;
+  aspect-ratio: auto !important;
+  overflow: hidden;
   margin: 0 !important;
+}
+#parcours .image-icon-box .content-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+#parcours .image-icon-box .content-box {
+  position: static !important;
+  padding: 22px 8% 24px !important;
+}
+#parcours .content-box h4 {
+  font-size: clamp(22px, 2vw, 30px) !important;
+  line-height: 1.14 !important;
+  /* réserve 2 lignes pour TOUS les titres → la boîte beige finit au même niveau
+     même quand un titre tient sur une seule ligne (ex. « Revenir la retrouver »). */
+  min-height: 2.3em !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
 }
 
 /* ============================================================
@@ -1390,12 +1414,10 @@ body.lab-native .image-content-box figure img {
   .mdt-occasions-lp img { height: 110px; }
 }
 
-/* « Certaines réalisations » : motif floral nettement visible (le filigrane
-   générique à 9% ne se voyait pas — demande client). */
-#realisations::before {
-  opacity: 0.22 !important;
-  background-size: 640px !important;
-}
+/* « Certaines réalisations » : le motif suit le MÊME réglage que les autres
+   sections (retour Tara : même couleur/fond partout). Avant, il était forcé à
+   opacity 0.22 / tuiles 640px → la section ressortait plus verte/grise. On laisse
+   donc .mdt-floral-line::before (0.09 / 380px) s'appliquer, sans override. */
 
 /* Mode lab (Locomotive coupé) : la galerie « Certaines réalisations »
    défile toute seule en va-et-vient doux, faute de parallaxe au scroll. */
@@ -1560,6 +1582,16 @@ body.lab-native .horizontal-scroll .scroll-inner {
 }
 .mdt-floral-soft > *,
 .mdt-floral-line > * { position: relative; z-index: 1; }
+
+/* Retour Tara : fond CONTINU sur l'accueil. On supprime l'alternance soft/line
+   entre sections (elle faisait sauter la densité du motif). #univers et #occasions
+   (les 2 sections en « soft ») passent au même réglage que les autres : 0.09 / 380px.
+   Ciblé sur l'accueil — mdt-floral-soft reste inchangée sur les autres pages. */
+#univers::before,
+#occasions::before {
+  opacity: 0.09 !important;
+  background-size: 380px !important;
+}
 
 /* ============================================================
    Newsletter MDT — carte beige cadrée or (retour Pastel #9 : fond

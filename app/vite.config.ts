@@ -18,10 +18,7 @@ const config = defineConfig({
     devtools(),
     nitro({ config: { rollupConfig: { external: [/^@sentry\//] } } }),
     tailwindcss(),
-    // Mode SPA : coquille prérendue au build, rendu 100% client à l'exécution
-    // (cet admin est une app navigateur — auth Supabase côté client). Supprime
-    // le rendu serveur à la volée qui bloquait (AbortError 500).
-    tanstackStart({ spa: { enabled: true } }),
+    tanstackStart(),
     viteReact(),
   ],
 })

@@ -501,10 +501,17 @@
   .premium-atelier .priva__gallery{max-width:26rem}
 }
 @media (max-width:560px){
-  .premium-atelier .hero{padding-top:9.5rem}
+  .premium-atelier .hero{padding-top:7rem}
   .premium-atelier .fgrid{grid-template-columns:1fr}
   .premium-atelier .chap{padding:2.8rem 0}
   .premium-atelier .priva__gallery img:nth-child(2){transform:none}
+  /* Chiffre de chapitre : en mobile, le filigrane absolu finissait derriere
+     l'image (invisible). On le sort du flux absolu et on le pose EN CLAIR
+     au-dessus de chaque chapitre. */
+  .premium-atelier .chap__num{
+    position:static; opacity:.9; font-size:3.4rem; line-height:1;
+    display:block; margin:0 0 .2rem; text-align:left;
+  }
 }
 
 /* Contraste (revue expert 12/06) : petites capitales en laiton fonce sur fond clair */

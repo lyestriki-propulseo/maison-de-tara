@@ -28,11 +28,14 @@ body.av2 .events-eyebrow {
   margin-bottom: 2px;
 }
 body.av2 .hero-eyebrow {
-  font-family: var(--mdt-font-script) !important;
-  font-size: clamp(20px, 2.2vw, 26px) !important;
+  /* Retour Tara 22/07 « peu lisible » : agrandie PUIS passée en Caveat 600
+     (choix C sur maquette) — manuscrite au trait épais, chargée dans head.html.
+     La Belle Aurore reste la manuscrite partout ailleurs. */
+  font-family: "Caveat", var(--mdt-font-script), cursive !important;
+  font-size: clamp(28px, 2.9vw, 37px) !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
 }
 
 /* ---------- Univers : photos des 3 cartes en arche indienne */

@@ -1,6 +1,6 @@
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
 minimumReleaseAgeExclude:
   - '@supabase/auth-js@2.110.5'
   - '@supabase/functions-js@2.110.5'

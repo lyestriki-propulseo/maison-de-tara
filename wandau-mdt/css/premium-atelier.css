@@ -200,16 +200,19 @@
   padding:clamp(3rem,7vw,6rem) 0;
 }
 .premium-atelier .chap__num{
-  position:absolute;top:clamp(.5rem,2vw,1.5rem);
+  position:absolute;top:clamp(.5rem,2vw,1.5rem);z-index:0;
   font-family:var(--serif);font-weight:500;font-style:italic;
-  font-size:clamp(8rem,19vw,16rem);line-height:1;
-  /* Retours Tara #13/#15/#18/#20 « en vert, plus visible » : le vert seul ne suffit
-     pas, c'est l'opacite qui rendait le filigrane invisible (.13). --mdt-olive-deep
-     et pas --sauge : ici --sauge vaut l'olive CLAIR #8A976C. */
-  color:var(--mdt-olive-deep);opacity:.20;pointer-events:none;user-select:none;
+  font-size:clamp(3.5rem,8vw,7rem);line-height:1;
+  /* Filigrane REDUIT et pose du cote TEXTE (l'image est a l'oppose) : avant, place
+     cote image, il etait masque. Pose DERRIERE le contenu (z-index) mais lisible
+     dans les blancs. --mdt-olive-deep (pas --sauge = olive CLAIR #8A976C). */
+  color:var(--mdt-olive-deep);opacity:.24;pointer-events:none;user-select:none;
 }
-.premium-atelier .chap--odd .chap__num{left:clamp(.5rem,3vw,3rem)}
-.premium-atelier .chap--even .chap__num{right:clamp(.5rem,3vw,3rem)}
+/* Numero du cote du texte (image a l'oppose) pour ne plus le masquer. */
+.premium-atelier .chap--odd .chap__num{right:clamp(.5rem,3vw,3rem)}
+.premium-atelier .chap--even .chap__num{left:clamp(.5rem,3vw,3rem)}
+/* Contenu au-dessus du filigrane. */
+.premium-atelier .chap__grid{position:relative;z-index:1}
 .premium-atelier .chap__grid{
   display:grid;grid-template-columns:repeat(12,1fr);
   gap:clamp(1.5rem,4vw,3.5rem);align-items:center;

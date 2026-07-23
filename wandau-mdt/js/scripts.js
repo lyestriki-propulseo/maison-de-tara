@@ -127,10 +127,9 @@
   var sliderimages = new Swiper('.slider-images', {
     spaceBetween: 0,
     direction: 'vertical',
-    autoplay: {
-      delay: 9500,
-      disableOnInteraction: false,
-    },
+    // autoplay retiré (retour Tara) : le hero de fond n'a qu'UNE slide.
+    // L'autoplay faisait "défiler" le fond vers son clone de loop toutes
+    // les 9,5 s → un flash / refresh du fond visible périodiquement.
     navigation: {
       nextEl: '.button-next',
       prevEl: '.button-prev',

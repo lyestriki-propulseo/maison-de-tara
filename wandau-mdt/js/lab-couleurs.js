@@ -70,8 +70,6 @@
     'body.cl-bg-light .mdt-footer :where(.mdt-footer-name,.mdt-footer-nav a,.mdt-footer-coords,',
     '  .mdt-footer-coords a,.fb-l,.fb-c a,.fb-r a){color:#2c2419 !important;}',
     'body.cl-bg-light .mdt-footer .mdt-footer-coords{color:rgba(44,36,25,.85) !important;}',
-    /* Bande newsletter sur fond clair : texture florale allégée pour matcher les autres sections */
-    'body.cl-nl-light .mdt-newsletter::before{opacity:.07 !important;}',
     /* Hero sur fond clair : la texture "screen" (pensée fond vert) disparaîtrait —
        on bascule en multiply léger comme les sections claires → continuité hero / section 2 */
     'body.cl-bg-light .slider .slider-images .swiper-slide.mdt-slide-bg::before{',
@@ -232,22 +230,8 @@
       document.body.classList.toggle('cl-bg-light', isLight(c.hex));
     });
 
-  swatchGroup(4, 'Bande « La lettre de la maison » (fond)',
-    'L’avant-dernière section, juste au-dessus du footer. La carte d’inscription reste lisible quel que soit le fond.',
-    '--mdt-newsletter-bg', [
-      { nom: 'Sauge grisée (actuel)', hex: '#9CA68C', cur: true },
-      { nom: 'Fond principal du site (beige)', hex: '#F0ECDB' },
-      { nom: 'Sable chaud', hex: '#E8DCC4' },
-      { nom: 'Vert d’eau pâle', hex: '#CBD3BC' },
-      { nom: 'Rosé poudré', hex: '#E3C9C2' },
-      { nom: 'Olive claire', hex: '#8A976C' },
-      { nom: 'Sauge', hex: '#5A6347' },
-      { nom: 'Vert profond', hex: '#3F4731' },
-      { nom: 'Terracotta profond', hex: '#79301E' }
-    ], function (c) {
-      // Fond clair : on allège la texture florale pour fondre la bande dans le site
-      document.body.classList.toggle('cl-nl-light', isLight(c.hex));
-    });
+  // (La bande « La lettre de la maison » fait désormais partie du fond continu
+  //  de l'accueil — couleur identique au reste du site, plus de réglage séparé.)
 
   var reset = el('button', 'cl-reset', 'Tout remettre aux couleurs actuelles');
   reset.type = 'button';

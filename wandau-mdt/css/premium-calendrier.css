@@ -27,7 +27,7 @@
   --fs-body: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
   --fs-small: 0.82rem;
 
-  --maxw: 1180px;
+  --maxw: 1280px;
   --ease: cubic-bezier(.25,.7,.3,1);
 
   position: relative;
@@ -81,8 +81,13 @@
 /* ---------- Hero / intro ---------- */
 .premium-calendrier .hero {
   text-align: center;
-  /* 110px = topbar (42px) + header fixe (68px) du site */
-  padding: calc(110px + clamp(1.5rem, 4vw, 3rem)) 0 clamp(2rem, 4vw, 3rem);
+  /* Plein écran 100vh : titre + arches centrés. 110px = topbar+header fixes. */
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(110px + clamp(1rem, 3vw, 2rem)) 0 clamp(2rem, 4vw, 3rem);
 }
 .premium-calendrier .hero .script {
   display: inline-flex;
@@ -124,15 +129,15 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.9rem, 2.5vw, 1.8rem);
-  max-width: 760px;
-  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  max-width: 620px;
+  margin: clamp(1.4rem, 3vw, 2.2rem) auto 0;
   padding: 0 1rem;
 }
 .premium-calendrier .arch {
   position: relative;
   border-radius: 999px 999px 8px 8px;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 3.5;   /* moins haute : tout le hero tient dans le 100vh */
   border: 1px solid var(--laiton);
   padding: 6px;
   background: var(--blanc);
@@ -147,14 +152,14 @@
   transition: transform .8s var(--ease);
 }
 .premium-calendrier .arch:hover img { transform: scale(1.04); }
-.premium-calendrier .arch:nth-child(2) { transform: translateY(clamp(0.7rem, 2vw, 1.4rem)); }
+.premium-calendrier .arch:nth-child(2) { transform: translateY(clamp(0.4rem, 1.2vw, 0.8rem)); }
 
 /* ---------- Corps : programme + grille ---------- */
 .premium-calendrier .body-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  padding: clamp(3rem, 6vw, 5rem) clamp(1.1rem, 4vw, 2.5rem) clamp(3.5rem, 7vw, 6rem);
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  padding: clamp(2.2rem, 5vw, 4rem) clamp(1.1rem, 4vw, 2.5rem) clamp(2.5rem, 5vw, 4.5rem);
   align-items: start;
 }
 

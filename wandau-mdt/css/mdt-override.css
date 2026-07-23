@@ -30,7 +30,7 @@
   /* Réglables en direct via le laboratoire de couleurs (?lab sur l'accueil) */
   --mdt-hero-bg:    var(--mdt-sauge);      /* fond du hero */
   --mdt-footer-bg:  var(--mdt-hero-bg);    /* footer = même vert que le hero */
-  --mdt-newsletter-bg: #9CA68C;            /* bande « La lettre de la maison » */
+  --mdt-newsletter-bg: var(--mdt-sable);   /* bande « La lettre de la maison » = crème comme le reste du site */
 
   /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
   --mdt-text:       var(--mdt-ink);
@@ -211,12 +211,12 @@ a.custom-button {
 .content-section { background: var(--mdt-sable); }
 .content-section.bottom-white { background: var(--mdt-sable) !important; }
 
-/* Espacement vertical des sections réduit de 50% (120→60px desktop, 80→40px mobile).
-   Resserre le passage d'une section à l'autre. Les classes no-spacing /
-   no-bottom-spacing Wandau gardent la priorité (padding 0 inchangé). */
-.content-section { padding: 60px 0; }
+/* Espacement vertical des sections (accueil) : 30px desktop / 20px mobile
+   (encore divisé par 2 le 12/06 à la demande client). Les classes
+   no-spacing / no-bottom-spacing Wandau gardent la priorité (padding 0). */
+.content-section { padding: 30px 0; }
 @media (max-width: 767px) {
-  .content-section { padding: 40px 0; }
+  .content-section { padding: 20px 0; }
 }
 
 /* --- Section-title shape : on neutralise le shape Wandau (souvent un blob jaune) --- */
@@ -1294,6 +1294,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
   /* Titres de carte resserrés (12/06) : prenaient trop de place en 30px Wandau. */
   font-size: clamp(19px, 1.6vw, 23px) !important;
   line-height: 1.2 !important;
+  font-weight: 700 !important;   /* gras (demande 12/06) */
 }
 .exhibition-box .content-box p { margin-bottom: 14px !important; }
 .exhibition-box .content-box p:last-of-type { margin-bottom: 24px !important; }
@@ -1569,16 +1570,13 @@ body.lab-native .horizontal-scroll .scroll-inner {
   pointer-events: none;
   z-index: 0;
 }
-/* Texture A — wallpaper florale (sections principales) */
-.mdt-floral-soft::before {
+/* Texture florale UNIFIÉE (12/06) : même échelle + opacité sur toutes les
+   sections crème, pour une continuité du fond d'une section à l'autre (plus de
+   cassure de densité aux jonctions univers↔parcours, calendrier↔occasions, etc.). */
+.mdt-floral-soft::before,
+.mdt-floral-line::before {
   background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 600px repeat;
   opacity: 0.07;
-}
-/* Texture B — meme florale, tile plus dense + opacite legerement
-   superieure (alternance de rythme, lisible sur fond clair/blanc). */
-.mdt-floral-line::before {
-  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 380px repeat;
-  opacity: 0.09;
 }
 .mdt-floral-soft > *,
 .mdt-floral-line > * { position: relative; z-index: 1; }
@@ -1594,23 +1592,53 @@ body.lab-native .horizontal-scroll .scroll-inner {
 }
 
 /* ============================================================
+   FOND CONTINU DE L'ACCUEIL (12/06) — UNE seule couche florale derrière
+   toutes les sections crème, au lieu d'un motif par section. Garantit :
+   couleur EXACTEMENT identique partout + motif ALIGNÉ d'une section à
+   l'autre (plus de cassure ni de « voile »). Accueil uniquement
+   (body.has-hero) ; les pages intérieures ne sont pas touchées.
+   ============================================================ */
+body.has-hero .section-wrapper { position: relative; background-color: var(--mdt-sable); }
+body.has-hero .section-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") top center / 600px repeat;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+body.has-hero .section-wrapper > * { position: relative; z-index: 1; }
+/* Les sections crème deviennent transparentes → laissent voir la couche continue */
+body.has-hero .content-section { background: transparent !important; }
+/* On neutralise les motifs PAR SECTION sur l'accueil (doublon + cassures).
+   EXCEPTION : le footer (.mdt-footer) porte aussi .mdt-floral-line mais garde
+   SON propre motif (wallpaper vert) — il n'est pas crème, il n'est pas dans le
+   fond continu. On l'exclut donc du display:none. */
+body.has-hero .mdt-floral-soft::before,
+body.has-hero .mdt-floral-line:not(.mdt-footer)::before,
+body.has-hero #realisations::before,
+body.has-hero .mdt-newsletter::before { display: none !important; }
+
+/* ============================================================
    Newsletter MDT — carte beige cadrée or (retour Pastel #9 : fond
    beige + texte noir) posée sur la bande verte florale (design v1).
    ============================================================ */
 .mdt-newsletter {
   background: var(--mdt-newsletter-bg) !important;   /* réglable via le labo couleurs */
-  padding: clamp(48px, 5vw, 72px) 0 !important;
+  padding: clamp(26px, 3vw, 40px) 0 !important;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-/* Motif floral ton-sur-ton bien visible (fidèle capture v1) */
+/* Motif floral au MÊME niveau que les autres sections crème (600px / 0.07)
+   pour que la bande se fonde dans le reste du site (12/06). */
 .mdt-newsletter::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 560px repeat;
-  opacity: 0.3;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 600px repeat;
+  opacity: 0.07;
   pointer-events: none;
   z-index: 0;
 }
@@ -1621,8 +1649,8 @@ body.lab-native .horizontal-scroll .scroll-inner {
   position: relative;
   background: rgba(252, 250, 244, 0.55);
   border: 1px solid var(--mdt-laiton);
-  padding: clamp(28px, 3vw, 44px) clamp(24px, 3.5vw, 56px);
-  max-width: 640px;
+  padding: clamp(20px, 2.4vw, 30px) clamp(28px, 4vw, 52px);
+  max-width: 880px;   /* élargie : titre sur ~2 lignes au lieu de 4 */
   margin: 0 auto;
 }
 .mdt-nl-card::before {
@@ -1652,11 +1680,11 @@ body.lab-native .horizontal-scroll .scroll-inner {
 .mdt-nl-title {
   font-family: var(--mdt-font-display) !important;
   font-weight: 300 !important;
-  font-size: clamp(24px, 2.3vw, 34px);
+  font-size: clamp(20px, 1.7vw, 27px);
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--mdt-ink) !important;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .mdt-nl-title em { font-style: italic; color: var(--mdt-laiton); }
 .mdt-nl-lead {
@@ -1865,6 +1893,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
    ============================================================ */
 .mdt-footer {
   background: var(--mdt-footer-bg) !important;
+  overflow-x: clip;   /* sécurise le bas de footer en pleine largeur (pas de scroll horizontal) */
   /* couture laiton : adoucit la transition page claire → vert (revue expert) */
   border-top: 1px solid var(--mdt-laiton) !important;
   color: var(--mdt-sable);
@@ -1955,15 +1984,19 @@ body.lab-native .horizontal-scroll .scroll-inner {
 /* Barre du bas : UNE ligne — © à gauche, crédit centré, légal à droite */
 .mdt-footer-bottom {
   margin-top: 26px;
+  /* Pleine largeur : sort du conteneur 1280px pour remplir les marges.
+     © à gauche, mentions à droite, ligne dorée (border-top) élargie d'autant. */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   border-top: 1px solid rgba(184, 146, 77, 0.35);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 18px;
-  padding: 16px 0 18px;
-  font-size: 12px;
+  padding: 16px clamp(28px, 6vw, 120px) 18px;
+  font-size: 13px;
   letter-spacing: 0.04em;
-  color: rgba(240, 236, 219, 0.6);
+  color: rgba(240, 236, 219, 0.7);
 }
 .mdt-footer-bottom .fb-l { justify-self: start; white-space: nowrap; }
 .mdt-footer-bottom .fb-c { justify-self: center; text-align: center; }

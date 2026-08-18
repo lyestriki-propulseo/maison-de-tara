@@ -15,10 +15,18 @@ const TYPE_MAP = {
   autre: 'evenement',
 };
 
+// Date calendaire en heure de Paris (et non UTC) : un événement de fin de soirée ne doit pas
+// basculer à la veille à cause du décalage UTC. fr-CA formate en YYYY-MM-DD.
+const PARIS_DATE = new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris' });
+function parisDate(iso) {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? String(iso).slice(0, 10) : PARIS_DATE.format(d);
+}
+
 function mapRow(row) {
   return {
     id: row.id,
-    date: String(row.starts_at).slice(0, 10),
+    date: parisDate(row.starts_at),
     titre: row.title,
     type: TYPE_MAP[row.event_type] || 'evenement',
     description: row.description || '',

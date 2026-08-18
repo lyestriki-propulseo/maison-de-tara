@@ -52,7 +52,9 @@
 
           <div class="hours">
             <h3>Ouverture de la maison</h3>
-            <ul>
+            <!-- Horaires pilotés par Tara (admin) : js/site-hours.js remplace cette liste depuis la
+                 base au chargement. Le contenu ci-dessous est le repli statique si la base est indispo. -->
+            <ul data-mdt-hours="maison">
               <li class="is-closed"><span>Lundi</span><span>Fermé</span></li>
               <li><span>Mardi</span><span>12h – 18h</span></li>
               <li><span>Mercredi</span><span>9h – 18h</span></li>
@@ -239,6 +241,7 @@
 })();
 </script>
 <script type="module">
+  import './js/site-hours.js';
   import { bindForm } from './js/forms-supabase.js';
   bindForm(document.getElementById('contactForm'), 'contact');
 </script>

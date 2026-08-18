@@ -5,6 +5,12 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
 
 const CONFIGURED = /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
 
+// Branchement réel des formulaires (contact/newsletter via `requests`/`newsletter_subscribers`,
+// réservation via le tunnel Monetico) = Phases 4/5, à faire avec les identifiants Monetico de Tara.
+// Tant que ce drapeau est à false, les formulaires restent en « bientôt actif » (aucun envoi),
+// même si Supabase est configuré pour la lecture (horaires, programme).
+const FORMS_READY = false;
+
 let clientPromise = null;
 function getClient() {
   if (!clientPromise) {
@@ -45,7 +51,7 @@ export function bindForm(formEl, type) {
       return;
     }
 
-    if (!CONFIGURED) {
+    if (!CONFIGURED || !FORMS_READY) {
       msg.textContent = 'Le formulaire sera actif très bientôt. En attendant, écrivez-nous à contact@maisondetara.com.';
       return;
     }

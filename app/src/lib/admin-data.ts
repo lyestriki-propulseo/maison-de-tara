@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { staffMiddleware } from '@/lib/auth-middleware'
 import {
   buildFutureSessionInstances,
   capacitySchema,
@@ -10,7 +11,9 @@ import {
 
 // Lecture des données d'admin côté SERVEUR (clé service_role → contourne la RLS).
 // Le navigateur n'accède jamais directement à ces tables (RLS deny-by-default).
-export const getDashboardStats = createServerFn({ method: 'GET' }).handler(async () => {
+export const getDashboardStats = createServerFn({ method: 'GET' })
+  .middleware([staffMiddleware])
+  .handler(async () => {
   const db = supabaseAdmin()
   const today = new Date().toISOString().slice(0, 10)
 
@@ -41,7 +44,9 @@ function throwDatabaseError(error: { message: string } | null, fallback: string)
 }
 
 // Agenda complet : créneaux à venir, réservations liées et grille hebdomadaire active.
-export const getAgendaData = createServerFn({ method: 'GET' }).handler(async () => {
+export const getAgendaData = createServerFn({ method: 'GET' })
+  .middleware([staffMiddleware])
+  .handler(async () => {
   const db = supabaseAdmin()
   const today = todayString()
 
@@ -137,6 +142,7 @@ export const getAgendaData = createServerFn({ method: 'GET' }).handler(async () 
 })
 
 export const setSessionBlocked = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
   .validator(sessionActionSchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()
@@ -164,6 +170,7 @@ export const setSessionBlocked = createServerFn({ method: 'POST' })
   })
 
 export const updateSessionCapacity = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
   .validator(capacitySchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()
@@ -188,6 +195,7 @@ export const updateSessionCapacity = createServerFn({ method: 'POST' })
   })
 
 export const createManualReservation = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
   .validator(manualReservationSchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()
@@ -211,6 +219,7 @@ export const createManualReservation = createServerFn({ method: 'POST' })
   })
 
 export const saveScheduleGrid = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
   .validator(scheduleGridSchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()

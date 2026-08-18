@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { staffMiddleware } from '@/lib/auth-middleware'
 import { DEFAULT_HOURS, hoursSchema, parseHours } from '@/lib/site-settings'
 
 // Données éditoriales du site (horaires, plus tard : événements) pilotées par Tara.
@@ -10,7 +11,9 @@ function throwDatabaseError(error: { message: string } | null, fallback: string)
 }
 
 // Horaires d'ouverture de la maison (clé site_settings 'hours'). Renvoie le défaut si absent.
-export const getSiteHours = createServerFn({ method: 'GET' }).handler(async () => {
+export const getSiteHours = createServerFn({ method: 'GET' })
+  .middleware([staffMiddleware])
+  .handler(async () => {
   const db = supabaseAdmin()
   const { data, error } = await db
     .from('site_settings')
@@ -23,6 +26,7 @@ export const getSiteHours = createServerFn({ method: 'GET' }).handler(async () =
 })
 
 export const saveSiteHours = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
   .validator(hoursSchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()

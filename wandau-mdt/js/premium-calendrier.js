@@ -1,3 +1,5 @@
+import { loadEvents } from './site-events.js';
+
 /* ============================================================
    Premium Calendrier — Maison de Tara
    Programme éditorial + grille mensuelle, data-driven depuis
@@ -44,8 +46,7 @@
     );
   }
 
-  fetch('data/events.json')
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  loadEvents()
     .then(function (events) {
       if (!Array.isArray(events) || !events.length) { fallback(); return; }
       var sorted = events.slice().sort(function (a, b) { return a.date.localeCompare(b.date); });

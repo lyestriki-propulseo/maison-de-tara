@@ -1,7 +1,8 @@
-// home-events.js — « Les rendez-vous » de l'accueil, rendus depuis
-// data/events.json : MÊME source que la page Calendrier (une seule liste
-// à maintenir). Affiche les 4 prochains événements (le 1er en vedette).
-// Données internes (events.json écrit par nous) rendues via textContent.
+// home-events.js — « Les rendez-vous » de l'accueil, rendus depuis Supabase
+// (table events, MÊME source que la page Calendrier via js/site-events.js).
+// Affiche les 4 prochains événements (le 1er en vedette). Rendu via textContent.
+import { loadEvents } from './site-events.js';
+
 (function () {
   'use strict';
 
@@ -21,8 +22,7 @@
     return n;
   }
 
-  fetch('data/events.json')
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  loadEvents()
     .then(function (events) {
       var now = new Date();
       now.setHours(0, 0, 0, 0);

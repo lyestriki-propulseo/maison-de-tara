@@ -1,4 +1,4 @@
-import { CalendarDays, Clock3, Home, Image, Sparkles, Users } from 'lucide-react'
+import { CalendarDays, Clock3, Home, Image, Mail, Sparkles, Users } from 'lucide-react'
 import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
 import { requireSession } from '@/lib/admin-auth'
 import taraLogo from '../../assets/mdt_logo_complet_transparent.png?url'
@@ -22,6 +22,7 @@ function AdminLayout() {
           <AdminLink to="/admin/reservations">Réservations</AdminLink>
           <AdminLink to="/admin/contenu">Contenu</AdminLink>
           <AdminLink to="/admin/horaires">Horaires</AdminLink>
+          <AdminLink to="/admin/newsletter">Newsletter</AdminLink>
         </nav>
       </header>
 
@@ -82,6 +83,14 @@ function AdminLayout() {
             <Clock3 size={17} aria-hidden="true" />
             Horaires
           </Link>
+          <Link
+            to="/admin/newsletter"
+            className="tara-admin-nav-link"
+            activeProps={{ className: 'tara-admin-nav-link is-active' }}
+          >
+            <Mail size={17} aria-hidden="true" />
+            Newsletter
+          </Link>
         </nav>
 
         <div className="tara-admin-sidebar__footer">
@@ -106,7 +115,7 @@ function AdminLink({
   exact = false,
   children,
 }: {
-  to: '/admin' | '/admin/agenda' | '/admin/programme' | '/admin/reservations' | '/admin/contenu' | '/admin/horaires'
+  to: '/admin' | '/admin/agenda' | '/admin/programme' | '/admin/reservations' | '/admin/contenu' | '/admin/horaires' | '/admin/newsletter'
   exact?: boolean
   children: React.ReactNode
 }) {

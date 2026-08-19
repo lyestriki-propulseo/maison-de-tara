@@ -17,6 +17,7 @@ import { Route as NewsletterConfirmRouteImport } from './routes/newsletter.confi
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as AdminReservationsRouteImport } from './routes/admin/reservations'
 import { Route as AdminProgrammeRouteImport } from './routes/admin/programme'
+import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
 import { Route as AdminHorairesRouteImport } from './routes/admin/horaires'
 import { Route as AdminContenuRouteImport } from './routes/admin/contenu'
 import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
@@ -62,6 +63,11 @@ const AdminProgrammeRoute = AdminProgrammeRouteImport.update({
   path: '/programme',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminHorairesRoute = AdminHorairesRouteImport.update({
   id: '/horaires',
   path: '/horaires',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/admin/agenda': typeof AdminAgendaRoute
   '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/admin/agenda': typeof AdminAgendaRoute
   '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/admin/agenda': typeof AdminAgendaRoute
   '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/admin/agenda'
     | '/admin/contenu'
     | '/admin/horaires'
+    | '/admin/newsletter'
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/admin/agenda'
     | '/admin/contenu'
     | '/admin/horaires'
+    | '/admin/newsletter'
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin/agenda'
     | '/admin/contenu'
     | '/admin/horaires'
+    | '/admin/newsletter'
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
@@ -236,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProgrammeRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/newsletter': {
+      id: '/admin/newsletter'
+      path: '/newsletter'
+      fullPath: '/admin/newsletter'
+      preLoaderRoute: typeof AdminNewsletterRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/horaires': {
       id: '/admin/horaires'
       path: '/horaires'
@@ -271,6 +290,7 @@ interface AdminRouteRouteChildren {
   AdminAgendaRoute: typeof AdminAgendaRoute
   AdminContenuRoute: typeof AdminContenuRoute
   AdminHorairesRoute: typeof AdminHorairesRoute
+  AdminNewsletterRoute: typeof AdminNewsletterRoute
   AdminProgrammeRoute: typeof AdminProgrammeRoute
   AdminReservationsRoute: typeof AdminReservationsRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -280,6 +300,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAgendaRoute: AdminAgendaRoute,
   AdminContenuRoute: AdminContenuRoute,
   AdminHorairesRoute: AdminHorairesRoute,
+  AdminNewsletterRoute: AdminNewsletterRoute,
   AdminProgrammeRoute: AdminProgrammeRoute,
   AdminReservationsRoute: AdminReservationsRoute,
   AdminIndexRoute: AdminIndexRoute,

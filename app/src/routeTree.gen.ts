@@ -19,6 +19,7 @@ import { Route as AdminProgrammeRouteImport } from './routes/admin/programme'
 import { Route as AdminHorairesRouteImport } from './routes/admin/horaires'
 import { Route as AdminContenuRouteImport } from './routes/admin/contenu'
 import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
+import { Route as ApiWebhooksBrevoRouteImport } from './routes/api.webhooks.brevo'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -70,6 +71,11 @@ const AdminAgendaRoute = AdminAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const ApiWebhooksBrevoRoute = ApiWebhooksBrevoRouteImport.update({
+  id: '/api/webhooks/brevo',
+  path: '/api/webhooks/brevo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin': typeof AdminIndexRoute
+  '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/admin/reservations'
     | '/api/health'
     | '/admin/'
+    | '/api/webhooks/brevo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/admin/reservations'
     | '/api/health'
     | '/admin'
+    | '/api/webhooks/brevo'
   id:
     | '__root__'
     | '/'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/admin/reservations'
     | '/api/health'
     | '/admin/'
+    | '/api/webhooks/brevo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -150,6 +162,7 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ApiWebhooksBrevoRoute: typeof ApiWebhooksBrevoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgendaRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/api/webhooks/brevo': {
+      id: '/api/webhooks/brevo'
+      path: '/api/webhooks/brevo'
+      fullPath: '/api/webhooks/brevo'
+      preLoaderRoute: typeof ApiWebhooksBrevoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -254,6 +274,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   LoginRoute: LoginRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ApiWebhooksBrevoRoute: ApiWebhooksBrevoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

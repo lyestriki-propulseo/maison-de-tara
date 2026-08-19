@@ -54,3 +54,31 @@ test('requestConfirmationForCustomer accuse réception', () => {
   const { html } = requestConfirmationForCustomer({ name: 'Paul', requestType: 'contact' })
   expect(html).toContain('bien reçu')
 })
+
+test('échappe les caractères HTML dans les champs utilisateur', () => {
+  const { html } = reservationAlertForTara({
+    customerName: 'Jean <script>alert("XSS")</script>',
+    partySize: 2,
+    targetLabel: 'Atelier',
+    customerEmail: 'test@example.com',
+    customerPhone: null,
+  })
+  expect(html).toContain('&lt;script&gt;')
+  expect(html).not.toContain('<script>')
+  expect(html).toContain('&quot;')
+})
+
+test('échappe les balises HTML dans message de demande', () => {
+  const { html } = requestAlertForTara({
+    requestType: 'contact',
+    name: 'Alice',
+    email: 'alice@example.com',
+    phone: null,
+    message: 'Coucou <img src=x onerror="alert(1)">',
+    partySize: null,
+    desiredDate: null,
+    eventType: null,
+  })
+  expect(html).toContain('&lt;img')
+  expect(html).not.toContain('<img')
+})

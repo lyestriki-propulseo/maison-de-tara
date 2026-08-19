@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as NewsletterConfirmRouteImport } from './routes/newsletter.confirm'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as AdminReservationsRouteImport } from './routes/admin/reservations'
 import { Route as AdminProgrammeRouteImport } from './routes/admin/programme'
@@ -40,6 +41,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRouteRoute,
+} as any)
+const NewsletterConfirmRoute = NewsletterConfirmRouteImport.update({
+  id: '/newsletter/confirm',
+  path: '/newsletter/confirm',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
   id: '/api/health',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin/': typeof AdminIndexRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin': typeof AdminIndexRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/admin/programme': typeof AdminProgrammeRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
+  '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin/': typeof AdminIndexRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
+    | '/newsletter/confirm'
     | '/admin/'
     | '/api/webhooks/brevo'
   fileRoutesByTo: FileRoutesByTo
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
+    | '/newsletter/confirm'
     | '/admin'
     | '/api/webhooks/brevo'
   id:
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/admin/programme'
     | '/admin/reservations'
     | '/api/health'
+    | '/newsletter/confirm'
     | '/admin/'
     | '/api/webhooks/brevo'
   fileRoutesById: FileRoutesById
@@ -162,6 +174,7 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  NewsletterConfirmRoute: typeof NewsletterConfirmRoute
   ApiWebhooksBrevoRoute: typeof ApiWebhooksBrevoRoute
 }
 
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRouteRoute
+    }
+    '/newsletter/confirm': {
+      id: '/newsletter/confirm'
+      path: '/newsletter/confirm'
+      fullPath: '/newsletter/confirm'
+      preLoaderRoute: typeof NewsletterConfirmRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/health': {
       id: '/api/health'
@@ -274,6 +294,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   LoginRoute: LoginRoute,
   ApiHealthRoute: ApiHealthRoute,
+  NewsletterConfirmRoute: NewsletterConfirmRoute,
   ApiWebhooksBrevoRoute: ApiWebhooksBrevoRoute,
 }
 export const routeTree = rootRouteImport

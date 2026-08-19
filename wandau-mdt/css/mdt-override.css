@@ -962,6 +962,7 @@ body.is-scrolled .mdt-header { top: 0; }
   padding: 12px 22px;
   font-size: 11px;
   min-height: 40px;
+  border-radius: 999px;
 }
 
 /* BURGER */
@@ -1522,6 +1523,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
 .mdt-card-cta:hover {
   color: var(--mdt-terracotta);
   border-color: var(--mdt-terracotta);
+  text-decoration: none;
 }
 
 /* Côté droit (3 items info) — Wandau côtes natives sont OK,
@@ -1538,7 +1540,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
   display: inline-block;
   margin-top: 6px;
 }
-.side-icon-list .content a:hover { color: var(--mdt-terracotta); border-color: var(--mdt-terracotta); }
+.side-icon-list .content a:hover { color: var(--mdt-terracotta); border-color: var(--mdt-terracotta); text-decoration: none; }
 .side-icon-list figure { color: var(--mdt-laiton); display: inline-flex; align-items: center; justify-content: center; }
 .side-icon-list figure .icon { width: 28px; height: 28px; }
 

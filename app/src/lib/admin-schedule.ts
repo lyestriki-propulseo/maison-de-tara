@@ -14,14 +14,20 @@ export const capacitySchema = z.object({
   capacity: z.number().int().min(1).max(50),
 })
 
-export const manualReservationSchema = z.object({
-  sessionId: z.uuid(),
-  customerName: z.string().trim().min(2).max(100),
-  customerEmail: z.string().trim().email().max(200),
-  customerPhone: z.string().trim().max(30).optional(),
-  partySize: z.number().int().min(1).max(50),
-  notes: z.string().trim().max(500).optional(),
-})
+export const manualReservationSchema = z
+  .object({
+    sessionId: z.uuid().optional(),
+    eventId: z.uuid().optional(),
+    customerName: z.string().trim().min(2).max(100),
+    customerEmail: z.string().trim().email().max(200),
+    customerPhone: z.string().trim().max(30).optional(),
+    partySize: z.number().int().min(1).max(50),
+    notes: z.string().trim().max(500).optional(),
+  })
+  .refine((data) => (data.sessionId ? 1 : 0) + (data.eventId ? 1 : 0) === 1, {
+    message: 'Choisissez soit un créneau d’atelier, soit un événement',
+    path: ['sessionId'],
+  })
 
 export const scheduleSlotSchema = z.object({
   weekday: z.number().int().min(0).max(6),

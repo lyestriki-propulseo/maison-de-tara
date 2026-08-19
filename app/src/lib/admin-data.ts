@@ -202,7 +202,8 @@ export const createManualReservation = createServerFn({ method: 'POST' })
     const { data: reservation, error } = await db
       .from('reservations')
       .insert({
-        session_instance_id: data.sessionId,
+        session_instance_id: data.sessionId ?? null,
+        event_id: data.eventId ?? null,
         party_size: data.partySize,
         customer_name: data.customerName,
         customer_email: data.customerEmail,

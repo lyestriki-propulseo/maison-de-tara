@@ -1,4 +1,4 @@
-import { CalendarDays, Clock3, Home, Sparkles } from 'lucide-react'
+import { CalendarDays, Clock3, Home, Image, Sparkles, Users } from 'lucide-react'
 import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
 import { requireSession } from '@/lib/admin-auth'
 import taraLogo from '../../assets/mdt_logo_complet_transparent.png?url'
@@ -19,6 +19,8 @@ function AdminLayout() {
           <AdminLink to="/admin" exact>Accueil</AdminLink>
           <AdminLink to="/admin/agenda">Agenda</AdminLink>
           <AdminLink to="/admin/programme">Programme</AdminLink>
+          <AdminLink to="/admin/reservations">Réservations</AdminLink>
+          <AdminLink to="/admin/contenu">Contenu</AdminLink>
           <AdminLink to="/admin/horaires">Horaires</AdminLink>
         </nav>
       </header>
@@ -57,6 +59,22 @@ function AdminLayout() {
             Programme
           </Link>
           <Link
+            to="/admin/reservations"
+            className="tara-admin-nav-link"
+            activeProps={{ className: 'tara-admin-nav-link is-active' }}
+          >
+            <Users size={17} aria-hidden="true" />
+            Réservations
+          </Link>
+          <Link
+            to="/admin/contenu"
+            className="tara-admin-nav-link"
+            activeProps={{ className: 'tara-admin-nav-link is-active' }}
+          >
+            <Image size={17} aria-hidden="true" />
+            Contenu
+          </Link>
+          <Link
             to="/admin/horaires"
             className="tara-admin-nav-link"
             activeProps={{ className: 'tara-admin-nav-link is-active' }}
@@ -88,7 +106,7 @@ function AdminLink({
   exact = false,
   children,
 }: {
-  to: '/admin' | '/admin/agenda' | '/admin/programme' | '/admin/horaires'
+  to: '/admin' | '/admin/agenda' | '/admin/programme' | '/admin/reservations' | '/admin/contenu' | '/admin/horaires'
   exact?: boolean
   children: React.ReactNode
 }) {

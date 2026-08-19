@@ -14,8 +14,10 @@ import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
+import { Route as AdminReservationsRouteImport } from './routes/admin/reservations'
 import { Route as AdminProgrammeRouteImport } from './routes/admin/programme'
 import { Route as AdminHorairesRouteImport } from './routes/admin/horaires'
+import { Route as AdminContenuRouteImport } from './routes/admin/contenu'
 import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
 
 const LoginRoute = LoginRouteImport.update({
@@ -43,6 +45,11 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminReservationsRoute = AdminReservationsRouteImport.update({
+  id: '/reservations',
+  path: '/reservations',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminProgrammeRoute = AdminProgrammeRouteImport.update({
   id: '/programme',
   path: '/programme',
@@ -51,6 +58,11 @@ const AdminProgrammeRoute = AdminProgrammeRouteImport.update({
 const AdminHorairesRoute = AdminHorairesRouteImport.update({
   id: '/horaires',
   path: '/horaires',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminContenuRoute = AdminContenuRouteImport.update({
+  id: '/contenu',
+  path: '/contenu',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminAgendaRoute = AdminAgendaRouteImport.update({
@@ -64,8 +76,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -73,8 +87,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -84,8 +100,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/contenu': typeof AdminContenuRoute
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -96,8 +114,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/admin/agenda'
+    | '/admin/contenu'
     | '/admin/horaires'
     | '/admin/programme'
+    | '/admin/reservations'
     | '/api/health'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -105,8 +125,10 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/admin/agenda'
+    | '/admin/contenu'
     | '/admin/horaires'
     | '/admin/programme'
+    | '/admin/reservations'
     | '/api/health'
     | '/admin'
   id:
@@ -115,8 +137,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/admin/agenda'
+    | '/admin/contenu'
     | '/admin/horaires'
     | '/admin/programme'
+    | '/admin/reservations'
     | '/api/health'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -165,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/reservations': {
+      id: '/admin/reservations'
+      path: '/reservations'
+      fullPath: '/admin/reservations'
+      preLoaderRoute: typeof AdminReservationsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/programme': {
       id: '/admin/programme'
       path: '/programme'
@@ -179,6 +210,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminHorairesRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/contenu': {
+      id: '/admin/contenu'
+      path: '/contenu'
+      fullPath: '/admin/contenu'
+      preLoaderRoute: typeof AdminContenuRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/agenda': {
       id: '/admin/agenda'
       path: '/agenda'
@@ -191,15 +229,19 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminAgendaRoute: typeof AdminAgendaRoute
+  AdminContenuRoute: typeof AdminContenuRoute
   AdminHorairesRoute: typeof AdminHorairesRoute
   AdminProgrammeRoute: typeof AdminProgrammeRoute
+  AdminReservationsRoute: typeof AdminReservationsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAgendaRoute: AdminAgendaRoute,
+  AdminContenuRoute: AdminContenuRoute,
   AdminHorairesRoute: AdminHorairesRoute,
   AdminProgrammeRoute: AdminProgrammeRoute,
+  AdminReservationsRoute: AdminReservationsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

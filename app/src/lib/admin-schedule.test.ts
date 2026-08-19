@@ -29,6 +29,37 @@ describe('manualReservationSchema', () => {
 
     expect(result.success).toBe(false)
   })
+
+  test('accepte une réservation manuelle ciblant un événement', () => {
+    const result = manualReservationSchema.safeParse({
+      eventId: '59f7069f-82e7-44df-a907-c2d22bc6062f',
+      customerName: 'Camille Martin',
+      customerEmail: 'camille@example.com',
+      partySize: 2,
+    })
+
+    expect(result.success).toBe(true)
+  })
+
+  test('refuse si ni créneau ni événement, ou les deux à la fois', () => {
+    expect(
+      manualReservationSchema.safeParse({
+        customerName: 'Camille Martin',
+        customerEmail: 'camille@example.com',
+        partySize: 2,
+      }).success,
+    ).toBe(false)
+
+    expect(
+      manualReservationSchema.safeParse({
+        sessionId: '59f7069f-82e7-44df-a907-c2d22bc6062f',
+        eventId: '59f7069f-82e7-44df-a907-c2d22bc6062f',
+        customerName: 'Camille Martin',
+        customerEmail: 'camille@example.com',
+        partySize: 2,
+      }).success,
+    ).toBe(false)
+  })
 })
 
 describe('scheduleGridSchema', () => {

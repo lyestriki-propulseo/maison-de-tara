@@ -1513,7 +1513,7 @@ Ajouter à la fin de `css/premium-contact.css` :
 .premium-contact .dp__note{font-size:.72rem;font-style:italic;color:color-mix(in srgb, var(--encre) 55%, transparent);margin-top:.5rem;text-align:center}
 ```
 
-- [ ] **Step 2: Écrire `js/site-contact.js`**
+- [ ] **Step 3: Écrire `js/site-contact.js`**
 
 ```js
 // js/site-contact.js — Contact + privatisation, un seul formulaire avec sélecteur de mode.
@@ -1599,12 +1599,12 @@ function initContactForm(form) {
 }
 ```
 
-- [ ] **Step 3: Vérifier la syntaxe et reconstruire**
+- [ ] **Step 4: Vérifier la syntaxe et reconstruire**
 
 Run (depuis `C:/mdt-site/wandau-mdt`) : `node --check js/site-contact.js && node build.mjs`
 Expected: `9 page(s) assemblée(s).`
 
-- [ ] **Step 4: Vérification manuelle par l'utilisateur**
+- [ ] **Step 5: Vérification manuelle par l'utilisateur**
 
 Ouvrir `contact.html` : tester le mode "Message" (nom/email/sujet/message) et le mode
 "Privatisation" (champs supplémentaires visibles, agenda cliquable). Soumettre les deux.
@@ -1613,7 +1613,7 @@ Expected (à confirmer par l'utilisateur) : ligne visible dans `requests` (véri
 vérifier via une requête SQL ponctuelle), email d'alerte reçu par Tara, email d'accusé de
 réception reçu par le client.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add wandau-mdt/js/site-contact.js wandau-mdt/_src/contact.html wandau-mdt/contact.html wandau-mdt/css/premium-contact.css

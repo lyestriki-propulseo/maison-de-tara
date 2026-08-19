@@ -362,6 +362,11 @@
         </div>
         <div class="form-card">
           <form id="contactForm" novalidate>
+            <div class="pills" role="radiogroup" aria-label="Type de demande">
+              <label class="pill"><input type="radio" name="mode" value="contact" checked><span>Message</span></label>
+              <label class="pill"><input type="radio" name="mode" value="privatisation"><span>Privatisation</span></label>
+            </div>
+
             <div class="field--row">
               <div class="field">
                 <label for="cf-nom">Votre nom</label>
@@ -372,10 +377,45 @@
                 <input id="cf-email" name="email" type="email" autocomplete="email" required>
               </div>
             </div>
+
             <div class="field">
               <label for="cf-sujet">Sujet</label>
               <input id="cf-sujet" name="sujet" type="text">
             </div>
+
+            <div id="cf-privatisation" hidden>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-tel">Téléphone <span class="opt">(facultatif)</span></label>
+                  <input id="cf-tel" name="telephone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="cf-personnes">Nombre de personnes</label>
+                  <input id="cf-personnes" name="personnes" type="number" min="1" max="60">
+                </div>
+              </div>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-date-btn">Date souhaitée</label>
+                  <div class="dp">
+                    <button type="button" class="dp__field" id="cf-date-btn" aria-haspopup="dialog" aria-expanded="false">Choisir une date</button>
+                    <input type="hidden" id="cf-date" name="date">
+                    <div class="dp__pop" hidden></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="cf-type">Type d'événement</label>
+                  <select id="cf-type" name="typeEvenement">
+                    <option value="workshop">Atelier</option>
+                    <option value="soiree">Soirée</option>
+                    <option value="kids">Enfants</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             <div class="field">
               <label for="cf-message">Votre message</label>
               <textarea id="cf-message" name="message" required></textarea>
@@ -449,11 +489,11 @@
   }
 })();
 </script>
+<script src="js/mdt-datepicker.js"></script>
 <script type="module">
   import './js/site-hours.js';
-  import { bindForm } from './js/forms-supabase.js';
-  bindForm(document.getElementById('contactForm'), 'contact');
 </script>
+<script type="module" src="js/site-contact.js"></script>
 <!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
 <script type="module" src="js/site-content.js"></script>
 </body>

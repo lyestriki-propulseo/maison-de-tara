@@ -451,3 +451,55 @@
   .premium-contact .hero-cta{text-align:center}
 }
 
+/* Sélecteur Message / Privatisation + agenda (mêmes composants que le tunnel de réservation,
+   portés ici avec les tokens de cette page) */
+.premium-contact .pills{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.4rem}
+.premium-contact .pill{position:relative;cursor:pointer;margin:0}
+.premium-contact .pill input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.premium-contact .pill span{
+  display:inline-block;font-size:.85rem;letter-spacing:.03em;color:var(--encre);
+  padding:.5rem 1rem;border:1px solid color-mix(in srgb, var(--laiton) 55%, transparent);
+  border-radius:999px;background:var(--blanc);
+  transition:background .25s ease, border-color .25s ease, color .25s ease;
+}
+.premium-contact .pill:hover span{border-color:var(--laiton)}
+.premium-contact .pill input:checked + span{background:var(--terracotta);border-color:var(--terracotta);color:var(--blanc);font-weight:500}
+.premium-contact .pill input:focus-visible + span{outline:2px solid var(--laiton);outline-offset:2px}
+
+.premium-contact .field select{
+  font-family:inherit;font-size:1rem;color:var(--encre);width:100%;
+  background:transparent;border:0;border-bottom:1px solid color-mix(in srgb, var(--laiton) 55%, transparent);
+  padding:.6rem .1rem;border-radius:0;cursor:pointer;
+}
+
+.premium-contact .dp{position:relative}
+.premium-contact .dp__field{
+  font-family:inherit;font-size:1rem;color:color-mix(in srgb, var(--encre) 55%, transparent);text-align:left;
+  width:100%;background:transparent;border:0;border-bottom:1px solid color-mix(in srgb, var(--laiton) 55%, transparent);
+  padding:.6rem .1rem;cursor:pointer;
+}
+.premium-contact .dp__field.has-value{color:var(--encre)}
+.premium-contact .dp__pop{
+  position:absolute;top:calc(100% + 8px);left:0;z-index:30;width:18rem;max-width:86vw;
+  background:var(--blanc);border:1px solid var(--laiton);box-shadow:0 14px 32px rgba(44,36,25,.16);
+  padding:1rem 1rem .75rem;
+}
+.premium-contact .dp__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.premium-contact .dp__month{font-weight:500;color:var(--encre)}
+.premium-contact .dp__nav{
+  background:transparent;border:1px solid color-mix(in srgb, var(--laiton) 50%, transparent);border-radius:999px;
+  width:1.9rem;height:1.9rem;color:var(--terracotta);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;padding:0;
+}
+.premium-contact .dp__nav:disabled{opacity:.3;cursor:default}
+.premium-contact .dp__grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.premium-contact .dp__weekdays span{font-size:.6rem;text-transform:uppercase;color:var(--laiton);padding:.25rem 0}
+.premium-contact .dp__day{
+  background:transparent;border:0;border-radius:999px;cursor:pointer;font-size:.85rem;color:var(--encre);
+  width:2.1rem;height:2.1rem;margin:0 auto;display:inline-flex;align-items:center;justify-content:center;
+}
+.premium-contact .dp__day:hover:not(:disabled){background:var(--sable)}
+.premium-contact .dp__day:disabled{color:color-mix(in srgb, var(--encre) 28%, transparent);cursor:default}
+.premium-contact .dp__day.is-selected{background:var(--terracotta);color:var(--blanc)}
+.premium-contact .dp__note{font-size:.72rem;font-style:italic;color:color-mix(in srgb, var(--encre) 55%, transparent);margin-top:.5rem;text-align:center}
+

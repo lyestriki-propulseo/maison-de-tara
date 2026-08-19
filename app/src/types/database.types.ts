@@ -272,6 +272,7 @@ export type Database = {
           synced_to_brevo: boolean
           created_at: string
           updated_at: string
+          notified_at: string | null
         }
         Insert: {
           id?: string
@@ -282,6 +283,7 @@ export type Database = {
           synced_to_brevo?: boolean
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Update: {
           id?: string
@@ -292,6 +294,7 @@ export type Database = {
           synced_to_brevo?: boolean
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Relationships: []
       }
@@ -435,6 +438,7 @@ export type Database = {
           event_type: Database['public']['Enums']['event_type'] | null
           created_at: string
           updated_at: string
+          notified_at: string | null
         }
         Insert: {
           id?: string
@@ -449,6 +453,7 @@ export type Database = {
           event_type?: Database['public']['Enums']['event_type'] | null
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Update: {
           id?: string
@@ -463,6 +468,7 @@ export type Database = {
           event_type?: Database['public']['Enums']['event_type'] | null
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Relationships: []
       }
@@ -482,6 +488,7 @@ export type Database = {
           notes: string | null
           created_at: string
           updated_at: string
+          notified_at: string | null
         }
         Insert: {
           id?: string
@@ -498,6 +505,7 @@ export type Database = {
           notes?: string | null
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Update: {
           id?: string
@@ -514,6 +522,7 @@ export type Database = {
           notes?: string | null
           created_at?: string
           updated_at?: string
+          notified_at?: string | null
         }
         Relationships: []
       }

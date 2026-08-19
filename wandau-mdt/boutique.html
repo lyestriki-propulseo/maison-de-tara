@@ -68,7 +68,7 @@
 <meta property="og:description" content="Décoration, textiles block print, lampes, céramiques, art de la table et idées cadeaux choisis avec soin : la boutique de la Maison de Tara, à La Garenne-Colombes.">
 <link rel="stylesheet" href="css/premium-boutique.css">
 </head>
-<body>
+<body data-mdt-page="boutique">
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
 <a class="skip-link" href="#main">Aller au contenu</a>
 
@@ -207,19 +207,19 @@
       <div class="hero-head reveal">
         <!-- Demande 22/07 : plus de doublon « La Boutique » — l'eyebrow devient
              la ligne 1 du titre (agrandie, verte), « de la Maison » en ligne 2. -->
-        <h1><span class="ligne1">La Boutique</span> <span class="ligne2">de la Maison</span></h1>
+        <h1><span class="ligne1" data-mdt-content="boutique.hero.titre1">La Boutique</span> <span class="ligne2" data-mdt-content="boutique.hero.titre2">de la Maison</span></h1>
       </div>
 
       <div class="recit">
-        <p class="recit-lead reveal" data-delay="1">J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse.</p>
+        <p class="recit-lead reveal" data-delay="1" data-mdt-content="boutique.hero.texte1">J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse.</p>
         <!-- Devanture verte de la maison au-dessus du second paragraphe (retour client) -->
         <figure class="hero-devanture reveal" data-delay="2">
           <div class="cadre double-bordure">
-            <img src="../assets-charte/devanture-verte.jpg" alt="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
+            <img src="../assets-charte/devanture-verte.jpg" alt="La devanture verte de la Maison de Tara, à La Garenne-Colombes" data-mdt-content="boutique.hero.photo">
           </div>
           <figcaption class="legende-libre"><span class="main">comme à la maison</span>La Garenne-Colombes</figcaption>
         </figure>
-        <p class="recit-suite reveal" data-delay="3">C'est cette envie que l'on retrouve dans la boutique de la maison. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur.</p>
+        <p class="recit-suite reveal" data-delay="3" data-mdt-content="boutique.hero.texte2">C'est cette envie que l'on retrouve dans la boutique de la maison. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur.</p>
       </div>
     </div>
   </section>
@@ -230,82 +230,82 @@
   <section class="galerie floral" aria-labelledby="titre-galerie">
     <div class="container">
       <div class="galerie-titre reveal">
-        <span class="surtitre">Ce que vous trouverez</span>
-        <h2 id="titre-galerie">Une sélection pour la maison.</h2>
+        <span class="surtitre" data-mdt-content="boutique.galerie.surtitre">Ce que vous trouverez</span>
+        <h2 id="titre-galerie" data-mdt-content="boutique.galerie.titre">Une sélection pour la maison.</h2>
       </div>
 
       <div class="murs">
 
         <figure class="piece piece--01 reveal">
           <div class="cadre cadre--arche double-bordure">
-            <img src="../assets-premium-lp/interior-palette.jpg" alt="Objets de décoration aux teintes douces dans un intérieur" loading="lazy">
+            <img src="../assets-premium-lp/interior-palette.jpg" alt="Objets de décoration aux teintes douces dans un intérieur" loading="lazy" data-mdt-content="boutique.galerie.01.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">01</span><h3>Décoration</h3>
-            <p>Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p>
+            <span class="num" aria-hidden="true">01</span><h3 data-mdt-content="boutique.galerie.01.titre">Décoration</h3>
+            <p data-mdt-content="boutique.galerie.01.texte">Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--02 reveal" data-delay="1">
           <div class="cadre cadre--paysage double-bordure">
-            <img src="../assets-premium-lp/blockprint-marigold.jpg" alt="Textile imprimé block print aux motifs orangés" loading="lazy">
+            <img src="../assets-premium-lp/blockprint-marigold.jpg" alt="Textile imprimé block print aux motifs orangés" loading="lazy" data-mdt-content="boutique.galerie.02.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">02</span><h3>Textiles &amp; block print</h3>
-            <p>Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p>
+            <span class="num" aria-hidden="true">02</span><h3 data-mdt-content="boutique.galerie.02.titre">Textiles &amp; block print</h3>
+            <p data-mdt-content="boutique.galerie.02.texte">Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--interlude reveal">
           <div class="cadre cadre--portrait">
-            <img src="../assets-charte/interieur-vase.jpg" alt="Un vase posé dans un intérieur baigné de lumière" loading="lazy">
+            <img src="../assets-charte/interieur-vase.jpg" alt="Un vase posé dans un intérieur baigné de lumière" loading="lazy" data-mdt-content="boutique.galerie.interlude.photo">
           </div>
           <figcaption><span class="main">au détour d'une pièce</span></figcaption>
         </figure>
 
         <figure class="piece piece--03 reveal" data-delay="1">
           <div class="cadre cadre--portrait double-bordure">
-            <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques façonnées à la main" loading="lazy">
+            <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques façonnées à la main" loading="lazy" data-mdt-content="boutique.galerie.03.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">03</span><h3>Céramiques</h3>
-            <p>Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p>
+            <span class="num" aria-hidden="true">03</span><h3 data-mdt-content="boutique.galerie.03.titre">Céramiques</h3>
+            <p data-mdt-content="boutique.galerie.03.texte">Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--04 reveal">
           <div class="cadre cadre--arche double-bordure">
-            <img src="../assets-charte/salon-terracotta.jpg" alt="Une lampe réchauffe la lumière d'un salon terracotta" loading="lazy">
+            <img src="../assets-charte/salon-terracotta.jpg" alt="Une lampe réchauffe la lumière d'un salon terracotta" loading="lazy" data-mdt-content="boutique.galerie.04.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">04</span><h3>Lampes</h3>
-            <p>Pour réchauffer la lumière d'une pièce et créer une atmosphère.</p>
+            <span class="num" aria-hidden="true">04</span><h3 data-mdt-content="boutique.galerie.04.titre">Lampes</h3>
+            <p data-mdt-content="boutique.galerie.04.texte">Pour réchauffer la lumière d'une pièce et créer une atmosphère.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--05 reveal" data-delay="1">
           <div class="cadre cadre--paysage double-bordure">
-            <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux et art de la table présentés en boutique" loading="lazy">
+            <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux et art de la table présentés en boutique" loading="lazy" data-mdt-content="boutique.galerie.05.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">05</span><h3>Art de la table</h3>
-            <p>De quoi dresser une jolie table et recevoir comme on aime.</p>
+            <span class="num" aria-hidden="true">05</span><h3 data-mdt-content="boutique.galerie.05.titre">Art de la table</h3>
+            <p data-mdt-content="boutique.galerie.05.texte">De quoi dresser une jolie table et recevoir comme on aime.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--06 reveal">
           <div class="cadre cadre--portrait double-bordure">
-            <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Un paquet cadeau soigneusement emballé" loading="lazy">
+            <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Un paquet cadeau soigneusement emballé" loading="lazy" data-mdt-content="boutique.galerie.06.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">06</span><h3>Idées cadeaux</h3>
-            <p>Pour faire plaisir, ou se faire plaisir, au fil des saisons.</p>
+            <span class="num" aria-hidden="true">06</span><h3 data-mdt-content="boutique.galerie.06.titre">Idées cadeaux</h3>
+            <p data-mdt-content="boutique.galerie.06.texte">Pour faire plaisir, ou se faire plaisir, au fil des saisons.</p>
           </figcaption>
         </figure>
 
         <figure class="piece piece--accent reveal" data-delay="2">
           <div class="cadre">
-            <img src="../assets-charte/tasses-rayees.jpg" alt="Tasses rayées colorées empilées" loading="lazy">
+            <img src="../assets-charte/tasses-rayees.jpg" alt="Tasses rayées colorées empilées" loading="lazy" data-mdt-content="boutique.galerie.accent.photo">
           </div>
           <figcaption><span class="main">coup de cœur</span></figcaption>
         </figure>
@@ -320,10 +320,10 @@
       <img src="../assets-premium-lp/blockprint-green.jpg" alt="" loading="lazy">
     </div>
     <div class="container reveal">
-      <span class="surtitre">fait main</span>
-      <h2 id="titre-artisanat">L'artisanat, au cœur de la sélection</h2>
+      <span class="surtitre" data-mdt-content="boutique.artisanat.surtitre">fait main</span>
+      <h2 id="titre-artisanat" data-mdt-content="boutique.artisanat.titre">L'artisanat, au cœur de la sélection</h2>
       <div class="filet" aria-hidden="true"><span></span></div>
-      <p>L'artisanat y occupe une place particulière. Le fait main, les belles matières, les imprimés block print et les savoir-faire transmis de génération en génération font partie de ce qui m'inspire depuis toujours. Chaque pièce a été choisie parce qu'elle apporte quelque chose à une maison&nbsp;: de la chaleur, de la couleur, du caractère ou simplement du plaisir au quotidien.</p>
+      <p data-mdt-content="boutique.artisanat.texte">L'artisanat y occupe une place particulière. Le fait main, les belles matières, les imprimés block print et les savoir-faire transmis de génération en génération font partie de ce qui m'inspire depuis toujours. Chaque pièce a été choisie parce qu'elle apporte quelque chose à une maison&nbsp;: de la chaleur, de la couleur, du caractère ou simplement du plaisir au quotidien.</p>
     </div>
   </section>
 
@@ -333,9 +333,9 @@
   <section class="invitation floral">
     <div class="container">
       <div class="carte double-bordure reveal">
-        <span class="main-titre">Maison de Tara</span>
-        <p>La sélection évolue au fil des saisons, des rencontres et des nouvelles découvertes. Que vous cherchiez un cadeau, une pièce pour votre intérieur ou simplement un peu d'inspiration, j'espère que vous y trouverez quelque chose qui vous donnera envie de rentrer chez vous.</p>
-        <p><strong>Aucune réservation n'est nécessaire pour découvrir la boutique.</strong> N'hésitez pas à pousser la porte pendant les horaires d'ouverture&nbsp;: ce sera un plaisir de vous accueillir à la maison.</p>
+        <span class="main-titre" data-mdt-content="boutique.invitation.titre">Maison de Tara</span>
+        <p data-mdt-content="boutique.invitation.texte1">La sélection évolue au fil des saisons, des rencontres et des nouvelles découvertes. Que vous cherchiez un cadeau, une pièce pour votre intérieur ou simplement un peu d'inspiration, j'espère que vous y trouverez quelque chose qui vous donnera envie de rentrer chez vous.</p>
+        <p data-mdt-content="boutique.invitation.texte2"><strong>Aucune réservation n'est nécessaire pour découvrir la boutique.</strong> N'hésitez pas à pousser la porte pendant les horaires d'ouverture&nbsp;: ce sera un plaisir de vous accueillir à la maison.</p>
         <a href="contact.html" class="btn">Horaires &amp; accès</a>
       </div>
     </div>
@@ -399,5 +399,7 @@
   items.forEach(function(el){ io.observe(el); });
 })();
 </script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
 </body>
 </html>

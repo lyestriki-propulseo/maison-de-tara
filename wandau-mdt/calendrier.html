@@ -68,7 +68,7 @@
 <meta property="og:description" content="Les ateliers, événements et nouveautés de la boutique à venir à la Maison de Tara, à La Garenne-Colombes.">
 <link rel="stylesheet" href="css/premium-calendrier.css">
 </head>
-<body>
+<body data-mdt-page="calendrier">
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
 <a class="skip-link" href="#main">Aller au contenu</a>
 
@@ -204,14 +204,14 @@
   <!-- En-tête éditorial -->
   <section class="hero">
     <div class="container">
-      <span class="script" aria-hidden="true">Le calendrier</span>
-      <h1>Les prochains rendez-vous</h1>
-      <p class="intro">Ateliers, événements et nouveautés de la boutique&nbsp;: tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
+      <span class="script" aria-hidden="true" data-mdt-content="calendrier.hero.eyebrow">Le calendrier</span>
+      <h1 data-mdt-content="calendrier.hero.titre">Les prochains rendez-vous</h1>
+      <p class="intro" data-mdt-content="calendrier.hero.intro">Ateliers, événements et nouveautés de la boutique&nbsp;: tout ce qui se passe à la maison. Cliquez sur une date marquée pour en savoir plus.</p>
     </div>
     <div class="arches" aria-hidden="true">
-      <figure class="arch"><img src="../assets-premium-lp/atelier-action.jpg" alt="" loading="lazy"></figure>
-      <figure class="arch"><img src="../assets-charte/cuisine-cafe.jpg" alt="" loading="lazy"></figure>
-      <figure class="arch"><img src="../assets-premium-lp/sortie-four.jpg" alt="" loading="lazy"></figure>
+      <figure class="arch"><img src="../assets-premium-lp/atelier-action.jpg" alt="" loading="lazy" data-mdt-content="calendrier.hero.photo1"></figure>
+      <figure class="arch"><img src="../assets-charte/cuisine-cafe.jpg" alt="" loading="lazy" data-mdt-content="calendrier.hero.photo2"></figure>
+      <figure class="arch"><img src="../assets-premium-lp/sortie-four.jpg" alt="" loading="lazy" data-mdt-content="calendrier.hero.photo3"></figure>
     </div>
   </section>
 
@@ -219,8 +219,8 @@
   <section class="container body-grid">
 
     <div class="prog-col">
-      <h2 class="prog-heading">Le programme de la maison</h2>
-      <p class="prog-heading-note">Par ordre de date</p>
+      <h2 class="prog-heading" data-mdt-content="calendrier.programme.titre">Le programme de la maison</h2>
+      <p class="prog-heading-note" data-mdt-content="calendrier.programme.note">Par ordre de date</p>
       <ol class="prog-list" id="programme" aria-label="Programme des événements"></ol>
     </div>
 
@@ -232,7 +232,7 @@
 
   <!-- Sortie de page douce : une ligne, pas de bande (revue expert 12/06) -->
   <div class="page-envoi">
-    <p class="page-envoi__script">Une date vous fait envie&nbsp;?</p>
+    <p class="page-envoi__script" data-mdt-content="calendrier.envoi.texte">Une date vous fait envie&nbsp;?</p>
     <a class="page-envoi__btn" href="atelier.html#reserver">R&eacute;server un atelier</a>
   </div>
 
@@ -275,5 +275,7 @@
 <script src="js/drawer.js"></script>
 <script src="js/header-pages.js"></script>
 <script type="module" src="js/premium-calendrier.js"></script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
 </body>
 </html>

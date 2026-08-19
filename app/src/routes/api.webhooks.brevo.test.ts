@@ -90,3 +90,69 @@ test('newsletter déjà notifiée (claim renvoie null) : aucun envoi, 200', asyn
   expect(res.status).toBe(200)
   expect(sendMock).not.toHaveBeenCalled()
 })
+
+test('reservation : erreur de claim loguée, aucun envoi, 200', async () => {
+  const sendMock = vi.fn()
+  vi.doMock('@/lib/brevo/client', () => ({ sendTransactionalEmail: sendMock, addContactToList: vi.fn() }))
+  const chain = {
+    update: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    is: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockResolvedValue({ data: null, error: { message: 'boom' } }),
+  }
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ from: () => chain }) }))
+  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+  const { webhookHandler } = await import('./api.webhooks.brevo')
+  const res = await webhookHandler(request({ type: 'reservation', id: 'r-1' }, 'le-vrai-secret-0123456789'))
+
+  expect(res.status).toBe(200)
+  expect(sendMock).not.toHaveBeenCalled()
+  expect(errorSpy).toHaveBeenCalledWith('[webhook:reservation] claim failed:', { message: 'boom' })
+  errorSpy.mockRestore()
+})
+
+test('newsletter : erreur de claim loguée, aucun envoi, 200', async () => {
+  const sendMock = vi.fn()
+  vi.doMock('@/lib/brevo/client', () => ({ sendTransactionalEmail: sendMock, addContactToList: vi.fn() }))
+  const chain = {
+    update: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    is: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockResolvedValue({ data: null, error: { message: 'boom' } }),
+  }
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ from: () => chain }) }))
+  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+  const { webhookHandler } = await import('./api.webhooks.brevo')
+  const res = await webhookHandler(request({ type: 'newsletter', id: 'nl-1' }, 'le-vrai-secret-0123456789'))
+
+  expect(res.status).toBe(200)
+  expect(sendMock).not.toHaveBeenCalled()
+  expect(errorSpy).toHaveBeenCalledWith('[webhook:newsletter] claim failed:', { message: 'boom' })
+  errorSpy.mockRestore()
+})
+
+test('request : erreur de claim loguée, aucun envoi, 200', async () => {
+  const sendMock = vi.fn()
+  vi.doMock('@/lib/brevo/client', () => ({ sendTransactionalEmail: sendMock, addContactToList: vi.fn() }))
+  const chain = {
+    update: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    is: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockResolvedValue({ data: null, error: { message: 'boom' } }),
+  }
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ from: () => chain }) }))
+  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+  const { webhookHandler } = await import('./api.webhooks.brevo')
+  const res = await webhookHandler(request({ type: 'request', id: 'req-1' }, 'le-vrai-secret-0123456789'))
+
+  expect(res.status).toBe(200)
+  expect(sendMock).not.toHaveBeenCalled()
+  expect(errorSpy).toHaveBeenCalledWith('[webhook:request] claim failed:', { message: 'boom' })
+  errorSpy.mockRestore()
+})

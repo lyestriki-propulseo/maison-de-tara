@@ -637,10 +637,7 @@
 
 <!-- Menu mobile (drawer) — extrait en js/drawer.js, partagé avec scripts-min.html (DRY) -->
 <script src="js/drawer.js"></script>
-<script type="module">
-  import { bindForm } from './js/forms-supabase.js';
-  bindForm(document.getElementById('newsletterForm'), 'newsletter');
-</script>
+<script type="module" src="js/site-newsletter.js"></script>
 <!-- Rendez-vous de l'accueil depuis Supabase (js/site-events.js) -->
 <script type="module" src="js/home-events.js"></script>
 <!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->

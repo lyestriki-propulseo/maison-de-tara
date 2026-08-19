@@ -1,9 +1,57 @@
 // Généré par scripts/gen-types.mjs (introspection de la base). Ne pas éditer à la main.
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   public: {
     Tables: {
+      content_blocks: {
+        Row: {
+          id: string
+          page: string
+          section: string
+          field_key: string
+          field_type: Database['public']['Enums']['content_field_type']
+          label: string
+          text_value: string | null
+          image_path: string | null
+          image_caption: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          page: string
+          section: string
+          field_key: string
+          field_type: Database['public']['Enums']['content_field_type']
+          label: string
+          text_value?: string | null
+          image_path?: string | null
+          image_caption?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          page?: string
+          section?: string
+          field_key?: string
+          field_type?: Database['public']['Enums']['content_field_type']
+          label?: string
+          text_value?: string | null
+          image_path?: string | null
+          image_caption?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           id: string
@@ -313,6 +361,66 @@ export type Database = {
         }
         Relationships: []
       }
+      public_availability: {
+        Row: {
+          id: string | null
+          session_date: string | null
+          start_time: string | null
+          duration_minutes: number | null
+          availability: string | null
+        }
+        Insert: {
+          id?: string | null
+          session_date?: string | null
+          start_time?: string | null
+          duration_minutes?: number | null
+          availability?: string | null
+        }
+        Update: {
+          id?: string | null
+          session_date?: string | null
+          start_time?: string | null
+          duration_minutes?: number | null
+          availability?: string | null
+        }
+        Relationships: []
+      }
+      public_availability_events: {
+        Row: {
+          id: string | null
+          slug: string | null
+          title: string | null
+          event_type: Database['public']['Enums']['event_type'] | null
+          description: string | null
+          starts_at: string | null
+          ends_at: string | null
+          image_path: string | null
+          availability: string | null
+        }
+        Insert: {
+          id?: string | null
+          slug?: string | null
+          title?: string | null
+          event_type?: Database['public']['Enums']['event_type'] | null
+          description?: string | null
+          starts_at?: string | null
+          ends_at?: string | null
+          image_path?: string | null
+          availability?: string | null
+        }
+        Update: {
+          id?: string | null
+          slug?: string | null
+          title?: string | null
+          event_type?: Database['public']['Enums']['event_type'] | null
+          description?: string | null
+          starts_at?: string | null
+          ends_at?: string | null
+          image_path?: string | null
+          availability?: string | null
+        }
+        Relationships: []
+      }
       requests: {
         Row: {
           id: string
@@ -503,6 +611,7 @@ export type Database = {
     Views: { [_ in never]: never }
     Functions: { [_ in never]: never }
     Enums: {
+      content_field_type: 'text' | 'image'
       event_type: 'workshop' | 'soiree' | 'kids' | 'collaboration' | 'autre'
       gallery_size: 'grande' | 'moyenne' | 'petite'
       gift_card_status: 'active' | 'used' | 'expired' | 'cancelled'

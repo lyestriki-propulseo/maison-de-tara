@@ -1,6 +1,7 @@
 // mdt-datepicker.js — sélecteur de date maison, aux couleurs de la charte.
 // Remplace l'agenda natif du navigateur (non stylable, souvent anglophone).
-// Marche sur tout conteneur .dp : bouton .dp__field + input hidden + .dp__pop.
+// Marche sur tout conteneur .dp : bouton .dp__field (optionnel si .dp--inline) + input hidden
+// + .dp__pop. Variante .dp--inline : l'agenda reste affiché en permanence, pas de popup.
 // Règles métier : pas de date passée, lundi fermé (atelier).
 (function () {
   'use strict';
@@ -18,15 +19,16 @@
   }
 
   document.querySelectorAll('.dp').forEach(function (dp) {
+    var inline = dp.classList.contains('dp--inline');
     var btn = dp.querySelector('.dp__field');
     var hidden = dp.querySelector('input[type="hidden"]');
     var pop = dp.querySelector('.dp__pop');
-    if (!btn || !hidden || !pop) return;
+    if (!hidden || !pop || (!inline && !btn)) return;
 
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     var view = new Date(today.getFullYear(), today.getMonth(), 1);
-    var placeholder = btn.textContent;
+    var placeholder = btn ? btn.textContent : '';
 
     function render() {
       pop.textContent = '';
@@ -86,7 +88,10 @@
       b.className = 'dp__nav';
       b.textContent = txt;
       b.setAttribute('aria-label', label);
-      b.addEventListener('click', function () {
+      b.addEventListener('click', function (e) {
+        // Le rendu recrée les boutons (dont celui-ci) : sans stopPropagation, le clic remonte
+        // jusqu'au listener document qui voit une cible détachée du DOM et referme le popup.
+        e.stopPropagation();
         view = new Date(view.getFullYear(), view.getMonth() + dir, 1);
         render();
       });
@@ -95,26 +100,38 @@
 
     function pick(date) {
       hidden.value = iso(date);
-      btn.textContent = libelle(date);
-      btn.classList.add('has-value');
-      close();
-      btn.focus();
+      if (btn) {
+        btn.textContent = libelle(date);
+        btn.classList.add('has-value');
+      }
+      if (inline) {
+        render(); // rafraîchit juste le surlignage du jour choisi
+      } else {
+        close();
+        btn.focus();
+      }
+      // Permet à un consommateur (ex. tunnel de réservation) de réagir au choix de date.
+      hidden.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     function open() { render(); pop.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
     function close() { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
 
-    btn.addEventListener('click', function () { pop.hidden ? open() : close(); });
-    document.addEventListener('click', function (e) { if (!dp.contains(e.target)) close(); });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !pop.hidden) { close(); btn.focus(); }
-    });
+    if (inline) {
+      render();
+    } else {
+      btn.addEventListener('click', function () { pop.hidden ? open() : close(); });
+      document.addEventListener('click', function (e) { if (!dp.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !pop.hidden) { close(); btn.focus(); }
+      });
+    }
 
     // reset du formulaire (après envoi réussi) : on rend son libellé au bouton
     var form = dp.closest('form');
     if (form) form.addEventListener('reset', function () {
-      btn.textContent = placeholder;
-      btn.classList.remove('has-value');
+      if (btn) { btn.textContent = placeholder; btn.classList.remove('has-value'); }
+      if (inline) render();
     });
   });
 })();

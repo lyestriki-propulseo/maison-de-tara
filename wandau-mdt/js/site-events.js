@@ -30,8 +30,8 @@ function mapRow(row) {
     titre: row.title,
     type: TYPE_MAP[row.event_type] || 'evenement',
     description: row.description || '',
-    // Réservation en ligne branchée en Phase 4 ; pour l'instant, lien vers la page Atelier.
-    lienReservation: row.deposit_enabled ? 'atelier.html#reserver' : undefined,
+    // Tunnel de réservation unifié (atelier.html) : ?event=<id> présélectionne cet événement.
+    lienReservation: 'atelier.html?event=' + encodeURIComponent(row.id) + '#reserver',
   };
 }
 
@@ -47,7 +47,7 @@ export function loadEvents() {
   if (!CONFIGURED) return fromStaticFile();
   return fetch(
     SUPABASE_URL +
-      '/rest/v1/events?published=eq.true&select=id,title,event_type,description,starts_at,deposit_enabled&order=starts_at',
+      '/rest/v1/events?published=eq.true&select=id,title,event_type,description,starts_at&order=starts_at',
     { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } },
   )
     .then((r) => {

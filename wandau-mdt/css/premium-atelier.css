@@ -101,6 +101,8 @@
   transition:background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 .premium-atelier .btn:hover{background:var(--encre);border-color:var(--encre);color:var(--creme);transform:translateY(-2px);box-shadow:0 10px 24px rgba(44,36,25,.18)}
+.premium-atelier .btn:disabled{background:rgba(44,36,25,.18);border-color:transparent;color:rgba(44,36,25,.5);cursor:not-allowed}
+.premium-atelier .btn:disabled:hover{background:rgba(44,36,25,.18);border-color:transparent;color:rgba(44,36,25,.5);transform:none;box-shadow:none}
 /* ghost : encre depuis le passage de la section priva en beige (22/07) */
 .premium-atelier .btn--ghost{background:transparent;color:var(--encre);border-color:var(--laiton)}
 .premium-atelier .btn--ghost:hover{background:var(--laiton);border-color:var(--laiton);color:var(--encre)}
@@ -382,6 +384,14 @@
   margin-top:.6rem;text-align:center;
 }
 
+/* variante "agenda toujours visible" (mode Atelier du tunnel de réservation) : plus de
+   popup flottant, le calendrier reste affiché en permanence dans le flux de la page. */
+.premium-atelier .dp--inline .dp__pop{
+  position:static;width:auto;max-width:none;
+  background:none;border:0;box-shadow:none;padding:0;
+}
+.premium-atelier .dp--inline .dp__pop::before{content:none}
+
 /* formulaire — champs soulignés fins */
 .premium-atelier .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 2rem;margin-bottom:1.6rem}
 .premium-atelier .fld{display:flex;flex-direction:column}
@@ -428,6 +438,35 @@
 .premium-atelier .pill input:checked + span{background:var(--terracotta);border-color:var(--terracotta);color:var(--creme);font-weight:500}
 .premium-atelier .pill input:focus-visible + span{outline:2px solid var(--laiton);outline-offset:3px}
 .premium-atelier .pills--num .pill span{min-width:2.7rem;text-align:center;padding:.5rem .55rem}
+
+/* état 3 couleurs des créneaux (dispo / presque complet / complet) — même vocabulaire que
+   la légende de l'agenda admin, jamais de chiffre exact affiché */
+.premium-atelier .pill--presque span{border-color:var(--laiton)}
+.premium-atelier .pill--complet{cursor:default}
+.premium-atelier .pill--complet span{background:rgba(186,119,112,.12);border-color:var(--rose);color:var(--rose)}
+.premium-atelier .pill--complet:hover span{background:rgba(186,119,112,.12);border-color:var(--rose)}
+
+/* sélecteur de formule (atelier / événement) + liste d'événements réservables */
+.premium-atelier .picker__eyebrow{font-family:var(--hand);font-size:1.5rem;color:var(--laiton);display:inline-block;margin-bottom:.9rem}
+.premium-atelier .picker .dp{margin:1.3rem 0}
+.premium-atelier .picker .fld--pills{margin-top:1.2rem}
+.premium-atelier .picker__empty{font-size:.85rem;font-style:italic;color:rgba(44,36,25,.65);margin-top:.8rem}
+.premium-atelier .picker__empty--presque{color:var(--laiton)}
+.premium-atelier .picker__empty--complet{color:var(--rose)}
+.premium-atelier .evt-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:1.2rem}
+.premium-atelier .evt-pick{
+  display:block;width:100%;text-align:left;background:var(--creme);
+  border:1px solid rgba(184,146,77,.4);padding:.85rem 1rem;cursor:pointer;font:inherit;color:inherit;
+  transition:border-color .25s var(--ease), background .25s var(--ease);
+}
+.premium-atelier .evt-pick:hover:not(:disabled){border-color:var(--laiton);background:var(--sable)}
+.premium-atelier .evt-pick.is-selected{border-color:var(--terracotta);background:var(--sable)}
+.premium-atelier .evt-pick:disabled{opacity:.55;cursor:default}
+.premium-atelier .evt-pick__title{font-family:var(--serif);font-style:italic;font-size:1.02rem;display:block}
+.premium-atelier .evt-pick__meta{display:flex;justify-content:space-between;gap:1rem;font-size:.8rem;color:rgba(44,36,25,.7);margin-top:.35rem}
+.premium-atelier .evt-pick__etat--presque{color:var(--laiton)}
+.premium-atelier .evt-pick__etat--complet{color:var(--rose)}
+
 .premium-atelier .fld--span{grid-column:1/-1}
 .premium-atelier .fld label .opt{font-weight:400;letter-spacing:.02em;text-transform:none;color:rgba(44,36,25,.45)}
 .premium-atelier .fld input[type="date"]{color-scheme:light}

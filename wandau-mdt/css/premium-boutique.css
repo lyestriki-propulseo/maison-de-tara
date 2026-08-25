@@ -132,22 +132,23 @@
   margin-inline:auto;
   text-align:center;
 }
-/* Ligne 1 du titre : l'ancien eyebrow promu — petites capitales vertes
-   agrandies, filets laiton de part et d'autre (demande 22/07). */
+/* Ligne 1 du titre : l'ancien eyebrow promu. Retour cliente 25/08 « toutes les
+   pages commencent comme le Calendrier » : elle reprend le modèle exact du
+   Calendrier — script cursif La Belle Aurore, laiton, deux traits 1px. */
 .premium-boutique .hero h1 .ligne1{
-  display:flex;align-items:center;justify-content:center;gap:.9rem;
-  font-family:var(--f-corps);
-  font-size:clamp(.95rem, .7rem + 1.2vw, 1.4rem);
-  font-weight:500;
-  letter-spacing:.32em;
-  text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  font-family:var(--f-main);
+  font-size:clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem);
+  font-weight:400;
+  letter-spacing:normal;
+  text-transform:none;
   font-style:normal;
-  color:var(--mdt-olive-deep);
+  color:var(--laiton);
   margin:1.8rem 0 1rem;
 }
 .premium-boutique .hero h1 .ligne1::before,
 .premium-boutique .hero h1 .ligne1::after{
-  content:"";flex:0 0 auto;width:clamp(1.4rem,4vw,3rem);height:1px;background:var(--laiton);
+  content:"";flex:0 0 auto;width:clamp(2rem,6vw,4.5rem);height:1px;background:var(--laiton);opacity:.7;
 }
 .premium-boutique .eyebrow{
   display:inline-flex;align-items:center;gap:.9rem;
@@ -165,17 +166,18 @@
 .premium-boutique .hero h1{
   font-family:var(--f-titre);
   font-weight:500 !important;
-  font-size:clamp(2.6rem, 1.8rem + 4.2vw, 5.25rem);
-  line-height:1.04;
-  letter-spacing:-.01em;
-  /* Retour Tara #27 « en vert ». !important conserve : mdt-override.css impose
-     h1..h6 { color: var(--mdt-noir) !important } — sans lui le vert saute. */
-  color:var(--mdt-olive-deep) !important;
+  /* Retour cliente 25/08 : même taille que le titre du Calendrier (référence),
+     en encre comme lui. !important conserve : mdt-override.css impose
+     h1..h6 { color: var(--mdt-noir) !important } — sans lui la couleur saute. */
+  font-size:clamp(2.2rem, 1.4rem + 3.4vw, 3.6rem);
+  line-height:1.12;
+  letter-spacing:normal;
+  color:var(--encre) !important;
 }
 .premium-boutique .hero h1 .ligne2{
   display:block;
-  font-style:italic;
-  font-weight:400;
+  font-style:normal;
+  font-weight:500;
   color:var(--encre);
 }
 
@@ -189,8 +191,9 @@
   font-family:var(--f-titre);
   font-style:italic;
   font-weight:400;
-  font-size:clamp(1.35rem, 1.15rem + 1vw, 1.9rem);
-  line-height:1.5;
+  /* Retour cliente 25/08 : taille réduite (était 1.35 → 1.9rem) */
+  font-size:clamp(1.12rem, 1rem + .55vw, 1.42rem);
+  line-height:1.6;
   color:var(--encre);
 }
 .premium-boutique .recit-lead::first-letter{
@@ -275,7 +278,8 @@
   font-weight:500 !important;
   font-size:clamp(1.9rem, 1.4rem + 2.4vw, 3.4rem);
   line-height:1.12;
-  color:var(--terracotta) !important;
+  /* Retour cliente 25/08 : titres en noir (encre), plus terracotta */
+  color:var(--encre) !important;
 }
 
 .premium-boutique .murs{
@@ -326,7 +330,8 @@
   font-family:var(--f-titre);
   font-weight:500 !important;
   font-size:clamp(1.25rem, 1.1rem + .7vw, 1.6rem);
-  color:var(--terracotta) !important;
+  /* Retour cliente 25/08 : titres en noir (encre), plus terracotta */
+  color:var(--encre) !important;
 }
 .premium-boutique .piece p{
   margin-top:.35rem;

@@ -342,7 +342,7 @@
   color:var(--blanc);
   background:var(--color-cta-primary);
   border:1px solid var(--color-cta-primary);
-  border-radius:0;
+  border-radius:999px; /* retour cliente 25/08 : boutons ovales */
   padding:1.05rem 2.6rem;
   transition:background .3s ease, color .3s ease, border-color .3s ease;
 }
@@ -352,13 +352,11 @@
   color:var(--blanc);
 }
 
-/* Sortie de page : finale verte fusionnée avec le footer (retour 35, choix C 22/07).
-   Vert = --mdt-olive-deep, jamais --sauge (olive clair ici, contraste insuffisant). */
+/* Sortie de page : finale BEIGE (retour cliente 25/08 « pas vert, beige comme
+   la page accueil »). Fond sable + texture florale conservée, texte en encre. */
 .premium-histoire .page-envoi{
   position:relative;
-  background:
-    linear-gradient(rgba(44,36,25,.22), rgba(44,36,25,.22)),
-    var(--mdt-olive-deep);
+  background:var(--sable);
   text-align:center;
   padding:clamp(4.5rem, 8vw, 6.5rem) var(--gutter);
   overflow:hidden;
@@ -370,13 +368,13 @@
   background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
   z-index:1;
 }
-/* texture florale, même traitement que le footer */
+/* texture florale, très légère sur le sable */
 .premium-histoire .page-envoi::after{
   content:"";
   position:absolute; inset:0;
   background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
   background-size:420px auto;
-  opacity:.08;
+  opacity:.06;
   pointer-events:none;
 }
 .premium-histoire .page-envoi > *{ position:relative; z-index:1; }
@@ -384,19 +382,19 @@
   font-family:var(--script);
   font-weight:400;
   font-size:clamp(1.8rem, 1.5rem + 1.2vw, 2.4rem);
-  color:#D9BC85; /* laiton éclairci : le laiton pur passe sous 3:1 sur ce vert sombre */
+  color:var(--laiton);
   margin:0 0 1.4rem;
 }
-/* sur fond vert, le CTA s'inverse en crème (convention hero accueil) */
+/* sur fond beige, le CTA reprend l'habituel vert de marque */
 .premium-histoire .page-envoi .btn{
-  color:var(--mdt-olive-dark, #3F4731);
-  background:var(--blanc);
-  border-color:var(--blanc);
+  color:var(--blanc);
+  background:var(--color-cta-primary);
+  border-color:var(--color-cta-primary);
 }
 .premium-histoire .page-envoi .btn:hover{
-  background:var(--sable);
-  border-color:var(--sable);
-  color:var(--mdt-olive-dark, #3F4731);
+  background:var(--color-cta-primary-hover);
+  border-color:var(--color-cta-primary-hover);
+  color:var(--blanc);
 }
 /* fusion envoi → footer : ce fichier ne charge que sur la page histoire,
    on y retire la couture laiton du footer (posée en !important dans mdt-override) */

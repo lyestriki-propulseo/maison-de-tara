@@ -233,13 +233,12 @@
       </div>
       <!-- end slider-images -->
       <div class="swiper-container slider-texts">
-        <svg width="580" height="400" class="svg-morph">
-          <path id="svg_morph" d="m261,30.4375c0,0 114,6 151,75c37,69 37,174 6,206.5625c-31,32.5625 -138,11.4375 -196,-19.5625c-58,-31 -86,-62 -90,-134.4375c12,-136.5625 92,-126.5625 129,-127.5625z" />
-        </svg>
+        <!-- Retour cliente 25/08 : blob vert animé (svg-morph) supprimé -->
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="container-fluid">
-              <small class="hero-eyebrow" data-mdt-content="accueil.hero.eyebrow">La Garenne-Colombes · Ouverture Automne 2026</small>
+              <!-- Retour cliente 25/08 : eyebrow « La Garenne-Colombes · Ouverture Automne 2026 »
+                   supprimé — le titre monte à sa place -->
               <h1 data-mdt-content="accueil.hero.titre">Bienvenue à la <em>Maison de Tara</em></h1>
               <p data-mdt-content="accueil.hero.intro">Peinture sur céramique, café et décoration pour la maison. Un lieu inspiré de l'artisanat, du fait main et du plaisir de recevoir.</p>
               <ul class="hero-meta">
@@ -330,10 +329,9 @@
                 <h4><a href="boutique.html" data-mdt-content="accueil.univers.boutique.titre">Une sélection pour la maison</a></h4>
                 <div class="uv-bullets">
                   <p data-mdt-content="accueil.univers.boutique.texte">À la Maison de Tara, vous trouverez une sélection de textiles, céramiques, lampes, art de la table et idées cadeaux choisis avec soin.</p>
-                  <ul class="mdt-features" data-mdt-content="accueil.univers.boutique.points" data-mdt-mode="list">
-                    <li>Artisanat et fait main&nbsp;: chaleureux, vivant, plein de personnalité</li>
-                    <li>Une sélection qui évolue au fil des saisons et des coups de cœur</li>
-                  </ul>
+                  <!-- Retour cliente 25/08 : les deux petites phrases (« Artisanat et fait main… »,
+                       « Une sélection qui évolue… ») sont retirées. Si des valeurs existent côté
+                       admin (content_blocks), les vider aussi pour qu'elles ne reviennent pas. -->
                 </div>
                 <a href="boutique.html" class="mdt-card-cta">Découvrir la sélection</a>
               </div>
@@ -378,7 +376,7 @@
         <div class="row justify-content-center">
           <div class="col-12">
             <div class="section-title text-center">
-              <figure class="mdt-title-shape"><img src="../Logo/capsule_olive_deep.png" alt=""></figure>
+              <!-- Retour cliente 25/08 : capsule/logo au-dessus du titre supprimés -->
               <h6 data-mdt-content="accueil.parcours.label">Le parcours</h6>
               <h2 data-mdt-content="accueil.parcours.titre">Comment l'atelier va se dérouler ?</h2>
               <p class="mdt-section-sub" data-mdt-content="accueil.parcours.soustitre">Quatre étapes simples, depuis votre arrivée jusqu'au retour chez vous avec votre pièce.</p>
@@ -439,9 +437,9 @@
     <!-- Certaines réalisations — galerie défilante -->
     <section class="content-section no-bottom-spacing mdt-floral-line" id="realisations">
       <div class="container">
-        <div class="section-title text-center">
-          <figure class="mdt-title-shape"><img src="../Logo/capsule_olive_deep.png" alt=""></figure>
-          <h6 data-mdt-content="accueil.realisations.label">Sorties de four</h6>
+            <div class="section-title text-center">
+              <!-- Retour cliente 25/08 : capsule/logo au-dessus du titre supprimés -->
+              <h6 data-mdt-content="accueil.realisations.label">Sorties de four</h6>
           <h2 data-mdt-content="accueil.realisations.titre">Certaines réalisations</h2>
         </div>
       </div>

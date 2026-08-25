@@ -143,8 +143,9 @@
   font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 0 0 16px; }
 .mdt-artisanat p { max-width: 640px; margin: 0 auto; line-height: 1.8; opacity: .92; }
 
-/* Encart « passez nous voir » */
-.mdt-visit-note { text-align: center; max-width: 620px; margin: 0 auto; }
+/* Encart « passez nous voir ».
+   Retour cliente 25/08 : élargi (620px → 860px) pour viser 2 lignes. */
+.mdt-visit-note { text-align: center; max-width: 860px; margin: 0 auto; }
 .mdt-visit-note p { color: var(--mdt-text-soft); line-height: 1.7; }
 
 /* ============================ ATELIER ============================ */

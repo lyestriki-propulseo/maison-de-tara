@@ -93,6 +93,7 @@ em.mdt {
 }
 
 /* --- Buttons / CTA --- */
+/* Retour cliente 25/08 : TOUS les boutons en ovale (pilule) + libellés en gras. */
 .custom-button,
 .navbar-button a,
 a.custom-button {
@@ -104,9 +105,9 @@ a.custom-button {
   font-size: 12px !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
-  font-weight: 500 !important;
+  font-weight: 700 !important;
   transition: background 300ms cubic-bezier(.4,0,.2,1) !important;
-  border-radius: 0 !important;
+  border-radius: 999px !important;
   /* Centrage texte horizontal + vertical (override des height 70px / line-height 70px Wandau qui cassent le centrage avec multi-lignes) */
   display: inline-flex !important;
   align-items: center !important;
@@ -237,13 +238,14 @@ a.custom-button {
 /* Espace titre de section ↔ contenu réduit (retour Pastel #34 : 100px Wandau trop grand) */
 .section-title { margin-bottom: 32px; }
 
-/* Sous-titre éditorial sous le H2 de section */
+/* Sous-titre éditorial sous le H2 de section.
+   Retour cliente 25/08 : élargi (560px → 860px) pour tenir sur 2 lignes. */
 .section-title .mdt-section-sub {
   font-family: var(--mdt-font-body);
   font-size: 15px;
   line-height: 1.7;
   color: var(--mdt-text-soft);
-  max-width: 560px;
+  max-width: 860px;
   margin: 18px auto 0;
   font-weight: 400;
   letter-spacing: 0.005em;
@@ -787,7 +789,8 @@ nav.navbar { display: none !important; }
 .icon--md { width: 20px; height: 20px; }
 .icon--lg { width: 24px; height: 24px; }
 
-/* Btn (variantes utilisées dans header/drawer) */
+/* Btn (variantes utilisées dans header/drawer)
+   Retour cliente 25/08 : libellés en gras + forme ovale partout. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -799,13 +802,13 @@ nav.navbar { display: none !important; }
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   transition: all 0.3s var(--ease-out);
   border: 1px solid transparent;
   background: none;
   cursor: pointer;
   text-decoration: none;
-  border-radius: 0;
+  border-radius: 999px;
 }
 .btn--primary {
   background: var(--color-cta-primary);
@@ -1463,6 +1466,26 @@ body.lab-native .horizontal-scroll .scroll-inner {
 /* Le bloc texte (uv-bullets) occupe l'espace, le CTA se cale en bas */
 #univers .exhibition-box .uv-bullets { flex: 1 1 auto; }
 #univers .exhibition-box .mdt-card-cta { margin-top: auto; align-self: center; }
+
+/* Retour cliente 25/08 « centrer tout comme Une sélection pour la maison » :
+   l'animation Wandau (opacity 0 + scale 1.2, révélée par .is-inview) reste
+   souvent coincée — photo invisible, ou visible mais zoomée 20 % qui déborde
+   de l'arche et masque le cadre doré (les cartes « L'envie de créer » et
+   « Pour accompagner le moment »). On affiche les 3 photos directement à
+   l'échelle 1 : les cartes rendent identiques, photo centrée dans l'arche,
+   cadre laiton visible. Le zoom d'entrée est abandonné sur ces cartes. */
+#univers .exhibition-box figure .img {
+  opacity: 1;
+  transform: none;
+}
+/* Même respiration de texte que la carte de référence : paragraphes et puces
+   bornés en largeur et centrés, ils ne touchent plus les bords de la carte. */
+#univers .exhibition-box .content-box p,
+#univers .exhibition-box .mdt-features {
+  max-width: 32ch;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* Logo section 3 top-left (signature MDT) */
 .mdt-section-with-logo { position: relative; }

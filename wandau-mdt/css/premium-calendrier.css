@@ -362,24 +362,28 @@
   padding: 0.5rem 0 0.85rem;
   border-radius: 6px;
 }
+/* Le numéro du jour, centré ; l'horaire (éventuel) vient se ranger dessous, à gauche. */
+.premium-calendrier .cal-cell__day { display: block; line-height: 1.2; }
+.premium-calendrier .cal-cell__time {
+  position: absolute;
+  left: 5px;
+  bottom: 3px;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--terracotta);
+  line-height: 1;
+  white-space: nowrap;
+}
 .premium-calendrier .cal-cell.has-event {
   cursor: pointer;
   color: var(--encre);
   font-weight: 500;
   transition: background-color .3s var(--ease);
 }
-.premium-calendrier .cal-cell.has-event:hover { background: rgba(121, 48, 30, 0.07); }
-.premium-calendrier .cal-cell.has-event::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  background: var(--terracotta);
-}
+/* Retour cliente 25/08 : la case entière est colorée (fini le point terracotta). */
+.premium-calendrier .cal-cell.has-event { background: rgba(121, 48, 30, 0.14); }
+.premium-calendrier .cal-cell.has-event:hover { background: rgba(121, 48, 30, 0.24); }
 .premium-calendrier .cal-cell:disabled { cursor: default; }
 
 .premium-calendrier .cal-legend {
@@ -392,11 +396,13 @@
   align-items: center;
   gap: 0.5rem;
 }
-.premium-calendrier .cal-legend .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--terracotta);
+/* Légende : petite case colorée, même traitement que les cases du mois. */
+.premium-calendrier .cal-legend .swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(121, 48, 30, 0.14);
+  border: 1px solid rgba(121, 48, 30, 0.35);
   flex: none;
 }
 
@@ -409,7 +415,7 @@
 .premium-calendrier .cal-nav { width: 40px; height: 40px; font-size: 1.3rem; }
 .premium-calendrier .cal-weekdays { font-size: 0.74rem; }
 .premium-calendrier .cal-cell { font-size: 1rem; padding: 0.8rem 0 1.25rem; }
-.premium-calendrier .cal-cell.has-event::after { width: 7px; height: 7px; bottom: 8px; }
+.premium-calendrier .cal-cell__time { font-size: 0.66rem; left: 6px; bottom: 4px; }
 
 /* ---------- Sortie de page : une ligne manuscrite + bouton ---------- */
 .premium-calendrier .page-envoi{

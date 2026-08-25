@@ -23,10 +23,24 @@ function parisDate(iso) {
   return Number.isNaN(d.getTime()) ? String(iso).slice(0, 10) : PARIS_DATE.format(d);
 }
 
+// Heure de Paris « 14h » / « 14h30 » (affichage sous la date dans le calendrier).
+const PARIS_TIME = new Intl.DateTimeFormat('fr-FR', {
+  timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit',
+});
+function parisHeure(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const [h, m] = PARIS_TIME.format(d).split(':');
+  return m === '00' ? h + 'h' : h + 'h' + m;
+}
+
 function mapRow(row) {
   return {
     id: row.id,
     date: parisDate(row.starts_at),
+    // Retour cliente 25/08 : horaires affichés sous la date dans le calendrier.
+    horaire: parisHeure(row.starts_at),
+    horaireFin: row.ends_at ? parisHeure(row.ends_at) : '',
     titre: row.title,
     type: TYPE_MAP[row.event_type] || 'evenement',
     description: row.description || '',
@@ -47,7 +61,7 @@ export function loadEvents() {
   if (!CONFIGURED) return fromStaticFile();
   return fetch(
     SUPABASE_URL +
-      '/rest/v1/events?published=eq.true&select=id,title,event_type,description,starts_at&order=starts_at',
+      '/rest/v1/events?published=eq.true&select=id,title,event_type,description,starts_at,ends_at&order=starts_at',
     { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } },
   )
     .then((r) => {

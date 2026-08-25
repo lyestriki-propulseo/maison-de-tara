@@ -106,6 +106,19 @@ import { loadEvents } from './site-events.js';
     var byDate = {};
     events.forEach(function (ev) { (byDate[ev.date] = byDate[ev.date] || []).push(ev); });
 
+    // Retour cliente 25/08 : horaires affichés sous la date (ex. « 14h–16h »),
+    // alignés à gauche de la case. Repli statique sans horaire → pas d'heure.
+    function horairesDuJour(iso) {
+      var list = byDate[iso] || [];
+      var times = [];
+      list.forEach(function (ev) {
+        if (!ev.horaire) return;
+        var t = ev.horaire + (ev.horaireFin ? '–' + ev.horaireFin : '');
+        if (times.indexOf(t) === -1) times.push(t);
+      });
+      return times.join(', ');
+    }
+
     // Démarre sur le premier mois ayant un événement.
     var start = parseIso(events[0].date);
     var year = start.y;
@@ -139,11 +152,14 @@ import { loadEvents } from './site-events.js';
       for (var d = 1; d <= days; d++) {
         var iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
         var has = !!byDate[iso];
-        var cell = el('button', 'cal-cell' + (has ? ' has-event' : ''), String(d));
+        var cell = el('button', 'cal-cell' + (has ? ' has-event' : ''));
         cell.type = 'button';
+        cell.appendChild(el('span', 'cal-cell__day', String(d)));
         if (has) {
           cell.setAttribute('aria-label', d + ' ' + MOIS[month] + ' — voir l’événement dans le programme');
           cell.dataset.date = iso;
+          var times = horairesDuJour(iso);
+          if (times) cell.appendChild(el('span', 'cal-cell__time', times));
           cell.addEventListener('click', function () { highlightDate(this.dataset.date); });
         } else {
           cell.disabled = true;
@@ -153,7 +169,7 @@ import { loadEvents } from './site-events.js';
       calRoot.appendChild(grid);
 
       var legend = el('div', 'cal-legend');
-      legend.appendChild(el('span', 'dot'));
+      legend.appendChild(el('span', 'swatch'));
       legend.appendChild(el('span', null, 'Jour avec rendez-vous — cliquez pour voir le détail'));
       calRoot.appendChild(legend);
 

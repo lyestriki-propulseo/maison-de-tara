@@ -206,10 +206,15 @@
     <div class="hero-grid reveal">
       <div>
         <span class="eyebrow" data-mdt-content="contact.hero.eyebrow">Une question&nbsp;?</span>
-        <h1 data-mdt-content="contact.hero.titre">Venir à la maison</h1>
+        <!-- Retour cliente 25/08 : le titre devient « Contact », style Calendrier -->
+        <h1 data-mdt-content="contact.hero.titre">Contact</h1>
         <p class="hero-intro" data-mdt-content="contact.hero.intro">La maison vous accueille au 1 Rue Gabriel Péri, à La Garenne-Colombes. Boutique, café ou atelier, on vous reçoit comme à la maison.</p>
-        <!-- Retour Tara #39 : signaler qu'il y a la carte / les accès plus bas -->
-        <p class="hero-cta"><a class="btn" href="#s-carte">Comment venir&nbsp;?</a></p>
+        <!-- Retour cliente 25/08 : « Une question ? » rejoint « Comment venir ? » et
+             descend vers le formulaire de contact (#s-ecrire) -->
+        <p class="hero-cta">
+          <a class="btn" href="#s-carte">Comment venir&nbsp;?</a>
+          <a class="btn" href="#s-ecrire">Une question&nbsp;?</a>
+        </p>
       </div>
       <figure class="arch-photo">
         <img src="../assets-premium-lp/tara-storefront-01.jpeg" alt="La devanture de la Maison de Tara, 1 Rue Gabriel Péri à La Garenne-Colombes" loading="eager" data-mdt-content="contact.hero.photo">

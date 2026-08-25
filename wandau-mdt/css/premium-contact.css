@@ -122,6 +122,26 @@
   display:block;
   margin-bottom:.35rem;
 }
+/* Retour cliente 25/08 « toutes les pages commencent comme le Calendrier » :
+   le hero reprend le modèle du Calendrier — eyebrow cursif laiton encadré de
+   deux traits (1px, laiton) et h1 à la taille du titre du Calendrier. Scopé au
+   hero : les .eyebrow éventuels des autres sections gardent le format court. */
+.premium-contact .hero .eyebrow{
+  font-size:clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem) !important;
+  color:var(--laiton) !important;
+  display:inline-flex;align-items:center;gap:1rem;line-height:1;
+}
+.premium-contact .hero .eyebrow::before,
+.premium-contact .hero .eyebrow::after{
+  content:"";width:clamp(2rem,6vw,4.5rem);height:1px;background:var(--laiton);opacity:.7;
+}
+/* Même taille que le titre du Calendrier, en encre comme lui. */
+.premium-contact .hero h1{
+  font-size:clamp(2.2rem, 1.4rem + 3.4vw, 3.6rem) !important;
+  color:var(--encre) !important;
+  font-weight:500 !important;
+  line-height:1.12;
+}
 .premium-contact .kicker{
   font-family:var(--sans);
   font-size:.78rem;
@@ -148,9 +168,7 @@
   align-items:center;
   align-content:center;
 }
-.premium-contact .hero h1{font-size:var(--fs-h1) !important; color:var(--terracotta) !important; font-weight:500 !important}
-/* 2 phrases sur 2 lignes (retour Tara #37) : la largeur suit la colonne */
-.premium-contact .hero-intro{max-width:none; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
+/* 2 phrases sur 2 lignes (retour Tara #37) : la largeur suit la colonne */.premium-contact .hero-intro{max-width:none; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
 .premium-contact .hero-cta{margin:1.6rem 0 0}
 
 /* Retour Tara #38 « élargir la photo » (340px → 380px), puis recadrée sous le
@@ -257,7 +275,7 @@
   color:var(--blanc);
   background:var(--mdt-olive-deep);
   border:1px solid var(--mdt-olive-deep);
-  border-radius:0;
+  border-radius:999px; /* retour cliente 25/08 : boutons ovales */
   box-shadow:none;
   padding:.85rem 2.2rem;
   cursor:pointer;
@@ -322,7 +340,17 @@
   gap:clamp(2rem, 5vw, 4.5rem);
   align-items:start;
 }
-.premium-contact .col-head h2{font-size:var(--fs-h2) !important; color:var(--terracotta) !important; margin-bottom:.4rem}
+/* Retour cliente 25/08 : « Une question ? Un projet ? » tient sur une seule
+   ligne (nowrap sur desktop ; retour à la ligne naturelle sur mobile). */
+.premium-contact .col-head h2{
+  font-size:var(--fs-h2) !important;
+  color:var(--terracotta) !important;
+  margin-bottom:.4rem;
+  white-space:nowrap;
+}
+@media (max-width: 900px){
+  .premium-contact .col-head h2{ white-space:normal; }
+}
 .premium-contact .col-head p{margin:.4rem 0 1.4rem; color:color-mix(in srgb, var(--encre) 85%, var(--blanc))}
 
 /* <details>/<summary> — protégés contre les styles génériques du template */

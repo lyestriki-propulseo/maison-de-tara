@@ -163,7 +163,7 @@
 /* Le hero doit tenir dans un ecran (demande 16/07) : paddings allteges pour laisser
    la place a la photo agrandie du retour #17. Le padding haut degage toujours la
    topbar (42px) + le header (109px) = 151px. */
-.premium-atelier .hero{padding:clamp(9.5rem,8rem + 4vw,11.5rem) 0 clamp(2rem,4vw,3.5rem);background:var(--creme);min-height:100vh;box-sizing:border-box}
+.premium-atelier .hero{padding:9.5rem 0 clamp(2rem,4vw,3.5rem);background:var(--creme);min-height:0;box-sizing:border-box}
 /* Retour Tara #17 « page un peu vide, elargir la photo » : grille rebasculee
    7fr/4fr -> 6fr/5fr pour donner de la place a la photo (voir .hero__fig).
    align-items:center et plus :end — avec une photo plus haute, l'alignement bas

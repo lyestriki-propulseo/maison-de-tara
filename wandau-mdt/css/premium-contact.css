@@ -158,15 +158,14 @@
 /* Intro plein écran (100vh) : texte + photo centrés, garde header 110px
    (corrige la photo qui montait sur le header). La fiche suit en dessous. */
 .premium-contact .hero-grid{
-  min-height:100vh;
+  min-height:0;
   box-sizing:border-box;
-  padding-top:calc(110px + clamp(1rem, 3vw, 2rem));
+  padding-top:9.5rem;
   padding-bottom:clamp(1.5rem, 4vw, 3rem);
   display:grid;
   grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
   gap:clamp(1.5rem, 4vw, 4rem);
-  align-items:center;
-  align-content:center;
+  align-items:start;
 }
 /* 2 phrases sur 2 lignes (retour Tara #37) : la largeur suit la colonne */.premium-contact .hero-intro{max-width:none; margin-top:1rem; margin-bottom:0; color:color-mix(in srgb, var(--encre) 88%, var(--blanc))}
 .premium-contact .hero-cta{margin:1.6rem 0 0}

@@ -107,20 +107,11 @@
 .premium-histoire .hero{
   background:var(--sable);
   overflow:hidden;
-  /* main.mdt-natural-scroll ne porte aucune compensation du header fixe (contrairement
-     a .smooth-scroll) : le tag cursif « l'Inde », remonte de 1.6em au-dessus de l'arche,
-     passait sous le bandeau et le bouton « Reserver ma session ». On degage la hauteur
-     reelle du header (topbar 42 + header 108 = 150px). Pendant du correctif <=620px
-     plus bas, cote desktop. */
-  padding-top:150px;
+  padding-top:9.5rem;
 }
 .premium-histoire .hero__inner{
   max-width:1280px; margin:0 auto;
-  /* Le hero porte deja les 150px de degagement du header : ici on ne garde qu'une
-     respiration courte, sinon le contenu decrochait bien trop bas (texte a 374px du
-     haut). align-items:start plutot que center pour la meme raison — centre, la colonne
-     de texte, plus courte que le duo photo, retombait 110px sous la naissance de l'arche. */
-  padding:3.75rem var(--gutter) clamp(4rem, 10vw, 8.5rem);
+  padding:2rem var(--gutter) clamp(4rem, 10vw, 8.5rem);
   display:grid;
   grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
   gap:clamp(2.5rem, 6vw, 6rem);

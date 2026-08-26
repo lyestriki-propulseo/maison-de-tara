@@ -360,6 +360,7 @@
   color: rgba(44, 36, 25, 0.72);
   padding: 0.5rem 0 0.85rem;
   border-radius: 6px;
+  text-align: center;
 }
 /* Le numéro du jour, centré ; l'horaire (éventuel) vient se ranger dessous, à gauche. */
 .premium-calendrier .cal-cell__day { display: block; line-height: 1.2; }

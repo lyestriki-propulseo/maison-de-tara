@@ -177,7 +177,7 @@
 }
 .premium-histoire .hero__arch img{
   aspect-ratio:3 / 4.2;
-  object-fit:cover;
+  object-fit:cover;object-position:center center;
   border-radius:999px 999px 0 0;
 }
 .premium-histoire .hero__arch::before{
@@ -197,7 +197,7 @@
 }
 .premium-histoire .hero__overlap img{
   aspect-ratio:4 / 3;
-  object-fit:cover;
+  object-fit:cover;object-position:center center;
   border:6px solid var(--blanc);
 }
 .premium-histoire .hero__overlap::before{
@@ -284,7 +284,7 @@
 .premium-histoire .lettre .cadre img{
   display:block;
   width:100%;
-  object-fit:cover;
+  object-fit:cover;object-position:center center;
 }
 .premium-histoire .lettre .cadre--arche,
 .premium-histoire .lettre .cadre--arche::before{ border-radius:999px 999px 0 0; }

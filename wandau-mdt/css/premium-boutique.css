@@ -296,7 +296,7 @@
   background:var(--encre);
 }
 .premium-boutique .piece .cadre img{
-  width:100%;height:100%;object-fit:cover;
+  width:100%;height:100%;object-fit:cover;object-position:center center;
   transition:transform 1.6s var(--ease);
 }
 .premium-boutique .piece:hover .cadre img{transform:scale(1.06)}

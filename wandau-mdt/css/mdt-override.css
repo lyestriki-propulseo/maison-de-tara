@@ -1257,6 +1257,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
 .exhibition-box figure .img {
   aspect-ratio: 3 / 2;
   object-fit: cover;
+  object-position: center center;
   width: 100%;
   height: auto;
   display: block;

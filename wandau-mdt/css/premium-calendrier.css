@@ -81,13 +81,12 @@
 /* ---------- Hero / intro ---------- */
 .premium-calendrier .hero {
   text-align: center;
-  /* Plein écran 100vh : titre + arches centrés. 110px = topbar+header fixes. */
-  min-height: 100vh;
+  min-height: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: calc(110px + clamp(1rem, 3vw, 2rem)) 0 clamp(2rem, 4vw, 3rem);
+  justify-content: flex-start;
+  padding: 9.5rem 0 clamp(2rem, 4vw, 3rem);
 }
 /* Mobile : le hero plein ecran centre laissait un grand vide au-dessus du titre
    (contenu centre dans 100vh). On colle le contenu sous le header. */

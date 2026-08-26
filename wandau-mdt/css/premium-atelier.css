@@ -180,7 +180,8 @@
 }
 /* Retour Tara #16 « en vert olive fonce ? » */
 .premium-atelier .hero h1 em{font-style:italic;color:var(--mdt-olive-deep)}
-.premium-atelier .hero__intro{max-width:33rem;font-size:clamp(1rem,1.4vw,1.125rem);line-height:1.75;color:rgba(44,36,25,.82)}
+/* Aligne sur Mon histoire (meme taille/police que hero__intro histoire) */
+.premium-atelier .hero__intro{max-width:36ch;font-size:clamp(1rem, 1vw + .6rem, 1.15rem);line-height:1.75;color:rgba(44,36,25,.82);margin:0}
 /* Retour Tara #17 : 21rem bridait la photo SOUS la largeur de sa propre colonne
    (~375px) ; 30rem la laisse remplir les ~469px de la grille 6fr/5fr.
    Le min() borne en plus la photo par la hauteur d'ecran, pour que le hero tienne

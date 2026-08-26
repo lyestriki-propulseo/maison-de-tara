@@ -225,6 +225,15 @@
   font-size: 0.7rem;
   color: rgba(44, 36, 25, 0.5);
 }
+.premium-calendrier .prog-time {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--terracotta);
+}
 
 .premium-calendrier .prog-meta {
   display: flex;
@@ -364,17 +373,6 @@
 }
 /* Le numéro du jour, centré ; l'horaire (éventuel) vient se ranger dessous, à gauche. */
 .premium-calendrier .cal-cell__day { display: block; line-height: 1.2; }
-.premium-calendrier .cal-cell__time {
-  position: absolute;
-  left: 5px;
-  bottom: 3px;
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--terracotta);
-  line-height: 1;
-  white-space: nowrap;
-}
 .premium-calendrier .cal-cell.has-event {
   cursor: pointer;
   color: var(--encre);

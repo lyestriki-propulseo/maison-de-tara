@@ -67,6 +67,9 @@ import { loadEvents } from './site-events.js';
       when.appendChild(el('span', 'prog-day', String(d.d)));
       when.appendChild(el('span', 'prog-month', MOIS[d.m - 1]));
       when.appendChild(el('span', 'prog-year', String(d.y)));
+      if (ev.horaire) {
+        when.appendChild(el('span', 'prog-time', ev.horaire + (ev.horaireFin ? '–' + ev.horaireFin : '')));
+      }
       li.appendChild(when);
 
       var body = el('div', 'prog-body');
@@ -105,19 +108,6 @@ import { loadEvents } from './site-events.js';
   function initCalendar(events) {
     var byDate = {};
     events.forEach(function (ev) { (byDate[ev.date] = byDate[ev.date] || []).push(ev); });
-
-    // Retour cliente 25/08 : horaires affichés sous la date (ex. « 14h–16h »),
-    // alignés à gauche de la case. Repli statique sans horaire → pas d'heure.
-    function horairesDuJour(iso) {
-      var list = byDate[iso] || [];
-      var times = [];
-      list.forEach(function (ev) {
-        if (!ev.horaire) return;
-        var t = ev.horaire + (ev.horaireFin ? '–' + ev.horaireFin : '');
-        if (times.indexOf(t) === -1) times.push(t);
-      });
-      return times.join(', ');
-    }
 
     // Démarre sur le premier mois ayant un événement.
     var start = parseIso(events[0].date);
@@ -158,8 +148,6 @@ import { loadEvents } from './site-events.js';
         if (has) {
           cell.setAttribute('aria-label', d + ' ' + MOIS[month] + ' — voir l’événement dans le programme');
           cell.dataset.date = iso;
-          var times = horairesDuJour(iso);
-          if (times) cell.appendChild(el('span', 'cal-cell__time', times));
           cell.addEventListener('click', function () { highlightDate(this.dataset.date); });
         } else {
           cell.disabled = true;

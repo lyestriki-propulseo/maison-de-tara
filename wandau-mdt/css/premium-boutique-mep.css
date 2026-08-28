@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Boutique — mise en page alternative de la galerie des 6 univers.
+
+   OUTIL DE DÉCISION, pas un réglage public : la barre de choix n'apparaît que
+   si l'URL porte ?mep (même principe que ?lab sur l'accueil). Le choix est
+   retenu dans le navigateur de la personne qui regarde (localStorage) et ne
+   change RIEN pour les visiteurs — quand la mise en page est arrêtée, elle
+   sera appliquée en dur et ce fichier disparaîtra.
+
+   Sous 901px : rien ne s'applique, le mobile garde la mise en page actuelle.
+   ========================================================================== */
+
+/* --- Barre de choix (visible seulement avec ?mep) ----------------------- */
+.mep-switch{
+  position:fixed;left:50%;bottom:1.25rem;transform:translateX(-50%);
+  z-index:9999;display:flex;gap:.25rem;
+  padding:.35rem;border-radius:999px;
+  background:color-mix(in srgb, var(--encre, #1c1a17) 92%, transparent);
+  box-shadow:0 12px 32px -12px rgba(0,0,0,.55);
+  font-family:var(--f-titre, serif);
+}
+.mep-switch button{
+  appearance:none;border:0;cursor:pointer;
+  padding:.5rem 1.1rem;border-radius:999px;
+  background:transparent;color:#fff;
+  font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;
+  transition:background .25s ease, color .25s ease;
+}
+.mep-switch button:hover{background:rgba(255,255,255,.14)}
+.mep-switch button[aria-pressed="true"]{background:#fff;color:#1c1a17}
+.mep-switch button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+@media (min-width:901px){
+
+/* ==================== VARIANTE C — LE COLLAGE DISCIPLINÉ ===================
+   On garde le collage éditorial mais on le cadre. Correctif 28/08 « gros trou
+   au milieu » — deux causes, deux corrections :
+   1. les cartes tenaient les colonnes 1→5 et 8→12 d'une grille de 12 : les
+      colonnes 6 et 7 restaient vides sur toute la hauteur = bande morte
+      verticale. → on passe à 1→6 / 7→12, c'est le column-gap qui sépare.
+   2. à largeur égale l'arche (3/4.1) est 2,2× plus haute que le paysage
+      (16/10) ; chaque rangée se calant sur la plus haute, il restait ~55 % de
+      vide sous chaque photo de droite. → hauteurs rapprochées (3/4.1 vs 4/5),
+      les 2 formats restent distincts par la FORME (arche vs rectangle).
+   3. le décalage vertical alterne maintenant de rangée en rangée, pour que le
+      peu de vide restant change de côté au lieu de s'empiler à droite. */
+body.mep-c .premium-boutique .murs{
+  grid-template-columns:repeat(12,1fr);
+  gap:clamp(2rem,4.5vw,3.25rem) clamp(1.75rem,4vw,3rem);
+  align-items:start;
+}
+body.mep-c .premium-boutique .piece--01{grid-column:1 / span 6;grid-row:1}
+body.mep-c .premium-boutique .piece--02{grid-column:7 / span 6;grid-row:1}
+body.mep-c .premium-boutique .piece--03{grid-column:1 / span 6;grid-row:2}
+body.mep-c .premium-boutique .piece--04{grid-column:7 / span 6;grid-row:2}
+body.mep-c .premium-boutique .piece--05{grid-column:1 / span 6;grid-row:3}
+body.mep-c .premium-boutique .piece--06{grid-column:7 / span 6;grid-row:3}
+/* Retour 28/08 « la gauche plus haute que la droite » : décalage CONSTANT,
+   colonne de gauche calée en haut de rangée, colonne de droite descendue —
+   plus d'alternance, le rythme est le même sur les 3 rangées.
+   ⚠ ne PAS remettre à zéro via [class*="piece--0"] : ce sélecteur pèse
+   (0,4,1) contre (0,3,1) pour .piece--02 et annulait tous les décalages. */
+body.mep-c .premium-boutique .piece--01,
+body.mep-c .premium-boutique .piece--03,
+body.mep-c .premium-boutique .piece--05{margin-top:0}
+body.mep-c .premium-boutique .piece--02,
+body.mep-c .premium-boutique .piece--04,
+body.mep-c .premium-boutique .piece--06{margin-top:clamp(2.5rem,5.5vw,5rem)}
+/* 2 formats, distingués par la forme et non par la hauteur */
+body.mep-c .premium-boutique .piece--01 .cadre,
+body.mep-c .premium-boutique .piece--03 .cadre,
+body.mep-c .premium-boutique .piece--05 .cadre{border-radius:999px 999px 0 0}
+body.mep-c .premium-boutique .piece--01 .cadre img,
+body.mep-c .premium-boutique .piece--03 .cadre img,
+body.mep-c .premium-boutique .piece--05 .cadre img{aspect-ratio:3/4.1}
+body.mep-c .premium-boutique .piece--02 .cadre,
+body.mep-c .premium-boutique .piece--04 .cadre,
+body.mep-c .premium-boutique .piece--06 .cadre{border-radius:0}
+body.mep-c .premium-boutique .piece--02 .cadre img,
+body.mep-c .premium-boutique .piece--04 .cadre img,
+body.mep-c .premium-boutique .piece--06 .cadre img{aspect-ratio:4/5}
+/* photos d'ambiance : en fin de séquence, plein cadre, plus de vide autour */
+body.mep-c .premium-boutique .piece--interlude{
+  grid-column:1 / span 7;grid-row:4;margin:clamp(1.5rem,4vw,3rem) 0 0;z-index:auto;
+}
+body.mep-c .premium-boutique .piece--interlude .cadre img{aspect-ratio:16/9}
+body.mep-c .premium-boutique .piece--accent{
+  grid-column:8 / span 5;grid-row:4;
+  margin:clamp(1.5rem,4vw,3rem) 0 0;align-self:start;
+}
+
+} /* fin @media min-width:901px */

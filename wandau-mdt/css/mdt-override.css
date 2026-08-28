@@ -1468,6 +1468,15 @@ body.lab-native .horizontal-scroll .scroll-inner {
 #univers .exhibition-box .uv-bullets { flex: 1 1 auto; }
 #univers .exhibition-box .mdt-card-cta { margin-top: auto; align-self: center; }
 
+/* Retour cliente 28/08 : les cartes 1 et 3 heritent du padding asymetrique
+   Wandau (.col-lg-4:nth-child(3n+1) => padding-right 30px, 3n+3 => padding-left
+   30px, style.css ~2112), donc la photo touche le bord de l'encadre sable d'un
+   cote. Seule la carte 2 (padding: 0 15px) est centree. On aligne les trois sur
+   ce meme padding symetrique. Sous 992px le template remet deja tout a 0. */
+@media (min-width: 992px) {
+  #univers .exhibition-box { padding: 0 15px; }
+}
+
 /* Retour cliente 25/08 « centrer tout comme Une sélection pour la maison » :
    l'animation Wandau (opacity 0 + scale 1.2, révélée par .is-inview) reste
    souvent coincée — photo invisible, ou visible mais zoomée 20 % qui déborde

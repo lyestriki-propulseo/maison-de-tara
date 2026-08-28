@@ -148,7 +148,10 @@
 @media (min-width: 768px) {
   .tara-admin-shell { display: grid; grid-template-columns: 224px minmax(0, 1fr); }
   .tara-admin-mobile-header { display: none; }
-  .tara-admin-sidebar { position: sticky; top: 0; display: flex; height: 100vh; flex-direction: column; background: var(--tara-olive); padding: var(--tara-space-6) var(--tara-space-4) var(--tara-space-5); color: var(--tara-sable); }
+  /* overflow-y: auto — sur une fenêtre courte (barre de favoris, plusieurs onglets),
+     le contenu (logo + nav + pied de page) peut dépasser 100vh ; sans ça l'excédent
+     débordait du fond vert et se superposait au contenu principal en dessous. */
+  .tara-admin-sidebar { position: sticky; top: 0; display: flex; height: 100vh; flex-direction: column; overflow-y: auto; background: var(--tara-olive); padding: var(--tara-space-6) var(--tara-space-4) var(--tara-space-5); color: var(--tara-sable); }
   /* Enseigne : logo passé en blanc (même recette que le footer du site,
      brightness(0) invert(1)) posé directement sur le brun — plus de pavé
      beige — et double filet laiton signature de la charte en dessous. */

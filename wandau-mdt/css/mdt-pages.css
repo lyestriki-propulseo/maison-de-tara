@@ -1,0 +1,265 @@
+/* ============================================================
+   MDT Pages — styles spécifiques aux pages internes (Contact,
+   Boutique, Atelier, Calendrier). Chargé après mdt-override.css.
+   Couleurs/polices : toujours via les tokens charte (var(--mdt-*)).
+   ============================================================ */
+
+/* --- Conteneur scroll natif (pages sans Locomotive : calendrier) --- */
+.mdt-natural-scroll { display: block; }
+
+/* Pages légales (mentions, confidentialité) */
+.mdt-legal { max-width: 760px; margin: 24px auto 0; }
+.mdt-legal h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: 1.35rem; margin: 34px 0 10px; }
+.mdt-legal p, .mdt-legal li { color: var(--mdt-text-soft); line-height: 1.8; }
+.mdt-legal ul { padding-left: 20px; }
+.mdt-legal .todo { background: rgba(184, 79, 62, .08); border: 1px dashed var(--mdt-terracotta);
+  padding: 1px 6px; border-radius: 4px; }
+
+/* --- Bandeau d'intro de page interne --- */
+.mdt-page-intro { text-align: center; padding-top: 140px; }
+.mdt-page-intro .mdt-eyebrow {
+  font-family: var(--mdt-font-script); font-size: 1.6rem; color: var(--mdt-rose);
+  display: block; margin-bottom: 6px;
+}
+.mdt-page-intro h1 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 0 0 16px;
+}
+.mdt-page-intro p { max-width: 620px; margin: 0 auto; color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* ============================ CONTACT ============================ */
+
+/* Coordonnées rapides */
+.mdt-coords {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px; margin: 40px 0;
+}
+.mdt-coord {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 20px 22px;
+}
+.mdt-coord .icon { width: 26px; height: 26px; color: var(--mdt-terracotta); flex: none; margin-top: 2px; }
+.mdt-coord h3 { font-family: var(--mdt-font-body); font-size: .78rem; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--mdt-text-soft); margin: 0 0 4px; font-weight: 600; }
+.mdt-coord a, .mdt-coord p { color: var(--mdt-ink); text-decoration: none; margin: 0; font-size: 1.02rem; }
+.mdt-coord a:hover { color: var(--mdt-terracotta); }
+
+/* Accès (train / tram / bus / voiture) */
+.mdt-access { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.mdt-access .mdt-access-card {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 24px;
+}
+.mdt-access-card h3 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-olive-deep);
+  font-size: 1.25rem; margin: 0 0 10px;
+}
+.mdt-access-card p { color: var(--mdt-text-soft); line-height: 1.6; margin: 0; font-size: .95rem; }
+
+/* Horaires */
+.mdt-hours-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+.mdt-hours {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 16px; padding: 28px 30px;
+}
+.mdt-hours h3 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: 1.4rem; margin: 0 0 16px; }
+.mdt-hours ul { list-style: none; margin: 0; padding: 0; }
+.mdt-hours li { display: flex; justify-content: space-between; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid rgba(240,236,219,.18); font-size: .95rem; }
+.mdt-hours li:last-child { border-bottom: none; }
+.mdt-hours li span:first-child { opacity: .85; }
+.mdt-hours li.is-closed span:last-child { opacity: .6; font-style: italic; }
+
+/* Carte */
+.mdt-map { border-radius: 16px; overflow: hidden; border: 1px solid var(--mdt-line); line-height: 0; }
+.mdt-map iframe { width: 100%; height: 420px; border: 0; display: block; }
+
+/* FAQ (details natifs) */
+.mdt-faq { max-width: 820px; margin: 0 auto; }
+.mdt-faq details {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 12px;
+  margin-bottom: 12px; padding: 0 22px;
+}
+.mdt-faq summary {
+  cursor: pointer; list-style: none; padding: 18px 0; font-family: var(--mdt-font-display);
+  font-size: 1.12rem; color: var(--mdt-ink); display: flex; justify-content: space-between; align-items: center;
+}
+.mdt-faq summary::-webkit-details-marker { display: none; }
+.mdt-faq summary::after { content: "+"; color: var(--mdt-terracotta); font-size: 1.5rem; line-height: 1; }
+.mdt-faq details[open] summary::after { content: "–"; }
+.mdt-faq details > p { margin: 0 0 18px; color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* Formulaire MDT */
+.mdt-form { max-width: 640px; margin: 0 auto; }
+.mdt-form .field { margin-bottom: 16px; }
+.mdt-form label { display: block; font-size: .85rem; color: var(--mdt-text-soft); margin-bottom: 6px; font-weight: 500; }
+.mdt-form input, .mdt-form select, .mdt-form textarea {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--mdt-line); border-radius: 10px;
+  font-family: var(--mdt-font-body); font-size: 1rem; background: #fff; color: var(--mdt-ink);
+}
+.mdt-form textarea { min-height: 130px; resize: vertical; }
+.mdt-form input:focus, .mdt-form select:focus, .mdt-form textarea:focus {
+  outline: none; border-color: var(--mdt-terracotta); box-shadow: 0 0 0 3px rgba(121,48,30,.12);
+}
+.mdt-form .field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mdt-form .form-msg { margin-top: 14px; color: var(--mdt-olive-deep); font-weight: 500; min-height: 1.2em; }
+@media (max-width: 600px) { .mdt-form .field--row { grid-template-columns: 1fr; } }
+
+/* ============================ BOUTIQUE ============================ */
+
+/* Récit d'intro */
+.mdt-recit { max-width: 760px; margin: 0 auto; }
+.mdt-recit p { color: var(--mdt-text-soft); line-height: 1.85; font-size: 1.06rem; margin: 0 0 18px; }
+.mdt-recit p.lead {
+  font-family: var(--mdt-font-display); font-size: 1.45rem; line-height: 1.5;
+  color: var(--mdt-ink); font-style: italic;
+}
+
+/* Image d'ambiance pleine largeur */
+.mdt-ambiance { border-radius: 18px; overflow: hidden; margin: 8px 0 4px; line-height: 0; }
+.mdt-ambiance img { width: 100%; height: clamp(260px, 42vw, 520px); object-fit: cover; display: block; }
+
+/* Grille des univers de la boutique */
+.mdt-boutique-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.mdt-boutique-card {
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 14px; padding: 26px 24px;
+  position: relative; overflow: hidden;
+}
+.mdt-boutique-card::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--mdt-rose);
+}
+.mdt-boutique-card h3 {
+  font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: 1.3rem; margin: 0 0 8px;
+}
+.mdt-boutique-card p { color: var(--mdt-text-soft); line-height: 1.6; margin: 0; font-size: .95rem; }
+
+/* Bloc artisanat (aplat vert) */
+.mdt-artisanat {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 18px;
+  padding: clamp(32px, 5vw, 56px); text-align: center;
+}
+.mdt-artisanat h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 0 0 16px; }
+.mdt-artisanat p { max-width: 640px; margin: 0 auto; line-height: 1.8; opacity: .92; }
+
+/* Encart « passez nous voir ».
+   Retour cliente 25/08 : élargi (620px → 860px) pour viser 2 lignes. */
+.mdt-visit-note { text-align: center; max-width: 860px; margin: 0 auto; }
+.mdt-visit-note p { color: var(--mdt-text-soft); line-height: 1.7; }
+
+/* ============================ ATELIER ============================ */
+
+/* Carte de réservation */
+.mdt-reserve {
+  max-width: 680px; margin: 0 auto; background: #fff; border: 1px solid var(--mdt-line);
+  border-radius: 18px; padding: clamp(24px, 4vw, 40px);
+}
+.mdt-reserve .mdt-acompte {
+  background: rgba(138,151,108,.16); border-radius: 10px; padding: 12px 16px;
+  color: var(--mdt-olive-deep); font-size: .92rem; margin: 0 0 22px; line-height: 1.5;
+}
+.mdt-reserve .mdt-note-8 { font-size: .85rem; color: var(--mdt-text-soft); margin: 6px 0 16px; }
+
+/* Privatisation (aplat vert + occasions) */
+.mdt-privatisation {
+  background: var(--mdt-olive-deep); color: var(--mdt-beige); border-radius: 18px;
+  padding: clamp(32px, 5vw, 56px); text-align: center;
+}
+.mdt-privatisation h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-beige);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 0 0 14px; }
+.mdt-privatisation p { max-width: 640px; margin: 0 auto; line-height: 1.8; opacity: .92; }
+.mdt-occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+.mdt-occasions span {
+  background: rgba(240,236,219,.14); border: 1px solid rgba(240,236,219,.32);
+  border-radius: 999px; padding: 7px 16px; font-size: .9rem;
+}
+/* Galerie privatisation — placeholders petit format (retour Pastel #45) */
+.mdt-priva-gallery {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px;
+}
+.mdt-priva-gallery img {
+  width: 180px; height: 130px; object-fit: cover; border-radius: 12px;
+  border: 1px solid rgba(240,236,219,.32); display: block;
+}
+.mdt-priva-cta { margin-top: 26px; }
+@media (max-width: 560px) {
+  .mdt-priva-gallery img { width: 132px; height: 96px; }
+}
+
+/* ============================ CALENDRIER ============================ */
+.mdt-calendar { max-width: 760px; margin: 30px auto 0; }
+.cal-head { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 18px; }
+.cal-head h2 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta);
+  font-size: 1.6rem; margin: 0; min-width: 220px; text-align: center; }
+.cal-prev, .cal-next {
+  background: #fff; border: 1px solid var(--mdt-line); color: var(--mdt-ink); width: 40px; height: 40px;
+  border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 1; transition: background .15s;
+}
+.cal-prev:hover, .cal-next:hover { background: var(--mdt-beige); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-weekdays { margin-bottom: 6px; }
+.cal-weekdays div { text-align: center; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--mdt-text-soft); font-weight: 600; padding: 6px 0; }
+.cal-cell {
+  position: relative; aspect-ratio: 1 / 1; border: 1px solid var(--mdt-line); border-radius: 10px;
+  background: #fff; display: flex; align-items: flex-start; justify-content: flex-start; padding: 8px;
+  font: inherit; color: var(--mdt-ink);
+}
+.cal-cell.cal-empty { border: none; background: transparent; }
+.cal-num { font-size: .9rem; }
+.cal-cell.has-event { cursor: pointer; border-color: var(--mdt-rose); background: rgba(186,119,112,.08); }
+.cal-cell.has-event:hover { background: rgba(186,119,112,.16); }
+.cal-cell[disabled] { cursor: default; }
+.cal-dot {
+  position: absolute; right: 6px; bottom: 6px; min-width: 18px; height: 18px; padding: 0 4px;
+  border-radius: 9px; background: var(--mdt-terracotta); color: #fff; font-size: .68rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.cal-detail { margin-top: 24px; display: grid; gap: 14px; }
+.cal-detail .cal-event {
+  background: #fff; border: 1px solid var(--mdt-line); border-left: 4px solid var(--mdt-terracotta);
+  border-radius: 12px; padding: 20px 22px;
+}
+.cal-detail .cal-event.cal-type-boutique { border-left-color: var(--mdt-rose); }
+.cal-detail .cal-event.cal-type-evenement { border-left-color: var(--mdt-olive); }
+.cal-detail h3 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-ink); margin: 0 0 4px; }
+.cal-detail .cal-date { color: var(--mdt-terracotta); font-size: .85rem; margin: 0 0 10px; text-transform: capitalize; }
+.cal-detail .cal-event p { color: var(--mdt-text-soft); line-height: 1.6; margin: 0 0 12px; }
+.cal-empty-msg { text-align: center; color: var(--mdt-text-soft); padding: 40px 0; }
+@media (max-width: 600px) {
+  .cal-cell { padding: 4px; border-radius: 7px; }
+  .cal-num { font-size: .78rem; }
+  .cal-head h2 { font-size: 1.3rem; min-width: 150px; }
+}
+
+/* ============================ HISTOIRE (coquille) ============================ */
+.mdt-placeholder-note {
+  background: rgba(186,119,112,.12); border: 1px dashed var(--mdt-rose); border-radius: 10px;
+  padding: 14px 18px; color: var(--mdt-terracotta); font-size: .9rem; max-width: 760px;
+  margin: 0 auto 32px; text-align: center;
+}
+.mdt-letter { max-width: 720px; margin: 0 auto; }
+.mdt-letter p { color: var(--mdt-text-soft); line-height: 1.9; font-size: 1.05rem; margin: 0 0 20px; }
+.mdt-letter .lead { font-family: var(--mdt-font-display); font-size: 1.4rem; font-style: italic; color: var(--mdt-ink); }
+.mdt-signature { font-family: var(--mdt-font-script); font-size: 2.2rem; color: var(--mdt-terracotta); margin-top: 24px; }
+
+/* ============================ ATELIER — étapes en blocs larges ============================ */
+.mdt-steps { display: grid; gap: 26px; max-width: 1000px; margin: 0 auto; }
+.mdt-step-row {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  background: #fff; border: 1px solid var(--mdt-line); border-radius: 16px; overflow: hidden;
+}
+.mdt-step-row:nth-child(even) .mdt-step-img { order: 2; }
+.mdt-step-img { min-height: 240px; }
+.mdt-step-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mdt-step-body { padding: clamp(24px, 3vw, 40px); }
+.mdt-step-num { font-family: var(--mdt-font-script); font-size: 1.5rem; color: var(--mdt-rose); display: block; }
+.mdt-step-body h3 { font-family: var(--mdt-font-display); font-weight: 500; color: var(--mdt-terracotta); font-size: 1.5rem; margin: 2px 0 12px; }
+.mdt-step-body p { color: var(--mdt-text-soft); line-height: 1.7; margin: 0 0 12px; }
+.mdt-step-price { background: rgba(138,151,108,.14); border-radius: 10px; padding: 12px 14px; color: var(--mdt-olive-deep); font-size: .92rem; }
+.mdt-step-price ul { margin: 6px 0 0; padding-left: 18px; }
+@media (max-width: 768px) {
+  .mdt-step-row { grid-template-columns: 1fr; }
+  .mdt-step-row:nth-child(even) .mdt-step-img { order: 0; }
+}

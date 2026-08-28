@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<!-- include: head -->
+<title>Contact · Maison de Tara</title>
+<meta name="description" content="Venir à la Maison de Tara : adresse, accès (train, tram, bus, voiture), horaires et formulaire de contact. La Garenne-Colombes (92).">
+<meta property="og:title" content="Contact · Maison de Tara">
+<meta property="og:description" content="Venir à la Maison de Tara : adresse, accès (train, tram, bus, voiture), horaires et formulaire de contact. La Garenne-Colombes (92).">
+<link rel="stylesheet" href="css/premium-contact.css">
+</head>
+<body data-mdt-page="contact">
+<!-- include: header -->
+<main id="main" class="mdt-natural-scroll premium-contact">
+
+  <!-- ============ ÉCRAN 1 — Intro + la fiche ============ -->
+  <section class="hero wrap" id="s-intro">
+    <div class="hero-grid reveal">
+      <div>
+        <span class="eyebrow" data-mdt-content="contact.hero.eyebrow">Une question&nbsp;?</span>
+        <!-- Retour cliente 25/08 : le titre devient « Contact », style Calendrier -->
+        <h1 data-mdt-content="contact.hero.titre">Contact</h1>
+        <p class="hero-intro" data-mdt-content="contact.hero.intro">La maison vous accueille au 1 Rue Gabriel Péri, à La Garenne-Colombes. Boutique, café ou atelier, on vous reçoit comme à la maison.</p>
+        <!-- Retour cliente 25/08 : « Une question ? » rejoint « Comment venir ? » et
+             descend vers le formulaire de contact (#s-ecrire) -->
+        <p class="hero-cta">
+          <a class="btn" href="#s-carte">Comment venir&nbsp;?</a>
+          <a class="btn" href="#s-ecrire">Une question&nbsp;?</a>
+        </p>
+      </div>
+      <figure class="arch-photo">
+        <img src="../assets-premium-lp/tara-storefront-01.jpeg" alt="La devanture de la Maison de Tara, 1 Rue Gabriel Péri à La Garenne-Colombes" loading="eager" data-mdt-content="contact.hero.photo">
+      </figure>
+    </div>
+
+    <article class="fiche reveal" aria-label="Coordonnées et horaires de la Maison de Tara">
+      <div class="fiche-inner">
+        <div class="fiche-grid">
+          <div class="coords">
+            <h2>Coordonnées</h2>
+            <div class="coord">
+              <h3>Adresse</h3>
+              <p>1 Rue Gabriel Péri<br>92250 La Garenne-Colombes</p>
+            </div>
+            <div class="coord">
+              <h3>Téléphone</h3>
+              <a href="tel:+33650535149">+33 6 50 53 51 49</a>
+            </div>
+            <div class="coord">
+              <h3>Email</h3>
+              <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+            </div>
+            <div class="coord">
+              <h3>Instagram</h3>
+              <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" title="Maison de Tara sur Instagram (nouvel onglet)">@maison_de_tara</a>
+            </div>
+          </div>
+
+          <div class="hours">
+            <h3>Ouverture de la maison</h3>
+            <!-- Horaires pilotés par Tara (admin) : js/site-hours.js remplace cette liste depuis la
+                 base au chargement. Le contenu ci-dessous est le repli statique si la base est indispo. -->
+            <ul data-mdt-hours="maison">
+              <li class="is-closed"><span>Lundi</span><span>Fermé</span></li>
+              <li><span>Mardi</span><span>12h – 18h</span></li>
+              <li><span>Mercredi</span><span>9h – 18h</span></li>
+              <li><span>Jeudi</span><span>9h – 21h</span></li>
+              <li><span>Vendredi</span><span>9h – 21h</span></li>
+              <li><span>Samedi</span><span>9h – 21h</span></li>
+              <li><span>Dimanche</span><span>9h – 15h</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="fiche-cta"><a href="atelier.html#reserver" class="btn">Réserver un atelier</a></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ ÉCRAN 2 — Carte + accès ============ -->
+  <section class="locate wrap" id="s-carte">
+    <div class="section-head reveal">
+      <span class="kicker">Nous situer</span>
+      <h2>Sur la carte.</h2>
+      <div class="rule" aria-hidden="true"><span>~</span></div>
+    </div>
+
+    <div class="map-frame reveal">
+      <iframe title="Carte — Maison de Tara, 1 Rue Gabriel Péri, La Garenne-Colombes"
+        src="https://www.google.com/maps?q=1%20Rue%20Gabriel%20P%C3%A9ri%2C%2092250%20La%20Garenne-Colombes&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:clamp(2.2rem,5vw,3.6rem)">
+      <span class="kicker">Comment venir</span>
+      <h2>À deux pas, par tous les chemins.</h2>
+    </div>
+
+    <div class="access reveal" id="s-acces">
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3 data-mdt-content="contact.acces.train.titre">En train</h3>
+        <p data-mdt-content="contact.acces.train.texte">À quelques minutes à pied de la gare de La Garenne-Colombes, facilement accessible depuis Paris Saint-Lazare (Ligne L).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3 data-mdt-content="contact.acces.tramway.titre">En tramway</h3>
+        <p data-mdt-content="contact.acces.tramway.texte">À proximité du T2 « Les Fauvelles », reliant La Défense et Porte de Versailles.</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">B</span>
+        <h3 data-mdt-content="contact.acces.bus.titre">En bus</h3>
+        <p data-mdt-content="contact.acces.bus.texte">Desservie par les lignes 163, 164, 178 et 278, avec des arrêts à proximité (Colombes, Courbevoie, Bois-Colombes, La Défense).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">V</span>
+        <h3 data-mdt-content="contact.acces.voiture.titre">En voiture</h3>
+        <p data-mdt-content="contact.acces.voiture.texte">Plusieurs places de stationnement dans les rues avoisinantes. Un parking public payant est également accessible à proximité.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉCRAN 3 — FAQ + formulaire ============ -->
+  <section class="write wrap" id="s-ecrire">
+    <div class="write-grid">
+
+      <div class="faq reveal" id="s-faq">
+        <div class="col-head">
+          <span class="kicker">Questions fréquentes</span>
+          <h2>Tout ce qu'il faut savoir.</h2>
+        </div>
+        <details>
+          <summary data-mdt-content="contact.faq.q1.question">Faut-il savoir peindre&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q1.reponse">Non, aucune expérience n'est nécessaire. On vous laisse essayer, à votre rythme.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q2.question">Combien de temps dure une session&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q2.reponse">Environ 2 heures.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q3.question">Quand récupérer ma pièce&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q3.reponse">Quelques jours après la cuisson. Nous conviendrons ensemble de la date estimée de récupération le jour de votre atelier.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q4.question">À partir de quel âge&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q4.reponse">Il n'y a pas d'âge pour peindre&nbsp;! Les plus jeunes sont bien sûr les bienvenus lorsqu'ils sont accompagnés d'un adulte.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q5.question">Dois-je réserver pour un atelier&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q5.reponse">Oui, nous vous recommandons de réserver votre session à l'avance afin de vous accueillir dans les meilleures conditions et vous garantir une place. Les réservations se font en ligne, par téléphone ou directement à la boutique, sous réserve des disponibilités.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q6.question">Combien coûte un atelier&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q6.reponse">Le prix dépend de la pièce que vous choisissez&nbsp;: comptez entre 12&nbsp;€ et 80&nbsp;€ selon le modèle. Il comprend tout&nbsp;: la pièce en céramique, les peintures et accessoires, l'émaillage et la cuisson.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q7.question">Dois-je payer mon atelier à l'avance&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q7.reponse">Non, le règlement s'effectue sur place le jour de votre atelier. Lors de la réservation, un acompte de 6&nbsp;€ par personne est demandé pour confirmer votre place&nbsp;; il est déduit de votre facture finale. Cette participation nous permet de limiter les absences de dernière minute.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q8.question">Puis-je aussi découvrir la boutique&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q8.reponse">Avec plaisir&nbsp;! Vous pouvez passer librement, sans réservation, pendant les horaires d'ouverture. Vous y trouverez une sélection de décoration, textiles, céramiques et idées cadeaux, renouvelée au fil des saisons.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q9.question">Puis-je organiser un anniversaire, un EVJF, un team building&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q9.reponse">Bien sûr. Nous serions ravis de vous accueillir pour célébrer un anniversaire, un EVJF, un team building, une baby shower ou tout autre moment qui vous tient à cœur. Pour toute réservation de plus de 8 personnes, contactez-nous directement pour imaginer ensemble la formule la plus adaptée.</p>
+        </details>
+        <details>
+          <summary>Comment savoir ce qui se passe à la Maison de Tara&nbsp;?</summary>
+          <p>Le meilleur moyen est de vous inscrire à la Lettre de la Maison&nbsp;: ateliers à venir, événements et nouveautés de la boutique. Vous pouvez aussi consulter <a href="calendrier.html">le calendrier</a> et nous suivre sur <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">Instagram</a>.</p>
+        </details>
+      </div>
+
+      <div class="reveal">
+        <div class="col-head">
+          <span class="kicker" data-mdt-content="contact.ecrire.kicker">Écrivez-nous</span>
+          <h2 data-mdt-content="contact.ecrire.titre">Une question&nbsp;? Un projet&nbsp;?</h2>
+          <p data-mdt-content="contact.ecrire.texte">On vous répond avec plaisir. Pour une réservation d'atelier, passez plutôt par la page <a href="atelier.html#reserver">Atelier</a>.</p>
+        </div>
+        <div class="form-card">
+          <form id="contactForm" novalidate>
+            <div class="pills" role="radiogroup" aria-label="Type de demande">
+              <label class="pill"><input type="radio" name="mode" value="contact" checked><span>Message</span></label>
+              <label class="pill"><input type="radio" name="mode" value="privatisation"><span>Privatisation</span></label>
+            </div>
+
+            <div class="field--row">
+              <div class="field">
+                <label for="cf-nom">Votre nom</label>
+                <input id="cf-nom" name="nom" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="cf-email">Votre email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cf-sujet">Sujet</label>
+              <input id="cf-sujet" name="sujet" type="text">
+            </div>
+
+            <div id="cf-privatisation" hidden>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-tel">Téléphone <span class="opt">(facultatif)</span></label>
+                  <input id="cf-tel" name="telephone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="cf-personnes">Nombre de personnes</label>
+                  <input id="cf-personnes" name="personnes" type="number" min="1" max="60">
+                </div>
+              </div>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-date-btn">Date souhaitée</label>
+                  <div class="dp">
+                    <button type="button" class="dp__field" id="cf-date-btn" aria-haspopup="dialog" aria-expanded="false">Choisir une date</button>
+                    <input type="hidden" id="cf-date" name="date">
+                    <div class="dp__pop" hidden></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="cf-type">Type d'événement</label>
+                  <select id="cf-type" name="typeEvenement">
+                    <option value="workshop">Atelier</option>
+                    <option value="soiree">Soirée</option>
+                    <option value="kids">Enfants</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cf-message">Votre message</label>
+              <textarea id="cf-message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+<!-- Footer hors du scope .premium-* : rendu identique à l'accueil -->
+<!-- include: footer -->
+<!-- include: scripts-min -->
+<script src="js/header-pages.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* Reveals doux — désactivés si prefers-reduced-motion */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach(function(el){ el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    items.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+<script src="js/mdt-datepicker.js"></script>
+<script type="module">
+  import './js/site-hours.js';
+</script>
+<script type="module" src="js/site-contact.js"></script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
+<!-- Toggle hero centré / 2 colonnes (demande cliente 26/08) — choix mémorisé -->
+<button class="hero-layout-toggle" id="heroLayoutToggle" type="button" aria-pressed="false">Vue : 2 colonnes</button>
+<script>
+(function(){
+  "use strict";
+  var KEY = "mdt-contact-hero-layout";
+  var grid = document.querySelector(".premium-contact .hero-grid");
+  var btn = document.getElementById("heroLayoutToggle");
+  if (!grid || !btn) return;
+  function apply(mode) {
+    var centered = mode === "center";
+    grid.classList.toggle("hero--center", centered);
+    btn.textContent = centered ? "Vue : centrée" : "Vue : 2 colonnes";
+    btn.setAttribute("aria-pressed", String(centered));
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === "center") apply("center");
+  btn.addEventListener("click", function () {
+    var next = grid.classList.contains("hero--center") ? "columns" : "center";
+    apply(next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

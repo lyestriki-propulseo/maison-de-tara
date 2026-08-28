@@ -1,0 +1,136 @@
+/* ============================================================
+   ACCUEIL v2 « premium » — VERROUILLÉE (arbitrage client 12/06).
+   body.av2 est posé en dur dans _src/index.html ; ce fichier
+   s'applique donc en permanence. Objectif : aligner l'accueil sur
+   le langage des pages intérieures premium — boutons pilule,
+   eyebrows manuscrits, photos en arche indienne, cadres laiton.
+   ============================================================ */
+
+/* ---------- Boutons : pilules premium (comme les pages intérieures) */
+body.av2 .btn,
+body.av2 .mdt-nl-form button,
+body.av2 .mdt-occasions-cta .btn {
+  border-radius: 999px !important;
+  letter-spacing: .14em !important;
+}
+body.av2 .play-now .play-btn { border-radius: 50%; }
+
+/* ---------- Eyebrows : manuscrit La Belle Aurore (signature premium) */
+body.av2 .section-title h6,
+body.av2 .events-eyebrow {
+  font-family: var(--mdt-font-script) !important;
+  font-size: clamp(24px, 2.6vw, 32px) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: var(--mdt-laiton) !important;
+  font-weight: 400 !important;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+body.av2 .hero-eyebrow {
+  /* Retour Tara 22/07 « peu lisible » : agrandie PUIS passée en Caveat 600
+     (choix C sur maquette) — manuscrite au trait épais, chargée dans head.html.
+     La Belle Aurore reste la manuscrite partout ailleurs. */
+  font-family: "Caveat", var(--mdt-font-script), cursive !important;
+  font-size: clamp(28px, 2.9vw, 37px) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 600 !important;
+}
+
+/* ---------- Univers : photos des 3 cartes en arche indienne */
+body.av2 .exhibition-box > figure {
+  border: 1px solid var(--mdt-laiton);
+  border-radius: 999px 999px 0 0;
+  padding: 8px;
+  background: #FBF7EC;
+  overflow: hidden;
+}
+body.av2 .exhibition-box > figure img { border-radius: 993px 993px 0 0; }
+body.av2 .exhibition-box > figure .info { border-radius: 0; }
+
+/* ---------- Parcours : photos en arche + cadre laiton */
+body.av2 #parcours .content-image {
+  border: 1px solid var(--mdt-laiton);
+  border-radius: 999px 999px 0 0;
+  padding: 8px;
+  background: #FBF7EC;
+}
+body.av2 #parcours .content-image img { border-radius: 993px 993px 0 0; }
+body.av2 #parcours .image-icon-box { border-right: none; }
+/* Retour Tara : marges latérales (la grille était full-bleed, collée aux bords). */
+body.av2 #parcours .container-fluid { padding-inline: clamp(1rem, 4vw, 3.5rem); }
+
+/* ---------- Réalisations : galerie adoucie, cadre laiton fin */
+body.av2 #realisations .image-box img {
+  border-radius: 12px;
+  border: 1px solid rgba(184, 146, 77, .45);
+}
+
+/* ---------- Boutique (teaser) : photos adoucies */
+body.av2 #section-boutique .image-box img,
+body.av2 #section-boutique figure img {
+  border-radius: 12px;
+}
+
+/* ---------- Les rendez-vous : rangées en cartes douces.
+   Retour Tara #12 : « plus de vert au lieu de marron » → filets, pastille de
+   date et accents de CETTE section en olive (les autres sections gardent le laiton). */
+body.av2 .event-row {
+  border: 1px solid rgba(90, 99, 71, .38);
+  border-radius: 14px;
+  background: rgba(251, 247, 236, .55);
+  padding-left: 18px;
+  padding-right: 18px;
+}
+body.av2 .event-row--featured { border-color: var(--mdt-olive-deep); background: #FBF7EC; }
+body.av2 .event-row__date--featured { background: var(--mdt-olive-deep); }
+body.av2 #calendrier-teaser .events-eyebrow { color: var(--mdt-olive-deep) !important; }
+body.av2 .events-rows__title em { color: var(--mdt-olive-deep); }
+
+/* ---------- Grandes occasions : mini-arches */
+body.av2 .mdt-occasions-lp img {
+  border-radius: 999px 999px 0 0;
+  height: 150px;
+}
+
+/* ---------- Newsletter : double filet laiton signature */
+body.av2 .mdt-newsletter .container .row > div > * { position: relative; }
+body.av2 #newsletter form button { border-radius: 999px !important; }
+
+/* ---------- Mobile : compresser la hauteur (2026-07-23, desktop 100% intact).
+   Les grandes photos en arche prennent presque un ecran entier chacune en pleine
+   largeur → on plafonne. object-fit:cover garde la forme d'arche. */
+@media (max-width: 600px) {
+  body.av2 .exhibition-box > figure img,
+  body.av2 #parcours .content-image img { max-height: 46vh; object-fit: cover; }
+  body.av2 .mdt-occasions-lp img { height: 120px; }
+  /* Reserrer l'espace entre les rangees d'items empilees. */
+  body.av2 .event-row { margin-bottom: 10px; }
+
+  /* Univers : carrousel qui glisse au doigt (scroll-snap, sans JS) au lieu
+     d'empiler 3 grandes cartes. On voit une carte + un bout de la suivante. */
+  body.av2 #univers .row.justify-content-center {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px;
+    margin-inline: 0;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  body.av2 #univers .row.justify-content-center::-webkit-scrollbar { display: none; }
+  body.av2 #univers .row.justify-content-center > [class*="col-"] {
+    flex: 0 0 84%;
+    max-width: 84%;
+    scroll-snap-align: center;
+  }
+
+  /* Parcours « Comment ca se passe ? » : les 4 etapes (1-2-3-4) en 2x2, et on
+     MASQUE le texte long (revele au survol sur PC) — pas voulu sur mobile. */
+  body.av2 #parcours .row.g-0 > [class*="col-"] { flex: 0 0 50%; max-width: 50%; }
+  body.av2 #parcours .content-box .expand { display: none; }
+}
+
+/* ---------- Footer & header héritent déjà du langage premium ✓ */

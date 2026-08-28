@@ -1,0 +1,432 @@
+/* ============================================================
+   Page Mon Histoire — design premium « La lettre illustrée »
+   Intégré depuis premium-histoire.html (preview validée).
+   Tout est scopé sous .premium-histoire (classe sur <main>).
+   Charte Maison de Tara : terracotta / vieux rose / sauge /
+   sable / laiton / encre / blanc cassé. Aucune autre couleur.
+   Fonts chargées par le head du site : Playfair Display
+   400/500/600 (+ italiques), La Belle Aurore 400,
+   Inter 300/400/500 — aucun autre poids utilisé ici.
+   ============================================================ */
+
+.premium-histoire{
+  --terracotta:#79301E;
+  --vieux-rose:#BA7770;
+  --sauge:#8A976C;
+  --sable:#F0ECDB;
+  --laiton:#B8924D;
+  --encre:#2c2419;
+  --blanc:#FBF7EC;
+
+  --serif:"Playfair Display", Georgia, serif;
+  --script:"La Belle Aurore", cursive;
+  --sans:"Inter", system-ui, sans-serif;
+
+  --mesure:62ch;
+  --gutter:clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.premium-histoire,
+.premium-histoire *,
+.premium-histoire *::before,
+.premium-histoire *::after{ box-sizing:border-box; }
+
+/* base (équivalent body de la preview, scopé) */
+.premium-histoire{
+  margin:0;
+  background:var(--blanc);
+  color:var(--encre);
+  font-family:var(--sans);
+  font-size:clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ré-affirmation typo : le template Wandau style les balises nues avant nous */
+.premium-histoire p{
+  font-family:var(--sans);
+  font-weight:400;
+  color:var(--encre);
+  line-height:1.75;
+  margin:0 0 1.6em;
+}
+.premium-histoire h1,
+.premium-histoire h2,
+.premium-histoire h6{
+  font-family:var(--serif);
+  color:var(--encre);
+  text-transform:none;
+}
+.premium-histoire figure{ margin:0; }
+.premium-histoire hr{ border:0; }
+
+.premium-histoire img{ max-width:100%; height:auto; display:block; }
+
+.premium-histoire a{
+  color:var(--terracotta);
+  text-decoration-color:rgba(184,146,77,.6);
+  text-underline-offset:.2em;
+}
+.premium-histoire a:hover{ color:var(--encre); }
+
+.premium-histoire :focus-visible{
+  outline:2px solid var(--laiton);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.premium-histoire ::selection{ background:var(--laiton); color:var(--blanc); }
+
+/* ---------- texture florale légère ---------- */
+.premium-histoire .floral{ position:relative; }
+.premium-histoire .floral::after{
+  content:"";
+  position:absolute; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
+  background-size:420px auto;
+  opacity:.07;
+  pointer-events:none;
+}
+.premium-histoire .floral > *{ position:relative; z-index:1; }
+
+/* ---------- reveals ---------- */
+.premium-histoire .reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.premium-histoire .reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .premium-histoire .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ============================================================
+   Ouverture — « Mon histoire » + duo Inde × France
+   ============================================================ */
+.premium-histoire .hero{
+  background:var(--sable);
+  overflow:hidden;
+  padding-top:9.5rem;
+}
+.premium-histoire .hero__inner{
+  max-width:1280px; margin:0 auto;
+  padding:2rem var(--gutter) clamp(4rem, 10vw, 8.5rem);
+  display:grid;
+  grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
+  gap:clamp(2.5rem, 6vw, 6rem);
+  align-items:start;
+}
+/* Retour cliente 25/08 — le hero reprend le modèle du Calendrier : eyebrow
+   cursif laiton encadré de deux traits + h1 Playfair à la taille du
+   Calendrier (référence pour toutes les pages). */
+.premium-histoire .hero__script{
+  display:inline-flex;
+  align-items:center;
+  gap:1rem;
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem);
+  line-height:1;
+  color:var(--laiton);
+  margin:0 0 .8rem;
+}
+.premium-histoire .hero__script::before,
+.premium-histoire .hero__script::after{
+  content:"";
+  width:clamp(2rem, 6vw, 4.5rem);
+  height:1px;
+  background:var(--laiton);
+  opacity:.7;
+}
+.premium-histoire .hero h1{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(2.2rem, 1.4rem + 3.4vw, 3.6rem);
+  line-height:1.12;
+  letter-spacing:normal;
+  margin:0 0 1.6rem;
+  color:var(--encre);
+  text-wrap:balance;
+}
+.premium-histoire .hero__filet{ display:none; }
+.premium-histoire .hero__intro{
+  max-width:36ch;
+  font-size:clamp(1rem, 1vw + .6rem, 1.15rem);
+  color:rgba(44,36,25,.82);
+  margin:0;
+}
+.premium-histoire .hero__intro em{
+  font-family:var(--serif);
+  font-style:italic;
+  color:var(--terracotta);
+}
+
+/* duo photos : arche (Inde) + chevauchement (France) */
+.premium-histoire .hero__duo{
+  position:relative;
+  justify-self:center;
+  width:min(100%, 460px);
+  padding:0 0 4.5rem 0;
+}
+.premium-histoire .hero__arch{
+  margin:0;
+  position:relative;
+  width:78%;
+  margin-left:auto;
+}
+.premium-histoire .hero__arch img{
+  aspect-ratio:3 / 4.2;
+  object-fit:cover;object-position:center center;
+  border-radius:999px 999px 0 0;
+}
+.premium-histoire .hero__arch::before{
+  content:"";
+  position:absolute; inset:0;
+  border:1px solid var(--laiton);
+  border-radius:999px 999px 0 0;
+  transform:translate(12px, 12px);
+  pointer-events:none;
+}
+.premium-histoire .hero__overlap{
+  margin:0;
+  position:absolute;
+  left:0; bottom:0;
+  width:52%;
+  box-shadow:0 24px 48px -24px rgba(44,36,25,.45);
+}
+.premium-histoire .hero__overlap img{
+  aspect-ratio:4 / 3;
+  object-fit:cover;object-position:center center;
+  border:6px solid var(--blanc);
+}
+.premium-histoire .hero__overlap::before{
+  content:"";
+  position:absolute; inset:-6px;
+  border:1px solid var(--laiton);
+  transform:translate(10px, 10px);
+  pointer-events:none;
+}
+.premium-histoire .hero__tag{
+  position:absolute;
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.5rem, 2.4vw, 2rem);
+  color:var(--terracotta);
+  line-height:1;
+  white-space:nowrap;
+}
+/* -1.2em et pas -1.6em : le tag est le point le plus haut du hero, c'est lui qui fixe
+   le plancher sous le header fixe. */
+.premium-histoire .hero__tag--inde{ top:-1.2em; right:8%; }
+.premium-histoire .hero__tag--france{ left:2%; bottom:-1.7em; }
+.premium-histoire .hero__tag::after{
+  content:"";
+  display:block;
+  width:2.4em; height:1px;
+  background:var(--laiton);
+  margin-top:.25em;
+}
+
+/* ============================================================
+   La lettre — variante B « pleine page » (validée 12/06) :
+   colonne unique de lecture, photos intercalées entre les
+   paragraphes (duo en arches + bandeau panoramique).
+   ============================================================ */
+.premium-histoire .lettre{
+  padding:clamp(4rem, 9vw, 8rem) var(--gutter) clamp(3rem, 7vw, 6rem);
+  background:var(--blanc);
+}
+.premium-histoire .lettre__col{
+  max-width:var(--mesure);
+  margin:0 auto;
+}
+
+.premium-histoire .corps p{
+  margin:0 0 1.6em;
+  font-size:clamp(1.05rem, .98rem + .3vw, 1.2rem);
+  line-height:1.85;
+  color:rgba(44,36,25,.9);
+}
+.premium-histoire .corps .lead{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  line-height:1.55;
+  color:var(--encre);
+  margin-bottom:1.4em;
+}
+.premium-histoire .corps .lead::first-letter{
+  font-family:var(--serif);
+  font-weight:600;
+  float:left;
+  font-size:4.9em;
+  line-height:.78;
+  padding:.06em .14em 0 0;
+  color:var(--terracotta);
+}
+
+/* photos intercalées dans la lettre (variante B) */
+.premium-histoire .lettre .cadre{
+  position:relative;
+  display:block;
+  border:1px solid var(--laiton);
+  padding:9px;
+  background:var(--blanc);
+}
+.premium-histoire .lettre .cadre::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border:1px solid var(--laiton);
+  transform:translate(9px, 9px);
+  pointer-events:none;
+}
+.premium-histoire .lettre .cadre img{
+  display:block;
+  width:100%;
+  object-fit:cover;object-position:center center;
+}
+.premium-histoire .lettre .cadre--arche,
+.premium-histoire .lettre .cadre--arche::before{ border-radius:999px 999px 0 0; }
+.premium-histoire .lettre .cadre--arche img{ border-radius:993px 993px 0 0; }
+.premium-histoire .lettre__duo{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(1.2rem, 3vw, 2rem);
+  margin:clamp(1.8rem, 4vw, 2.8rem) 0;
+}
+.premium-histoire .lettre__duo img{ aspect-ratio:3 / 3.4; }
+.premium-histoire .lettre__inter{ margin:clamp(1.8rem, 4vw, 2.8rem) 0; }
+.premium-histoire .lettre__inter img{ aspect-ratio:16 / 7; }
+.premium-histoire .lettre figcaption{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:1.3rem;
+  line-height:1.2;
+  color:var(--terracotta);
+  margin-top:1rem;
+  text-align:center;
+}
+
+/* signature */
+.premium-histoire .signature{
+  max-width:var(--mesure);
+  margin:clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  text-align:right;
+}
+.premium-histoire .signature .nom{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(4rem, 9vw, 6.5rem);
+  line-height:.9;
+  color:var(--terracotta);
+  display:inline-block;
+  transform:rotate(-3deg);
+  margin:0;
+}
+.premium-histoire .signature .filet{
+  border:0;
+  height:1px;
+  margin:1.4rem 0 0;
+  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
+}
+
+.premium-histoire .btn{
+  display:inline-block;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:.92rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--blanc);
+  background:var(--color-cta-primary);
+  border:1px solid var(--color-cta-primary);
+  border-radius:999px; /* retour cliente 25/08 : boutons ovales */
+  padding:1.05rem 2.6rem;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.premium-histoire .btn:hover{
+  background:var(--color-cta-primary-hover);
+  border-color:var(--color-cta-primary-hover);
+  color:var(--blanc);
+}
+
+/* Sortie de page : finale BEIGE (retour cliente 25/08 « pas vert, beige comme
+   la page accueil »). Fond sable + texture florale conservée, texte en encre. */
+.premium-histoire .page-envoi{
+  position:relative;
+  background:var(--sable);
+  text-align:center;
+  padding:clamp(4.5rem, 8vw, 6.5rem) var(--gutter);
+  overflow:hidden;
+}
+/* couture laiton fondue aux bords, écho du filet de la signature */
+.premium-histoire .page-envoi::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, rgba(184,146,77,0), var(--laiton) 35%, var(--laiton) 65%, rgba(184,146,77,0));
+  z-index:1;
+}
+/* texture florale, très légère sur le sable */
+.premium-histoire .page-envoi::after{
+  content:"";
+  position:absolute; inset:0;
+  background:url("../../assets-premium-lp/wallpaper-tara-green.jpg") repeat;
+  background-size:420px auto;
+  opacity:.06;
+  pointer-events:none;
+}
+.premium-histoire .page-envoi > *{ position:relative; z-index:1; }
+.premium-histoire .page-envoi__script{
+  font-family:var(--script);
+  font-weight:400;
+  font-size:clamp(1.8rem, 1.5rem + 1.2vw, 2.4rem);
+  color:var(--laiton);
+  margin:0 0 1.4rem;
+}
+/* sur fond beige, le CTA reprend l'habituel vert de marque */
+.premium-histoire .page-envoi .btn{
+  color:var(--blanc);
+  background:var(--color-cta-primary);
+  border-color:var(--color-cta-primary);
+}
+.premium-histoire .page-envoi .btn:hover{
+  background:var(--color-cta-primary-hover);
+  border-color:var(--color-cta-primary-hover);
+  color:var(--blanc);
+}
+/* fusion envoi → footer : ce fichier ne charge que sur la page histoire,
+   on y retire la couture laiton du footer (posée en !important dans mdt-override) */
+.mdt-footer{ border-top:0 !important; }
+
+/* ============================================================
+   Responsive — lettre (variante B)
+   ============================================================ */
+@media (max-width: 620px){
+  .premium-histoire .lettre__duo{ grid-template-columns:1fr; }
+  .premium-histoire .lettre__duo img{ aspect-ratio:4 / 3.4; }
+  .premium-histoire .lettre__inter img{ aspect-ratio:16 / 10; }
+}
+
+/* Le titre « Mon histoire » chevauchait le header fixe : on degage le haut (juste assez
+   pour passer sous le header ~85px). Breakpoint cale sur 600px, la ou mdt-override masque
+   la topbar : entre 601 et 620px le header fait encore 150px, et la valeur mobile y etait
+   trop courte. */
+@media (max-width: 600px){
+  .premium-histoire .hero{ padding-top: 5.75rem; }
+}
+
+@media (max-width: 860px){
+  .premium-histoire .hero__inner{
+    grid-template-columns:1fr;
+    gap:4.5rem;
+  }
+  .premium-histoire .hero__duo{ justify-self:start; }
+}
+
+@media (max-width: 480px){
+  .premium-histoire .hero__tag--inde{ right:0; }
+  .premium-histoire .corps .lead::first-letter{ font-size:3.8em; }
+}
+

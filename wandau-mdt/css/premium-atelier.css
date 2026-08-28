@@ -1,0 +1,598 @@
+/* ============================================================
+   Page L'Atelier — design premium « Le Rituel »
+   Intégré depuis premium-atelier.html (preview validée).
+   Tout est scopé sous .premium-atelier (classe sur <main>).
+   Charte Maison de Tara : terracotta / vieux rose / sauge /
+   sable / laiton / encre / crème. Aucune autre couleur.
+   Fonts chargées par le head du site : Playfair Display
+   400/500/600 (+ italiques), La Belle Aurore 400,
+   Inter 300/400/500 — aucun autre poids utilisé ici.
+   Le footer du site est inclus DANS <main> : les resets et
+   ré-affirmations typo sont limités aux sections de la page
+   (.hero / .rituel-head / .chap / .reserve / .priva) pour ne
+   pas toucher .mdt-footer.
+   ============================================================ */
+
+.premium-atelier{
+  --terracotta:#79301E;
+  --rose:#BA7770;
+  --sauge:#8A976C;
+  --sable:#F0ECDB;
+  --laiton:#B8924D;
+  --encre:#2c2419;
+  --creme:#FBF7EC;
+  --serif:"Playfair Display", Georgia, serif;
+  --hand:"La Belle Aurore", cursive;
+  --sans:"Inter", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.61,.21,1);
+
+  /* équivalent body de la preview, scopé */
+  margin:0;
+  font-family:var(--sans);
+  font-size:1rem;
+  line-height:1.75;
+  color:var(--encre);
+  background:var(--creme);
+}
+
+/* ---------- reset + neutralisation du template Wandau,
+   limités aux sections de la page (pas le footer) ---------- */
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva),
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) :where(*,*::before,*::after){
+  box-sizing:border-box;
+}
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) :where(h1,h2,h3,p,ul,ol,li,figure,figcaption,blockquote,form,fieldset,label,hr,aside,address){
+  margin:0;
+  padding:0;
+}
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) :where(p,li,span,figcaption,label,a){
+  font-family:inherit;
+  line-height:inherit;
+  color:inherit;
+  letter-spacing:normal;
+  font-weight:400;
+  text-transform:none;
+}
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) :where(h1,h2,h3){
+  font-family:var(--serif);
+  color:var(--encre);
+  letter-spacing:normal;
+  text-transform:none;
+}
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) img{
+  display:block;
+  max-width:100%;
+  height:auto;
+}
+.premium-atelier :where(.hero,.rituel-head,.chap,.reserve,.priva) a{
+  color:var(--terracotta);
+  text-decoration:underline;
+}
+.premium-atelier ::selection{background:var(--laiton);color:var(--creme)}
+.premium-atelier :focus-visible{outline:2px solid var(--laiton);outline-offset:4px;border-radius:2px}
+
+/* ---------- texture florale très légère ---------- */
+.premium-atelier .tex{position:relative}
+.premium-atelier .tex::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/520px repeat;
+  opacity:.07;
+}
+.premium-atelier .tex > *{position:relative;z-index:1}
+
+/* ---------- primitives ---------- */
+.premium-atelier .wrap{max-width:78rem;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,4rem)}
+/* Annotations manuscrites : DROITES (retour client — pas d'inclinaison) */
+.premium-atelier .eyebrow{
+  font-family:var(--hand);font-size:clamp(1.4rem,2.4vw,1.8rem);line-height:1.2;
+  color:var(--laiton);display:inline-block;
+}
+/* Retour cliente 25/08 « toutes les pages commencent comme le Calendrier » :
+   le hero reprend le modèle du Calendrier — eyebrow cursif laiton encadré de
+   deux traits (1px, laiton) et h1 Playfair à la taille du titre du Calendrier
+   (clamp(2.2rem → 3.6rem)). Scopé au hero : les .eyebrow des sections restent
+   au format court d'origine. */
+.premium-atelier .hero .eyebrow{
+  font-family:var(--hand) !important;
+  font-size:clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem) !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  color:var(--laiton) !important;
+  display:inline-flex;align-items:center;gap:1rem;line-height:1;
+}
+.premium-atelier .hero .eyebrow::before,
+.premium-atelier .hero .eyebrow::after{
+  content:"";width:clamp(2rem,6vw,4.5rem);height:1px;background:var(--laiton);opacity:.7;
+}
+.premium-atelier .rule{width:64px;height:1px;background:var(--laiton);border:0;margin:1.4rem 0}
+.premium-atelier .rule--c{margin-inline:auto}
+
+/* boutons */
+.premium-atelier .btn{
+  display:inline-block;font-family:var(--sans);font-size:.82rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  line-height:normal;
+  padding:1.05rem 2.2rem;border:1px solid var(--terracotta);
+  background:var(--terracotta);color:var(--creme);cursor:pointer;
+  border-radius:999px;
+  transition:background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.premium-atelier .btn:hover{background:var(--encre);border-color:var(--encre);color:var(--creme);transform:translateY(-2px);box-shadow:0 10px 24px rgba(44,36,25,.18)}
+.premium-atelier .btn:disabled{background:rgba(44,36,25,.18);border-color:transparent;color:rgba(44,36,25,.5);cursor:not-allowed}
+.premium-atelier .btn:disabled:hover{background:rgba(44,36,25,.18);border-color:transparent;color:rgba(44,36,25,.5);transform:none;box-shadow:none}
+/* ghost : encre depuis le passage de la section priva en beige (22/07) */
+.premium-atelier .btn--ghost{background:transparent;color:var(--encre);border-color:var(--laiton)}
+.premium-atelier .btn--ghost:hover{background:var(--laiton);border-color:var(--laiton);color:var(--encre)}
+/* Retour cliente 25/08 : « Nous contacter » en vert (vert de marque olive profond) */
+.premium-atelier .btn--olive{background:var(--mdt-olive-deep);border-color:var(--mdt-olive-deep);color:var(--creme)}
+.premium-atelier .btn--olive:hover{background:var(--encre);border-color:var(--encre);color:var(--creme)}
+
+/* arche + double bordure laiton */
+.premium-atelier .arche{
+  position:relative;border:1px solid var(--laiton);
+  border-radius:999px 999px 0 0;padding:.6rem;background:var(--creme);
+}
+.premium-atelier .arche::before{
+  content:"";position:absolute;inset:-1px;border:1px solid var(--laiton);
+  border-radius:999px 999px 0 0;transform:translate(10px,10px);
+  pointer-events:none;
+}
+.premium-atelier .arche img{
+  width:100%;height:100%;object-fit:cover;object-position:center center;border-radius:993px 993px 0 0;
+  transition:transform 1.2s var(--ease), filter 1.2s var(--ease);
+}
+.premium-atelier .arche{overflow:visible}
+.premium-atelier .arche__mask{overflow:hidden;border-radius:993px 993px 0 0;height:100%}
+.premium-atelier .arche:hover img{transform:scale(1.035)}
+
+/* reveal au scroll */
+.premium-atelier .rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease), transform 1s var(--ease)}
+.premium-atelier .rv.in{opacity:1;transform:none}
+.premium-atelier .rv2{transition-delay:.15s}
+.premium-atelier .rv3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  .premium-atelier .rv{opacity:1;transform:none;transition:none}
+  .premium-atelier .arche img,
+  .premium-atelier .btn,
+  .premium-atelier .occ span,
+  .premium-atelier .fld input,
+  .premium-atelier .fld select{transition:none}
+}
+
+/* ============================================================
+   HERO — compact et raffiné
+   ============================================================ */
+/* Padding haut = topbar (42px) + header fixe (~110px) + respiration : la photo
+   en arche ne passe plus sous le header (transparent en haut de page). */
+/* Le hero doit tenir dans un ecran (demande 16/07) : paddings allteges pour laisser
+   la place a la photo agrandie du retour #17. Le padding haut degage toujours la
+   topbar (42px) + le header (109px) = 151px. */
+.premium-atelier .hero{padding:9.5rem 0 clamp(2rem,4vw,3.5rem);background:var(--creme);min-height:0;box-sizing:border-box}
+/* Retour Tara #17 « page un peu vide, elargir la photo » : grille rebasculee
+   7fr/4fr -> 6fr/5fr pour donner de la place a la photo (voir .hero__fig).
+   align-items:center et plus :end — avec une photo plus haute, l'alignement bas
+   poussait tout le texte sous la ligne de flottaison. */
+.premium-atelier .hero__grid{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2rem,6vw,5.5rem);align-items:center;
+}
+.premium-atelier .hero h1{
+  font-family:var(--serif);font-weight:500;
+  /* Retour cliente 25/08 : même taille que le titre du Calendrier (référence). */
+  font-size:clamp(2.2rem, 1.4rem + 3.4vw, 3.6rem);line-height:1.12;letter-spacing:normal;
+  margin:.4rem 0 1.6rem;
+}
+/* Retour Tara #16 « en vert olive fonce ? » */
+.premium-atelier .hero h1 em{font-style:italic;color:var(--mdt-olive-deep)}
+/* Aligne sur Mon histoire (meme taille/police que hero__intro histoire) */
+.premium-atelier .hero__intro{max-width:36ch;font-size:clamp(1rem, 1vw + .6rem, 1.15rem);line-height:1.75;color:rgba(44,36,25,.82);margin:0}
+/* Toggle centré / 2 colonnes — variante hero--center (comme la boutique) */
+.premium-atelier .hero.hero--center{ text-align:center; }
+.premium-atelier .hero.hero--center .hero__grid{ grid-template-columns:1fr; justify-items:center; max-width:62ch; margin:0 auto; }
+.premium-atelier .hero.hero--center .hero__intro{ margin-left:auto; margin-right:auto; text-align:center; }
+.hero-layout-toggle{ position:fixed; bottom:1rem; right:1rem; z-index:999; background:var(--blanc, #FBF7EC); border:1px solid var(--laiton, #B8924D); padding:.6rem 1.2rem; border-radius:999px; font-family:var(--sans, Inter, sans-serif); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; box-shadow:0 4px 16px rgba(44,36,25,.12); }
+/* Retour Tara #17 : 21rem bridait la photo SOUS la largeur de sa propre colonne
+   (~375px) ; 30rem la laisse remplir les ~469px de la grille 6fr/5fr.
+   Le min() borne en plus la photo par la hauteur d'ecran, pour que le hero tienne
+   dans un ecran sans scroll. La figure est en ratio 4/5 (hauteur = largeur x 1.25)
+   + ~79px de legende ; avec les paddings (184 + 56) -> largeur max = (100vh - 319) x 0.8. */
+/* Retour Tara 22/07 « décaler l'image à gauche et l'agrandir » : centrée dans sa
+   colonne (plus collée au bord droit) et cap 30rem -> 34rem. Réserve verticale
+   319px -> 280px : la légende peut mordre (~40px) sous la ligne de flottaison —
+   compromis assumé avec « le hero tient dans un écran » (16/07). */
+.premium-atelier .hero__fig{
+  aspect-ratio:4/5;
+  max-width:min(34rem, calc((100vh - 280px) * 0.8));
+  justify-self:center;width:100%;
+}
+.premium-atelier .hero__fig figcaption{
+  font-family:var(--hand);font-size:1.25rem;color:var(--laiton);
+  text-align:center;margin-top:1.4rem;
+}
+
+/* ============================================================
+   INTRO DU RITUEL
+   ============================================================ */
+.premium-atelier .rituel-head{padding:clamp(3.5rem,8vw,6rem) 0 clamp(1rem,3vw,2rem);text-align:center;background:var(--creme)}
+.premium-atelier .rituel-head h2{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,4vw,3rem);
+  line-height:1.15;margin-top:.5rem;
+}
+/* Retour Tara : « tout en douceur » en vert, comme « à votre rythme » (#16) */
+.premium-atelier .rituel-head h2 em{font-style:italic;color:var(--mdt-olive-deep)}
+
+/* ============================================================
+   CHAPITRES — quinconce asymétrique, numéros fantômes
+   ============================================================ */
+.premium-atelier .chap{
+  position:relative;
+  padding:clamp(3rem,7vw,6rem) 0;
+}
+.premium-atelier .chap__num{
+  position:absolute;top:clamp(.5rem,2vw,1.5rem);z-index:0;
+  font-family:var(--serif);font-weight:500;font-style:italic;
+  font-size:clamp(3.5rem,8vw,7rem);line-height:1;
+  /* Filigrane REDUIT et pose du cote TEXTE (l'image est a l'oppose) : avant, place
+     cote image, il etait masque. Pose DERRIERE le contenu (z-index) mais lisible
+     dans les blancs. --mdt-olive-deep (pas --sauge = olive CLAIR #8A976C). */
+  color:var(--mdt-olive-deep);opacity:.24;pointer-events:none;user-select:none;
+}
+/* Numero du cote du texte (image a l'oppose) pour ne plus le masquer. */
+.premium-atelier .chap--odd .chap__num{right:clamp(.5rem,3vw,3rem)}
+.premium-atelier .chap--even .chap__num{left:clamp(.5rem,3vw,3rem)}
+/* Contenu au-dessus du filigrane. */
+.premium-atelier .chap__grid{position:relative;z-index:1}
+.premium-atelier .chap__grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:center;
+}
+.premium-atelier .chap--odd .chap__fig{grid-column:1/6}
+.premium-atelier .chap--odd .chap__body{grid-column:7/12}
+.premium-atelier .chap--even .chap__fig{grid-column:8/13;grid-row:1}
+.premium-atelier .chap--even .chap__body{grid-column:2/7;grid-row:1}
+.premium-atelier .chap__fig{aspect-ratio:3/4;max-width:26rem}
+.premium-atelier .chap--even .chap__fig{justify-self:end;width:100%}
+.premium-atelier .chap__kicker{
+  font-family:var(--hand);font-size:1.5rem;color:var(--laiton);
+  display:block;margin-bottom:.2rem;
+}
+.premium-atelier .chap__body h3{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.2vw,2.4rem);
+  line-height:1.12;margin-bottom:1.2rem;
+}
+.premium-atelier .chap__body p{max-width:30rem;margin-bottom:.9rem;font-size:.97rem;line-height:1.75;color:rgba(44,36,25,.84)}
+.premium-atelier .chap__body p:last-of-type{margin-bottom:0}
+.premium-atelier .chap__marge{
+  font-family:var(--hand);font-size:1.45rem;color:var(--laiton);
+  display:inline-block;margin-top:1.4rem;
+}
+.premium-atelier .chap--sable{background:var(--sable)}
+
+/* encart prix — note de l'atelier.
+   Retour cliente 25/08 : l'encart est sorti du chapitre 03 (section autonome
+   .note-section entre « Réserver un moment » et « Privatiser ») et élargi
+   (44rem → 56rem) pour que les 4 inclusions tiennent sur une seule ligne. */
+.premium-atelier .note-section{padding:clamp(2.5rem,6vw,4rem) 0;background:var(--creme)}
+.premium-atelier .note-atelier{
+  position:relative;background:var(--sable);
+  border:1px solid var(--laiton);
+  max-width:56rem;margin:0 auto;
+  padding:clamp(2rem,5vw,3.2rem) clamp(1.5rem,5vw,3.5rem) clamp(2.2rem,5vw,3.4rem);
+  text-align:center;
+}
+.premium-atelier .note-atelier::before{
+  content:"";position:absolute;inset:-1px;border:1px solid var(--laiton);
+  transform:translate(10px,10px);pointer-events:none;
+}
+.premium-atelier .note-atelier__label{
+  font-family:var(--hand);font-size:1.7rem;color:var(--terracotta);
+  display:block;margin-bottom:1rem;
+}
+.premium-atelier .note-atelier p{font-size:1rem;color:var(--encre)}
+.premium-atelier .note-atelier ul{
+  list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.6rem .9rem;margin-top:1.4rem;
+}
+/* Retour Tara #19 « forme plus douce/artistique + plus de vert » — choix C 22/07 :
+   pétales vert olive plein (deux coins ronds opposés), texte crème.
+   --mdt-olive-deep et pas --sauge (ici olive CLAIR #8A976C). */
+.premium-atelier .note-atelier li{
+  font-size:.82rem;letter-spacing:.03em;white-space:nowrap;
+  padding:.5rem 1.2rem;border:1px solid var(--mdt-olive-deep);
+  border-radius:1.5em .4em;
+  background:var(--mdt-olive-deep);color:var(--creme);
+}
+
+/* ============================================================
+   RÉSERVER UN MOMENT — carton d'invitation
+   ============================================================ */
+.premium-atelier .reserve{padding:clamp(4rem,9vw,7rem) 0;background:var(--sable)}
+.premium-atelier .reserve__head{text-align:center;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.premium-atelier .reserve__head h2{
+  font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.5vw,3.2rem);
+  line-height:1.12;margin-top:.5rem;
+}
+/* Retour Tara #21 « en vert » */
+.premium-atelier .reserve__head h2 em{font-style:italic;color:var(--mdt-olive-deep)}
+.premium-atelier .carton{
+  position:relative;background:var(--creme);border:1px solid var(--laiton);
+  padding:clamp(2rem,5vw,4rem);
+}
+.premium-atelier .carton::before{
+  content:"";position:absolute;inset:-1px;border:1px solid var(--laiton);
+  transform:translate(10px,10px);pointer-events:none;
+}
+.premium-atelier .carton__grid{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(2.5rem,6vw,5rem);
+}
+.premium-atelier .horaires h3{
+  font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:.3rem 0 1.4rem;
+}
+.premium-atelier .horaires__eyebrow{font-family:var(--hand);font-size:1.5rem;color:var(--laiton);display:inline-block}
+.premium-atelier .horaires ul{list-style:none}
+.premium-atelier .horaires li{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:.65rem 0;border-bottom:1px solid rgba(184,146,77,.3);
+  font-size:.93rem;
+}
+.premium-atelier .horaires li span{font-size:inherit}
+.premium-atelier .horaires li span:first-child{
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;
+}
+.premium-atelier .horaires li span:first-child::first-letter{
+  font-size:1.5em;color:var(--terracotta);
+}
+.premium-atelier .horaires li span:last-child{letter-spacing:.05em;color:rgba(44,36,25,.85)}
+.premium-atelier .horaires .is-closed span:last-child{color:var(--rose);font-style:italic;letter-spacing:.02em}
+.premium-atelier .horaires__note{margin-top:1.6rem;font-size:.9rem;color:rgba(44,36,25,.75)}
+.premium-atelier .horaires__cta{margin-top:1.2rem}
+.premium-atelier .horaires__cta a{
+  font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--terracotta);text-decoration:none;border-bottom:1px solid var(--laiton);
+  padding-bottom:.25rem;transition:color .3s var(--ease), border-color .3s var(--ease);
+}
+.premium-atelier .horaires__cta a:hover{color:var(--encre);border-color:var(--encre)}
+
+.premium-atelier .acompte{
+  font-size:.92rem;color:rgba(44,36,25,.85);
+  padding:1rem 1.2rem;border-left:2px solid var(--laiton);
+  background:rgba(240,236,219,.6);margin-bottom:2rem;
+}
+.premium-atelier .acompte strong{color:var(--terracotta)}
+
+/* sélecteur de date maison (js/mdt-datepicker.js) */
+.premium-atelier .dp{position:relative}
+.premium-atelier .dp__field{
+  font-family:var(--sans);font-size:1rem;color:rgba(44,36,25,.55);text-align:left;
+  width:100%;background:transparent;border:0;border-bottom:1px solid rgba(184,146,77,.55);
+  padding:.55rem 1.6rem .55rem .1rem;border-radius:0;cursor:pointer;line-height:normal;
+  letter-spacing:normal;text-transform:none;font-weight:400;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Crect x='1' y='2.5' width='12' height='10.5' rx='1.5' fill='none' stroke='%23B8924D' stroke-width='1.2'/%3E%3Cpath d='M1 6h12M4.5 1v3M9.5 1v3' stroke='%23B8924D' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .2rem center;
+  transition:border-color .3s var(--ease);
+}
+.premium-atelier .dp__field.has-value{color:var(--encre)}
+.premium-atelier .dp__field:hover{border-bottom-color:var(--laiton)}
+.premium-atelier .dp__field:focus-visible{outline:none;border-bottom-color:var(--terracotta);box-shadow:0 1px 0 0 var(--terracotta)}
+.premium-atelier .dp__pop{
+  position:absolute;top:calc(100% + 10px);left:0;z-index:30;width:19rem;max-width:86vw;
+  background:var(--creme);border:1px solid var(--laiton);
+  box-shadow:0 18px 40px rgba(44,36,25,.16);padding:1.1rem 1.1rem .8rem;
+}
+.premium-atelier .dp__pop::before{
+  content:"";position:absolute;inset:-1px;border:1px solid var(--laiton);
+  transform:translate(8px,8px);pointer-events:none;z-index:-1;background:transparent;
+}
+.premium-atelier .dp__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.premium-atelier .dp__month{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--encre)}
+.premium-atelier .dp__nav{
+  background:transparent;border:1px solid rgba(184,146,77,.5);border-radius:999px;
+  width:2rem;height:2rem;line-height:1;font-size:1.05rem;color:var(--terracotta);cursor:pointer;
+  transition:background .25s var(--ease), border-color .25s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;padding:0;
+}
+.premium-atelier .dp__nav:hover:not(:disabled){background:var(--sable);border-color:var(--laiton)}
+.premium-atelier .dp__nav:disabled{opacity:.3;cursor:default}
+.premium-atelier .dp__grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.premium-atelier .dp__weekdays span{
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--laiton);
+  padding:.3rem 0 .45rem;font-weight:500;
+}
+.premium-atelier .dp__day{
+  background:transparent;border:0;border-radius:999px;cursor:pointer;
+  font-family:var(--sans);font-size:.86rem;color:var(--encre);
+  width:2.15rem;height:2.15rem;margin:0 auto;line-height:1;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .2s var(--ease), color .2s var(--ease);
+}
+.premium-atelier .dp__day:hover:not(:disabled){background:var(--sable)}
+.premium-atelier .dp__day:disabled{color:rgba(44,36,25,.28);cursor:default}
+.premium-atelier .dp__day.is-selected{background:var(--terracotta);color:var(--creme)}
+.premium-atelier .dp__day:focus-visible{outline:2px solid var(--laiton);outline-offset:1px}
+.premium-atelier .dp__note{
+  font-size:.74rem;font-style:italic;color:rgba(44,36,25,.55);
+  margin-top:.6rem;text-align:center;
+}
+
+/* variante "agenda toujours visible" (mode Atelier du tunnel de réservation) : plus de
+   popup flottant, le calendrier reste affiché en permanence dans le flux de la page. */
+.premium-atelier .dp--inline .dp__pop{
+  position:static;width:auto;max-width:none;
+  background:none;border:0;box-shadow:none;padding:0;
+}
+.premium-atelier .dp--inline .dp__pop::before{content:none}
+
+/* formulaire — champs soulignés fins */
+.premium-atelier .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 2rem;margin-bottom:1.6rem}
+.premium-atelier .fld{display:flex;flex-direction:column}
+.premium-atelier .fld label{
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(44,36,25,.65);margin-bottom:.45rem;
+}
+.premium-atelier .fld input,
+.premium-atelier .fld select{
+  font-family:var(--sans);font-size:1rem;line-height:normal;color:var(--encre);
+  width:100%;margin:0;height:auto;box-shadow:none;
+  background:transparent;border:0;border-bottom:1px solid rgba(184,146,77,.55);
+  padding:.55rem .1rem;border-radius:0;appearance:none;-webkit-appearance:none;
+  transition:border-color .3s var(--ease);
+}
+.premium-atelier .fld select{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23B8924D' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .2rem center;
+  padding-right:1.4rem;cursor:pointer;
+}
+.premium-atelier .fld input:hover,
+.premium-atelier .fld select:hover{border-bottom-color:var(--laiton)}
+.premium-atelier .fld input:focus,
+.premium-atelier .fld select:focus{outline:none;border-bottom-color:var(--terracotta)}
+.premium-atelier .fld input:focus-visible,
+.premium-atelier .fld select:focus-visible{outline:none;border-bottom-color:var(--terracotta);box-shadow:0 1px 0 0 var(--terracotta)}
+/* pastilles créneau / participants (radios stylées — meilleure UX qu'un menu) */
+.premium-atelier .fld--pills{border:0;margin:0;padding:0;min-width:0}
+.premium-atelier .fld--pills legend{
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(44,36,25,.65);margin-bottom:.55rem;padding:0;border:0;
+  font-family:var(--sans);line-height:1.4;display:block;width:auto;
+}
+.premium-atelier .pills{display:flex;flex-wrap:wrap;gap:.55rem}
+.premium-atelier .pill{position:relative;cursor:pointer;margin:0}
+.premium-atelier .pill input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.premium-atelier .pill span{
+  display:inline-block;font-size:.88rem;letter-spacing:.04em;color:var(--encre);
+  padding:.55rem 1.05rem;border:1px solid rgba(184,146,77,.55);border-radius:999px;
+  background:var(--creme);line-height:normal;
+  transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+}
+.premium-atelier .pill:hover span{border-color:var(--laiton);background:var(--sable)}
+.premium-atelier .pill input:checked + span{background:var(--terracotta);border-color:var(--terracotta);color:var(--creme);font-weight:500}
+.premium-atelier .pill input:focus-visible + span{outline:2px solid var(--laiton);outline-offset:3px}
+.premium-atelier .pills--num .pill span{min-width:2.7rem;text-align:center;padding:.5rem .55rem}
+
+/* état 3 couleurs des créneaux (dispo / presque complet / complet) — même vocabulaire que
+   la légende de l'agenda admin, jamais de chiffre exact affiché */
+.premium-atelier .pill--presque span{border-color:var(--laiton)}
+.premium-atelier .pill--complet{cursor:default}
+.premium-atelier .pill--complet span{background:rgba(186,119,112,.12);border-color:var(--rose);color:var(--rose)}
+.premium-atelier .pill--complet:hover span{background:rgba(186,119,112,.12);border-color:var(--rose)}
+
+/* sélecteur de formule (atelier / événement) + liste d'événements réservables */
+.premium-atelier .picker__eyebrow{font-family:var(--hand);font-size:1.5rem;color:var(--laiton);display:inline-block;margin-bottom:.9rem}
+.premium-atelier .picker .dp{margin:1.3rem 0}
+.premium-atelier .picker .fld--pills{margin-top:1.2rem}
+.premium-atelier .picker__empty{font-size:.85rem;font-style:italic;color:rgba(44,36,25,.65);margin-top:.8rem}
+.premium-atelier .picker__empty--presque{color:var(--laiton)}
+.premium-atelier .picker__empty--complet{color:var(--rose)}
+.premium-atelier .evt-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:1.2rem}
+.premium-atelier .evt-pick{
+  display:block;width:100%;text-align:left;background:var(--creme);
+  border:1px solid rgba(184,146,77,.4);padding:.85rem 1rem;cursor:pointer;font:inherit;color:inherit;
+  transition:border-color .25s var(--ease), background .25s var(--ease);
+}
+.premium-atelier .evt-pick:hover:not(:disabled){border-color:var(--laiton);background:var(--sable)}
+.premium-atelier .evt-pick.is-selected{border-color:var(--terracotta);background:var(--sable)}
+.premium-atelier .evt-pick:disabled{opacity:.55;cursor:default}
+.premium-atelier .evt-pick__title{font-family:var(--serif);font-style:italic;font-size:1.02rem;display:block}
+.premium-atelier .evt-pick__meta{display:flex;justify-content:space-between;gap:1rem;font-size:.8rem;color:rgba(44,36,25,.7);margin-top:.35rem}
+.premium-atelier .evt-pick__etat--presque{color:var(--laiton)}
+.premium-atelier .evt-pick__etat--complet{color:var(--rose)}
+
+.premium-atelier .fld--span{grid-column:1/-1}
+.premium-atelier .fld label .opt{font-weight:400;letter-spacing:.02em;text-transform:none;color:rgba(44,36,25,.45)}
+.premium-atelier .fld input[type="date"]{color-scheme:light}
+.premium-atelier .btn--block{display:block;width:100%;text-align:center;padding:1.15rem 2rem}
+.premium-atelier .note-8{font-size:.82rem;font-style:italic;color:rgba(44,36,25,.65);margin-top:.6rem;line-height:1.6}
+.premium-atelier .reserve .form-msg{margin-top:1rem;font-size:.9rem;font-style:italic;color:var(--sauge);min-height:0;font-weight:400}
+.premium-atelier .reserve .form-msg:empty{display:none}
+
+/* ============================================================
+   PRIVATISATION — sur beige (retour Tara 22/07 : « le fond en beige,
+   comme le reste de la page » — ex-bande terracotta)
+   ============================================================ */
+/* Section resserrée (retour client) : moins haute, photos agrandies. */
+/* même fond + même texture que la section .reserve qui précède (retour Tara) */
+.premium-atelier .priva{
+  background:var(--sable);color:var(--encre);
+  padding:clamp(2.6rem,6vw,4.2rem) 0;position:relative;overflow:hidden;
+}
+.premium-atelier .priva::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:url(../../assets-premium-lp/wallpaper-tara-green.jpg) center/520px repeat;
+  opacity:.07;
+}
+.premium-atelier .priva .wrap{position:relative;z-index:1}
+.premium-atelier .priva__grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+/* !important : mdt-override force la couleur des h1-h6 du site */
+.premium-atelier .priva h2{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.4vw,2.5rem);
+  line-height:1.15;margin-bottom:1.1rem;color:var(--encre) !important;
+}
+/* em en vert olive, comme les autres titres sur fond clair (retours #16/#21) */
+.premium-atelier .priva h2 em{font-style:italic;color:var(--mdt-olive-deep) !important}
+.premium-atelier .priva p{max-width:34rem;color:rgba(44,36,25,.82);font-size:.95rem;line-height:1.7}
+.premium-atelier .occ{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.4rem 0 1.8rem}
+.premium-atelier .occ span{
+  font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  padding:.45rem 1rem;border:1px solid var(--laiton);border-radius:999px;
+  color:var(--encre);transition:background .35s var(--ease), color .35s var(--ease);
+}
+.premium-atelier .occ span:hover{background:var(--laiton);color:var(--encre)}
+/* photos agrandies : colonne 6/12 (au lieu de 4/12), arches pleines,
+   celle du centre légèrement surélevée pour le rythme */
+.premium-atelier .priva__gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-self:center}
+.premium-atelier .priva__gallery img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;
+  border-radius:999px 999px 0 0;
+  border:1px solid rgba(184,146,77,.7);padding:.35rem;background:var(--creme);
+  filter:saturate(.92);
+}
+.premium-atelier .priva__gallery img:nth-child(2){transform:translateY(-14px)}
+.premium-atelier .priva__gallery figcaption,
+.premium-atelier .priva__hint{
+  font-family:var(--hand);font-size:1.2rem;color:var(--laiton);
+  margin-top:1.1rem;text-align:center;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:900px){
+  .premium-atelier .hero__grid{grid-template-columns:1fr;align-items:start}
+  .premium-atelier .hero__fig{justify-self:start;max-width:17rem}
+  .premium-atelier .chap__grid{grid-template-columns:1fr;gap:2.2rem}
+  .premium-atelier .chap--odd .chap__fig,
+  .premium-atelier .chap--even .chap__fig{grid-column:1;grid-row:1;justify-self:center;max-width:22rem;width:100%}
+  .premium-atelier .chap--odd .chap__body,
+  .premium-atelier .chap--even .chap__body{grid-column:1;grid-row:2}
+  .premium-atelier .chap__num{font-size:clamp(7rem,28vw,11rem)}
+  .premium-atelier .carton__grid{grid-template-columns:1fr}
+  .premium-atelier .priva__grid{grid-template-columns:1fr}
+  .premium-atelier .priva__gallery{max-width:26rem}
+}
+@media (max-width:560px){
+  .premium-atelier .hero{padding-top:7rem}
+  .premium-atelier .fgrid{grid-template-columns:1fr}
+  .premium-atelier .chap{padding:2.8rem 0}
+  .premium-atelier .priva__gallery img:nth-child(2){transform:none}
+  /* Chiffre de chapitre : en mobile, le filigrane absolu finissait derriere
+     l'image (invisible). On le sort du flux absolu et on le pose EN CLAIR
+     au-dessus de chaque chapitre. */
+  .premium-atelier .chap__num{
+    position:static; opacity:.9; font-size:3.4rem; line-height:1;
+    display:block; margin:0 0 .2rem; text-align:left;
+  }
+}
+
+/* Contraste (revue expert 12/06) : petites capitales en laiton fonce sur fond clair */
+.premium-atelier .dp__weekdays span{color:#8A6A30}
+
+/* Sur mobile, 100vh inclut la barre d'URL (saut au repli) : dvh suit la
+   hauteur reellement visible. Meme correction pour la borne de la photo. */
+@supports (min-height: 100dvh) {
+  @media (max-width: 900px) {
+    .premium-atelier .hero{min-height:100dvh}
+    .premium-atelier .hero__fig{max-width:min(30rem, calc((100dvh - 319px) * 0.8))}
+  }
+}
+

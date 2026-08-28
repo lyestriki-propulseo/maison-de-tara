@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="theme-color" content="#5A6347"/>
+<meta name="author" content="Propul'SEO">
+
+<!-- SOCIAL MEDIA META (commun ; <title>, description et og:title/description sont spécifiques par page, placés après l'include) -->
+<meta property="og:site_name" content="Maison de Tara">
+<meta property="og:type" content="website">
+<!-- ⚠️ Domaine à confirmer avant mise en ligne (déduit de l'email contact@maisondetara.com) -->
+<meta property="og:image" content="https://maisondetara.com/images/og-maison-de-tara.jpg">
+<meta property="og:image:alt" content="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
+
+<!-- DONNÉES STRUCTURÉES — référencement local (horaires réels du dossier) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Maison de Tara",
+  "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
+  "url": "https://maisondetara.com/",
+  "telephone": "+33650535149",
+  "email": "contact@maisondetara.com",
+  "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Rue Gabriel Péri",
+    "postalCode": "92250",
+    "addressLocality": "La Garenne-Colombes",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/maison_de_tara/"]
+}
+</script>
+
+<!-- FAVICON — emblème vert de la Maison de Tara (capsule olive) -->
+<link rel="icon" type="image/png" href="ico/favicon-mdt.png?v=2">
+<link rel="shortcut icon" href="ico/favicon-mdt.png?v=2">
+<link rel="apple-touch-icon" href="ico/favicon-mdt.png?v=2">
+
+<!-- GOOGLE FONTS — Playfair Display + La Belle Aurore + Inter (charte)
+     + Caveat 600 : manuscrite lisible de la ligne d'ouverture du hero (choix C 22/07) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+<!-- CSS FILES -->
+<link rel="stylesheet" href="css/fontawesome.min.css">
+<link rel="stylesheet" href="css/odometer.min.css">
+<link rel="stylesheet" href="css/fancybox.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/mdt-override.css">
+<link rel="stylesheet" href="css/mdt-pages.css">
+<title>La Boutique · Maison de Tara</title>
+<meta name="description" content="Décoration, textiles block print, lampes, céramiques, art de la table et idées cadeaux choisis avec soin : la boutique de la Maison de Tara, à La Garenne-Colombes.">
+<meta property="og:title" content="La Boutique · Maison de Tara">
+<meta property="og:description" content="Décoration, textiles block print, lampes, céramiques, art de la table et idées cadeaux choisis avec soin : la boutique de la Maison de Tara, à La Garenne-Colombes.">
+<link rel="stylesheet" href="css/premium-boutique.css">
+<link rel="stylesheet" href="css/premium-boutique-mep.css">
+</head>
+<body data-mdt-page="boutique">
+<!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- SVG sprite — icônes line-art réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M5 4c0-.6.4-1 1-1h2.5c.4 0 .8.3.9.7l1 3.3c.1.4 0 .8-.3 1L8 9.5c1 2.3 2.9 4.2 5.2 5.2l1.5-2.1c.2-.3.6-.4 1-.3l3.3 1c.4.1.7.5.7.9V17c0 .6-.4 1-1 1A14 14 0 0 1 5 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-vase" viewBox="0 0 24 24">
+      <path d="M9 4h6v3l-1.2 1.2c2 .8 3.2 2.8 3.2 5.3 0 3.6-2.7 6.5-5 6.5s-5-2.9-5-6.5c0-2.5 1.2-4.5 3.2-5.3L9 7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24">
+      <path d="M5 9h11v6a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M16 11h2a2 2 0 0 1 0 4h-2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M8 6c0-1 1-1 1-2M11.5 6c0-1 1-1 1-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24">
+      <path d="M14 3l7 7-9.5 9.5c-1 1-3 1-4 0l-2-2c-1-1-1-3 0-4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4 20l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24">
+      <path d="M5 8h14l-1 12H6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar" role="region" aria-label="Informations de contact">
+  <div class="mdt-container topbar__inner">
+    <ul class="topbar__info">
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span class="sr-only">Téléphone :</span>
+        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
+        <span class="sr-only">Adresse :</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span class="sr-only">Email :</span>
+        <a href="mailto:contact@maisondetara.com"><span data-mdt-content="global.contact.email">contact@maisondetara.com</span></a>
+      </li>
+    </ul>
+    <div class="topbar__opening" data-mdt-content="global.topbar.ouverture">Ouverture · Automne 2026</div>
+  </div>
+</div>
+
+<header class="mdt-header" role="banner">
+  <div class="mdt-container mdt-header__inner">
+    <a href="index.html" class="mdt-logo" aria-label="Maison de Tara · Accueil">
+      <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+    </a>
+    <nav class="mdt-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="atelier.html">L'Atelier</a>
+      <a href="boutique.html">La Boutique</a>
+      <a href="calendrier.html">Le Calendrier</a>
+      <a href="histoire.html">Mon Histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="mdt-header__cta">
+      <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
+      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+      </a>
+      <a href="atelier.html#reserver" class="btn btn--primary">Réserver ma session</a>
+      <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
+        <span class="burger__lines"><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__header">
+      <span class="mdt-logo" id="drawer-title">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+      </span>
+      <button class="drawer__close" type="button" aria-label="Fermer le menu" data-drawer-close>
+        <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
+      </button>
+    </div>
+    <nav class="drawer__nav" aria-label="Navigation mobile">
+      <a href="index.html" data-drawer-close>Accueil</a>
+      <a href="atelier.html" data-drawer-close>L'<em>Atelier</em></a>
+      <a href="boutique.html" data-drawer-close>La <em>boutique</em></a>
+      <a href="calendrier.html" data-drawer-close>Le <em>calendrier</em></a>
+      <a href="histoire.html" data-drawer-close>Mon <em>histoire</em></a>
+      <a href="contact.html" data-drawer-close>Contact</a>
+    </nav>
+    <div class="drawer__cta">
+      <a href="atelier.html#reserver" class="btn btn--primary" data-drawer-close>Réserver ma session</a>
+    </div>
+    <div class="drawer__contact">
+      <a href="tel:+33650535149">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
+      </a>
+      <a href="mailto:contact@maisondetara.com">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span data-mdt-content="global.contact.email">contact@maisondetara.com</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ====== /HEADER MDT ====== -->
+<main id="main" class="mdt-natural-scroll premium-boutique">
+
+  <!-- ====================== HERO ÉDITORIAL ====================== -->
+  <section class="hero floral">
+    <div class="container">
+      <div class="hero-head reveal">
+        <!-- Demande 22/07 : plus de doublon « La Boutique » — l'eyebrow devient
+             la ligne 1 du titre (agrandie, verte), « de la Maison » en ligne 2. -->
+        <h1><span class="ligne1" data-mdt-content="boutique.hero.titre1">La Boutique</span> <span class="ligne2" data-mdt-content="boutique.hero.titre2">de la Maison</span></h1>
+      </div>
+
+      <div class="recit">
+        <p class="recit-lead reveal" data-delay="1" data-mdt-content="boutique.hero.texte1">J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse.</p>
+        <!-- Devanture verte de la maison au-dessus du second paragraphe (retour client) -->
+        <figure class="hero-devanture reveal" data-delay="2">
+          <div class="cadre double-bordure">
+            <img src="../assets-charte/devanture-verte.jpg" alt="La devanture verte de la Maison de Tara, à La Garenne-Colombes" data-mdt-content="boutique.hero.photo">
+          </div>
+          <figcaption class="legende-libre"><span class="main">comme à la maison</span>La Garenne-Colombes</figcaption>
+        </figure>
+        <p class="recit-suite reveal" data-delay="3" data-mdt-content="boutique.hero.texte2">C'est cette envie que l'on retrouve dans la boutique de la maison. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Retour cliente 25/08 : ligne décorative blockprint-row supprimée -->
+
+  <!-- ====================== GALERIE DES 6 UNIVERS ====================== -->
+  <section class="galerie floral" aria-labelledby="titre-galerie">
+    <div class="container">
+      <div class="galerie-titre reveal">
+        <span class="surtitre" data-mdt-content="boutique.galerie.surtitre">Ce que vous trouverez</span>
+        <h2 id="titre-galerie" data-mdt-content="boutique.galerie.titre">Une sélection pour la maison.</h2>
+      </div>
+
+      <!-- Retour cliente 28/08 : les 2 photos d'ambiance sans numero
+           (« au detour d'une piece », « coup de coeur ») sont retirees, et la
+           photo du 01 Decoration devient celle du vase (ex-interlude).
+           Cles admin orphelines a vider si elles portent des valeurs :
+           boutique.galerie.interlude.photo / boutique.galerie.accent.photo -->
+      <div class="murs">
+
+        <!-- Retour cliente 28/08 : retour à l'ordre d'origine — Décoration en 01,
+             Textiles & block print en 02 (annule le retour du 25/08). -->
+        <figure class="piece piece--01 reveal">
+          <div class="cadre cadre--arche double-bordure">
+            <img src="../assets-charte/interieur-vase.jpg" alt="Un vase fleuri posé devant une commode ancienne dans un intérieur" loading="lazy" data-mdt-content="boutique.galerie.01.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">01</span><h3 data-mdt-content="boutique.galerie.01.titre">Décoration</h3>
+            <p data-mdt-content="boutique.galerie.01.texte">Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--02 reveal" data-delay="1">
+          <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-premium-lp/blockprint-marigold.jpg" alt="Textile imprimé block print aux motifs orangés" loading="lazy" data-mdt-content="boutique.galerie.02.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">02</span><h3 data-mdt-content="boutique.galerie.02.titre">Textiles &amp; block print</h3>
+            <p data-mdt-content="boutique.galerie.02.texte">Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p>
+          </figcaption>
+        </figure>
+
+
+        <figure class="piece piece--03 reveal" data-delay="1">
+          <div class="cadre cadre--portrait double-bordure">
+            <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques façonnées à la main" loading="lazy" data-mdt-content="boutique.galerie.03.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">03</span><h3 data-mdt-content="boutique.galerie.03.titre">Céramiques</h3>
+            <p data-mdt-content="boutique.galerie.03.texte">Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p>
+          </figcaption>
+        </figure>
+
+        <!-- Retour cliente 28/08 : retour à l'ordre d'origine — Lampes en 04, Art de la table en 05 -->
+        <figure class="piece piece--04 reveal">
+          <div class="cadre cadre--arche double-bordure">
+            <img src="../assets-charte/salon-terracotta.jpg" alt="Une lampe réchauffe la lumière d'un salon terracotta" loading="lazy" data-mdt-content="boutique.galerie.04.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">04</span><h3 data-mdt-content="boutique.galerie.04.titre">Lampes</h3>
+            <p data-mdt-content="boutique.galerie.04.texte">Pour réchauffer la lumière d'une pièce et créer une atmosphère.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--05 reveal" data-delay="1">
+          <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux et art de la table présentés en boutique" loading="lazy" data-mdt-content="boutique.galerie.05.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">05</span><h3 data-mdt-content="boutique.galerie.05.titre">Art de la table</h3>
+            <p data-mdt-content="boutique.galerie.05.texte">De quoi dresser une jolie table et recevoir comme on aime.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece piece--06 reveal">
+          <div class="cadre cadre--portrait double-bordure">
+            <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Un paquet cadeau soigneusement emballé" loading="lazy" data-mdt-content="boutique.galerie.06.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true">06</span><h3 data-mdt-content="boutique.galerie.06.titre">Idées cadeaux</h3>
+            <p data-mdt-content="boutique.galerie.06.texte">Pour faire plaisir, ou se faire plaisir, au fil des saisons.</p>
+          </figcaption>
+        </figure>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== BANDE ARTISANAT ====================== -->
+  <section class="artisanat" aria-labelledby="titre-artisanat">
+    <div class="fond" aria-hidden="true">
+      <img src="../assets-premium-lp/blockprint-green.jpg" alt="" loading="lazy">
+    </div>
+    <div class="container reveal">
+      <span class="surtitre" data-mdt-content="boutique.artisanat.surtitre">fait main</span>
+      <h2 id="titre-artisanat" data-mdt-content="boutique.artisanat.titre">L'artisanat, au cœur de la sélection</h2>
+      <div class="filet" aria-hidden="true"><span></span></div>
+      <p data-mdt-content="boutique.artisanat.texte">L'artisanat y occupe une place particulière. Le fait main, les belles matières, les imprimés block print et les savoir-faire transmis de génération en génération font partie de ce qui m'inspire depuis toujours. Chaque pièce a été choisie parce qu'elle apporte quelque chose à une maison&nbsp;: de la chaleur, de la couleur, du caractère ou simplement du plaisir au quotidien.</p>
+    </div>
+  </section>
+
+  <div class="blockprint-row" aria-hidden="true"></div>
+
+  <!-- ====================== INVITATION FINALE ====================== -->
+  <section class="invitation floral">
+    <div class="container">
+      <div class="carte double-bordure reveal">
+        <span class="main-titre" data-mdt-content="boutique.invitation.titre">Maison de Tara</span>
+        <p data-mdt-content="boutique.invitation.texte1">La sélection évolue au fil des saisons, des rencontres et des nouvelles découvertes. Que vous cherchiez un cadeau, une pièce pour votre intérieur ou simplement un peu d'inspiration, j'espère que vous y trouverez quelque chose qui vous donnera envie de rentrer chez vous.</p>
+        <p data-mdt-content="boutique.invitation.texte2"><strong>Aucune réservation n'est nécessaire pour découvrir la boutique.</strong> N'hésitez pas à pousser la porte pendant les horaires d'ouverture&nbsp;: ce sera un plaisir de vous accueillir à la maison.</p>
+        <a href="contact.html" class="btn">Horaires &amp; accès</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- Footer hors du scope .premium-* : rendu identique à l'accueil -->
+<footer class="mdt-footer mdt-floral-line">
+  <div class="container">
+    <div class="mdt-footer-inner">
+      <span class="mdt-footer-tag">On prend le temps.</span>
+      <div class="mdt-footer-name">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara">
+      </div>
+      <nav class="mdt-footer-nav" aria-label="Pied de page">
+        <a href="index.html">Accueil</a>
+        <a href="atelier.html">L'atelier</a>
+        <a href="boutique.html">La boutique</a>
+        <a href="calendrier.html">Le calendrier</a>
+        <a href="histoire.html">Mon histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mdt-footer-coords">
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" data-mdt-content="global.contact.instagram">@maison_de_tara</a>
+      </div>
+      <div class="mdt-footer-filet" aria-hidden="true"></div>
+    </div>
+    <div class="mdt-footer-bottom">
+      <span class="fb-l">© 2026 Maison de Tara</span>
+      <span class="fb-c"><a class="mdt-footer-credit" href="https://propulseo-site.com/" target="_blank" rel="noopener">Fait avec passion par Propul'SEO</a></span>
+      <span class="fb-r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+    </div>
+  </div>
+</footer>
+<!-- Choix de la mise en page de la galerie — outil de décision, invisible pour
+     les visiteurs. S'active en ajoutant ?mep à l'URL (comme ?lab sur l'accueil).
+     Le choix est retenu dans le navigateur, il ne change rien côté visiteurs. -->
+<script>
+(function(){
+  "use strict";
+  var KEY = "mdt-boutique-mep";
+  var params = new URLSearchParams(location.search);
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var actif = params.get("mep");
+  if (actif === "c" || actif === "actuelle") stored = actif;
+  if (stored === "c") document.body.classList.add("mep-c");
+  if (!params.has("mep")) return;
+
+  var bar = document.createElement("div");
+  bar.className = "mep-switch";
+  bar.setAttribute("role", "group");
+  bar.setAttribute("aria-label", "Mise en page de la galerie");
+  [["actuelle", "Mise en page actuelle"], ["c", "Nouvelle mise en page"]].forEach(function(o){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = o[1];
+    b.addEventListener("click", function(){
+      document.body.classList.toggle("mep-c", o[0] === "c");
+      try { localStorage.setItem(KEY, o[0]); } catch (e) {}
+      bar.querySelectorAll("button").forEach(function(x, i){
+        x.setAttribute("aria-pressed", String((i === 1) === (o[0] === "c")));
+      });
+    });
+    bar.appendChild(b);
+  });
+  document.body.appendChild(bar);
+  bar.querySelectorAll("button").forEach(function(x, i){
+    x.setAttribute("aria-pressed", String((i === 1) === document.body.classList.contains("mep-c")));
+  });
+})();
+</script>
+<!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
+<script src="js/drawer.js"></script>
+<script src="js/header-pages.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach(function(el){ el.classList.add("is-visible"); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
+</body>
+</html>

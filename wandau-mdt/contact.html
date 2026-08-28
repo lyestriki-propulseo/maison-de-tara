@@ -1,36 +1,56 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="theme-color" content="#feed01"/>
-<title>Wandau | Art & History Museum</title>
-<meta name="author" content="Themezinho">
-<meta name="description" content="For all kind of exhibition museum website">
-<meta name="keywords" content="wandau, exhibition, museum, art, history, entry, ticket, contemporary, modern, booking, visit, culture, life, centuries, roots, fancy, themezinho">
+<meta name="theme-color" content="#5A6347"/>
+<meta name="author" content="Propul'SEO">
 
-<!-- SOCIAL MEDIA META -->
-<meta property="og:description" content="Wandau | Art & History Museum">
-<meta property="og:image" content="http://www.themezinho.net/wandau/preview.png">
-<meta property="og:site_name" content="wandau">
-<meta property="og:title" content="wandau">
+<!-- SOCIAL MEDIA META (commun ; <title>, description et og:title/description sont spécifiques par page, placés après l'include) -->
+<meta property="og:site_name" content="Maison de Tara">
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://www.themezinho.net/wandau">
+<!-- ⚠️ Domaine à confirmer avant mise en ligne (déduit de l'email contact@maisondetara.com) -->
+<meta property="og:image" content="https://maisondetara.com/images/og-maison-de-tara.jpg">
+<meta property="og:image:alt" content="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
 
-<!-- TWITTER META -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@wandau">
-<meta name="twitter:creator" content="@wandau">
-<meta name="twitter:title" content="wandau">
-<meta name="twitter:description" content="Wandau | Art & History Museum">
-<meta name="twitter:image" content="http://www.themezinho.net/wandau/preview.png">
+<!-- DONNÉES STRUCTURÉES — référencement local (horaires réels du dossier) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Maison de Tara",
+  "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
+  "url": "https://maisondetara.com/",
+  "telephone": "+33650535149",
+  "email": "contact@maisondetara.com",
+  "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Rue Gabriel Péri",
+    "postalCode": "92250",
+    "addressLocality": "La Garenne-Colombes",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/maison_de_tara/"]
+}
+</script>
 
-<!-- FAVICON FILES -->
-<link href="ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon" sizes="144x144">
-<link href="ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon" sizes="114x114">
-<link href="ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon" sizes="72x72">
-<link href="ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon">
-<link href="ico/favicon.png" rel="shortcut icon">
+<!-- FAVICON — emblème vert de la Maison de Tara (capsule olive) -->
+<link rel="icon" type="image/png" href="ico/favicon-mdt.png?v=2">
+<link rel="shortcut icon" href="ico/favicon-mdt.png?v=2">
+<link rel="apple-touch-icon" href="ico/favicon-mdt.png?v=2">
+
+<!-- GOOGLE FONTS — Playfair Display + La Belle Aurore + Inter (charte)
+     + Caveat 600 : manuscrite lisible de la ligne d'ouverture du hero (choix C 22/07) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
 <!-- CSS FILES -->
 <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -39,311 +59,472 @@
 <link rel="stylesheet" href="css/swiper.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/mdt-override.css">
+<link rel="stylesheet" href="css/mdt-pages.css">
+<title>Contact · Maison de Tara</title>
+<meta name="description" content="Venir à la Maison de Tara : adresse, accès (train, tram, bus, voiture), horaires et formulaire de contact. La Garenne-Colombes (92).">
+<meta property="og:title" content="Contact · Maison de Tara">
+<meta property="og:description" content="Venir à la Maison de Tara : adresse, accès (train, tram, bus, voiture), horaires et formulaire de contact. La Garenne-Colombes (92).">
+<link rel="stylesheet" href="css/premium-contact.css">
 </head>
-<body>
-<div class="preloader" id="preloader">
-  <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" version="1.1">
-    <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,1080 1294.66667,1080 960,1080 C625.333333,1080 305.333333,1080 0,1080 L0,0 Z"></path>
-  </svg>
-  <div class="inner">
-    <canvas class="progress-bar" id="progress-bar" width="200" height="200"></canvas>
-    <figure><img src="images/preloader.png" alt="Image"></figure>
-    <small>Loading</small> </div>
-  <!-- end inner -->
+<body data-mdt-page="contact">
+<!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- SVG sprite — icônes line-art réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M5 4c0-.6.4-1 1-1h2.5c.4 0 .8.3.9.7l1 3.3c.1.4 0 .8-.3 1L8 9.5c1 2.3 2.9 4.2 5.2 5.2l1.5-2.1c.2-.3.6-.4 1-.3l3.3 1c.4.1.7.5.7.9V17c0 .6-.4 1-1 1A14 14 0 0 1 5 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-vase" viewBox="0 0 24 24">
+      <path d="M9 4h6v3l-1.2 1.2c2 .8 3.2 2.8 3.2 5.3 0 3.6-2.7 6.5-5 6.5s-5-2.9-5-6.5c0-2.5 1.2-4.5 3.2-5.3L9 7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24">
+      <path d="M5 9h11v6a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M16 11h2a2 2 0 0 1 0 4h-2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M8 6c0-1 1-1 1-2M11.5 6c0-1 1-1 1-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24">
+      <path d="M14 3l7 7-9.5 9.5c-1 1-3 1-4 0l-2-2c-1-1-1-3 0-4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4 20l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24">
+      <path d="M5 8h14l-1 12H6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar" role="region" aria-label="Informations de contact">
+  <div class="mdt-container topbar__inner">
+    <ul class="topbar__info">
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span class="sr-only">Téléphone :</span>
+        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
+        <span class="sr-only">Adresse :</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span class="sr-only">Email :</span>
+        <a href="mailto:contact@maisondetara.com"><span data-mdt-content="global.contact.email">contact@maisondetara.com</span></a>
+      </li>
+    </ul>
+    <div class="topbar__opening" data-mdt-content="global.topbar.ouverture">Ouverture · Automne 2026</div>
+  </div>
 </div>
-<!-- end preloder -->
-<div class="page-transition">
-  <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" version="1.1">
-    <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,980 1294.66667,930 960,930 C625.333333,930 305.333333,980 0,1080 L0,0 Z"></path>
-  </svg>
+
+<header class="mdt-header" role="banner">
+  <div class="mdt-container mdt-header__inner">
+    <a href="index.html" class="mdt-logo" aria-label="Maison de Tara · Accueil">
+      <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+    </a>
+    <nav class="mdt-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="atelier.html">L'Atelier</a>
+      <a href="boutique.html">La Boutique</a>
+      <a href="calendrier.html">Le Calendrier</a>
+      <a href="histoire.html">Mon Histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="mdt-header__cta">
+      <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
+      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+      </a>
+      <a href="atelier.html#reserver" class="btn btn--primary">Réserver ma session</a>
+      <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
+        <span class="burger__lines"><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__header">
+      <span class="mdt-logo" id="drawer-title">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+      </span>
+      <button class="drawer__close" type="button" aria-label="Fermer le menu" data-drawer-close>
+        <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
+      </button>
+    </div>
+    <nav class="drawer__nav" aria-label="Navigation mobile">
+      <a href="index.html" data-drawer-close>Accueil</a>
+      <a href="atelier.html" data-drawer-close>L'<em>Atelier</em></a>
+      <a href="boutique.html" data-drawer-close>La <em>boutique</em></a>
+      <a href="calendrier.html" data-drawer-close>Le <em>calendrier</em></a>
+      <a href="histoire.html" data-drawer-close>Mon <em>histoire</em></a>
+      <a href="contact.html" data-drawer-close>Contact</a>
+    </nav>
+    <div class="drawer__cta">
+      <a href="atelier.html#reserver" class="btn btn--primary" data-drawer-close>Réserver ma session</a>
+    </div>
+    <div class="drawer__contact">
+      <a href="tel:+33650535149">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
+      </a>
+      <a href="mailto:contact@maisondetara.com">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span data-mdt-content="global.contact.email">contact@maisondetara.com</span>
+      </a>
+    </div>
+  </div>
 </div>
-<!-- end page-transition -->
-<div class="smooth-scroll">
-  <div class="section-wrapper" data-scroll-section>
-    <div class="search-box">
-      <div class="container">
-        <div class="form">
-          <h3>SEARCH EVENT</h3>
-          <input type="search" placeholder="What are you looking for ?">
-          <input type="submit" value="SEARCH">
+<!-- ====== /HEADER MDT ====== -->
+<main id="main" class="mdt-natural-scroll premium-contact">
+
+  <!-- ============ ÉCRAN 1 — Intro + la fiche ============ -->
+  <section class="hero wrap" id="s-intro">
+    <div class="hero-grid reveal">
+      <div>
+        <span class="eyebrow" data-mdt-content="contact.hero.eyebrow">Une question&nbsp;?</span>
+        <!-- Retour cliente 25/08 : le titre devient « Contact », style Calendrier -->
+        <h1 data-mdt-content="contact.hero.titre">Contact</h1>
+        <p class="hero-intro" data-mdt-content="contact.hero.intro">La maison vous accueille au 1 Rue Gabriel Péri, à La Garenne-Colombes. Boutique, café ou atelier, on vous reçoit comme à la maison.</p>
+        <!-- Retour cliente 25/08 : « Une question ? » rejoint « Comment venir ? » et
+             descend vers le formulaire de contact (#s-ecrire) -->
+        <p class="hero-cta">
+          <a class="btn" href="#s-carte">Comment venir&nbsp;?</a>
+          <a class="btn" href="#s-ecrire">Une question&nbsp;?</a>
+        </p>
+      </div>
+      <figure class="arch-photo">
+        <img src="../assets-premium-lp/tara-storefront-01.jpeg" alt="La devanture de la Maison de Tara, 1 Rue Gabriel Péri à La Garenne-Colombes" loading="eager" data-mdt-content="contact.hero.photo">
+      </figure>
+    </div>
+
+    <article class="fiche reveal" aria-label="Coordonnées et horaires de la Maison de Tara">
+      <div class="fiche-inner">
+        <div class="fiche-grid">
+          <div class="coords">
+            <h2>Coordonnées</h2>
+            <div class="coord">
+              <h3>Adresse</h3>
+              <p>1 Rue Gabriel Péri<br>92250 La Garenne-Colombes</p>
+            </div>
+            <div class="coord">
+              <h3>Téléphone</h3>
+              <a href="tel:+33650535149">+33 6 50 53 51 49</a>
+            </div>
+            <div class="coord">
+              <h3>Email</h3>
+              <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+            </div>
+            <div class="coord">
+              <h3>Instagram</h3>
+              <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" title="Maison de Tara sur Instagram (nouvel onglet)">@maison_de_tara</a>
+            </div>
+          </div>
+
+          <div class="hours">
+            <h3>Ouverture de la maison</h3>
+            <!-- Horaires pilotés par Tara (admin) : js/site-hours.js remplace cette liste depuis la
+                 base au chargement. Le contenu ci-dessous est le repli statique si la base est indispo. -->
+            <ul data-mdt-hours="maison">
+              <li class="is-closed"><span>Lundi</span><span>Fermé</span></li>
+              <li><span>Mardi</span><span>12h – 18h</span></li>
+              <li><span>Mercredi</span><span>9h – 18h</span></li>
+              <li><span>Jeudi</span><span>9h – 21h</span></li>
+              <li><span>Vendredi</span><span>9h – 21h</span></li>
+              <li><span>Samedi</span><span>9h – 21h</span></li>
+              <li><span>Dimanche</span><span>9h – 15h</span></li>
+            </ul>
+          </div>
         </div>
-        <!-- end form -->
-        <div class="search-events">
-          <ul>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-          </ul>
-        </div>
-        <!-- end search-events -->
+
+        <p class="fiche-cta"><a href="atelier.html#reserver" class="btn">Réserver un atelier</a></p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ ÉCRAN 2 — Carte + accès ============ -->
+  <section class="locate wrap" id="s-carte">
+    <div class="section-head reveal">
+      <span class="kicker">Nous situer</span>
+      <h2>Sur la carte.</h2>
+      <div class="rule" aria-hidden="true"><span>~</span></div>
+    </div>
+
+    <div class="map-frame reveal">
+      <iframe title="Carte — Maison de Tara, 1 Rue Gabriel Péri, La Garenne-Colombes"
+        src="https://www.google.com/maps?q=1%20Rue%20Gabriel%20P%C3%A9ri%2C%2092250%20La%20Garenne-Colombes&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:clamp(2.2rem,5vw,3.6rem)">
+      <span class="kicker">Comment venir</span>
+      <h2>À deux pas, par tous les chemins.</h2>
+    </div>
+
+    <div class="access reveal" id="s-acces">
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3 data-mdt-content="contact.acces.train.titre">En train</h3>
+        <p data-mdt-content="contact.acces.train.texte">À quelques minutes à pied de la gare de La Garenne-Colombes, facilement accessible depuis Paris Saint-Lazare (Ligne L).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">T</span>
+        <h3 data-mdt-content="contact.acces.tramway.titre">En tramway</h3>
+        <p data-mdt-content="contact.acces.tramway.texte">À proximité du T2 « Les Fauvelles », reliant La Défense et Porte de Versailles.</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">B</span>
+        <h3 data-mdt-content="contact.acces.bus.titre">En bus</h3>
+        <p data-mdt-content="contact.acces.bus.texte">Desservie par les lignes 163, 164, 178 et 278, avec des arrêts à proximité (Colombes, Courbevoie, Bois-Colombes, La Défense).</p>
+      </div>
+      <div class="access-col">
+        <span class="access-cap" aria-hidden="true">V</span>
+        <h3 data-mdt-content="contact.acces.voiture.titre">En voiture</h3>
+        <p data-mdt-content="contact.acces.voiture.texte">Plusieurs places de stationnement dans les rues avoisinantes. Un parking public payant est également accessible à proximité.</p>
       </div>
     </div>
-    <!-- end search-box -->
-    <aside class="side-widget">
-      <svg viewBox="0 0 600 1080" preserveAspectRatio="none" version="1.1">
-        <path d="M540,1080H0V0h540c0,179.85,0,359.7,0,539.54C540,719.7,540,899.85,540,1080z"></path>
-      </svg>
-      <figure class="logo"> <img src="images/logo-light.png" alt="Image"> </figure>
-      <!-- end logo -->
-      <div class="inner">
-        <div class="widget">
-          <figure><img src="images/image07.jpg" alt="Image"></figure>
-          <p>It speedily me addition <strong>weddings vicinity</strong> in pleasure. Happiness commanded an conveying breakfast in. Regard her say warmly elinor. Him these are visit front end for <u>seven walls</u>. Money eat scale now ask law learn.</p>
+  </section>
+
+  <!-- ============ ÉCRAN 3 — FAQ + formulaire ============ -->
+  <section class="write wrap" id="s-ecrire">
+    <div class="write-grid">
+
+      <div class="faq reveal" id="s-faq">
+        <div class="col-head">
+          <span class="kicker">Questions fréquentes</span>
+          <h2>Tout ce qu'il faut savoir.</h2>
         </div>
-        <!-- end widget -->
-        <div class="widget">
-          <h6 class="widget-title">Opening Hours</h6>
-          <p>Tuesday ‒ Friday: 09:00 ‒ 17:00<br>
-            Friday ‒ Monday: 10:00 ‒ 20:00</p>
+        <details>
+          <summary data-mdt-content="contact.faq.q1.question">Faut-il savoir peindre&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q1.reponse">Non, aucune expérience n'est nécessaire. On vous laisse essayer, à votre rythme.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q2.question">Combien de temps dure une session&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q2.reponse">Environ 2 heures.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q3.question">Quand récupérer ma pièce&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q3.reponse">Quelques jours après la cuisson. Nous conviendrons ensemble de la date estimée de récupération le jour de votre atelier.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q4.question">À partir de quel âge&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q4.reponse">Il n'y a pas d'âge pour peindre&nbsp;! Les plus jeunes sont bien sûr les bienvenus lorsqu'ils sont accompagnés d'un adulte.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q5.question">Dois-je réserver pour un atelier&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q5.reponse">Oui, nous vous recommandons de réserver votre session à l'avance afin de vous accueillir dans les meilleures conditions et vous garantir une place. Les réservations se font en ligne, par téléphone ou directement à la boutique, sous réserve des disponibilités.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q6.question">Combien coûte un atelier&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q6.reponse">Le prix dépend de la pièce que vous choisissez&nbsp;: comptez entre 12&nbsp;€ et 80&nbsp;€ selon le modèle. Il comprend tout&nbsp;: la pièce en céramique, les peintures et accessoires, l'émaillage et la cuisson.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q7.question">Dois-je payer mon atelier à l'avance&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q7.reponse">Non, le règlement s'effectue sur place le jour de votre atelier. Lors de la réservation, un acompte de 6&nbsp;€ par personne est demandé pour confirmer votre place&nbsp;; il est déduit de votre facture finale. Cette participation nous permet de limiter les absences de dernière minute.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q8.question">Puis-je aussi découvrir la boutique&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q8.reponse">Avec plaisir&nbsp;! Vous pouvez passer librement, sans réservation, pendant les horaires d'ouverture. Vous y trouverez une sélection de décoration, textiles, céramiques et idées cadeaux, renouvelée au fil des saisons.</p>
+        </details>
+        <details>
+          <summary data-mdt-content="contact.faq.q9.question">Puis-je organiser un anniversaire, un EVJF, un team building&nbsp;?</summary>
+          <p data-mdt-content="contact.faq.q9.reponse">Bien sûr. Nous serions ravis de vous accueillir pour célébrer un anniversaire, un EVJF, un team building, une baby shower ou tout autre moment qui vous tient à cœur. Pour toute réservation de plus de 8 personnes, contactez-nous directement pour imaginer ensemble la formule la plus adaptée.</p>
+        </details>
+        <details>
+          <summary>Comment savoir ce qui se passe à la Maison de Tara&nbsp;?</summary>
+          <p>Le meilleur moyen est de vous inscrire à la Lettre de la Maison&nbsp;: ateliers à venir, événements et nouveautés de la boutique. Vous pouvez aussi consulter <a href="calendrier.html">le calendrier</a> et nous suivre sur <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">Instagram</a>.</p>
+        </details>
+      </div>
+
+      <div class="reveal">
+        <div class="col-head">
+          <span class="kicker" data-mdt-content="contact.ecrire.kicker">Écrivez-nous</span>
+          <h2 data-mdt-content="contact.ecrire.titre">Une question&nbsp;? Un projet&nbsp;?</h2>
+          <p data-mdt-content="contact.ecrire.texte">On vous répond avec plaisir. Pour une réservation d'atelier, passez plutôt par la page <a href="atelier.html#reserver">Atelier</a>.</p>
         </div>
-        <!-- end widget -->
-      </div>
-      <!-- end inner -->
-		<div class="display-mobile">
-			<div class="custom-menu">
-        <ul>
-          <li><a href="#">Eng</a></li>
-          <li><a href="#">Rus</a></li>
-        </ul>
-      </div>
-      <!-- end custom-menu -->
-      <div class="site-menu">
-        <ul>
-          <li><a href="visit.html" data-scroll-to>Visit</a></li>
-          <li><a href="exhibitions.html" data-scroll-to>Exhibitions</a></li>
-          <li><a href="collections.html" data-scroll-to>Collections</a></li>
-          <li><a href="about.html" data-scroll-to>About</a></li>
-          <li><a href="contact.html" data-scroll-to>Contact</a></li>
-        </ul>
-      </div>
-      <!-- end site-menu -->
-		</div>
-		<!-- end display-mobile -->
-    </aside>
-    <nav class="navbar">
-      <div class="logo"> <a href="index.html"> <img src="images/logo.png" alt="Image"> </a> </div>
-      <!-- end logo -->
-      <div class="custom-menu">
-        <ul>
-          <li><a href="#">Eng</a></li>
-          <li><a href="#">Rus</a></li>
-        </ul>
-      </div>
-      <!-- end custom-menu -->
-      <div class="site-menu">
-        <ul>
-          <li><a href="visit.html" data-scroll-to>Visit</a></li>
-          <li><a href="exhibitions.html" data-scroll-to>Exhibitions</a></li>
-          <li><a href="collections.html" data-scroll-to>Collections</a></li>
-          <li><a href="about.html" data-scroll-to>About</a></li>
-          <li><a href="contact.html" data-scroll-to>Contact</a></li>
-        </ul>
-      </div>
-      <!-- end site-menu -->
-      <div class="search-button"> <i class="far fa-search"></i> </div>
-      <!-- end search-button -->
-      <div class="hamburger-menu">
-        <svg class="hamburger" width="30" height="30" viewBox="0 0 30 30">
-          <path class="line line-top" d="M0,9h30"/>
-          <path class="line line-center" d="M0,15h30"/>
-          <path class="line line-bottom" d="M0,21h30"/>
-        </svg>
-      </div>
-      <!-- end hamburger-menu -->
-      <div class="navbar-button"> <a href="membership.html">GET A TICKET</a> </div>
-      <!-- end navbar-button -->
-    </nav>
-    <!-- end navbar -->
-	  <header class="page-header" data-background="images/page-header.jpg">
-	  	<div class="inner">
-			<svg width="580" height="400" class="svg-morph">
-          <path id="svg_morph" d="m261,30.4375c0,0 114,6 151,75c37,69 37,174 6,206.5625c-31,32.5625 -138,11.4375 -196,-19.5625c-58,-31 -86,-62 -90,-134.4375c12,-136.5625 92,-126.5625 129,-127.5625z" />
-        </svg>
-		  	<h1>Contact Us</h1>
-			<p>For the latest updates about reopening, booking tickets and what's happening at the Museum, sign up to our newsletter</p>
-		  </div>
-		  <!-- end inner -->
-	  </header>
-	  <!-- end page-header -->
-    <section class="content-section" data-background="#fffbf7">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="section-title text-center">
-              <figure><img src="images/title-shape.png" alt="Image"></figure>
-              <h2>Help us to respond to <br>
-you more quickly</h2>
+        <div class="form-card">
+          <form id="contactForm" novalidate>
+            <div class="pills" role="radiogroup" aria-label="Type de demande">
+              <label class="pill"><input type="radio" name="mode" value="contact" checked><span>Message</span></label>
+              <label class="pill"><input type="radio" name="mode" value="privatisation"><span>Privatisation</span></label>
             </div>
-            <!-- end section-title -->
-          </div>
-          <!-- end col-12 -->
-			<div class="col-lg-5">
-			<div class="contact-box">
-				<h6>Main Contact Number</h6>
-				<p>020 3461 4444 (Monday to Friday, 9am to 5pm)</p>
-<p>Please use this number if you know the name of the person
-or department you would like to contact. Or you can fax
-020 3461 4771.</p>
-				</div>
-				<!-- end contact-box -->
-				<div class="contact-box">
-				<h6>General enquiries</h6>
-				<p><a href="#">enquiries@wandau.co.uk</a>
-020 3461 4878 (Monday to Friday: 10:00 - 17:00).</p>
-				</div>
-				<!-- end contact-box -->
-				<div class="contact-box">
-				<h6>Media enquiries</h6>
-				<p><a href="#">sponsor@wandau.co.uk</a>
-The person or department you would like to contact</p>
-				</div>
-				<!-- end contact-box -->
-			</div>
-			<!-- end col-5 -->
-			<div class="col-lg-5">
-        <div class="contact-form">
-      <form id="contactForm">
-          <div class="mb-3">
-              <input type="text" name="name" placeholder="Complete Name" required>
-          </div>
-          <div class="mb-3">
-              <input type="email" name="email" placeholder="E-mail Address" required>
-          </div>
-          <div class="mb-3">
-              <input type="text" name="phone" placeholder="Phone Number" required>
-          </div>
-          <div class="mb-3">
-              <textarea name="message" placeholder="Your Message" required></textarea>
-          </div>
-          <div class="mb-3">
-              <input type="submit" value="Send Us">
-          </div>
-          <div id="responseMessage"></div> <!-- Area for response messages -->
-      </form>
+
+            <div class="field--row">
+              <div class="field">
+                <label for="cf-nom">Votre nom</label>
+                <input id="cf-nom" name="nom" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="cf-email">Votre email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cf-sujet">Sujet</label>
+              <input id="cf-sujet" name="sujet" type="text">
+            </div>
+
+            <div id="cf-privatisation" hidden>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-tel">Téléphone <span class="opt">(facultatif)</span></label>
+                  <input id="cf-tel" name="telephone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="cf-personnes">Nombre de personnes</label>
+                  <input id="cf-personnes" name="personnes" type="number" min="1" max="60">
+                </div>
+              </div>
+              <div class="field--row">
+                <div class="field">
+                  <label for="cf-date-btn">Date souhaitée</label>
+                  <div class="dp">
+                    <button type="button" class="dp__field" id="cf-date-btn" aria-haspopup="dialog" aria-expanded="false">Choisir une date</button>
+                    <input type="hidden" id="cf-date" name="date">
+                    <div class="dp__pop" hidden></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="cf-type">Type d'événement</label>
+                  <select id="cf-type" name="typeEvenement">
+                    <option value="workshop">Atelier</option>
+                    <option value="soiree">Soirée</option>
+                    <option value="kids">Enfants</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cf-message">Votre message</label>
+              <textarea id="cf-message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+<!-- Footer hors du scope .premium-* : rendu identique à l'accueil -->
+<footer class="mdt-footer mdt-floral-line">
+  <div class="container">
+    <div class="mdt-footer-inner">
+      <span class="mdt-footer-tag">On prend le temps.</span>
+      <div class="mdt-footer-name">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara">
+      </div>
+      <nav class="mdt-footer-nav" aria-label="Pied de page">
+        <a href="index.html">Accueil</a>
+        <a href="atelier.html">L'atelier</a>
+        <a href="boutique.html">La boutique</a>
+        <a href="calendrier.html">Le calendrier</a>
+        <a href="histoire.html">Mon histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mdt-footer-coords">
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" data-mdt-content="global.contact.instagram">@maison_de_tara</a>
+      </div>
+      <div class="mdt-footer-filet" aria-hidden="true"></div>
+    </div>
+    <div class="mdt-footer-bottom">
+      <span class="fb-l">© 2026 Maison de Tara</span>
+      <span class="fb-c"><a class="mdt-footer-credit" href="https://propulseo-site.com/" target="_blank" rel="noopener">Fait avec passion par Propul'SEO</a></span>
+      <span class="fb-r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+    </div>
   </div>
+</footer>
+<!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
+<script src="js/drawer.js"></script>
+<script src="js/header-pages.js"></script>
+<script>
+(function(){
+  "use strict";
 
-  <script>
-      // JavaScript for AJAX form submission
-      document.getElementById('contactForm').addEventListener('submit', function (e) {
-          e.preventDefault(); // Prevent form from submitting normally
-
-          const formData = new FormData(this);
-          const responseMessage = document.getElementById('responseMessage');
-          responseMessage.innerHTML = ""; // Clear previous messages
-
-          fetch('contact.php', {
-              method: 'POST',
-              body: formData
-          })
-          .then(response => response.text())
-          .then(data => {
-              responseMessage.innerHTML = `<p style="color: green;">${data}</p>`;
-          })
-          .catch(error => {
-              responseMessage.innerHTML = `<p style="color: red;">There was an error. Please try again later.</p>`;
-              console.error('Error:', error);
-          });
+  /* Reveals doux — désactivés si prefers-reduced-motion */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach(function(el){ el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
       });
-  </script>
-			</div>
-			<!-- end col-5 -->
-        </div>
-        <!-- end row -->
-      </div>
-      <!-- end container -->
-    </section>
-    <!-- end content-section -->
-<div class="google-maps">
-	  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10202.81803653302!2d30.552083977692742!3d50.4247130103151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf73cbd2db91%3A0x8141e376ee29dd50!2sZvirynetske%20Cemetery!5e0!3m2!1str!2str!4v1614660000205!5m2!1str!2str"></iframe>
-	  </div>
-	  <!-- end google-maps -->
-    <section class="content-section no-spacing" data-background="#94ffc4">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="newsletter-box">
-              <div class="form">
-                <div class="titles">
-                  <h6>Subscribe Newsletter</h6>
-                  <h2>Sign up to get the
-                    latest news</h2>
-                </div>
-                <!-- end titles -->
-                <div class="inner">
-                  <input type="email" placeholder="Enter your e-mail address">
-                  <input type="submit" value="SIGN UP">
-                </div>
-                <!-- end inner -->
-                <small>Will be used in accordance with our <a href="#">Privacy Policy</a></small> </div>
-              <!-- end form -->
-              <figure class="newsletter-image" data-scroll data-scroll-speed="0.7"><img src="images/newsletter-image.png" alt="Image"></figure>
-            </div>
-            <!-- end newsletter-box -->
-          </div>
-          <!-- end col-12 -->
-        </div>
-        <!-- end row -->
-      </div>
-      <!-- end container -->
-    </section>
-    <!-- end content-section -->
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6">
-            <h6 class="widget-title">About Museum</h6>
-            <ul class="footer-menu">
-              <li><a href="#">About us </a></li>
-              <li><a href="#">Contact us</a></li>
-              <li><a href="#">National work</a></li>
-              <li><a href="#">International work</a></li>
-            </ul>
-          </div>
-          <!-- end col-4 -->
-          <div class="col-lg-4 col-md-6">
-            <h6 class="widget-title">Connect Us</h6>
-            <ul class="social-media">
-              <li><a href="#"><i class="fab fa-facebook-f"></i> /wandau-uk</a></li>
-              <li><a href="#"><i class="fab fa-twitter"></i> /wandau-museum</a></li>
-              <li><a href="#"><i class="fab fa-youtube"></i> /wandau-tv</a></li>
-            </ul>
-          </div>
-          <!-- end col-4 -->
-          <div class="col-lg-4">
-            <h6 class="widget-title">Visit Us Now</h6>
-            <address class="address">
-            Cromwell Road New Town SW7 <strong>London - England</strong> <i class="fas fa-info-circle"></i> +44 (0)20 7942 2000
-            </address>
-          </div>
-          <!-- end col-4 -->
-        </div>
-        <!-- end row -->
-      </div>
-      <!-- end container -->
-      <div class="footer-bottom">
-        <div class="container"> <span class="copyright">© 2023 Wandau | Art & History Museum</span> <span class="creation">Site created by <a href="#">themezinho</a></span> </div>
-        <!-- end container -->
-      </div>
-      <!-- end footer-bottom -->
-    </footer>
-    <!-- end footer -->
-  </div>
-</div>
-
-<!-- JS FILES -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/locomotive-scroll.min.js"></script>
-<script src="js/kinetic-slider.js"></script>
-<script src="js/fancybox.min.js"></script>
-<script src="js/odometer.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/scripts.js"></script>
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    items.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+<script src="js/mdt-datepicker.js"></script>
+<script type="module">
+  import './js/site-hours.js';
+</script>
+<script type="module" src="js/site-contact.js"></script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
+<!-- Toggle hero centré / 2 colonnes (demande cliente 26/08) — choix mémorisé -->
+<button class="hero-layout-toggle" id="heroLayoutToggle" type="button" aria-pressed="false">Vue : 2 colonnes</button>
+<script>
+(function(){
+  "use strict";
+  var KEY = "mdt-contact-hero-layout";
+  var grid = document.querySelector(".premium-contact .hero-grid");
+  var btn = document.getElementById("heroLayoutToggle");
+  if (!grid || !btn) return;
+  function apply(mode) {
+    var centered = mode === "center";
+    grid.classList.toggle("hero--center", centered);
+    btn.textContent = centered ? "Vue : centrée" : "Vue : 2 colonnes";
+    btn.setAttribute("aria-pressed", String(centered));
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === "center") apply("center");
+  btn.addEventListener("click", function () {
+    var next = grid.classList.contains("hero--center") ? "columns" : "center";
+    apply(next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+})();
+</script>
 </body>
 </html>

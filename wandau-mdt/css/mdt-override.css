@@ -4,37 +4,36 @@
    Chargé APRES style.css pour gagner en specificity
    ============================================================ */
 
-/* --- Tokens officiels MDT (source: PROMPT-MASTER-MDT.md) --- */
+/* --- Alias charte : tout le fichier passe par var(--mdt-*), on remappe ici
+   les variables historiques (Wandau) vers les tokens charte de css/tokens.css.
+   terracotta / olive-deep / polices ne sont PLUS redéfinis ici : tokens.css est
+   la source unique (chargé avant ce fichier). --- */
 :root {
-  /* Base — 60% du visuel */
-  --mdt-sable:      #F4EDE0;
-  --mdt-sable-warm: #E8DCC4;
+  /* Base — beige charte */
+  --mdt-sable:      var(--mdt-beige);
+  --mdt-sable-warm: #E8DCC4;   /* nuances beige conservées (dérivés neutres) */
   --mdt-sable-deep: #DCC9A5;
   --mdt-greige:     #B5A998;
 
-  /* Primary — 25% */
-  --mdt-terracotta: #C75B3C;
-  --mdt-terra-dark: #8B4A2E;
+  /* Primary — terracotta charte (#79301E via tokens.css) */
+  --mdt-terra-dark: #5E2417;   /* hover : terracotta charte assombrie */
 
-  /* Accent — 16% */
-  --mdt-sauge:      #4A5D2E;
-  --mdt-sauge-light:#7A8043;
-  --mdt-olive-deep: #3A4A24;
+  /* Accent — vert charte */
+  --mdt-sauge:      var(--mdt-olive-deep);  /* aplats / fonds verts foncés */
+  --mdt-sauge-light:var(--mdt-olive);       /* vert de marque clair */
+  --mdt-olive-dark: #3F4731;                /* hover : olive-deep assombri (pendant vert de --mdt-terra-dark) */
 
-  /* Highlight — 5% */
-  --mdt-noir:       #1A1815;
-  --mdt-noir-soft:  #2C2419;
-  --mdt-laiton:     #B8924D;
+  /* Highlight — encre charte */
+  --mdt-noir:       var(--mdt-ink);
+  --mdt-noir-soft:  var(--mdt-ink);
+  --mdt-laiton:     #B8924D;  /* doré v1 exact (laiton) — récupéré de l'historique, demandé par le client */
+  /* Réglables en direct via le laboratoire de couleurs (?lab sur l'accueil) */
+  --mdt-hero-bg:    var(--mdt-sauge);      /* fond du hero */
+  --mdt-footer-bg:  var(--mdt-hero-bg);    /* footer = même vert que le hero */
+  --mdt-newsletter-bg: var(--mdt-sable);   /* bande « La lettre de la maison » = crème comme le reste du site */
 
-  /* Sémantique */
-  --mdt-text:       #2C2419;
-  --mdt-text-soft:  #5F4F3F;
-  --mdt-line:       rgba(74,93,46,0.18);
-
-  /* Typo */
-  --mdt-font-display: 'Cormorant Garamond', Georgia, serif;
-  --mdt-font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mdt-font-script:  'Caveat', cursive;
+  /* Sémantique (--mdt-text-soft et --mdt-line déplacés dans tokens.css = source unique) */
+  --mdt-text:       var(--mdt-ink);
 
   /* Espacements */
   --mdt-section-pad: clamp(64px, 8vw, 120px);
@@ -57,6 +56,10 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 400 !important;
   color: var(--mdt-noir) !important;
   letter-spacing: -0.01em;
+  /* Dézoom modéré (12/06) : titres de section ~30 % plus petits que le
+     92px Wandau, pour qu'une section tienne mieux à l'écran. */
+  font-size: clamp(32px, 4.6vw, 64px) !important;
+  line-height: 1.1 !important;
 }
 
 h1 { font-weight: 300 !important; }
@@ -90,20 +93,21 @@ em.mdt {
 }
 
 /* --- Buttons / CTA --- */
+/* Retour cliente 25/08 : TOUS les boutons en ovale (pilule) + libellés en gras. */
 .custom-button,
 .navbar-button a,
 a.custom-button {
-  background: var(--mdt-sauge) !important;
-  color: var(--mdt-sable) !important;
+  background: var(--color-cta-primary) !important;
+  color: var(--color-text-on-dark) !important;
   border: none !important;
   padding: 18px 36px !important;
   font-family: var(--mdt-font-body) !important;
   font-size: 12px !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
-  font-weight: 500 !important;
+  font-weight: 700 !important;
   transition: background 300ms cubic-bezier(.4,0,.2,1) !important;
-  border-radius: 0 !important;
+  border-radius: 999px !important;
   /* Centrage texte horizontal + vertical (override des height 70px / line-height 70px Wandau qui cassent le centrage avec multi-lignes) */
   display: inline-flex !important;
   align-items: center !important;
@@ -117,7 +121,7 @@ a.custom-button {
 
 .custom-button:hover,
 .navbar-button a:hover {
-  background: var(--mdt-olive-deep) !important;
+  background: var(--mdt-terra-dark) !important;
   color: var(--mdt-sable) !important;
   line-height: 1.2 !important;
   text-indent: 0 !important;
@@ -208,6 +212,14 @@ a.custom-button {
 .content-section { background: var(--mdt-sable); }
 .content-section.bottom-white { background: var(--mdt-sable) !important; }
 
+/* Espacement vertical des sections (accueil) : 30px desktop / 20px mobile
+   (encore divisé par 2 le 12/06 à la demande client). Les classes
+   no-spacing / no-bottom-spacing Wandau gardent la priorité (padding 0). */
+.content-section { padding: 30px 0; }
+@media (max-width: 767px) {
+  .content-section { padding: 20px 0; }
+}
+
 /* --- Section-title shape : on neutralise le shape Wandau (souvent un blob jaune) --- */
 .section-title figure img[src*="title-shape"] {
   filter: hue-rotate(-30deg) saturate(0.4) brightness(0.95);
@@ -223,32 +235,20 @@ a.custom-button {
   margin: 0 auto;
 }
 
-/* Sous-titre éditorial sous le H2 de section */
+/* Espace titre de section ↔ contenu réduit (retour Pastel #34 : 100px Wandau trop grand) */
+.section-title { margin-bottom: 32px; }
+
+/* Sous-titre éditorial sous le H2 de section.
+   Retour cliente 25/08 : élargi (560px → 860px) pour tenir sur 2 lignes. */
 .section-title .mdt-section-sub {
   font-family: var(--mdt-font-body);
   font-size: 15px;
   line-height: 1.7;
   color: var(--mdt-text-soft);
-  max-width: 560px;
+  max-width: 860px;
   margin: 18px auto 0;
   font-weight: 400;
   letter-spacing: 0.005em;
-}
-
-/* Mini icône MDT — pill Wandau réduite (100→64) pour col-lg-3 plus étroite,
-   fond sauge, icône laiton plus petite */
-.image-icon-box .icon.mdt-step-icon {
-  width: 64px !important;
-  height: 64px !important;
-  background: var(--mdt-sauge) !important;
-  color: var(--mdt-laiton);
-  left: 20px !important;
-  top: 20px !important;
-}
-.image-icon-box .icon.mdt-step-icon svg {
-  width: 28px;
-  height: 28px;
-  display: block;
 }
 
 /* Photos étapes : forcer aspect-ratio portrait pour prendre plus de hauteur
@@ -322,9 +322,10 @@ a.custom-button {
 
 /* --- Cards / exhibition box --- */
 .exhibition-box,
+/* Retour Propul'SEO #48 : plus de cadre autour du texte des cartes */
 .content-box {
   background: var(--mdt-sable) !important;
-  border: 1px solid var(--mdt-line);
+  border: none;
 }
 
 /* --- Play-now circular text : sauge --- */
@@ -345,8 +346,19 @@ a.custom-button {
 /* Fond sauge + wallpaper fleuri (repris du Hero V2 de l'ancienne LP) */
 .slider .slider-images .swiper-slide.mdt-slide-bg,
 .slider .slider-images .swiper-slide.mdt-slide-bg .mobile-slide {
-  background: var(--mdt-sauge) !important;
+  background: var(--mdt-hero-bg) !important;
   background-image: none !important;
+}
+
+/* Filet de securite sous le hero — corrige une bande creme derriere le header.
+   Swiper mesure la hauteur des slides AVANT que le padding-top (regle <=1200px)
+   ne soit applique : le wrapper est translate de -869px alors que les slides font
+   985px, donc la slide active demarre a y=116 et rien ne couvre les 116px du haut
+   — pile la zone du header. Le creme de la page transparaissait et le logo blanc
+   (regle has-hero) devenait illisible. On peint le vert sur le conteneur lui-meme :
+   toute zone non couverte par une slide reste verte, a n'importe quelle largeur. */
+body.has-hero header.slider {
+  background: var(--mdt-hero-bg);
 }
 
 /* Layer wallpaper tara-green par dessus, mix-blend screen — donne la texture fleurie de la LP */
@@ -354,7 +366,7 @@ a.custom-button {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
   background-size: 720px;
   background-repeat: repeat;
   background-position: center;
@@ -364,28 +376,31 @@ a.custom-button {
   z-index: 1;
 }
 
-/* Eyebrow au dessus du H1 */
+/* Eyebrow au dessus du H1 (taille proportionnelle à l'écran) */
 .slider-texts .hero-eyebrow {
   display: block;
   font-family: var(--mdt-font-body);
-  font-size: 11px;
+  font-size: clamp(9px, 0.58vw, 12px);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--mdt-sable);
-  margin-bottom: 28px;
+  margin-bottom: clamp(14px, 1.5vw, 30px);
   font-weight: 500;
   opacity: 0.9;
 }
 
-/* H1 Cormorant — taille réduite vs Wandau 126px pour tenir sur 1-2 lignes
-   sans déborder sur la booking card à droite */
+/* H1 Playfair — proportionnel à la largeur (≈ 100px à 1920) : même
+   composition sur petit comme grand écran */
 .slider .slider-texts .swiper-slide h1 {
   font-family: var(--mdt-font-display) !important;
   font-weight: 300 !important;
   color: var(--mdt-sable) !important;
   letter-spacing: -0.01em;
-  font-size: clamp(56px, 6vw, 100px) !important;
+  font-size: clamp(40px, 5.9vw, 126px) !important;
   line-height: 1.05 !important;
+  /* Ombre douce : redonne du contraste au titre (et au doré) sur le fond
+     hero éclairci, sans assombrir le fond ni changer la couleur du doré. */
+  text-shadow: 0 2px 18px rgba(26, 24, 21, 0.45) !important;
 }
 
 /* Hero avec 1 seul slide : on cache les clones générés par Swiper (loop:true) */
@@ -401,12 +416,15 @@ a.custom-button {
   font-weight: 400;
 }
 
-/* Paragraphe sous H1 */
+/* Paragraphe sous H1 (taille + retrait proportionnels) */
 .slider .slider-texts .swiper-slide p {
   font-family: var(--mdt-font-body) !important;
   color: var(--mdt-sable) !important;
   border-left-color: var(--mdt-laiton) !important;
   opacity: 0.9;
+  font-size: clamp(13px, 1vw, 20px) !important;
+  padding-left: clamp(16px, 1.6vw, 32px) !important;
+  max-width: 36vw;
 }
 
 .slider-texts p em {
@@ -416,28 +434,28 @@ a.custom-button {
   font-weight: 400;
 }
 
-/* Infos pratiques sous le paragraphe (adresse, horaires, univers) */
+/* Infos pratiques sous le paragraphe (tailles proportionnelles) */
 .slider-texts .hero-meta {
   list-style: none;
-  margin: 28px 0 0;
-  padding: 22px 0 0;
+  margin: clamp(16px, 1.5vw, 30px) 0 0;
+  padding: clamp(12px, 1.15vw, 24px) 0 0;
   border-top: 1px solid rgba(244, 237, 224, 0.18);
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 30px;
+  gap: clamp(8px, 0.63vw, 13px) clamp(16px, 1.6vw, 32px);
 }
 .slider-texts .hero-meta li {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(8px, 0.63vw, 13px);
   font-family: var(--mdt-font-body);
-  font-size: 14px;
+  font-size: clamp(11px, 0.74vw, 15px);
   color: var(--mdt-sable);
   opacity: 0.92;
 }
 .slider-texts .hero-meta__ic {
-  width: 18px;
-  height: 18px;
+  width: clamp(14px, 0.95vw, 19px);
+  height: clamp(14px, 0.95vw, 19px);
   flex: none;
   color: var(--mdt-laiton);
 }
@@ -475,6 +493,12 @@ a.custom-button {
   opacity: 0.85;
 }
 
+/* Centrage horizontal du SVG déco dans le hero (retour Pastel #22)
+   — Wandau le décale à gauche via translateX(-140%) ; vertical inchangé. */
+.slider .slider-texts .svg-morph {
+  transform: translateX(-50%) !important;
+}
+
 /* Overlay sombre sur image pour lisibilité du texte sable */
 .slider .slider-images .swiper-slide::before {
   content: "";
@@ -501,7 +525,9 @@ a.custom-button {
 .play-now text {
   fill: var(--mdt-laiton) !important;
   font-family: var(--mdt-font-body) !important;
-  letter-spacing: 0.22em !important;
+  /* 0.2em : « DÉCOUVRIR LA MAISON » ×2 tombait pile sur les 377 unités du
+     cercle (#47) — on garde ~10 unités de marge pour ne pas rogner le point. */
+  letter-spacing: 0.2em !important;
   font-size: 11px !important;
   font-weight: 500;
 }
@@ -544,65 +570,77 @@ a.custom-button {
   border-right-color: var(--mdt-sauge);
 }
 
+/* Badge « Découvrir le lieu » : vraiment centré horizontalement (Wandau le
+   décalait à droite via margin-left:-100px sur une boîte de 340px) et descendu
+   un peu pour ne pas chevaucher le texte du hero. */
+.play-now {
+  margin-left: -170px;   /* 340/2 → centrage exact sur left:50% */
+  bottom: -48px;         /* descendu (la zone basse de la boîte est vide) */
+}
+
 /* ============================================================
    BOOKING CARD dans le hero (droite) — repris de l'ancienne LP
    ============================================================ */
 
 /* Hauteur du hero : rentre dans le viewport restant après topbar+header fixes
    (le smooth-scroll padding-top compense déjà 136px côté flow, ici on cale juste la viewport) */
+/* Hero plein écran dès le chargement (le vert prend tout le viewport à
+   l'arrivée). 100vh ici — pas seulement sous body.has-hero — pour que Swiper
+   mesure la bonne hauteur dès son init. */
 header.slider {
-  height: calc(100vh - 136px) !important;
+  height: 100vh !important;
   min-height: 600px !important;
 }
 
-/* Texte hero : largeur élargie, calé dans une bande centrée pour éviter
-   le grand vide central sur écran large (gouttière constante avec la carte) */
+/* La couche verte (Swiper) suit TOUJOURS la hauteur réelle du hero :
+   Swiper fige des hauteurs en pixels à l'init, on force le % par-dessus. */
+.slider .slider-images,
+.slider .slider-images .swiper-wrapper,
+.slider .slider-images .swiper-slide {
+  height: 100% !important;
+}
+
+/* Texte hero : ancré à gauche sur une gouttière réduite (≈96px à 1920,
+   même colonne que le logo), bande élargie — le texte occupe l'espace. */
 .slider .slider-texts .container-fluid {
-  max-width: 640px !important;
-  margin-left: max(clamp(40px, 6vw, 80px), calc(50% - 640px)) !important;
+  max-width: 46vw !important;
+  margin-left: clamp(32px, 5vw, 110px) !important;
   margin-right: auto !important;
 }
 
-/* Aside booking — gros bloc qui équilibre le H1, calé sur la même bande */
-.mdt-hero-booking {
+/* Aside photo — photo encadrée qui équilibre le H1, calée sur la même bande
+   que l'ancienne carte booking (arbitrage Tara : photo seule, tasses rayées). */
+.mdt-hero-photo {
   position: absolute;
-  right: max(clamp(40px, 5vw, 80px), calc(50% - 640px));
+  right: clamp(32px, 5vw, 110px);
   top: 50%;
   transform: translateY(-50%);
-  width: 560px;
+  width: clamp(420px, 32vw, 660px);
   max-width: 90vw;
   z-index: 5;
-  background: var(--mdt-sable);
-  color: var(--mdt-noir);
-  padding: 44px 40px;
-  border: 1px solid var(--mdt-laiton);
 }
-/* Double-bordure laiton décalée — signature MDT */
-.mdt-hero-booking::before {
+.mdt-hero-photo__frame {
+  border: 1px solid var(--mdt-sable-deep);
+  padding: 10px;
+  background: rgba(240, 236, 219, .08);
+  position: relative;
+}
+/* Double-bordure beige décalée — signature MDT (retour Tara #2).
+   sable-deep et pas beige : en filet de 1px sur le vert, la crème #F0ECDB se lit blanche. */
+.mdt-hero-photo__frame::before {
   content: '';
   position: absolute;
-  top: -1px; left: -1px; right: -1px; bottom: -1px;
-  border: 1px solid var(--mdt-laiton);
+  inset: -1px;
+  border: 1px solid var(--mdt-sable-deep);
   transform: translate(10px, 10px);
   pointer-events: none;
   z-index: -1;
 }
-
-.card--booking__title {
-  font-family: var(--mdt-font-display) !important;
-  font-size: 26px !important;
-  color: var(--mdt-sauge) !important;
-  margin: 0 0 6px 0 !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.005em;
-  line-height: 1.2;
-}
-.card--booking__subtitle {
-  font-family: var(--mdt-font-body) !important;
-  font-size: 12px !important;
-  color: var(--mdt-text-soft) !important;
-  margin: 0 0 22px 0 !important;
-  letter-spacing: 0.02em;
+.mdt-hero-photo__frame img {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 48vh, 470px);
+  object-fit: cover;
 }
 
 .field { margin-bottom: 14px; }
@@ -646,31 +684,15 @@ header.slider {
 .field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
 .field--row .field { margin-bottom: 0; }
 
-.mdt-hero-booking .btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 14px 18px !important;
-  font-size: 11px !important;
-}
-.card--booking__reassurance {
-  font-family: var(--mdt-font-body);
-  font-size: 11px;
-  color: var(--mdt-text-soft);
-  text-align: center;
-  margin: 12px 0 0 0;
-  font-style: italic;
-  letter-spacing: 0.04em;
-}
-
-/* Responsive : booking passe sous le texte si pas assez de place */
-@media (max-width: 1440px) {
+/* Responsive : la photo passe sous le texte si pas assez de place */
+@media (max-width: 1200px) {
   .slider .slider-texts .container-fluid { max-width: 100% !important; margin: 0 auto !important; padding: 0 32px !important; }
-  .mdt-hero-booking {
+  .mdt-hero-photo {
     position: relative;
     right: auto; top: auto; transform: none;
     margin: 32px auto 0;
     width: 90%;
-    max-width: 560px;
+    max-width: 600px;
   }
   header.slider { height: auto !important; min-height: auto !important; padding: 60px 0 80px !important; }
   .slider .slider-images,
@@ -686,7 +708,7 @@ header.slider {
 }
 .slider .slider-nav .button-prev:hover,
 .slider .slider-nav .button-next:hover {
-  background: var(--mdt-sauge) !important;
+  background: var(--mdt-terracotta) !important;
   color: var(--mdt-sable) !important;
 }
 
@@ -697,8 +719,11 @@ header.slider {
 
 /* Alias sémantiques (utilisés par les rules importées) */
 :root {
-  --color-cta-primary:        var(--mdt-sauge);
-  --color-cta-primary-hover:  var(--mdt-olive-deep);
+  /* Couleur d'action = vert (demande cliente 16/07). Le terracotta reste en
+     ponctuation (bandeau du haut). Sur le hero vert, le CTA s'inverse :
+     voir « CTA au-dessus du hero » plus bas. */
+  --color-cta-primary:        var(--mdt-olive-deep);
+  --color-cta-primary-hover:  var(--mdt-olive-dark);
   --color-bg-dark:            var(--mdt-noir-soft);
   --color-text-on-dark:       var(--mdt-sable);
   --color-line:               var(--mdt-line);
@@ -712,11 +737,12 @@ header.slider {
 /* Cache la navbar Wandau (on la remplace par notre header MDT) */
 nav.navbar { display: none !important; }
 
-/* Container */
+/* Container header/topbar : pleine largeur, gouttière proportionnelle —
+   alignée sur celle du texte du hero (≈96px à 1920) pour une colonne commune. */
 .mdt-container {
-  max-width: var(--container);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px);
+  padding: 0 clamp(24px, 5vw, 110px);
 }
 
 /* sr-only (a11y) */
@@ -748,6 +774,10 @@ nav.navbar { display: none !important; }
 }
 .skip-link:focus { top: 16px; }
 
+/* Header fixe (~97px) : sans marge de scroll, les cibles d'ancres
+   (#reserver, #univers, #main…) atterrissent masquées dessous. */
+[id] { scroll-margin-top: 120px; }
+
 /* Icon sizes */
 .icon {
   display: inline-block;
@@ -759,7 +789,8 @@ nav.navbar { display: none !important; }
 .icon--md { width: 20px; height: 20px; }
 .icon--lg { width: 24px; height: 24px; }
 
-/* Btn (variantes utilisées dans header/drawer) */
+/* Btn (variantes utilisées dans header/drawer)
+   Retour cliente 25/08 : libellés en gras + forme ovale partout. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -771,13 +802,13 @@ nav.navbar { display: none !important; }
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   transition: all 0.3s var(--ease-out);
   border: 1px solid transparent;
   background: none;
   cursor: pointer;
   text-decoration: none;
-  border-radius: 0;
+  border-radius: 999px;
 }
 .btn--primary {
   background: var(--color-cta-primary);
@@ -797,12 +828,20 @@ nav.navbar { display: none !important; }
   left: 0;
   right: 0;
   z-index: 150;
-  background: var(--color-bg-dark);
-  color: var(--mdt-sable-warm);
+  background: var(--mdt-terracotta);     /* fond terracotta (demande Tara) */
+  color: var(--mdt-beige);               /* texte crème — pas de doublon crème/crème au scroll */
   font-size: 12px;
-  padding: 10px 0;
+  height: 42px;                          /* hauteur fixe = top du header → barres jointives */
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: transform .35s ease;       /* glisse hors champ au scroll */
 }
+/* Au scroll : la topbar s'efface vers le haut et le header remonte d'autant
+   (récupère 42px d'écran). Réversible en remontant. */
+body.is-scrolled .topbar { transform: translateY(-100%); }
 .topbar__inner {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -824,13 +863,13 @@ nav.navbar { display: none !important; }
   opacity: 0.9;
 }
 .topbar__info a { color: inherit; }
-.topbar__info .icon { color: var(--mdt-laiton); }
+.topbar__info .icon { color: var(--mdt-beige); }
 .topbar__opening { letter-spacing: 0.04em; }
 
 @media (max-width: 600px) {
-  .topbar { padding: 8px 0; }
-  .topbar__info { display: none; }
-  .topbar__opening { width: 100%; text-align: center; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mdt-laiton); }
+  /* Bandeau du haut (topbar terracotta) masque sur telephone : le header est
+     deja pose en top:0 en mobile, on gagne 42px d'ecran. */
+  .topbar { display: none; }
 }
 
 /* HEADER (fixe en haut, sous la topbar) — opaque sable */
@@ -838,16 +877,19 @@ nav.navbar { display: none !important; }
   padding: 20px 0;
   border-bottom: 1px solid var(--color-line);
   position: fixed;
-  top: 44px; /* sous la topbar */
+  top: 42px; /* = hauteur topbar → header jointif (pas d'espace) */
   left: 0;
   right: 0;
   z-index: 140;
   background: var(--mdt-sable);
+  transition: top .35s ease;             /* suit la topbar qui se masque */
 }
+/* Topbar masquée → header collé tout en haut (gagne 42px). */
+body.is-scrolled .mdt-header { top: 0; }
 
-/* Compensation : décaler le contenu de la page sous le header fixe (topbar 44 + header 92) */
+/* Compensation : décaler le contenu sous le header fixe (topbar 42 + header 108 avec logo 68) */
 .smooth-scroll {
-  padding-top: 136px;
+  padding-top: 150px;
 }
 
 @media (max-width: 600px) {
@@ -875,12 +917,16 @@ nav.navbar { display: none !important; }
   text-decoration: none;
 }
 .mdt-logo__image {
-  height: 52px;
+  height: 68px;
   width: auto;
   display: block;
 }
 @media (max-width: 600px) {
-  .mdt-logo__image { height: 42px; }
+  /* Anti-ecrasement : le logo ne retrecit plus et garde son ratio (contre le
+     img{max-width:100%} global qui le comprimait quand le header etait charge). */
+  .mdt-header__inner { gap: 12px; }
+  .mdt-logo { flex: 0 0 auto; }
+  .mdt-logo__image { height: 42px; width: auto; max-width: none; object-fit: contain; }
 }
 
 /* NAV desktop */
@@ -919,6 +965,7 @@ nav.navbar { display: none !important; }
   padding: 12px 22px;
   font-size: 11px;
   min-height: 40px;
+  border-radius: 999px;
 }
 
 /* BURGER */
@@ -953,10 +1000,20 @@ nav.navbar { display: none !important; }
 .burger__lines span { top: 50%; transform: translateY(-50%); display: block; }
 .burger__lines::after { bottom: 0; }
 
+/* Tél du header : caché tant que la topbar (qui porte déjà le numéro) est visible */
+.mdt-header__tel { display: none; }
+
 @media (max-width: 900px) {
   .mdt-nav { display: none; }
-  .mdt-header__cta .btn--primary { display: none; }
+  /* Le CTA reste visible en compact à côté du burger : depuis que le hero
+     est en « photo seule », c'est le seul bouton Réserver au-dessus du pli. */
+  .mdt-header__cta .btn--primary { padding: 9px 14px !important; font-size: 10px !important; }
   .burger { display: inline-flex; }
+}
+@media (max-width: 600px) {
+  /* Icone tel retiree du header mobile : elle surchargeait la barre (logo ecrase)
+     et faisait doublon avec le numero present dans le menu (drawer__contact). */
+  .mdt-header__tel { display: none; }
 }
 
 /* NAV BADGE "Bientôt" */
@@ -1078,6 +1135,92 @@ nav.navbar { display: none !important; }
 body.is-drawer-open { overflow: hidden; }
 
 /* ============================================================
+   HEADER v1 — transparent sur le hero, solide au scroll (accueil)
+   Activé par body.has-hero (ajouté en JS si header.slider présent).
+   La bascule .is-scrolled est posée sur <body> par scripts.js.
+   ============================================================ */
+
+/* Transition douce de la bascule transparent ↔ solide */
+.topbar,
+.mdt-header { transition: background-color .35s ease, border-color .35s ease; }
+.mdt-logo__image { transition: filter .35s ease, height .35s ease; }
+
+/* Accueil : le hero remonte sous le header (plus de bande beige dédiée) */
+body.has-hero .smooth-scroll { padding-top: 0; }
+body.has-hero header.slider { height: 100vh !important; }
+
+/* Le contenu du hero démarre JUSTE sous le header fixe (topbar 42 +
+   header ~145 avec logo 11.5vh) au lieu de flotter au centre — le texte
+   occupe l'espace dès le haut. La photo encadrée s'équilibre dessus. */
+body.has-hero .slider .slider-texts .swiper-slide {
+  align-items: flex-start;
+  /* 12vh → 6vh : le bloc texte remonte sous le header (retour client 12/06) */
+  padding-top: calc(96px + 6vh);
+}
+body.has-hero .mdt-hero-photo { top: calc(50% + 5vh); }
+@media (max-width: 1200px) {
+  body.has-hero .slider .slider-texts .swiper-slide { padding-top: 0; }
+  body.has-hero .mdt-hero-photo { top: auto; }
+}
+
+/* Pages intérieures (hero clair, js/header-pages.js) : header transparent
+   tout en haut, fond beige dès le premier défilement. Le hero étant clair,
+   la nav reste encre et le logo garde sa taille/couleur normales. */
+body.hero-clair:not(.is-scrolled) .mdt-header {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+/* Au scroll : header compacté en hauteur (tailles texte/logo inchangées) */
+.mdt-header { transition: background-color .35s ease, border-color .35s ease, padding .35s ease; }
+body.is-scrolled .mdt-header { padding: 8px 0; }
+
+/* État transparent du HEADER (accueil, avant scroll) — nav blanche sur le hero.
+   La topbar, elle, reste crème + terracotta en permanence (voir bloc .topbar). */
+body.has-hero:not(.is-scrolled) .mdt-header {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+body.has-hero:not(.is-scrolled) .mdt-nav a { color: var(--mdt-sable); }
+body.has-hero:not(.is-scrolled) .mdt-nav a:hover { color: var(--mdt-laiton); }
+body.has-hero:not(.is-scrolled) .mdt-nav a::after { background: var(--mdt-laiton); }
+/* Logo PNG passé en blanc + agrandi sur le hero (proportionnel à la hauteur
+   d'écran, ≈110px sur un 1080p), revient en couleur 68px au scroll */
+body.has-hero:not(.is-scrolled) .mdt-logo__image { filter: brightness(0) invert(1); height: clamp(64px, 11.5vh, 112px); }
+body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
+
+/* CTA au-dessus du hero : la couleur d'action est verte, or le hero EST vert
+   (--mdt-hero-bg = --mdt-sauge) → le bouton disparaîtrait. On l'inverse : crème
+   sur le vert, il redevient vert plein dès le scroll.
+   S'applique a TOUTES les largeurs : le fond vert du hero couvre desormais la zone
+   du header quelle que soit la taille d'ecran (voir « Filet de securite sous le hero »). */
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary {
+  background: var(--mdt-sable);
+  color: var(--mdt-olive-deep);
+}
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:hover,
+body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
+  background: #FFFFFF;
+  color: var(--mdt-olive-dark);
+}
+
+/* Layouts hero empilés (≤1200px) : le hero coule depuis le haut → on dégage
+   l'espace du header fixe, on LIBÈRE la hauteur (texte + photo empilés
+   dépassent 100vh, que la règle has-hero ci-dessus forcerait sinon avec
+   l'overflow:hidden du template → contenu coupé), et le paragraphe reprend
+   sa pleine largeur (le cap 36vw n'a de sens qu'à côté de la photo). */
+@media (max-width: 1200px) {
+  body.has-hero header.slider { height: auto !important; min-height: 100vh; padding-top: 176px !important; padding-bottom: 80px !important; }
+  .slider .slider-texts .swiper-slide p { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  /* Logo pré-scroll ramené à une taille mobile (le clamp(64px,11.5vh,112px)
+     bat sinon la règle mobile 42px en spécificité → header ~138px qui
+     recouvrait le H1) + offset du hero recalé dessous. */
+  body.has-hero:not(.is-scrolled) .mdt-logo__image { height: 56px; }
+  body.has-hero header.slider { padding-top: 148px !important; }
+}
+
+/* ============================================================
    SECTION 2 — placeholder image-box en pattern fleuri MDT
    (la structure et la typo Wandau sont préservées, on remplace juste
     l'image manquante par un bloc décoratif sable+wallpaper)
@@ -1093,7 +1236,7 @@ body.is-drawer-open { overflow: hidden; }
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../../assets-premium-lp/wallpaper-tara-green.png");
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
   background-size: 540px;
   background-repeat: repeat;
   background-position: center;
@@ -1114,6 +1257,7 @@ body.is-drawer-open { overflow: hidden; }
 .exhibition-box figure .img {
   aspect-ratio: 3 / 2;
   object-fit: cover;
+  object-position: center center;
   width: 100%;
   height: auto;
   display: block;
@@ -1138,17 +1282,219 @@ body.is-drawer-open { overflow: hidden; }
   filter: brightness(0); /* assure que le "i" reste foncé sur fond blanc */
 }
 
-/* Espace texte agrandi : marge sous l'image + plus de gap content-box */
+/* Espace texte agrandi : marge sous l'image + plus de gap content-box.
+   Cartes multi-paragraphes (textes de Tara) : paragraphes resserrés entre
+   eux, respiration avant le CTA. */
 .exhibition-box figure { margin-bottom: 28px !important; }
 .exhibition-box .content-box { padding: 0 12px; }
-.exhibition-box .content-box h4 { margin-bottom: 16px !important; }
-.exhibition-box .content-box p { margin-bottom: 22px !important; }
+.exhibition-box .content-box h4 {
+  margin-bottom: 14px !important;
+  /* Titres de carte resserrés (12/06) : prenaient trop de place en 30px Wandau. */
+  font-size: clamp(19px, 1.6vw, 23px) !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;   /* gras (demande 12/06) */
+}
+.exhibition-box .content-box p { margin-bottom: 14px !important; }
+.exhibition-box .content-box p:last-of-type { margin-bottom: 24px !important; }
 
-/* Stagger : cartes 1 et 3 alignées en haut, carte 2 (Café) décalée vers le bas
-   — reproduit l'effet Wandau original sans dépendre du parallax JS */
-.exhibition-box#cafe { margin-top: 80px; }
-@media (max-width: 767px) {
-  .exhibition-box#cafe { margin-top: 0; }
+/* Cartes univers : version « résumé à puces » verrouillée (arbitrage 12/06) —
+   .uv-bullets est un simple conteneur, le texte entier a été retiré du HTML. */
+
+/* ============================================================
+   Mode lab (?lab) — scroll natif : Locomotive est coupé, donc la
+   classe is-inview n'est jamais posée. On révèle directement les
+   images qu'elle déclenche d'habitude.
+   ============================================================ */
+body.lab-native .image-box img,
+body.lab-native .exhibition-box .img,
+body.lab-native .image-icon-box .content-image img,
+body.lab-native .side-image img,
+body.lab-native .image-content-box figure img {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ============================================================
+   Parcours « Comment ça se passe ? » — textes Tara
+   ============================================================ */
+/* Format v1 (arbitrage Tara) : photos alignées, texte révélé au survol de la
+   carte. Plafond Wandau 190px trop bas pour les textes complets → relevé.
+   :focus / :focus-within = accès clavier (cartes avec tabindex="0"). */
+#parcours .image-icon-box:hover .content-box .expand,
+#parcours .image-icon-box:focus .content-box .expand,
+#parcours .image-icon-box:focus-within .content-box .expand {
+  max-height: 460px;
+}
+#parcours .image-icon-box:focus-visible { outline: 2px solid var(--mdt-laiton); outline-offset: -2px; }
+/* Écrans tactiles (pas de survol possible) : texte toujours visible. */
+@media (hover: none) {
+  #parcours .content-box .expand { max-height: none !important; }
+}
+/* Titres du parcours (complets) et titre univers (« À découvrir à la maison »)
+   verrouillés (arbitrage 12/06) — variantes retirées du HTML. */
+#parcours .content-box .expand p { margin-bottom: 12px; }
+/* Alignement des 4 étapes (retour Tara). Le bloc numéro+titre était ancré en BAS
+   de colonne : sa position dépendait de la longueur du titre (3 vs 4 lignes), d'où
+   les numéros désalignés et les arches partiellement masquées par la boîte crème.
+   Fix : image à hauteur FIXE identique + bloc texte qui coule SOUS l'image (plus
+   d'ancrage bas) → les 4 numéros tombent toujours pile sous les arches. */
+#parcours .image-icon-box { margin: 0 !important; padding-bottom: 0 !important; }
+#parcours .col-lg-3 { margin-top: 0 !important; }
+#parcours .image-icon-box .content-image {
+  height: clamp(300px, 24vw, 420px) !important;
+  aspect-ratio: auto !important;
+  overflow: hidden;
+  margin: 0 !important;
+}
+#parcours .image-icon-box .content-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+#parcours .image-icon-box .content-box {
+  position: static !important;
+  padding: 22px 8% 24px !important;
+}
+#parcours .content-box h4 {
+  font-size: clamp(22px, 2vw, 30px) !important;
+  line-height: 1.14 !important;
+  /* réserve 2 lignes pour TOUS les titres → la boîte beige finit au même niveau
+     même quand un titre tient sur une seule ligne (ex. « Revenir la retrouver »). */
+  min-height: 2.3em !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* ============================================================
+   Les grandes occasions (accueil) — section compacte : 5 petites
+   cartes photo + légende, tient dans un écran (retour Tara).
+   ============================================================ */
+.mdt-occasions-lp {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.mdt-occasions-lp figure { margin: 0; }
+.mdt-occasions-lp img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--mdt-laiton);
+  padding: 5px;
+  background: var(--mdt-sable);
+}
+.mdt-occasions-lp figcaption {
+  font-family: var(--mdt-font-body);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mdt-text-soft);
+  text-align: center;
+  margin-top: 8px;
+}
+.mdt-occasions-note {
+  font-family: var(--mdt-font-body);
+  color: var(--mdt-text-soft);
+  text-align: center;
+  font-style: italic;
+  margin: 22px auto 0;
+  max-width: 560px;
+}
+.mdt-occasions-cta { margin-top: 18px; }
+@media (max-width: 900px) {
+  .mdt-occasions-lp { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 575px) {
+  .mdt-occasions-lp { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .mdt-occasions-lp img { height: 110px; }
+}
+
+/* « Certaines réalisations » : le motif suit le MÊME réglage que les autres
+   sections (retour Tara : même couleur/fond partout). Avant, il était forcé à
+   opacity 0.22 / tuiles 640px → la section ressortait plus verte/grise. On laisse
+   donc .mdt-floral-line::before (0.09 / 380px) s'appliquer, sans override. */
+
+/* Mode lab (Locomotive coupé) : la galerie « Certaines réalisations »
+   défile toute seule en va-et-vient doux, faute de parallaxe au scroll. */
+body.lab-native .horizontal-scroll .scroll-inner {
+  animation: mdt-marquee 38s linear infinite alternate;
+}
+@keyframes mdt-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100vw); }
+}
+
+/* Section boutique : mise en scène « vitrine 3 photos » verrouillée
+   (arbitrage 12/06) — autres variantes retirées du HTML et du CSS. */
+.mdt-boutique-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 34px;
+}
+.mdt-boutique-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--mdt-line);
+}
+@media (max-width: 700px) {
+  .mdt-boutique-gallery { grid-template-columns: 1fr 1fr; }
+  .mdt-boutique-gallery img:last-child { display: none; }
+}
+
+/* Cartes univers (arbitrage 12/06) : mêmes dimensions, alignées en haut ET en
+   bas. On retire le décalage « quinconce » du Café et on force les 3 colonnes
+   à la même hauteur, CTA collé en bas de chaque carte. */
+#univers .row { align-items: stretch; }
+#univers .col-lg-4 { display: flex; }
+#univers .exhibition-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 !important;
+}
+#univers .exhibition-box .content-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+/* Le bloc texte (uv-bullets) occupe l'espace, le CTA se cale en bas */
+#univers .exhibition-box .uv-bullets { flex: 1 1 auto; }
+#univers .exhibition-box .mdt-card-cta { margin-top: auto; align-self: center; }
+
+/* Retour cliente 28/08 : les cartes 1 et 3 heritent du padding asymetrique
+   Wandau (.col-lg-4:nth-child(3n+1) => padding-right 30px, 3n+3 => padding-left
+   30px, style.css ~2112), donc la photo touche le bord de l'encadre sable d'un
+   cote. Seule la carte 2 (padding: 0 15px) est centree. On aligne les trois sur
+   ce meme padding symetrique. Sous 992px le template remet deja tout a 0. */
+@media (min-width: 992px) {
+  #univers .exhibition-box { padding: 0 15px; }
+}
+
+/* Retour cliente 25/08 « centrer tout comme Une sélection pour la maison » :
+   l'animation Wandau (opacity 0 + scale 1.2, révélée par .is-inview) reste
+   souvent coincée — photo invisible, ou visible mais zoomée 20 % qui déborde
+   de l'arche et masque le cadre doré (les cartes « L'envie de créer » et
+   « Pour accompagner le moment »). On affiche les 3 photos directement à
+   l'échelle 1 : les cartes rendent identiques, photo centrée dans l'arche,
+   cadre laiton visible. Le zoom d'entrée est abandonné sur ces cartes. */
+#univers .exhibition-box figure .img {
+  opacity: 1;
+  transform: none;
+}
+/* Même respiration de texte que la carte de référence : paragraphes et puces
+   bornés en largeur et centrés, ils ne touchent plus les bords de la carte. */
+#univers .exhibition-box .content-box p,
+#univers .exhibition-box .mdt-features {
+  max-width: 32ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Logo section 3 top-left (signature MDT) */
@@ -1182,21 +1528,14 @@ body.is-drawer-open { overflow: hidden; }
   gap: 6px;
   text-align: center;
 }
+/* Retour Propul'SEO #46 : lignes sans puce « · » (le retrait 14px suivait le marqueur) */
 .mdt-features li {
   font-family: var(--mdt-font-body);
   font-size: 13px;
   color: var(--mdt-text-soft);
   line-height: 1.6;
   position: relative;
-  padding-left: 14px;
   display: inline-block;
-}
-.mdt-features li::before {
-  content: "·";
-  position: relative;
-  left: -8px;
-  color: var(--mdt-laiton);
-  font-weight: 700;
 }
 
 /* CTA carte — petit lien éditorial soulign\é sauge */
@@ -1217,6 +1556,7 @@ body.is-drawer-open { overflow: hidden; }
 .mdt-card-cta:hover {
   color: var(--mdt-terracotta);
   border-color: var(--mdt-terracotta);
+  text-decoration: none;
 }
 
 /* Côté droit (3 items info) — Wandau côtes natives sont OK,
@@ -1233,7 +1573,7 @@ body.is-drawer-open { overflow: hidden; }
   display: inline-block;
   margin-top: 6px;
 }
-.side-icon-list .content a:hover { color: var(--mdt-terracotta); border-color: var(--mdt-terracotta); }
+.side-icon-list .content a:hover { color: var(--mdt-terracotta); border-color: var(--mdt-terracotta); text-decoration: none; }
 .side-icon-list figure { color: var(--mdt-laiton); display: inline-flex; align-items: center; justify-content: center; }
 .side-icon-list figure .icon { width: 28px; height: 28px; }
 
@@ -1258,175 +1598,458 @@ body.is-drawer-open { overflow: hidden; }
   pointer-events: none;
   z-index: 0;
 }
-/* Texture A — wallpaper florale (sections principales) */
-.mdt-floral-soft::before {
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 600px repeat;
-  opacity: 0.07;
-}
-/* Texture B — meme florale, tile plus dense + opacite legerement
-   superieure (alternance de rythme, lisible sur fond clair/blanc). */
+/* Texture florale UNIFIÉE (12/06) : même échelle + opacité sur toutes les
+   sections crème, pour une continuité du fond d'une section à l'autre (plus de
+   cassure de densité aux jonctions univers↔parcours, calendrier↔occasions, etc.). */
+.mdt-floral-soft::before,
 .mdt-floral-line::before {
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 380px repeat;
-  opacity: 0.09;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 600px repeat;
+  opacity: 0.07;
 }
 .mdt-floral-soft > *,
 .mdt-floral-line > * { position: relative; z-index: 1; }
 
+/* Retour Tara : fond CONTINU sur l'accueil. On supprime l'alternance soft/line
+   entre sections (elle faisait sauter la densité du motif). #univers et #occasions
+   (les 2 sections en « soft ») passent au même réglage que les autres : 0.09 / 380px.
+   Ciblé sur l'accueil — mdt-floral-soft reste inchangée sur les autres pages. */
+#univers::before,
+#occasions::before {
+  opacity: 0.09 !important;
+  background-size: 380px !important;
+}
+
 /* ============================================================
-   Newsletter MDT — bande sauge profond (DA hero confidentiel)
+   FOND CONTINU DE L'ACCUEIL (12/06) — UNE seule couche florale derrière
+   toutes les sections crème, au lieu d'un motif par section. Garantit :
+   couleur EXACTEMENT identique partout + motif ALIGNÉ d'une section à
+   l'autre (plus de cassure ni de « voile »). Accueil uniquement
+   (body.has-hero) ; les pages intérieures ne sont pas touchées.
+   ============================================================ */
+body.has-hero .section-wrapper { position: relative; background-color: var(--mdt-sable); }
+body.has-hero .section-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") top center / 600px repeat;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+body.has-hero .section-wrapper > * { position: relative; z-index: 1; }
+/* Les sections crème deviennent transparentes → laissent voir la couche continue */
+body.has-hero .content-section { background: transparent !important; }
+/* On neutralise les motifs PAR SECTION sur l'accueil (doublon + cassures).
+   EXCEPTION : le footer (.mdt-footer) porte aussi .mdt-floral-line mais garde
+   SON propre motif (wallpaper vert) — il n'est pas crème, il n'est pas dans le
+   fond continu. On l'exclut donc du display:none. */
+body.has-hero .mdt-floral-soft::before,
+body.has-hero .mdt-floral-line:not(.mdt-footer)::before,
+body.has-hero #realisations::before,
+body.has-hero .mdt-newsletter::before { display: none !important; }
+
+/* ============================================================
+   Newsletter MDT — carte beige cadrée or (retour Pastel #9 : fond
+   beige + texte noir) posée sur la bande verte florale (design v1).
    ============================================================ */
 .mdt-newsletter {
-  background: var(--mdt-olive-deep) !important;
-  padding: clamp(48px, 5vw, 72px) 0 !important;
+  background: var(--mdt-newsletter-bg) !important;   /* réglable via le labo couleurs */
+  padding: clamp(26px, 3vw, 40px) 0 !important;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-/* Florale en filigrane ton-sur-ton (coherent avec le reste du site) */
+/* Motif floral au MÊME niveau que les autres sections crème (600px / 0.07)
+   pour que la bande se fonde dans le reste du site (12/06). */
 .mdt-newsletter::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: url("../../assets-premium-lp/wallpaper-tara-green.png") center / 420px repeat;
-  opacity: 0.12;
+  background: url("../../assets-premium-lp/wallpaper-tara-green.jpg") center / 600px repeat;
+  opacity: 0.07;
   pointer-events: none;
   z-index: 0;
 }
 .mdt-newsletter > .container { position: relative; z-index: 2; }
+/* Cadre à DOUBLE FILET doré rapproché, fond blanc voilé, format compact
+   (fidèle capture v1) */
+.mdt-nl-card {
+  position: relative;
+  background: rgba(252, 250, 244, 0.55);
+  border: 1px solid var(--mdt-laiton);
+  padding: clamp(20px, 2.4vw, 30px) clamp(28px, 4vw, 52px);
+  max-width: 880px;   /* élargie : titre sur ~2 lignes au lieu de 4 */
+  margin: 0 auto;
+}
+.mdt-nl-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--mdt-laiton);
+  pointer-events: none;
+}
+.mdt-nl-capsule img {
+  height: 40px;
+  width: auto;
+  display: block;
+  margin: 0 auto 14px;
+}
 .mdt-nl-eyebrow {
   display: block;
   font-family: var(--mdt-font-body);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-weight: 500;
-  font-size: 12px;
-  color: var(--mdt-laiton);
-  margin-bottom: 14px;
+  font-size: 11px;
+  color: var(--mdt-ink);
+  opacity: 0.8;
+  margin-bottom: 10px;
 }
 .mdt-nl-title {
   font-family: var(--mdt-font-display) !important;
   font-weight: 300 !important;
-  font-size: clamp(34px, 5vw, 64px);
-  line-height: 1.06;
-  letter-spacing: -0.02em;
-  color: #fff !important;
-  margin-bottom: 18px;
+  font-size: clamp(20px, 1.7vw, 27px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--mdt-ink) !important;
+  margin-bottom: 10px;
 }
-.mdt-nl-title em { font-style: italic; color: var(--mdt-sable-deep); }
+.mdt-nl-title em { font-style: italic; color: var(--mdt-laiton); }
 .mdt-nl-lead {
-  max-width: 540px;
-  margin: 0 auto 30px;
-  font-size: 16px;
-  color: rgba(244, 237, 224, 0.78);
+  max-width: 460px;
+  margin: 0 auto 22px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mdt-ink);
+  opacity: 0.82;
 }
 .mdt-nl-form {
   display: flex;
-  max-width: 520px;
-  margin: 0 auto 22px;
-  border-bottom: 1px solid rgba(244, 237, 224, 0.4);
+  align-items: flex-end;
+  gap: 16px;
+  max-width: 460px;
+  margin: 0 auto 16px;
+  flex-wrap: wrap;
 }
 .mdt-nl-form input {
   flex: 1;
+  min-width: 200px;
   background: transparent;
   border: none;
-  padding: 16px 4px;
+  border-bottom: 1px solid rgba(44, 36, 25, 0.35);
+  padding: 10px 4px;
   font-family: var(--mdt-font-body);
-  font-size: 16px;
-  color: #fff;
+  font-size: 14px;
+  color: var(--mdt-ink);
   outline: none;
+  transition: border-color .25s;
 }
-.mdt-nl-form input::placeholder { color: rgba(244, 237, 224, 0.5); }
+.mdt-nl-form input:focus { border-bottom-color: var(--mdt-laiton); }
+.mdt-nl-form input::placeholder { color: rgba(44, 36, 25, 0.45); }
 .mdt-nl-form button {
-  background: transparent;
+  background: var(--color-cta-primary);
   border: none;
-  color: var(--mdt-laiton);
+  color: #fff;
   font-family: var(--mdt-font-body);
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 11px;
   cursor: pointer;
-  padding: 0 8px;
-  transition: color .25s;
+  padding: 13px 24px;
+  transition: background .25s;
 }
-.mdt-nl-form button:hover { color: #fff; }
-.mdt-nl-note { font-size: 12px; color: rgba(244, 237, 224, 0.5); }
-.mdt-nl-note a { color: rgba(244, 237, 224, 0.75); text-decoration: underline; }
-.mdt-nl-note a:hover { color: var(--mdt-laiton); }
+.mdt-nl-form button:hover { background: var(--color-cta-primary-hover); }
+@media (max-width: 540px) {
+  .mdt-nl-form { flex-direction: column; align-items: stretch; }
+}
+/* Sous 16px, Safari iOS zoome la page au focus d'un champ. */
+@media (max-width: 600px) {
+  .mdt-nl-form input { font-size: 16px; }
+}
+.mdt-nl-note { font-size: 11px; color: rgba(44, 36, 25, 0.65); }
+.mdt-nl-note a { color: rgba(44, 36, 25, 0.8); text-decoration: underline; }
+.mdt-nl-note a:hover { color: var(--mdt-terracotta); }
 
 /* ============================================================
-   Footer MDT — Variante B (3 colonnes classique)
+   Rendez-vous de la Maison — événements (reprise LP v1, variante
+   claire sur beige). Données placeholder avant branchement calendrier.
    ============================================================ */
-.mdt-footer {
-  background: var(--mdt-sable) !important;
-  color: var(--mdt-text);
-  padding: clamp(64px, 7vw, 96px) 0 36px;
-  border-top: 3px solid var(--mdt-sauge);
-}
-.mdt-footer .container { max-width: var(--mdt-container); }
-.mdt-footer-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 60px;
-  align-items: start;
-}
-.mdt-footer-name {
-  font-family: var(--mdt-font-display);
-  font-size: 32px;
-  font-weight: 400;
-  color: var(--mdt-sauge);
-  margin-bottom: 14px;
-}
-.mdt-footer-tag {
-  font-family: var(--mdt-font-script);
-  font-size: 26px;
-  color: var(--mdt-terracotta);
-  margin-bottom: 16px;
-}
-.mdt-footer-brand p {
-  font-size: 15px;
-  color: var(--mdt-text-soft);
-  max-width: 320px;
-  margin: 0;
-}
-.mdt-footer-wtitle {
-  font-family: var(--mdt-font-body) !important;
+.events-eyebrow {
+  font-family: var(--mdt-font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 500 !important;
-  font-size: 12px !important;
-  color: var(--mdt-text) !important;
-  margin-bottom: 22px;
-  opacity: 0.7;
-}
-.mdt-footer-menu { list-style: none; padding: 0; margin: 0; }
-.mdt-footer-menu li { margin-bottom: 12px; }
-.mdt-footer-menu a {
-  font-family: var(--mdt-font-display);
-  font-size: 19px;
-  color: var(--mdt-text);
-  transition: color .25s;
-}
-.mdt-footer-menu a:hover { color: var(--mdt-laiton); }
-.mdt-footer-address {
-  font-style: normal;
-  font-size: 15px;
+  font-weight: 500;
   color: var(--mdt-text-soft);
-  line-height: 1.9;
 }
-.mdt-footer-address strong { color: var(--mdt-text); font-weight: 500; }
-.mdt-footer-bottom {
-  margin-top: 56px;
-  padding-top: 26px;
-  border-top: 1px solid var(--mdt-line);
+.events-rows__heading {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 36px;
   flex-wrap: wrap;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--mdt-text-soft);
+}
+.events-rows__title {
+  font-family: var(--mdt-font-display);
+  font-size: clamp(36px, 4.5vw, 52px);
+  color: var(--mdt-noir);
+  font-weight: 300 !important;
+  line-height: 1.1;
+  margin: 14px 0 0;
+}
+.events-rows__title em {
+  font-style: italic;
+  color: var(--mdt-laiton);
+  font-weight: 300;
+}
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--mdt-noir);
+  color: var(--mdt-noir);
+}
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background: var(--mdt-noir);
+  color: var(--mdt-sable);
 }
 
-@media (max-width: 860px) {
-  .mdt-footer-grid { grid-template-columns: 1fr; gap: 40px; }
+.event-row {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--mdt-line);
+}
+.event-row:first-of-type { border-top: 1px solid var(--mdt-line); }
+.event-row__date {
+  width: 72px;
+  height: 72px;
+  background: #fff;
+  border: 1px solid var(--mdt-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.event-row__date strong {
+  font-family: var(--mdt-font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--mdt-noir);
+  line-height: 1;
+}
+.event-row__date span {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mdt-text-soft);
+  margin-top: 3px;
+}
+.event-row__date--featured {
+  width: 96px;
+  height: 96px;
+  background: var(--mdt-laiton);
+  border: none;
+}
+.event-row__date--featured strong { font-size: 38px; color: #fff; }
+.event-row__date--featured span { color: rgba(255, 255, 255, 0.85); }
+.event-row__meta {
+  font-family: var(--mdt-font-body);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mdt-text-soft);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.event-row__title {
+  font-family: var(--mdt-font-display);
+  font-size: clamp(22px, 2.2vw, 28px) !important;
+  font-weight: 400 !important;
+  color: var(--mdt-noir);
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.event-row__time {
+  font-family: var(--mdt-font-body);
+  font-size: 13px;
+  color: var(--mdt-text-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.event-row__time .icon { color: var(--mdt-laiton); }
+.event-row__time strong { color: var(--mdt-terracotta); }
+.event-row__seats { color: var(--mdt-terracotta); font-weight: 500; }
+.event-row__seats--full { color: var(--mdt-text-soft); font-weight: 500; font-style: italic; }
+.event-row__badge {
+  display: inline-block;
+  background: var(--mdt-laiton);
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.event-row--featured {
+  padding: 26px 0 30px;
+  background: linear-gradient(90deg, rgba(184, 146, 77, 0.10), transparent 60%);
+}
+.event-row--full { opacity: 0.7; }
+.event-row__cta { white-space: nowrap; }
+.btn__arrow { width: 16px; height: 16px; }
+
+@media (max-width: 800px) {
+  .event-row { grid-template-columns: 72px 1fr; gap: 20px; padding: 22px 0; }
+  .event-row__cta { grid-column: 1 / -1; justify-self: flex-start; }
+  .event-row__date--featured { width: 72px; height: 72px; }
+  .event-row__date--featured strong { font-size: 28px; }
+}
+
+/* ============================================================
+   Footer MDT — « Invitation » (variante B validée le 11/06) :
+   fond vert floral (recette hero conservée), signature manuscrite
+   centrée, nav et coordonnées sur une ligne, barre du bas sur UNE
+   seule ligne avec le crédit Propul'SEO centré et cliquable.
+   ============================================================ */
+.mdt-footer {
+  background: var(--mdt-footer-bg) !important;
+  overflow-x: clip;   /* sécurise le bas de footer en pleine largeur (pas de scroll horizontal) */
+  /* couture laiton : adoucit la transition page claire → vert (revue expert) */
+  border-top: 1px solid var(--mdt-laiton) !important;
+  color: var(--mdt-sable);
+  padding: clamp(48px, 7vw, 84px) 0 0;
+  border-top: none;
+  position: relative;
+  overflow: hidden;
+}
+/* Texture florale discrète, comme la preview */
+.mdt-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../../assets-premium-lp/wallpaper-tara-green.jpg");
+  background-size: 560px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.mdt-footer .container { max-width: var(--mdt-container); position: relative; z-index: 2; }
+.mdt-footer-inner { text-align: center; }
+.mdt-footer-tag {
+  font-family: var(--mdt-font-script);
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--mdt-laiton);
+  display: block;
+  margin-bottom: 6px;
+}
+/* Signature footer : le vrai logo, pas le nom retapé en Playfair (retour Tara #9,
+   repris #25/#29/#32/#36). La typo du logo n'existe qu'en image — d'où l'<img>.
+   Blanchi comme dans l'en-tête au-dessus du hero (meme filtre). */
+.mdt-footer-name {
+  line-height: 0;
+}
+.mdt-footer-name img {
+  height: clamp(88px, 11vw, 132px);
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+.mdt-footer-nav {
+  margin: 30px 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 30px;
+}
+.mdt-footer-nav a {
+  color: var(--mdt-sable);
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color .25s;
+}
+.mdt-footer-nav a:hover { color: var(--mdt-laiton); }
+.mdt-footer-coords {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+  font-size: 13.5px;
+  color: rgba(240, 236, 219, 0.85);
+}
+.mdt-footer-coords a {
+  color: rgba(240, 236, 219, 0.85);
+  border-bottom: 1px solid rgba(184, 146, 77, 0.5);
+  transition: color .25s, border-color .25s;
+}
+.mdt-footer-coords a:hover { color: var(--mdt-laiton); border-bottom-color: var(--mdt-laiton); }
+.mdt-footer-coords .dot { color: var(--mdt-laiton); }
+.mdt-footer-filet {
+  width: 72px;
+  height: 1px;
+  background: var(--mdt-laiton);
+  margin: 30px auto 0;
+  position: relative;
+}
+.mdt-footer-filet::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--mdt-laiton);
+}
+/* Barre du bas : UNE ligne — © à gauche, crédit centré, légal à droite */
+.mdt-footer-bottom {
+  margin-top: 26px;
+  /* Pleine largeur : sort du conteneur 1280px pour remplir les marges.
+     © à gauche, mentions à droite, ligne dorée (border-top) élargie d'autant. */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-top: 1px solid rgba(184, 146, 77, 0.35);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 16px clamp(28px, 6vw, 120px) 18px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(240, 236, 219, 0.7);
+}
+.mdt-footer-bottom .fb-l { justify-self: start; white-space: nowrap; }
+.mdt-footer-bottom .fb-c { justify-self: center; text-align: center; }
+.mdt-footer-bottom .fb-r { justify-self: end; white-space: nowrap; }
+.mdt-footer-bottom a { color: rgba(240, 236, 219, 0.8); transition: color .25s; }
+.mdt-footer-bottom a:hover { color: var(--mdt-laiton); }
+.mdt-footer-credit {
+  font-family: var(--mdt-font-script);
+  font-size: 17px;
+  color: var(--mdt-laiton) !important;
+  border-bottom: 0 !important;
+}
+.mdt-footer-credit:hover { color: var(--mdt-sable) !important; }
+
+@media (max-width: 760px) {
+  .mdt-footer-bottom { grid-template-columns: 1fr; gap: 6px; text-align: center; }
+  .mdt-footer-bottom .fb-l,
+  .mdt-footer-bottom .fb-c,
+  .mdt-footer-bottom .fb-r { justify-self: center; }
+}
+
+/* Sur mobile, 100vh inclut la barre d'URL : le hero saute quand elle se
+   rétracte. dvh suit la hauteur réellement visible. */
+@supports (min-height: 100dvh) {
+  @media (max-width: 900px) {
+    body.has-hero header.slider { min-height: 100dvh; }
+  }
 }

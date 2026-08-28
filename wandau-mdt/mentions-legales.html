@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="theme-color" content="#5A6347"/>
+<meta name="author" content="Propul'SEO">
+
+<!-- SOCIAL MEDIA META (commun ; <title>, description et og:title/description sont spécifiques par page, placés après l'include) -->
+<meta property="og:site_name" content="Maison de Tara">
+<meta property="og:type" content="website">
+<!-- ⚠️ Domaine à confirmer avant mise en ligne (déduit de l'email contact@maisondetara.com) -->
+<meta property="og:image" content="https://maisondetara.com/images/og-maison-de-tara.jpg">
+<meta property="og:image:alt" content="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
+
+<!-- DONNÉES STRUCTURÉES — référencement local (horaires réels du dossier) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Maison de Tara",
+  "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
+  "url": "https://maisondetara.com/",
+  "telephone": "+33650535149",
+  "email": "contact@maisondetara.com",
+  "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Rue Gabriel Péri",
+    "postalCode": "92250",
+    "addressLocality": "La Garenne-Colombes",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/maison_de_tara/"]
+}
+</script>
+
+<!-- FAVICON — emblème vert de la Maison de Tara (capsule olive) -->
+<link rel="icon" type="image/png" href="ico/favicon-mdt.png?v=2">
+<link rel="shortcut icon" href="ico/favicon-mdt.png?v=2">
+<link rel="apple-touch-icon" href="ico/favicon-mdt.png?v=2">
+
+<!-- GOOGLE FONTS — Playfair Display + La Belle Aurore + Inter (charte)
+     + Caveat 600 : manuscrite lisible de la ligne d'ouverture du hero (choix C 22/07) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+<!-- CSS FILES -->
+<link rel="stylesheet" href="css/fontawesome.min.css">
+<link rel="stylesheet" href="css/odometer.min.css">
+<link rel="stylesheet" href="css/fancybox.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/mdt-override.css">
+<link rel="stylesheet" href="css/mdt-pages.css">
+<title>Mentions légales · Maison de Tara</title>
+<meta name="description" content="Mentions légales du site de la Maison de Tara.">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- SVG sprite — icônes line-art réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M5 4c0-.6.4-1 1-1h2.5c.4 0 .8.3.9.7l1 3.3c.1.4 0 .8-.3 1L8 9.5c1 2.3 2.9 4.2 5.2 5.2l1.5-2.1c.2-.3.6-.4 1-.3l3.3 1c.4.1.7.5.7.9V17c0 .6-.4 1-1 1A14 14 0 0 1 5 5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-vase" viewBox="0 0 24 24">
+      <path d="M9 4h6v3l-1.2 1.2c2 .8 3.2 2.8 3.2 5.3 0 3.6-2.7 6.5-5 6.5s-5-2.9-5-6.5c0-2.5 1.2-4.5 3.2-5.3L9 7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24">
+      <path d="M5 9h11v6a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M16 11h2a2 2 0 0 1 0 4h-2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M8 6c0-1 1-1 1-2M11.5 6c0-1 1-1 1-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24">
+      <path d="M14 3l7 7-9.5 9.5c-1 1-3 1-4 0l-2-2c-1-1-1-3 0-4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4 20l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24">
+      <path d="M5 8h14l-1 12H6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar" role="region" aria-label="Informations de contact">
+  <div class="mdt-container topbar__inner">
+    <ul class="topbar__info">
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span class="sr-only">Téléphone :</span>
+        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
+        <span class="sr-only">Adresse :</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+      </li>
+      <li>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span class="sr-only">Email :</span>
+        <a href="mailto:contact@maisondetara.com"><span data-mdt-content="global.contact.email">contact@maisondetara.com</span></a>
+      </li>
+    </ul>
+    <div class="topbar__opening" data-mdt-content="global.topbar.ouverture">Ouverture · Automne 2026</div>
+  </div>
+</div>
+
+<header class="mdt-header" role="banner">
+  <div class="mdt-container mdt-header__inner">
+    <a href="index.html" class="mdt-logo" aria-label="Maison de Tara · Accueil">
+      <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+    </a>
+    <nav class="mdt-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="atelier.html">L'Atelier</a>
+      <a href="boutique.html">La Boutique</a>
+      <a href="calendrier.html">Le Calendrier</a>
+      <a href="histoire.html">Mon Histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="mdt-header__cta">
+      <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
+      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+      </a>
+      <a href="atelier.html#reserver" class="btn btn--primary">Réserver ma session</a>
+      <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
+        <span class="burger__lines"><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__header">
+      <span class="mdt-logo" id="drawer-title">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
+      </span>
+      <button class="drawer__close" type="button" aria-label="Fermer le menu" data-drawer-close>
+        <svg class="icon icon--md" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
+      </button>
+    </div>
+    <nav class="drawer__nav" aria-label="Navigation mobile">
+      <a href="index.html" data-drawer-close>Accueil</a>
+      <a href="atelier.html" data-drawer-close>L'<em>Atelier</em></a>
+      <a href="boutique.html" data-drawer-close>La <em>boutique</em></a>
+      <a href="calendrier.html" data-drawer-close>Le <em>calendrier</em></a>
+      <a href="histoire.html" data-drawer-close>Mon <em>histoire</em></a>
+      <a href="contact.html" data-drawer-close>Contact</a>
+    </nav>
+    <div class="drawer__cta">
+      <a href="atelier.html#reserver" class="btn btn--primary" data-drawer-close>Réserver ma session</a>
+    </div>
+    <div class="drawer__contact">
+      <a href="tel:+33650535149">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
+      </a>
+      <a href="mailto:contact@maisondetara.com">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
+        <span data-mdt-content="global.contact.email">contact@maisondetara.com</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ====== /HEADER MDT ====== -->
+<main id="main" class="mdt-natural-scroll">
+  <section class="content-section mdt-floral-soft">
+    <div class="container">
+      <div class="mdt-page-intro">
+        <span class="mdt-eyebrow">Informations</span>
+        <h1>Mentions légales</h1>
+      </div>
+      <!-- ⚠️ Squelette conforme LCEN — les [À COMPLÉTER] attendent les infos
+           juridiques réelles de Tara. NE PAS mettre en ligne tel quel. -->
+      <div class="mdt-legal">
+        <h2>Éditeur du site</h2>
+        <p>
+          <span class="todo">[À COMPLÉTER : raison sociale]</span> · <span class="todo">[forme juridique]</span> au capital de <span class="todo">[capital]</span><br>
+          Siège social : <span class="todo">[adresse du siège]</span><br>
+          SIRET : <span class="todo">[SIRET]</span> · RCS : <span class="todo">[ville + numéro RCS]</span> · TVA intracommunautaire : <span class="todo">[numéro]</span><br>
+          Directrice de la publication : <span class="todo">[nom — Tara ?]</span><br>
+          Contact : <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a> · +33 6 50 53 51 49
+        </p>
+        <h2>Hébergement</h2>
+        <p><span class="todo">[À COMPLÉTER : hébergeur — nom, adresse, contact]</span></p>
+        <h2>Propriété intellectuelle</h2>
+        <p>L'ensemble des contenus de ce site (textes, photographies, illustrations, logo, charte graphique) est la propriété exclusive de la Maison de Tara, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+        <h2>Données personnelles</h2>
+        <p>Les traitements de données réalisés via ce site sont décrits dans la <a href="politique-de-confidentialite.html">politique de confidentialité</a>.</p>
+        <h2>Cookies</h2>
+        <p>Ce site n'utilise pas de cookies de mesure d'audience ou de publicité. Si cela évoluait, un bandeau de consentement serait mis en place.</p>
+        <h2>Responsabilité</h2>
+        <p>La Maison de Tara s'efforce de maintenir des informations exactes et à jour, sans pouvoir garantir l'absence d'erreurs ou d'omissions. Les informations présentées (horaires, tarifs, événements) sont indicatives et peuvent évoluer.</p>
+      </div>
+    </div>
+  </section>
+  <footer class="mdt-footer mdt-floral-line">
+  <div class="container">
+    <div class="mdt-footer-inner">
+      <span class="mdt-footer-tag">On prend le temps.</span>
+      <div class="mdt-footer-name">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara">
+      </div>
+      <nav class="mdt-footer-nav" aria-label="Pied de page">
+        <a href="index.html">Accueil</a>
+        <a href="atelier.html">L'atelier</a>
+        <a href="boutique.html">La boutique</a>
+        <a href="calendrier.html">Le calendrier</a>
+        <a href="histoire.html">Mon histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mdt-footer-coords">
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" data-mdt-content="global.contact.instagram">@maison_de_tara</a>
+      </div>
+      <div class="mdt-footer-filet" aria-hidden="true"></div>
+    </div>
+    <div class="mdt-footer-bottom">
+      <span class="fb-l">© 2026 Maison de Tara</span>
+      <span class="fb-c"><a class="mdt-footer-credit" href="https://propulseo-site.com/" target="_blank" rel="noopener">Fait avec passion par Propul'SEO</a></span>
+      <span class="fb-r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+    </div>
+  </div>
+</footer>
+</main>
+<!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
+<script src="js/drawer.js"></script>
+<!-- Coordonnées du header/footer (téléphone, adresse, email, Instagram, bandeau) —
+     éditables depuis /admin/contenu, page "global". -->
+<script type="module" src="js/site-content.js"></script>
+</body>
+</html>

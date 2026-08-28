@@ -3,25 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="theme-color" content="#4A5D2E"/>
-<title>Maison de Tara · La maison où l'on prend le temps</title>
+<meta name="theme-color" content="#5A6347"/>
 <meta name="author" content="Propul'SEO">
-<meta name="description" content="Atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne au cœur de La Garenne-Colombes. Un lieu où l'on prend le temps.">
-<meta name="keywords" content="maison de tara, atelier céramique, café, boutique, La Garenne-Colombes, peinture sur céramique, déco indienne">
 
-<!-- SOCIAL MEDIA META -->
-<meta property="og:description" content="Atelier de peinture sur céramique, café et boutique d'inspiration indienne · La Garenne-Colombes.">
+<!-- SOCIAL MEDIA META (commun ; <title>, description et og:title/description sont spécifiques par page, placés après l'include) -->
 <meta property="og:site_name" content="Maison de Tara">
-<meta property="og:title" content="Maison de Tara · La maison où l'on prend le temps">
 <meta property="og:type" content="website">
+<!-- ⚠️ Domaine à confirmer avant mise en ligne (déduit de l'email contact@maisondetara.com) -->
+<meta property="og:image" content="https://maisondetara.com/images/og-maison-de-tara.jpg">
+<meta property="og:image:alt" content="La devanture verte de la Maison de Tara, à La Garenne-Colombes">
 
-<!-- FAVICON FILES -->
-<link href="ico/favicon.png" rel="shortcut icon">
+<!-- DONNÉES STRUCTURÉES — référencement local (horaires réels du dossier) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Maison de Tara",
+  "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
+  "url": "https://maisondetara.com/",
+  "telephone": "+33650535149",
+  "email": "contact@maisondetara.com",
+  "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Rue Gabriel Péri",
+    "postalCode": "92250",
+    "addressLocality": "La Garenne-Colombes",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "09:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+  ],
+  "sameAs": ["https://www.instagram.com/maison_de_tara/"]
+}
+</script>
 
-<!-- GOOGLE FONTS — Cormorant Garamond + Inter + Caveat -->
+<!-- FAVICON — emblème vert de la Maison de Tara (capsule olive) -->
+<link rel="icon" type="image/png" href="ico/favicon-mdt.png?v=2">
+<link rel="shortcut icon" href="ico/favicon-mdt.png?v=2">
+<link rel="apple-touch-icon" href="ico/favicon-mdt.png?v=2">
+
+<!-- GOOGLE FONTS — Playfair Display + La Belle Aurore + Inter (charte)
+     + Caveat 600 : manuscrite lisible de la ligne d'ouverture du hero (choix C 22/07) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=La+Belle+Aurore&family=Inter:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
 <!-- CSS FILES -->
 <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -30,9 +59,17 @@
 <link rel="stylesheet" href="css/swiper.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/mdt-override.css">
+<link rel="stylesheet" href="css/mdt-pages.css">
+<title>Maison de Tara · La maison où l'on prend le temps</title>
+<meta name="description" content="Atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne au cœur de La Garenne-Colombes. Un lieu où l'on prend le temps.">
+<meta property="og:title" content="Maison de Tara · La maison où l'on prend le temps">
+<meta property="og:description" content="Atelier de peinture sur céramique, café et boutique d'inspiration indienne · La Garenne-Colombes.">
+<!-- v2 premium verrouillée (arbitrage 12/06) — s'applique via body.av2 permanent -->
+<link rel="stylesheet" href="css/mdt-accueil-v2.css">
 </head>
-<body>
+<body class="av2" data-mdt-page="accueil">
 <div class="preloader" id="preloader">
   <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" version="1.1">
     <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,1080 1294.66667,1080 960,1080 C625.333333,1080 305.333333,1080 0,1080 L0,0 Z"></path>
@@ -103,37 +140,42 @@
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
         <span class="sr-only">Téléphone :</span>
-        <a href="tel:0147XXXXXX" aria-label="Appeler le 01 47 XX XX XX">01 47 XX XX XX</a>
+        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
         <span class="sr-only">Adresse :</span>
-        <span>La Garenne-Colombes, 92</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
         <span class="sr-only">Email :</span>
-        <a href="mailto:hello@maisondetara.com">hello@maisondetara.com</a>
+        <a href="mailto:contact@maisondetara.com"><span data-mdt-content="global.contact.email">contact@maisondetara.com</span></a>
       </li>
     </ul>
-    <div class="topbar__opening">Ouverture · Automne 2026</div>
+    <div class="topbar__opening" data-mdt-content="global.topbar.ouverture">Ouverture · Automne 2026</div>
   </div>
 </div>
 
 <header class="mdt-header" role="banner">
   <div class="mdt-container mdt-header__inner">
-    <a href="#" class="mdt-logo" aria-label="Maison de Tara · Accueil">
+    <a href="index.html" class="mdt-logo" aria-label="Maison de Tara · Accueil">
       <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara" class="mdt-logo__image">
     </a>
     <nav class="mdt-nav" aria-label="Navigation principale">
-      <a href="#atelier">Atelier</a>
-      <a href="#rendez-vous">Calendrier</a>
-      <a href="#boutique">Boutique<span class="nav-badge">Bientôt</span></a>
-      <a href="#histoire">Histoire</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html">Accueil</a>
+      <a href="atelier.html">L'Atelier</a>
+      <a href="boutique.html">La Boutique</a>
+      <a href="calendrier.html">Le Calendrier</a>
+      <a href="histoire.html">Mon Histoire</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="mdt-header__cta">
-      <a href="#reservation" class="btn btn--primary">Réserver un moment</a>
+      <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
+      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
+      </a>
+      <a href="atelier.html#reserver" class="btn btn--primary">Réserver ma session</a>
       <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">
         <span class="burger__lines"><span></span></span>
       </button>
@@ -153,23 +195,24 @@
       </button>
     </div>
     <nav class="drawer__nav" aria-label="Navigation mobile">
-      <a href="#atelier" data-drawer-close>L'<em>Atelier</em></a>
-      <a href="#rendez-vous" data-drawer-close>Le <em>calendrier</em></a>
-      <a href="#boutique" data-drawer-close>La <em>boutique</em><span class="nav-badge">Bientôt</span></a>
-      <a href="#histoire" data-drawer-close>L'<em>histoire</em></a>
-      <a href="#contact" data-drawer-close>Contact</a>
+      <a href="index.html" data-drawer-close>Accueil</a>
+      <a href="atelier.html" data-drawer-close>L'<em>Atelier</em></a>
+      <a href="boutique.html" data-drawer-close>La <em>boutique</em></a>
+      <a href="calendrier.html" data-drawer-close>Le <em>calendrier</em></a>
+      <a href="histoire.html" data-drawer-close>Mon <em>histoire</em></a>
+      <a href="contact.html" data-drawer-close>Contact</a>
     </nav>
     <div class="drawer__cta">
-      <a href="#reservation" class="btn btn--primary" data-drawer-close>Réserver un moment</a>
+      <a href="atelier.html#reserver" class="btn btn--primary" data-drawer-close>Réserver ma session</a>
     </div>
     <div class="drawer__contact">
-      <a href="tel:0147XXXXXX">
+      <a href="tel:+33650535149">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
-        01 47 XX XX XX
+        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
       </a>
-      <a href="mailto:hello@maisondetara.com">
+      <a href="mailto:contact@maisondetara.com">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
-        hello@maisondetara.com
+        <span data-mdt-content="global.contact.email">contact@maisondetara.com</span>
       </a>
     </div>
   </div>
@@ -177,73 +220,7 @@
 <!-- ====== /HEADER MDT ====== -->
 
 <div class="smooth-scroll">
-  <div class="section-wrapper" data-scroll-section>
-    <div class="search-box">
-      <div class="container">
-        <div class="form">
-          <h3>SEARCH EVENT</h3>
-          <input type="search" placeholder="What are you looking for ?">
-          <input type="submit" value="SEARCH">
-        </div>
-        <!-- end form -->
-        <div class="search-events">
-          <ul>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-            <li>
-              <h5><a href="#">Artemisia Gentileschi talk with Maria</a></h5>
-              <small>15 August – 31 October 2020</small> </li>
-          </ul>
-        </div>
-        <!-- end search-events -->
-      </div>
-    </div>
-    <!-- end search-box -->
-    <aside class="side-widget">
-      <svg viewBox="0 0 600 1080" preserveAspectRatio="none" version="1.1">
-        <path d="M540,1080H0V0h540c0,179.85,0,359.7,0,539.54C540,719.7,540,899.85,540,1080z"></path>
-      </svg>
-      <figure class="logo"> <img src="images/logo-light.png" alt="Image"> </figure>
-      <!-- end logo -->
-      <div class="inner">
-        <div class="widget">
-          <figure><img src="images/image07.jpg" alt="Image"></figure>
-          <p>It speedily me addition <strong>weddings vicinity</strong> in pleasure. Happiness commanded an conveying breakfast in. Regard her say warmly elinor. Him these are visit front end for <u>seven walls</u>. Money eat scale now ask law learn.</p>
-        </div>
-        <!-- end widget -->
-        <div class="widget">
-          <h6 class="widget-title">Opening Hours</h6>
-          <p>Tuesday ‒ Friday: 09:00 ‒ 17:00<br>
-            Friday ‒ Monday: 10:00 ‒ 20:00</p>
-        </div>
-        <!-- end widget -->
-      </div>
-      <!-- end inner -->
-		<div class="display-mobile">
-			<div class="custom-menu">
-        <ul>
-          <li><a href="#">Eng</a></li>
-          <li><a href="#">Rus</a></li>
-        </ul>
-      </div>
-      <!-- end custom-menu -->
-      <div class="site-menu">
-        <ul>
-          <li><a href="visit.html" data-scroll-to>Visit</a></li>
-          <li><a href="exhibitions.html" data-scroll-to>Exhibitions</a></li>
-          <li><a href="collections.html" data-scroll-to>Collections</a></li>
-          <li><a href="about.html" data-scroll-to>About</a></li>
-          <li><a href="contact.html" data-scroll-to>Contact</a></li>
-        </ul>
-      </div>
-      <!-- end site-menu -->
-		</div>
-		<!-- end display-mobile -->
-    </aside>
+  <div class="section-wrapper" data-scroll-section id="main">
     <!-- Header déplacé hors smooth-scroll pour position fixed Locomotive-safe -->
     <header class="slider">
       <div class="swiper-container slider-images">
@@ -256,19 +233,17 @@
       </div>
       <!-- end slider-images -->
       <div class="swiper-container slider-texts">
-        <svg width="580" height="400" class="svg-morph">
-          <path id="svg_morph" d="m261,30.4375c0,0 114,6 151,75c37,69 37,174 6,206.5625c-31,32.5625 -138,11.4375 -196,-19.5625c-58,-31 -86,-62 -90,-134.4375c12,-136.5625 92,-126.5625 129,-127.5625z" />
-        </svg>
+        <!-- Retour cliente 25/08 : blob vert animé (svg-morph) supprimé -->
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="container-fluid">
-              <small class="hero-eyebrow">La Garenne-Colombes · Ouverture Automne 2026</small>
-              <h1>On prend <em>le temps.</em></h1>
-              <p>Atelier de peinture sur céramique, café et maison de décoration d'inspiration indienne. Un lieu où l'on crée de ses mains, où l'on s'attable sans se presser, et où chaque objet a une histoire.</p>
+              <!-- Retour cliente 25/08 : eyebrow « La Garenne-Colombes · Ouverture Automne 2026 »
+                   supprimé — le titre monte à sa place -->
+              <h1 data-mdt-content="accueil.hero.titre">Bienvenue à la <em>Maison de Tara</em></h1>
+              <p data-mdt-content="accueil.hero.intro">Peinture sur céramique, café et décoration pour la maison. Un lieu inspiré de l'artisanat, du fait main et du plaisir de recevoir.</p>
               <ul class="hero-meta">
-                <li><svg class="hero-meta__ic" aria-hidden="true"><use href="#i-pin"/></svg> La Garenne-Colombes · Hauts-de-Seine (92)</li>
-                <li><svg class="hero-meta__ic" aria-hidden="true"><use href="#i-clock"/></svg> Du mardi au dimanche · 10h à 19h</li>
-                <li><svg class="hero-meta__ic" aria-hidden="true"><use href="#i-vase"/></svg> Atelier · Café · Boutique déco</li>
+                <li><svg class="hero-meta__ic" aria-hidden="true"><use href="#i-pin"/></svg> <span data-mdt-content="accueil.hero.meta1">La Garenne-Colombes · Hauts-de-Seine (92)</span></li>
+                <li><svg class="hero-meta__ic" aria-hidden="true"><use href="#i-brush"/></svg> <span data-mdt-content="accueil.hero.meta2">Peinture sur céramique · café · boutique déco maison</span></li>
               </ul>
             </div>
             <!-- end container -->
@@ -278,50 +253,15 @@
         <!-- end swiper-wrapper -->
       </div>
       <!-- end slider-texts -->
-      <!-- Booking card (reprise de l'ancienne LP, droite du hero) -->
-      <aside class="card--booking mdt-hero-booking" id="reserver" aria-label="Réserver une session">
-        <h3 class="card--booking__title">Réserver un moment</h3>
-        <p class="card--booking__subtitle">Sessions de 2 heures · groupes et duos</p>
-
-        <div class="field">
-          <label class="field__label" for="b-people">Personnes</label>
-          <select class="field__select" id="b-people">
-            <option>1 personne</option>
-            <option selected>2 personnes</option>
-            <option>3 personnes</option>
-            <option>4 personnes</option>
-            <option>5 personnes</option>
-            <option>6 personnes</option>
-            <option>7+ personnes (groupe)</option>
-          </select>
+      <!-- Photo encadrée (droite du hero) — arbitrage Tara : photo seule,
+           le CTA réservation reste dans le header -->
+      <aside class="mdt-hero-photo" aria-label="Photo de l'atelier">
+        <div class="mdt-hero-photo__frame">
+          <img src="../assets-charte/tasses-rayees.jpg" alt="Tasses rayées peintes à la main" data-mdt-content="accueil.hero.photo">
         </div>
-
-        <div class="field--row">
-          <div class="field">
-            <label class="field__label" for="b-date">Date</label>
-            <input class="field__input" id="b-date" type="date">
-          </div>
-          <div class="field">
-            <label class="field__label" for="b-slot">Créneau</label>
-            <select class="field__select" id="b-slot">
-              <option>10h00 – 12h00</option>
-              <option selected>14h00 – 16h00</option>
-              <option>16h30 – 18h30</option>
-              <option>19h00 – 21h00</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="b-phone">Téléphone</label>
-          <input class="field__input" id="b-phone" type="tel" placeholder="06 XX XX XX XX">
-        </div>
-
-        <button class="btn btn--primary" type="button">Confirmer la réservation</button>
-        <p class="card--booking__reassurance">Aucune carte bancaire requise · Confirmation par SMS</p>
       </aside>
 
-      <div class="play-now"> <a href="#univers" class="play-btn" data-scroll-to aria-label="Découvrir le lieu"></a>
+      <div class="play-now"> <a href="#univers" class="play-btn" data-scroll-to aria-label="Découvrir la maison"></a>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
           <defs>
             <path id="circlePath" d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "/>
@@ -329,7 +269,7 @@
           <g>
             <use xlink:href="#circlePath" fill="none"/>
             <text>
-              <textPath xlink:href="#circlePath">DÉCOUVRIR LE LIEU  ·  DÉCOUVRIR LE LIEU  ·  </textPath>
+              <textPath xlink:href="#circlePath">DÉCOUVRIR LA MAISON · DÉCOUVRIR LA MAISON · </textPath>
             </text>
           </g>
         </svg>
@@ -342,39 +282,35 @@
     <section class="content-section mdt-floral-soft" id="univers">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-9">
-            <div class="section-title">
-              <figure class="mdt-title-shape"><img src="../Logo/capsule_sage.png" alt=""></figure>
-              <h6>Trois univers, un seul lieu</h6>
-              <h2>Créer. Partager. Prolonger.</h2>
+          <div class="col-12">
+            <div class="section-title text-center">
+              <h2 data-mdt-content="accueil.univers.titre">À découvrir à la maison</h2>
             </div>
             <!-- end section-title -->
           </div>
-          <!-- end col-9 -->
-          <div class="col-lg-3"> <a href="#reserver" class="circle-button">RÉSERVER <br>
-            UN MOMENT</a> </div>
-          <!-- end col-3 -->
+          <!-- end col-12 -->
         </div>
         <!-- end row -->
         <div class="row justify-content-center">
           <div class="col-lg-4 col-md-6">
             <div class="exhibition-box" id="atelier" data-scroll>
-              <figure> <a href="#reserver"><img src="../assets-premium-lp/experience-01-choisir.jpg" alt="L'atelier de peinture sur céramique" class="img"></a>
+              <figure> <a href="atelier.html#reserver"><img src="../assets-premium-lp/experience-01-choisir.jpg" alt="L'atelier de peinture sur céramique" class="img" data-mdt-content="accueil.univers.atelier.photo"></a>
                 <div class="info">
                   <figure class="i"><img src="images/icon-info.png" alt=""></figure>
-                  <span>L'Atelier · sessions de 2h</span> </div>
+                  <span data-mdt-content="accueil.univers.atelier.badge">L'Atelier · sessions de 2h</span> </div>
                 <!-- end info -->
               </figure>
               <div class="content-box">
-                <h4><a href="#reserver">Un geste libre,
-                  accompagné.</a></h4>
-                <p>Choisissez une pièce en céramique, installez-vous, peignez librement. Repartez avec votre création une semaine plus tard, cuite à 1000°C.</p>
-                <ul class="mdt-features">
-                  <li>Sessions de 2 heures en autonomie</li>
-                  <li>Café, thé et inspirations à disposition</li>
-                  <li>Bons cadeaux et workshops thématiques</li>
-                </ul>
-                <a href="#reserver" class="mdt-card-cta">Réserver une session</a>
+                <h4><a href="atelier.html#reserver" data-mdt-content="accueil.univers.atelier.titre">L'envie de créer</a></h4>
+                <div class="uv-bullets">
+                  <p data-mdt-content="accueil.univers.atelier.texte">Choisissez une pièce parmi notre sélection de céramiques, installez-vous et prenez le temps de la personnaliser à votre façon.</p>
+                  <ul class="mdt-features" data-mdt-content="accueil.univers.atelier.points" data-mdt-mode="list">
+                    <li>Environ 2 heures, seul, entre amis ou en famille</li>
+                    <li>Inspirations à disposition, accompagnement si besoin</li>
+                    <li>Émaillée et cuite à 1000&nbsp;°C, à retrouver quelques jours plus tard</li>
+                  </ul>
+                </div>
+                <a href="atelier.html#reserver" class="mdt-card-cta">Réserver ma session</a>
               </div>
               <!-- end content-box -->
             </div>
@@ -382,52 +318,51 @@
           </div>
           <!-- end col-4 -->
           <div class="col-lg-4 col-md-6">
-            <div class="exhibition-box" id="cafe" data-scroll>
-              <figure> <a href="#histoire"><img src="../assets-premium-lp/cafe-pexels.jpg" alt="Le café de la Maison de Tara" class="img"></a>
-                <div class="info">
-                  <figure class="i"><img src="images/icon-info.png" alt=""></figure>
-                  <span>Le Café · sans réservation</span> </div>
-                <!-- end info -->
-              </figure>
-              <div class="content-box">
-                <h4><a href="#histoire">S'attabler.
-                  Sans réserver.</a></h4>
-                <p>Un espace pour s'attabler sans cérémonie. Café spécialité, thés rares, pâtisseries du jour, pensés comme à la maison.</p>
-                <ul class="mdt-features">
-                  <li>Ouvert sans réservation</li>
-                  <li>Carte saisonnière, produits artisans locaux</li>
-                  <li>Boissons avec et sans alcool</li>
-                </ul>
-                <a href="#histoire" class="mdt-card-cta">Voir l'esprit du café</a>
-              </div>
-              <!-- end content-box -->
-            </div>
-            <!-- end exhibition-box --> </div>
-          <!-- end col-4 -->
-          <div class="col-lg-4 col-md-6">
             <div class="exhibition-box" id="boutique" data-scroll>
-              <figure> <a href="#contact"><img src="../assets-premium-lp/boutique-unsplash.jpg" alt="La boutique de décoration d'inspiration indienne" class="img"></a>
+              <figure> <a href="boutique.html"><img src="../assets-premium-lp/boutique-unsplash.jpg" alt="La boutique de décoration d'inspiration indienne" class="img" data-mdt-content="accueil.univers.boutique.photo"></a>
                 <div class="info">
                   <figure class="i"><img src="images/icon-info.png" alt=""></figure>
-                  <span>La Boutique · bientôt</span> </div>
+                  <span data-mdt-content="accueil.univers.boutique.badge">La Boutique</span> </div>
                 <!-- end info -->
               </figure>
               <div class="content-box">
-                <h4><a href="#contact">Des pièces choisies
-                  avec soin.</a></h4>
-                <p>Textiles, lampes, objets d'inspiration indienne. Nappes brodées, lampes en céramique, block print, pièces confidentielles renouvelées chaque saison.</p>
-                <ul class="mdt-features">
-                  <li>Pièces renouvelées chaque saison</li>
-                  <li>Sélection artisanale confidentielle</li>
-                  <li>Découverte sur place · pas d'e-shop avant 2027</li>
-                </ul>
-                <a href="#contact" class="mdt-card-cta">Nous contacter</a>
+                <h4><a href="boutique.html" data-mdt-content="accueil.univers.boutique.titre">Une sélection pour la maison</a></h4>
+                <div class="uv-bullets">
+                  <p data-mdt-content="accueil.univers.boutique.texte">À la Maison de Tara, vous trouverez une sélection de textiles, céramiques, lampes, art de la table et idées cadeaux choisis avec soin.</p>
+                  <!-- Retour cliente 25/08 : les deux petites phrases (« Artisanat et fait main… »,
+                       « Une sélection qui évolue… ») sont retirées. Si des valeurs existent côté
+                       admin (content_blocks), les vider aussi pour qu'elles ne reviennent pas. -->
+                </div>
+                <a href="boutique.html" class="mdt-card-cta">Découvrir la sélection</a>
               </div>
               <!-- end content-box -->
             </div>
             <!-- end exhibition-box --></div>
           <!-- end col-4 -->
-          <div class="col-12 text-center"> <a href="#reserver" class="custom-button">DÉCOUVRIR LE LIEU</a> </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="exhibition-box" id="cafe" data-scroll>
+              <figure> <a href="atelier.html#reserver"><img src="../assets-premium-lp/cafe-pexels.jpg" alt="Le café de la Maison de Tara" class="img" data-mdt-content="accueil.univers.cafe.photo"></a>
+                <div class="info">
+                  <figure class="i"><img src="images/icon-info.png" alt=""></figure>
+                  <span data-mdt-content="accueil.univers.cafe.badge">Le Café · sans réservation</span> </div>
+                <!-- end info -->
+              </figure>
+              <div class="content-box">
+                <h4><a href="atelier.html#reserver" data-mdt-content="accueil.univers.cafe.titre">Pour accompagner le moment</a></h4>
+                <div class="uv-bullets">
+                  <p data-mdt-content="accueil.univers.cafe.texte">Café de spécialité, thés, boissons fraîches, douceurs, vins et apéritifs à partager.</p>
+                  <ul class="mdt-features" data-mdt-content="accueil.univers.cafe.points" data-mdt-mode="list">
+                    <li>Tout au long de la journée</li>
+                    <li>Pendant votre session ou simplement de passage</li>
+                  </ul>
+                </div>
+                <a href="atelier.html#reserver" class="mdt-card-cta">Venez découvrir la carte</a>
+              </div>
+              <!-- end content-box -->
+            </div>
+            <!-- end exhibition-box --> </div>
+          <!-- end col-4 -->
+          <div class="col-12 text-center"> <a href="atelier.html#reserver" class="custom-button">DÉCOUVRIR LA MAISON</a> </div>
           <!-- end col-12 -->
         </div>
         <!-- end row -->
@@ -435,63 +370,94 @@
       <!-- end container -->
     </section>
     <!-- end content-section -->
-    <section class="content-section no-bottom-spacing bottom-white mdt-floral-line" id="histoire" data-background="#fffbf7">
+    <!-- Parcours « Comment ça se passe ? » — titres complets verrouillés (arbitrage 12/06) -->
+    <section class="content-section no-bottom-spacing mdt-floral-line" id="parcours">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12">
             <div class="section-title text-center">
-              <figure class="mdt-title-shape"><img src="../Logo/capsule_sage.png" alt=""></figure>
-              <h6>L'esprit de la maison</h6>
-              <h2>Un lieu que l'on habite,<br>
-                le temps d'un moment.</h2>
+              <!-- Retour cliente 25/08 : capsule/logo au-dessus du titre supprimés -->
+              <h6 data-mdt-content="accueil.parcours.label">Le parcours</h6>
+              <h2 data-mdt-content="accueil.parcours.titre">Comment l'atelier va se dérouler ?</h2>
+              <p class="mdt-section-sub" data-mdt-content="accueil.parcours.soustitre">Quatre étapes simples, depuis votre arrivée jusqu'au retour chez vous avec votre pièce.</p>
             </div>
-            <!-- end section-title -->
           </div>
-          <!-- end col-12 -->
-          <div class="col-lg-4 col-md-6">
-            <div class="text-content" data-scroll data-scroll-speed="-1">
-              <h6>L'origine</h6>
-              <p>Maison de Tara est née d'un équilibre entre la <strong>France</strong> et l'<strong>Inde</strong>. Une maison familiale, communautaire, où l'on prend le temps de créer, partager et se retrouver.</p>
-            </div>
-            <!-- end text-content -->
-          </div>
-          <!-- end col-4 -->
-          <div class="col-lg-4 col-md-6">
-            <div class="text-content" data-scroll data-scroll-speed="0.5">
-              <h6>L'esprit</h6>
-              <p>Entre tradition artisanale et élégance contemporaine, un lieu où la <strong>matière</strong>, les <strong>gestes</strong> et les objets ont du sens. Une maison vivante, qu'on habite le temps d'un moment.</p>
-            </div>
-            <!-- end text-content -->
-          </div>
-          <!-- end col-4 -->
-          <div class="col-lg-4 col-md-6">
-            <div class="text-content" data-scroll data-scroll-speed="1">
-              <h6>Le geste</h6>
-              <p>On ne vous <strong>apprend</strong> pas à peindre. On vous <strong>laisse</strong> essayer. Deux heures pour laisser couler les idées. Sans pression, sans recherche de perfection.</p>
-            </div>
-            <!-- end text-content -->
-          </div>
-          <!-- end col-4 -->
         </div>
-        <!-- end row -->
       </div>
-      <!-- end container -->
-		<div class="clearfix spacing-100"></div>
+      <div class="container-fluid">
+        <div class="row g-0">
+          <div class="col-lg-3 col-md-6">
+            <div class="image-icon-box" data-scroll tabindex="0">
+              <figure class="content-image"> <img src="../assets-premium-lp/experience-02-installer.jpg" alt="Réserver une session à la Maison de Tara" data-mdt-content="accueil.parcours.01.photo"> </figure>
+              <div class="content-box"> <b>01.</b>
+                <h4 data-mdt-content="accueil.parcours.01.titre">Réserver votre session</h4>
+                <div class="expand">
+                  <p data-mdt-content="accueil.parcours.01.texte">Réservez à l'avance, en ligne, par téléphone ou directement à la boutique. Les sessions durent environ 2 heures, pensez à arriver quelques minutes avant votre créneau. Et si c'est votre première fois, pas d'inquiétude&nbsp;: on est là pour vous accompagner.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="image-icon-box" data-scroll tabindex="0">
+              <figure class="content-image"> <img src="../assets-premium-lp/experience-03-peindre.jpg" alt="Peindre la céramique à votre rythme" data-mdt-content="accueil.parcours.02.photo"> </figure>
+              <div class="content-box"> <b>02.</b>
+                <h4 data-mdt-content="accueil.parcours.02.titre">Peindre à votre rythme</h4>
+                <div class="expand">
+                  <p data-mdt-content="accueil.parcours.02.texte">Choisissez votre pièce parmi notre sélection de céramiques. Peintures, pinceaux et accessoires sont à disposition, et la carte de la maison vous accompagne. Le plus important ? Se faire plaisir.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="image-icon-box" data-scroll tabindex="0">
+              <figure class="content-image"> <img src="../assets-premium-lp/experience-01-choisir.jpg" alt="Confier sa pièce pour l'émaillage et la cuisson" data-mdt-content="accueil.parcours.03.photo"> </figure>
+              <div class="content-box"> <b>03.</b>
+                <h4 data-mdt-content="accueil.parcours.03.titre">Nous confier votre pièce</h4>
+                <div class="expand">
+                  <p data-mdt-content="accueil.parcours.03.texte">Une fois votre pièce terminée, écrivez vos initiales et la date dessous, prenez-la en photo, puis laissez-la entre nos mains. Nous nous occupons de l'émaillage et de la cuisson à plus de 1&nbsp;000&nbsp;°C. Les couleurs évoluent pendant la cuisson : la surprise fait partie de la magie.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="image-icon-box" data-scroll tabindex="0">
+              <figure class="content-image"> <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Retrouver sa pièce cuite et emballée" data-mdt-content="accueil.parcours.04.photo"> </figure>
+              <div class="content-box"> <b>04.</b>
+                <h4 data-mdt-content="accueil.parcours.04.titre">Revenir la retrouver</h4>
+                <div class="expand">
+                  <p data-mdt-content="accueil.parcours.04.texte">Quelques jours plus tard, votre pièce vous attend à la maison, cuite et emballée avec soin. Résistante à l'eau et compatible avec une utilisation alimentaire, elle est prête à vivre chez vous.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certaines réalisations — galerie défilante -->
+    <section class="content-section no-bottom-spacing mdt-floral-line" id="realisations">
+      <div class="container">
+            <div class="section-title text-center">
+              <!-- Retour cliente 25/08 : capsule/logo au-dessus du titre supprimés -->
+              <h6 data-mdt-content="accueil.realisations.label">Sorties de four</h6>
+          <h2 data-mdt-content="accueil.realisations.titre">Certaines réalisations</h2>
+        </div>
+      </div>
       <div class="horizontal-scroll">
         <div class="scroll-inner" data-scroll data-scroll-direction="horizontal" data-scroll-speed="5">
           <div class="scroll-wrapper">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-3">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/atelier-action.jpg" alt="L'atelier en action"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/atelier-action.jpg" alt="L'atelier en action" data-mdt-content="accueil.realisations.photo1"> </figure>
                 </div>
                 <!-- end col-3 -->
                 <div class="col-md-4 offset-md-1">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/sortie-four.jpg" alt="Sortie de four"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/sortie-four.jpg" alt="Sortie de four" data-mdt-content="accueil.realisations.photo2"> </figure>
                 </div>
                 <!-- end col-3 -->
                 <div class="col-md-2 offset-md-1">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/cafe-pexels.jpg" alt="L'esprit du café"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/cafe-pexels.jpg" alt="L'esprit du café" data-mdt-content="accueil.realisations.photo3"> </figure>
                 </div>
                 <!-- end col-3 -->
               </div>
@@ -504,15 +470,15 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-3">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques" data-mdt-content="accueil.realisations.photo4"> </figure>
                 </div>
                 <!-- end col-3 -->
                 <div class="col-md-4 offset-md-1">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/blockprint-textile.jpg" alt="Block print textile indien"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/blockprint-textile.jpg" alt="Block print textile indien" data-mdt-content="accueil.realisations.photo5"> </figure>
                 </div>
                 <!-- end col-3 -->
                 <div class="col-md-2 offset-md-1">
-                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/atelier-action.jpg" alt="L'atelier en action"> </figure>
+                  <figure class="image-box" data-scroll data-scroll-speed="0"> <img src="../assets-premium-lp/atelier-action.jpg" alt="L'atelier en action" data-mdt-content="accueil.realisations.photo6"> </figure>
                 </div>
                 <!-- end col-3 -->
               </div>
@@ -527,111 +493,92 @@
       <!-- end horizontal-scroll -->
     </section>
     <!-- end content-section -->
-    <section class="content-section no-bottom-spacing mdt-floral-soft" id="parcours">
+
+    <!-- Section boutique — mise en scène « vitrine 3 photos » verrouillée (arbitrage 12/06) -->
+    <section class="content-section mdt-floral-line" id="section-boutique">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="section-title text-center">
-              <figure class="mdt-title-shape"><img src="../Logo/capsule_sage.png" alt=""></figure>
-              <h6>Le parcours</h6>
-              <h2>Comment ça se passe ?</h2>
-              <p class="mdt-section-sub">Quatre étapes simples, depuis votre arrivée jusqu'au retour chez vous avec votre pièce.</p>
-            </div>
-            <!-- end section-title -->
-          </div>
-          <!-- end col-12 -->
+        <div class="section-title text-center">
+          <h6 data-mdt-content="accueil.boutique.label">La boutique</h6>
+          <h2 data-mdt-content="accueil.boutique.titre">Passer à la maison</h2>
         </div>
-        <!-- end row -->
-      </div>
-      <!-- end container -->
-      <div class="container-fluid px-0">
-        <div class="row g-0">
-          <div class="col-lg-3 col-md-6">
-            <div class="image-icon-box" data-scroll>
-              <figure class="icon mdt-step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-vase"/></svg></figure>
-              <figure class="content-image"> <img src="../assets-premium-lp/experience-01-choisir.jpg" alt="Choisir une pièce en céramique"> </figure>
-              <div class="content-box"> <b>01.</b>
-                <h4>Choisir</h4>
-                <div class="expand">
-                  <p>Parcourez les pièces (tasses, bols, assiettes, vases) et choisissez celle que vous voulez peindre.</p>
-                </div>
-                <!-- end expand -->
-              </div>
-              <!-- end content-box -->
-            </div>
-            <!-- end image-icon-box -->
-          </div>
-          <!-- end col-3 -->
-          <div class="col-lg-3 col-md-6">
-            <div class="image-icon-box" data-scroll>
-              <figure class="icon mdt-step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cup"/></svg></figure>
-              <figure class="content-image"> <img src="../assets-premium-lp/experience-02-installer.jpg" alt="S'installer à une table"> </figure>
-              <div class="content-box"> <b>02.</b>
-                <h4>S'installer</h4>
-                <div class="expand">
-                  <p>Prenez place à une table, un café à la main. Les pinceaux, palettes et inspirations vous attendent.</p>
-                </div>
-                <!-- end expand -->
-              </div>
-              <!-- end content-box -->
-            </div>
-            <!-- end image-icon-box -->
-          </div>
-          <!-- end col-3 -->
-          <div class="col-lg-3 col-md-6">
-            <div class="image-icon-box" data-scroll>
-              <figure class="icon mdt-step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-brush"/></svg></figure>
-              <figure class="content-image"> <img src="../assets-premium-lp/experience-03-peindre.jpg" alt="Peindre la céramique"> </figure>
-              <div class="content-box"> <b>03.</b>
-                <h4>Peindre</h4>
-                <div class="expand">
-                  <p>2 heures pour laisser couler les idées. Sans pression, sans recherche de perfection.</p>
-                </div>
-                <!-- end expand -->
-              </div>
-              <!-- end content-box -->
-            </div>
-            <!-- end image-icon-box -->
-          </div>
-          <!-- end col-3 -->
-          <div class="col-lg-3 col-md-6">
-            <div class="image-icon-box" data-scroll>
-              <figure class="icon mdt-step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bag"/></svg></figure>
-              <figure class="content-image"> <img src="../assets-premium-lp/experience-04-recuperer.jpg" alt="Récupérer la pièce cuite"> </figure>
-              <div class="content-box"> <b>04.</b>
-                <h4>Repartir</h4>
-                <div class="expand">
-                  <p>Votre pièce part en cuisson à 1000°C. Vous la récupérez 7 jours plus tard, prête à habiter votre maison.</p>
-                </div>
-                <!-- end expand -->
-              </div>
-              <!-- end content-box -->
-            </div>
-            <!-- end image-icon-box -->
-          </div>
-          <!-- end col-3 -->
+        <div class="mdt-boutique-gallery">
+          <img src="../assets-charte/tasses-rayees.jpg" alt="Céramiques de la boutique" loading="lazy" data-mdt-content="accueil.boutique.photo1">
+          <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux artisanaux" loading="lazy" data-mdt-content="accueil.boutique.photo2">
+          <img src="../assets-charte/interieur-vase.jpg" alt="Objets pour la maison" loading="lazy" data-mdt-content="accueil.boutique.photo3">
         </div>
-        <!-- end row -->
+        <div class="mdt-visit-note">
+          <p data-mdt-content="accueil.boutique.texte">Pas besoin de réservation pour venir découvrir la boutique. Passez pendant les horaires d'ouverture pour explorer la sélection : textiles, céramiques, lampes, objets, et même une partie papeterie choisis avec soin.</p>
+          <p><a href="boutique.html" class="btn btn--primary">Découvrir la boutique</a></p>
+        </div>
       </div>
-      <!-- end container -->
     </section>
     <!-- end content-section -->
+    <!-- Galerie défilante remontée au-dessus de la section boutique -->
+    <!-- Section parcours déplacée au-dessus de la section boutique (demande Tara) -->
     <!-- Sections 6 (History of Barnes) et 7 (Become a Member) supprimées -->
     <!-- end content-section -->
     <!-- Section Recent News supprimée -->
     <!-- end content-section -->
-    <section class="content-section no-spacing mdt-newsletter" data-background="#3A4A24" id="newsletter">
+    <!-- Rendez-vous de la Maison — section événements reprise de la LP v1
+         (variante claire). Données placeholder en attendant le branchement
+         du vrai calendrier. -->
+    <section class="content-section mdt-floral-line" id="calendrier-teaser">
+      <div class="container">
+        <header class="events-rows__heading">
+          <div>
+            <span class="events-eyebrow" data-mdt-content="accueil.calendrier.label">À venir</span>
+            <h2 class="events-rows__title" data-mdt-content="accueil.calendrier.titre">Les <em>rendez-vous</em> de la Maison</h2>
+          </div>
+          <a href="calendrier.html" class="btn btn--outline">Voir tout le calendrier</a>
+        </header>
+
+        <!-- Rendez-vous rendus depuis data/events.json (même source que la
+             page Calendrier — retour client 12/06) par js/home-events.js -->
+        <div id="home-events" aria-label="Prochains rendez-vous"></div>
+      </div>
+    </section>
+
+    <!-- Les grandes occasions (retour Tara : section réintégrée sur l'accueil,
+         compacte pour tenir dans un écran ; photos PLACEHOLDERS petites, à
+         remplacer par les vraies photos d'événements ~sept. 2026 ; la 5e carte
+         « Autres événements » évite de limiter aux 4 occasions). -->
+    <section class="content-section mdt-floral-soft" id="occasions">
+      <div class="container">
+        <div class="section-title text-center">
+          <h6 data-mdt-content="accueil.occasions.label">Privatisation</h6>
+          <h2 data-mdt-content="accueil.occasions.titre">Les grandes occasions</h2>
+          <p class="mdt-section-sub" data-mdt-content="accueil.occasions.soustitre">Anniversaire, EVJF, team building, baby shower ou tout autre moment qui vous tient à cœur : nous imaginons ensemble la formule la plus adaptée à votre groupe.</p>
+        </div>
+        <div class="mdt-occasions-lp" aria-label="Occasions de groupe">
+          <figure><img src="../assets-premium-lp/atelier-action.jpg" alt="" loading="lazy" data-mdt-content="accueil.occasions.photo1"><figcaption>Anniversaire</figcaption></figure>
+          <figure><img src="../assets-premium-lp/experience-03-peindre.jpg" alt="" loading="lazy" data-mdt-content="accueil.occasions.photo2"><figcaption>EVJF</figcaption></figure>
+          <figure><img src="../assets-premium-lp/experience-01-choisir.jpg" alt="" loading="lazy" data-mdt-content="accueil.occasions.photo3"><figcaption>Team building</figcaption></figure>
+          <figure><img src="../assets-charte/salon-terracotta.jpg" alt="" loading="lazy" data-mdt-content="accueil.occasions.photo4"><figcaption>Baby shower</figcaption></figure>
+          <figure><img src="../assets-premium-lp/cafe-pexels.jpg" alt="" loading="lazy" data-mdt-content="accueil.occasions.photo5"><figcaption>Autres événements</figcaption></figure>
+        </div>
+        <p class="mdt-occasions-note" data-mdt-content="accueil.occasions.note">Au-delà de 8 personnes, appelez-nous ou passez à la boutique : on organise ça ensemble.</p>
+        <p class="text-center mdt-occasions-cta"><a href="contact.html" class="btn btn--primary">Nous contacter</a></p>
+      </div>
+    </section>
+
+    <!-- Newsletter : carte beige cadrée or (retour #9) sur fond vert floral
+         (design d'avant), texte de Tara (#49). -->
+    <section class="content-section no-spacing mdt-newsletter" data-background="#9CA68C" id="newsletter">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-9 text-center">
-            <span class="mdt-nl-eyebrow">La lettre de la maison</span>
-            <h2 class="mdt-nl-title">Recevez le <em>rythme</em> de la maison.</h2>
-            <p class="mdt-nl-lead">Une fois par mois : les ateliers à venir, les fournées de la semaine et les petites nouvelles de Tara. Rien de plus.</p>
-            <form class="mdt-nl-form" onsubmit="return false">
-              <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail">
-              <button type="submit">S'inscrire</button>
-            </form>
-            <small class="mdt-nl-note">Vos données restent chez nous, utilisées selon notre <a href="#">politique de confidentialité</a>.</small>
+          <div class="col-lg-9">
+            <div class="mdt-nl-card text-center">
+              <figure class="mdt-nl-capsule"><img src="../Logo/capsule_olive_deep.png" alt=""></figure>
+              <span class="mdt-nl-eyebrow" data-mdt-content="accueil.newsletter.label">La lettre de la maison</span>
+              <h2 class="mdt-nl-title" data-mdt-content="accueil.newsletter.titre">Recevez les <em>nouvelles</em> de la maison une fois par mois.</h2>
+              <p class="mdt-nl-lead" data-mdt-content="accueil.newsletter.texte">Ateliers à venir, événements, nouveautés de la boutique et quelques mots de Tara.</p>
+              <form class="mdt-nl-form" id="newsletterForm" novalidate>
+                <input type="email" name="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+                <button type="submit">S'inscrire</button>
+                <p class="form-msg" role="status" aria-live="polite"></p>
+              </form>
+              <small class="mdt-nl-note">Vos données restent chez nous, utilisées selon notre <a href="politique-de-confidentialite.html">politique de confidentialité</a>.</small>
+            </div>
           </div>
           <!-- end col -->
         </div>
@@ -641,40 +588,38 @@
     </section>
     <!-- end content-section -->
     <footer class="mdt-footer mdt-floral-line">
-      <div class="container">
-        <div class="mdt-footer-grid">
-          <div class="mdt-footer-brand">
-            <div class="mdt-footer-name">Maison de Tara</div>
-            <div class="mdt-footer-tag">On prend le temps.</div>
-            <p>Un atelier, un café et une boutique sous le même toit. Un lieu pour faire de ses mains, s'attabler et repartir avec un objet qui a une histoire.</p>
-          </div>
-          <div>
-            <h6 class="mdt-footer-wtitle">La maison</h6>
-            <ul class="mdt-footer-menu">
-              <li><a href="#atelier">L'atelier</a></li>
-              <li><a href="#cafe">Le café</a></li>
-              <li><a href="#boutique">La boutique</a></li>
-              <li><a href="#reserver">Réserver une place</a></li>
-            </ul>
-          </div>
-          <div>
-            <h6 class="mdt-footer-wtitle">Nous trouver</h6>
-            <address class="mdt-footer-address">
-              Adresse à compléter<br>
-              <strong>Ville · Code postal</strong><br>
-              Du mardi au dimanche<br>
-              10h à 19h
-            </address>
-          </div>
-        </div>
-        <div class="mdt-footer-bottom">
-          <span>© 2026 Maison de Tara · Tous droits réservés</span>
-          <span>Instagram · Facebook</span>
-        </div>
+  <div class="container">
+    <div class="mdt-footer-inner">
+      <span class="mdt-footer-tag">On prend le temps.</span>
+      <div class="mdt-footer-name">
+        <img src="../Logo/mdt_logo_complet_transparent.png" alt="Maison de Tara">
       </div>
-      <!-- end container -->
-    </footer>
-    <!-- end footer -->
+      <nav class="mdt-footer-nav" aria-label="Pied de page">
+        <a href="index.html">Accueil</a>
+        <a href="atelier.html">L'atelier</a>
+        <a href="boutique.html">La boutique</a>
+        <a href="calendrier.html">Le calendrier</a>
+        <a href="histoire.html">Mon histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="mdt-footer-coords">
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" data-mdt-content="global.contact.instagram">@maison_de_tara</a>
+      </div>
+      <div class="mdt-footer-filet" aria-hidden="true"></div>
+    </div>
+    <div class="mdt-footer-bottom">
+      <span class="fb-l">© 2026 Maison de Tara</span>
+      <span class="fb-c"><a class="mdt-footer-credit" href="https://propulseo-site.com/" target="_blank" rel="noopener">Fait avec passion par Propul'SEO</a></span>
+      <span class="fb-r"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-de-confidentialite.html">Politique de confidentialité</a></span>
+    </div>
+  </div>
+</footer>
   </div>
 </div>
 
@@ -688,46 +633,14 @@
 <script src="js/swiper.min.js"></script>
 <script src="js/scripts.js"></script>
 
-<!-- ============== JS Header MDT (burger / drawer) ============== -->
-<script>
-(function () {
-  var drawer = document.getElementById('drawer');
-  var burger = document.querySelector('.burger');
-  if (!drawer || !burger) return;
-
-  var focusableSelector = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
-  var previousFocus = null;
-
-  function open() {
-    previousFocus = document.activeElement;
-    drawer.hidden = false;
-    void drawer.offsetWidth;
-    drawer.classList.add('is-open');
-    document.body.classList.add('is-drawer-open');
-    burger.setAttribute('aria-expanded', 'true');
-    var first = drawer.querySelector(focusableSelector);
-    if (first) first.focus();
-  }
-  function close() {
-    drawer.classList.remove('is-open');
-    document.body.classList.remove('is-drawer-open');
-    burger.setAttribute('aria-expanded', 'false');
-    setTimeout(function () {
-      drawer.hidden = true;
-      if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
-    }, 300);
-  }
-  burger.addEventListener('click', open);
-  drawer.querySelectorAll('[data-drawer-close]').forEach(function (el) {
-    el.addEventListener('click', close);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
-  });
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 900 && drawer.classList.contains('is-open')) close();
-  });
-})();
-</script>
+<!-- Menu mobile (drawer) — extrait en js/drawer.js, partagé avec scripts-min.html (DRY) -->
+<script src="js/drawer.js"></script>
+<script type="module" src="js/site-newsletter.js"></script>
+<!-- Rendez-vous de l'accueil depuis Supabase (js/site-events.js) -->
+<script type="module" src="js/home-events.js"></script>
+<!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
+<script type="module" src="js/site-content.js"></script>
+<!-- Laboratoire de couleurs (visible seulement avec ?lab) -->
+<script src="js/lab-couleurs.js"></script>
 </body>
 </html>

@@ -124,13 +124,11 @@
 
 
   // SLIDER
+  // Hero MDT = UNE seule diapo : autoplay + loop retirés (sinon Swiper "tourne"
+  // vers un clone masqué toutes les 9,5 s → voile blanc/flash sur le fond).
   var sliderimages = new Swiper('.slider-images', {
     spaceBetween: 0,
     direction: 'vertical',
-    autoplay: {
-      delay: 9500,
-      disableOnInteraction: false,
-    },
     navigation: {
       nextEl: '.button-next',
       prevEl: '.button-prev',
@@ -142,9 +140,7 @@
       type: 'fraction',
     },
 
-
-    loop: true,
-    loopedSlides: 1,
+    loop: false,
     thumbs: {
       swiper: slidertexts
     }
@@ -158,8 +154,7 @@
     slidesPerView: 1,
     touchRatio: 0,
     slideToClickedSlide: false,
-    loop: true,
-    loopedSlides: 1,
+    loop: false,
 
     pagination: {
       el: '.swiper-pagination',
@@ -257,6 +252,10 @@
   }
 
 
+  // Conteneur smooth-scroll (absent sur les pages à scroll natif) + handle Locomotive partagé
+  var smoothEl = document.querySelector('.smooth-scroll');
+  var locoScroll = null;
+
   // PRELOADER
   let settings = {
     progressSize: 320,
@@ -312,6 +311,10 @@
 
   preloader = document.getElementById('preloader');
 
+  // Pages sans preloader dans le DOM (coquilles internes, calendrier/lab) : sauter toute l'animation
+  // pour ne pas planter sur progressBar null ni bloquer le scroll du body.
+  if (preloader && document.getElementById('progress-bar')) {
+
   let progressBar = document.getElementById('progress-bar'),
     images = document.images,
     imagesAmount = images.length,
@@ -365,6 +368,12 @@
 
   }
 
+  // Garde-fou réseau lent : une image qui ne répond jamais ne doit pas
+  // laisser le site bloqué sur le préloader (scroll verrouillé).
+  setTimeout(function () {
+    if (!document.body.classList.contains('page-loaded')) hidePreloader();
+  }, 4000);
+
   function onImageLoad() {
 
     if (running === true) running = false;
@@ -415,27 +424,61 @@
   function hidePreloader() {
     setTimeout(function () {
       $("body").addClass("page-loaded");
-      locoScroll.update();
+      if (locoScroll) locoScroll.update();
       document.body.style.overflowY = '';
     }, settings.preloaderAnimationDuration + 100);
   }
+
+  } // fin garde preloader (if preloader && #progress-bar)
   var resizeTimer;
 
 
-  // LOCOMOTIVE
-  const locoScroll = new LocomotiveScroll({
-    el: document.querySelector(".smooth-scroll"),
-    smooth: true,
-    class: 'is-inview',
-    getSpeed: true,
-    getDirection: true,
-    smartphone: {
-      smooth: false,
-    },
-    tablet: {
-      smooth: false,
-    },
-  });
+  // LOCOMOTIVE — init seulement si la page a un conteneur .smooth-scroll (sinon scroll natif).
+  // Mode ?lab (laboratoire de couleurs) : Locomotive est DÉSACTIVÉ — le scroll
+  // natif est 100% stable pour les essais en direct. body.lab-native révèle
+  // les éléments gated par is-inview.
+  var labNative = /[?&]lab\b/.test(location.search);
+  if (labNative) document.body.classList.add('lab-native');
+  if (smoothEl && !labNative) {
+    locoScroll = new LocomotiveScroll({
+      el: smoothEl,
+      smooth: true,
+      class: 'is-inview',
+      getSpeed: true,
+      getDirection: true,
+      smartphone: {
+        smooth: false,
+      },
+      tablet: {
+        smooth: false,
+      },
+    });
+    // Instance partagée (exposée pour d'éventuels scrollTo programmatiques)
+    window.__mdtLoco = locoScroll;
+  }
+
+
+  // HEADER MDT — transparent sur le hero, fond beige + texte foncé au scroll (comportement v1).
+  // La bascule .is-scrolled se branche sur l'événement Locomotive (scroll virtuel) avec repli natif.
+  (function () {
+    var hasHero = !!document.querySelector('header.slider');
+    if (hasHero) document.body.classList.add('has-hero');
+    // Pages internes (sans hero) : header solide d'emblée, rien à brancher.
+    if (!hasHero) return;
+    var THRESHOLD = 60;
+    function apply(y) {
+      document.body.classList.toggle('is-scrolled', y > THRESHOLD);
+    }
+    if (locoScroll && typeof locoScroll.on === 'function') {
+      locoScroll.on('scroll', function (obj) {
+        var y = (obj && obj.scroll && typeof obj.scroll.y === 'number') ? obj.scroll.y : 0;
+        apply(y);
+      });
+    } else {
+      window.addEventListener('scroll', function () { apply(window.pageYOffset || 0); }, { passive: true });
+      apply(window.pageYOffset || 0);
+    }
+  })();
 
 
 

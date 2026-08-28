@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: -0.01em;
   /* Dézoom modéré (12/06) : titres de section ~30 % plus petits que le
      92px Wandau, pour qu'une section tienne mieux à l'écran. */
-  font-size: clamp(32px, 4.6vw, 64px) !important;
+  font-size: clamp(2rem, 4.6vw, 4rem) !important;
   line-height: 1.1 !important;
 }
 
@@ -73,7 +73,7 @@ h1 { font-weight: 300 !important; }
   text-transform: uppercase !important;
   letter-spacing: 0.18em !important;
   font-weight: 500 !important;
-  font-size: 12px !important;
+  font-size: 0.75rem !important;
 }
 
 /* --- Italics éditoriaux (mots-clés émotionnels) --- */
@@ -102,7 +102,7 @@ a.custom-button {
   border: none !important;
   padding: 18px 36px !important;
   font-family: var(--mdt-font-body) !important;
-  font-size: 12px !important;
+  font-size: 0.75rem !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
   font-weight: 700 !important;
@@ -190,7 +190,7 @@ a.custom-button {
 .preloader small {
   color: var(--mdt-sauge) !important;
   font-family: var(--mdt-font-body) !important;
-  font-size: 11px !important;
+  font-size: 0.6875rem !important;
   letter-spacing: 0.32em !important;
   text-transform: uppercase !important;
   font-weight: 500;
@@ -242,7 +242,7 @@ a.custom-button {
    Retour cliente 25/08 : élargi (560px → 860px) pour tenir sur 2 lignes. */
 .section-title .mdt-section-sub {
   font-family: var(--mdt-font-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.7;
   color: var(--mdt-text-soft);
   max-width: 860px;
@@ -272,7 +272,7 @@ a.custom-button {
 }
 .image-icon-box .content-box b {
   font-family: var(--mdt-font-body) !important;
-  font-size: 11px !important;
+  font-size: 0.6875rem !important;
   letter-spacing: 0.28em !important;
   color: var(--mdt-laiton) !important;
   font-weight: 500 !important;
@@ -286,7 +286,7 @@ a.custom-button {
 .image-icon-box .content-box p {
   font-family: var(--mdt-font-body) !important;
   color: var(--mdt-text-soft) !important;
-  font-size: 14px !important;
+  font-size: 0.875rem !important;
   line-height: 1.7 !important;
 }
 
@@ -308,7 +308,7 @@ a.custom-button {
   font-family: var(--mdt-font-display) !important;
   text-transform: none;
   letter-spacing: 0;
-  font-size: 24px !important;
+  font-size: 1.5rem !important;
   font-style: italic;
 }
 
@@ -380,7 +380,7 @@ body.has-hero header.slider {
 .slider-texts .hero-eyebrow {
   display: block;
   font-family: var(--mdt-font-body);
-  font-size: clamp(9px, 0.58vw, 12px);
+  font-size: clamp(0.5625rem, 0.58vw, 0.75rem);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--mdt-sable);
@@ -396,7 +396,7 @@ body.has-hero header.slider {
   font-weight: 300 !important;
   color: var(--mdt-sable) !important;
   letter-spacing: -0.01em;
-  font-size: clamp(40px, 5.9vw, 126px) !important;
+  font-size: clamp(2.5rem, 5.9vw, 7.875rem) !important;
   line-height: 1.05 !important;
   /* Ombre douce : redonne du contraste au titre (et au doré) sur le fond
      hero éclairci, sans assombrir le fond ni changer la couleur du doré. */
@@ -422,7 +422,7 @@ body.has-hero header.slider {
   color: var(--mdt-sable) !important;
   border-left-color: var(--mdt-laiton) !important;
   opacity: 0.9;
-  font-size: clamp(13px, 1vw, 20px) !important;
+  font-size: clamp(0.8125rem, 1vw, 1.25rem) !important;
   padding-left: clamp(16px, 1.6vw, 32px) !important;
   max-width: 36vw;
 }
@@ -449,7 +449,7 @@ body.has-hero header.slider {
   align-items: center;
   gap: clamp(8px, 0.63vw, 13px);
   font-family: var(--mdt-font-body);
-  font-size: clamp(11px, 0.74vw, 15px);
+  font-size: clamp(0.6875rem, 0.74vw, 0.9375rem);
   color: var(--mdt-sable);
   opacity: 0.92;
 }
@@ -472,7 +472,7 @@ body.has-hero header.slider {
 
 .slider-texts .hero-link {
   font-family: var(--mdt-font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mdt-sable);
@@ -528,7 +528,7 @@ body.has-hero header.slider {
   /* 0.2em : « DÉCOUVRIR LA MAISON » ×2 tombait pile sur les 377 unités du
      cercle (#47) — on garde ~10 unités de marge pour ne pas rogner le point. */
   letter-spacing: 0.2em !important;
-  font-size: 11px !important;
+  font-size: 0.6875rem !important;
   font-weight: 500;
 }
 
@@ -647,7 +647,7 @@ header.slider {
 .field__label {
   display: block;
   font-family: var(--mdt-font-body);
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--mdt-sauge);
@@ -662,7 +662,7 @@ header.slider {
   border-bottom: 1px solid var(--mdt-line);
   background: transparent;
   font-family: var(--mdt-font-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--mdt-noir);
   outline: none;
   transition: border-color 250ms;
@@ -765,7 +765,7 @@ nav.navbar { display: none !important; }
   color: var(--mdt-sable);
   padding: 12px 20px;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -799,7 +799,7 @@ nav.navbar { display: none !important; }
   padding: 16px 32px;
   min-height: 44px;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 700;
@@ -830,7 +830,7 @@ nav.navbar { display: none !important; }
   z-index: 150;
   background: var(--mdt-terracotta);     /* fond terracotta (demande Tara) */
   color: var(--mdt-beige);               /* texte crème — pas de doublon crème/crème au scroll */
-  font-size: 12px;
+  font-size: 0.75rem;
   height: 42px;                          /* hauteur fixe = top du header → barres jointives */
   display: flex;
   align-items: center;
@@ -909,7 +909,7 @@ body.is-scrolled .mdt-header { top: 0; }
   align-items: center;
   gap: 0;
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0.18em;
   color: var(--mdt-sauge);
   font-weight: 400;
@@ -932,7 +932,7 @@ body.is-scrolled .mdt-header { top: 0; }
 /* NAV desktop */
 .mdt-nav { display: flex; gap: 28px; }
 .mdt-nav a {
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mdt-sauge);
@@ -963,7 +963,7 @@ body.is-scrolled .mdt-header { top: 0; }
 .mdt-header__cta .btn {
   white-space: nowrap;
   padding: 12px 22px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   min-height: 40px;
   border-radius: 999px;
 }
@@ -1007,7 +1007,7 @@ body.is-scrolled .mdt-header { top: 0; }
   .mdt-nav { display: none; }
   /* Le CTA reste visible en compact à côté du burger : depuis que le hero
      est en « photo seule », c'est le seul bouton Réserver au-dessus du pli. */
-  .mdt-header__cta .btn--primary { padding: 9px 14px !important; font-size: 10px !important; }
+  .mdt-header__cta .btn--primary { padding: 9px 14px !important; font-size: 0.625rem !important; }
   .burger { display: inline-flex; }
 }
 @media (max-width: 600px) {
@@ -1023,7 +1023,7 @@ body.is-scrolled .mdt-header { top: 0; }
   padding: 2px 6px;
   background: var(--mdt-laiton);
   color: var(--mdt-sable) !important;
-  font-size: 8px;
+  font-size: 0.5rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1092,7 +1092,7 @@ body.is-scrolled .mdt-header { top: 0; }
 }
 .drawer__nav a {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 300;
   color: var(--mdt-noir);
   padding: 12px 0;
@@ -1121,7 +1121,7 @@ body.is-scrolled .mdt-header { top: 0; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--mdt-text-soft);
 }
 .drawer__contact a {
@@ -1270,7 +1270,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
   background: var(--mdt-laiton) !important;
   color: var(--mdt-sable) !important;
   font-family: var(--mdt-font-body) !important;
-  font-size: 12px !important;
+  font-size: 0.75rem !important;
   letter-spacing: 0.06em;
   font-weight: 500 !important;
 }
@@ -1290,7 +1290,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
 .exhibition-box .content-box h4 {
   margin-bottom: 14px !important;
   /* Titres de carte resserrés (12/06) : prenaient trop de place en 30px Wandau. */
-  font-size: clamp(19px, 1.6vw, 23px) !important;
+  font-size: clamp(1.1875rem, 1.6vw, 1.4375rem) !important;
   line-height: 1.2 !important;
   font-weight: 700 !important;   /* gras (demande 12/06) */
 }
@@ -1356,7 +1356,7 @@ body.lab-native .image-content-box figure img {
   padding: 22px 8% 24px !important;
 }
 #parcours .content-box h4 {
-  font-size: clamp(22px, 2vw, 30px) !important;
+  font-size: clamp(1.375rem, 2vw, 1.875rem) !important;
   line-height: 1.14 !important;
   /* réserve 2 lignes pour TOUS les titres → la boîte beige finit au même niveau
      même quand un titre tient sur une seule ligne (ex. « Revenir la retrouver »). */
@@ -1389,7 +1389,7 @@ body.lab-native .image-content-box figure img {
 }
 .mdt-occasions-lp figcaption {
   font-family: var(--mdt-font-body);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mdt-text-soft);
@@ -1531,7 +1531,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
 /* Retour Propul'SEO #46 : lignes sans puce « · » (le retrait 14px suivait le marqueur) */
 .mdt-features li {
   font-family: var(--mdt-font-body);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--mdt-text-soft);
   line-height: 1.6;
   position: relative;
@@ -1542,7 +1542,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
 .mdt-card-cta {
   display: inline-block;
   font-family: var(--mdt-font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mdt-sauge);
@@ -1566,7 +1566,7 @@ body.lab-native .horizontal-scroll .scroll-inner {
   border-bottom: 1px solid var(--mdt-sauge);
   padding-bottom: 2px;
   font-family: var(--mdt-font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1700,7 +1700,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--mdt-ink);
   opacity: 0.8;
   margin-bottom: 10px;
@@ -1708,7 +1708,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 .mdt-nl-title {
   font-family: var(--mdt-font-display) !important;
   font-weight: 300 !important;
-  font-size: clamp(20px, 1.7vw, 27px);
+  font-size: clamp(1.25rem, 1.7vw, 1.6875rem);
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--mdt-ink) !important;
@@ -1718,7 +1718,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 .mdt-nl-lead {
   max-width: 460px;
   margin: 0 auto 22px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: var(--mdt-ink);
   opacity: 0.82;
@@ -1739,7 +1739,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   border-bottom: 1px solid rgba(44, 36, 25, 0.35);
   padding: 10px 4px;
   font-family: var(--mdt-font-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--mdt-ink);
   outline: none;
   transition: border-color .25s;
@@ -1754,7 +1754,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 0.6875rem;
   cursor: pointer;
   padding: 13px 24px;
   transition: background .25s;
@@ -1765,9 +1765,9 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 /* Sous 16px, Safari iOS zoome la page au focus d'un champ. */
 @media (max-width: 600px) {
-  .mdt-nl-form input { font-size: 16px; }
+  .mdt-nl-form input { font-size: 1rem; }
 }
-.mdt-nl-note { font-size: 11px; color: rgba(44, 36, 25, 0.65); }
+.mdt-nl-note { font-size: 0.6875rem; color: rgba(44, 36, 25, 0.65); }
 .mdt-nl-note a { color: rgba(44, 36, 25, 0.8); text-decoration: underline; }
 .mdt-nl-note a:hover { color: var(--mdt-terracotta); }
 
@@ -1777,7 +1777,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
    ============================================================ */
 .events-eyebrow {
   font-family: var(--mdt-font-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1793,7 +1793,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 .events-rows__title {
   font-family: var(--mdt-font-display);
-  font-size: clamp(36px, 4.5vw, 52px);
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
   color: var(--mdt-noir);
   font-weight: 300 !important;
   line-height: 1.1;
@@ -1837,13 +1837,13 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 .event-row__date strong {
   font-family: var(--mdt-font-display);
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 400;
   color: var(--mdt-noir);
   line-height: 1;
 }
 .event-row__date span {
-  font-size: 9px;
+  font-size: 0.5625rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--mdt-text-soft);
@@ -1855,11 +1855,11 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   background: var(--mdt-laiton);
   border: none;
 }
-.event-row__date--featured strong { font-size: 38px; color: #fff; }
+.event-row__date--featured strong { font-size: 2.375rem; color: #fff; }
 .event-row__date--featured span { color: rgba(255, 255, 255, 0.85); }
 .event-row__meta {
   font-family: var(--mdt-font-body);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mdt-text-soft);
@@ -1868,7 +1868,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 .event-row__title {
   font-family: var(--mdt-font-display);
-  font-size: clamp(22px, 2.2vw, 28px) !important;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem) !important;
   font-weight: 400 !important;
   color: var(--mdt-noir);
   line-height: 1.25;
@@ -1876,7 +1876,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 .event-row__time {
   font-family: var(--mdt-font-body);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--mdt-text-soft);
   display: flex;
   align-items: center;
@@ -1892,7 +1892,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   background: var(--mdt-laiton);
   color: #fff;
   padding: 4px 10px;
-  font-size: 9px;
+  font-size: 0.5625rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1910,7 +1910,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   .event-row { grid-template-columns: 72px 1fr; gap: 20px; padding: 22px 0; }
   .event-row__cta { grid-column: 1 / -1; justify-self: flex-start; }
   .event-row__date--featured { width: 72px; height: 72px; }
-  .event-row__date--featured strong { font-size: 28px; }
+  .event-row__date--featured strong { font-size: 1.75rem; }
 }
 
 /* ============================================================
@@ -1946,7 +1946,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 .mdt-footer-inner { text-align: center; }
 .mdt-footer-tag {
   font-family: var(--mdt-font-script);
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
   color: var(--mdt-laiton);
   display: block;
   margin-bottom: 6px;
@@ -1971,7 +1971,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 }
 .mdt-footer-nav a {
   color: var(--mdt-sable);
-  font-size: 12.5px;
+  font-size: 0.78125rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: color .25s;
@@ -1982,7 +1982,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 14px;
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   color: rgba(240, 236, 219, 0.85);
 }
 .mdt-footer-coords a {
@@ -2022,7 +2022,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   align-items: center;
   gap: 18px;
   padding: 16px clamp(28px, 6vw, 120px) 18px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.04em;
   color: rgba(240, 236, 219, 0.7);
 }
@@ -2033,7 +2033,7 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
 .mdt-footer-bottom a:hover { color: var(--mdt-laiton); }
 .mdt-footer-credit {
   font-family: var(--mdt-font-script);
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: var(--mdt-laiton) !important;
   border-bottom: 0 !important;
 }

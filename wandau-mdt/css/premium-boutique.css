@@ -261,9 +261,17 @@
 }
 .premium-boutique .galerie-titre{
   text-align:center;
-  max-width:36ch;
   margin-inline:auto;
   margin-bottom:clamp(3rem,7vw,5.5rem);
+}
+/* Retour cliente 28/08 : "Une sélection pour la maison." tenait sur 4 lignes
+   — le max-width:36ch était porté par .galerie-titre (calculé sur la police
+   du parent, ~16px), beaucoup trop étroit pour le h2 rendu à 64px. Le ch
+   ne contraint plus que le surtitre (petit texte), le h2 prend la largeur
+   naturelle de la section. */
+.premium-boutique .galerie-titre .surtitre{
+  max-width:36ch;
+  margin-inline:auto;
 }
 .premium-boutique .surtitre{
   font-family:var(--f-main);

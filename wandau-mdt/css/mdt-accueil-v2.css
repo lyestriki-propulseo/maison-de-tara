@@ -19,7 +19,7 @@ body.av2 .play-now .play-btn { border-radius: 50%; }
 body.av2 .section-title h6,
 body.av2 .events-eyebrow {
   font-family: var(--mdt-font-script) !important;
-  font-size: clamp(24px, 2.6vw, 32px) !important;
+  font-size: clamp(1.5rem, 2.6vw, 2rem) !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
   color: var(--mdt-laiton) !important;
@@ -32,7 +32,7 @@ body.av2 .hero-eyebrow {
      (choix C sur maquette) — manuscrite au trait épais, chargée dans head.html.
      La Belle Aurore reste la manuscrite partout ailleurs. */
   font-family: "Caveat", var(--mdt-font-script), cursive !important;
-  font-size: clamp(28px, 2.9vw, 37px) !important;
+  font-size: clamp(1.75rem, 2.9vw, 2.3125rem) !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
   font-weight: 600 !important;

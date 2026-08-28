@@ -4,6 +4,7 @@ import { z } from 'zod'
 // 20260819090000_content_blocks.sql et js/site-content.js côté site.
 
 export const CONTENT_PAGES = [
+  { value: 'global', label: 'Coordonnées (toutes les pages)' },
   { value: 'accueil', label: 'Accueil' },
   { value: 'atelier', label: 'Atelier' },
   { value: 'boutique', label: 'Boutique' },

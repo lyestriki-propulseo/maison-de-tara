@@ -118,20 +118,20 @@
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
         <span class="sr-only">Téléphone :</span>
-        <a href="tel:+33650535149" aria-label="Appeler le +33 6 50 53 51 49">+33 6 50 53 51 49</a>
+        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
         <span class="sr-only">Adresse :</span>
-        <span>1 Rue Gabriel Péri · La Garenne-Colombes (92)</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
         <span class="sr-only">Email :</span>
-        <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+        <a href="mailto:contact@maisondetara.com"><span data-mdt-content="global.contact.email">contact@maisondetara.com</span></a>
       </li>
     </ul>
-    <div class="topbar__opening">Ouverture · Automne 2026</div>
+    <div class="topbar__opening" data-mdt-content="global.topbar.ouverture">Ouverture · Automne 2026</div>
   </div>
 </div>
 
@@ -186,11 +186,11 @@
     <div class="drawer__contact">
       <a href="tel:+33650535149">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
-        +33 6 50 53 51 49
+        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
       </a>
       <a href="mailto:contact@maisondetara.com">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
-        contact@maisondetara.com
+        <span data-mdt-content="global.contact.email">contact@maisondetara.com</span>
       </a>
     </div>
   </div>
@@ -224,13 +224,13 @@
         <a href="contact.html">Contact</a>
       </nav>
       <div class="mdt-footer-coords">
-        <span>1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
         <span class="dot" aria-hidden="true">·</span>
-        <a href="tel:+33650535149">+33 6 50 53 51 49</a>
+        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
         <span class="dot" aria-hidden="true">·</span>
-        <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>
+        <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
         <span class="dot" aria-hidden="true">·</span>
-        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener">@maison_de_tara</a>
+        <a href="https://www.instagram.com/maison_de_tara/" target="_blank" rel="noopener" data-mdt-content="global.contact.instagram">@maison_de_tara</a>
       </div>
       <div class="mdt-footer-filet" aria-hidden="true"></div>
     </div>
@@ -255,5 +255,8 @@
 
 <!-- Menu mobile (drawer) — extrait en js/drawer.js, partagé avec scripts-min.html (DRY) -->
 <script src="js/drawer.js"></script>
+<!-- Coordonnées du header/footer (téléphone, adresse, email, Instagram, bandeau) —
+     éditables depuis /admin/contenu, page "global". -->
+<script type="module" src="js/site-content.js"></script>
 </body>
 </html>

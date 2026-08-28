@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --tara-sable: #f4ede0;
+  --tara-sable-warm: #e8dcc4;
+  --tara-paper: #fbf8f1;
+  --tara-terracotta: #c75b3c;
+  --tara-terra-dark: #8b4a2e;
+  --tara-sage: #4a5d2e;
+  --tara-sage-light: #7a8043;
+  --tara-olive: #3a4a24;
+  --tara-brown: #2c2419;
+  --tara-brass: #b8924d;
+  --tara-ink: #211d18;
+  --tara-muted: #675a4e;
+  --tara-line: #d9cfbd;
+  --tara-danger: #a1422f;
+  --tara-success-bg: #e4eadb;
+  --tara-space-1: 0.25rem;
+  --tara-space-2: 0.5rem;
+  --tara-space-3: 0.75rem;
+  --tara-space-4: 1rem;
+  --tara-space-5: 1.25rem;
+  --tara-space-6: 1.5rem;
+  --tara-space-8: 2rem;
+  --tara-space-12: 3rem;
+  --tara-font-display: 'Cormorant Garamond', Georgia, serif;
+  --tara-font-ui: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.tara-admin-shell {
+  min-height: 100vh;
+  background: var(--tara-sable);
+  color: var(--tara-ink);
+  font-family: var(--tara-font-ui);
+}
+
+.tara-admin-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tara-space-4);
+  border-bottom: 1px solid var(--tara-line);
+  background: var(--tara-paper);
+  padding: var(--tara-space-3) var(--tara-space-4);
+}
+
+.tara-admin-mobile-header img { width: 82px; height: auto; }
+.tara-admin-mobile-header nav { display: flex; gap: var(--tara-space-1); }
+.tara-admin-mobile-link { display: inline-flex; min-height: 40px; align-items: center; padding: 0 var(--tara-space-3); color: var(--tara-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; }
+.tara-admin-mobile-link.is-active { background: var(--tara-sable-warm); color: var(--tara-olive); }
+.tara-admin-sidebar { display: none; }
+.tara-admin-workspace { min-width: 0; }
+
+.tara-admin-main { min-width: 0; padding: var(--tara-space-6) var(--tara-space-4) var(--tara-space-8); }
+.tara-admin-page { width: 100%; max-width: 1320px; margin: 0 auto; }
+
+.tara-page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--tara-space-6); border-bottom: 1px solid var(--tara-line); padding-bottom: var(--tara-space-6); }
+.tara-page-heading > div > p { margin: 0 0 var(--tara-space-1); color: var(--tara-terra-dark); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.tara-page-heading h1 { margin: 0; color: var(--tara-ink); font-family: var(--tara-font-display); font-size: 2.25rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+.tara-page-heading > div > span { display: block; max-width: 68ch; margin-top: var(--tara-space-2); color: var(--tara-muted); font-size: 1rem; line-height: 1.5; }
+
+.tara-primary-action { display: inline-flex; min-height: 44px; flex: 0 0 auto; align-items: center; justify-content: center; gap: var(--tara-space-2); background: var(--tara-sage); padding: 0 var(--tara-space-4); color: white; font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: background 180ms ease-out; }
+.tara-primary-action:hover { background: var(--tara-olive); }
+.tara-primary-action:focus-visible,
+.tara-admin-nav-link:focus-visible,
+.tara-admin-mobile-link:focus-visible { outline: 2px solid var(--tara-brass); outline-offset: 3px; }
+
+.tara-dashboard__layout { display: grid; gap: var(--tara-space-6); margin-top: var(--tara-space-8); }
+.tara-dashboard__priority { position: relative; min-height: 260px; overflow: hidden; background: var(--tara-sage); padding: var(--tara-space-8); color: white; }
+.tara-dashboard__priority::after { content: ''; position: absolute; width: 250px; height: 250px; right: -70px; bottom: -110px; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 50%; box-shadow: 0 0 0 32px rgba(255, 255, 255, 0.06); }
+.tara-dashboard__priority-icon { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 50%; }
+.tara-dashboard__priority > p { margin: var(--tara-space-8) 0 0; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.tara-dashboard__priority > strong { display: block; margin-top: var(--tara-space-1); font-family: var(--tara-font-display); font-size: 4rem; font-weight: 400; font-variant-numeric: tabular-nums; line-height: 0.9; }
+.tara-dashboard__priority h2 { margin: var(--tara-space-3) 0 0; font-family: var(--tara-font-display); font-size: 1.5rem; font-weight: 500; }
+.tara-dashboard__priority > span { display: block; max-width: 36ch; margin-top: var(--tara-space-2); color: #fff4ec; font-size: 0.875rem; line-height: 1.5; }
+
+.tara-dashboard__ledger { border: 1px solid var(--tara-line); background: var(--tara-paper); }
+.tara-dashboard__ledger-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--tara-space-4); border-bottom: 1px solid var(--tara-line); padding: var(--tara-space-6); }
+.tara-dashboard__ledger-heading p { margin: 0 0 var(--tara-space-1); color: var(--tara-sage); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.tara-dashboard__ledger-heading h2 { margin: 0; font-family: var(--tara-font-display); font-size: 1.5rem; font-weight: 500; }
+.tara-dashboard__ledger-heading > span { color: var(--tara-muted); font-size: 0.75rem; }
+.tara-dashboard__ledger dl { margin: 0; }
+.tara-dashboard__ledger dl > div { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: var(--tara-space-4); border-bottom: 1px solid var(--tara-line); padding: 0 var(--tara-space-6); }
+.tara-dashboard__ledger dl > div:last-child { border-bottom: 0; }
+.tara-dashboard__ledger dt { display: flex; align-items: center; gap: var(--tara-space-3); color: var(--tara-muted); font-size: 0.875rem; }
+.tara-dashboard__ledger dd { margin: 0; color: var(--tara-sage); font-family: var(--tara-font-display); font-size: 2.25rem; font-variant-numeric: tabular-nums; }
+
+.tara-page-heading > div > p.tara-page-intro { max-width: 68ch; margin: var(--tara-space-2) 0 0; color: var(--tara-muted); font-size: 1rem; font-weight: 400; letter-spacing: 0; line-height: 1.5; text-transform: none; }
+.tara-view-switcher { display: flex; align-self: flex-end; border: 1px solid var(--tara-line); background: var(--tara-paper); padding: 3px; }
+.tara-view-switcher button { border-radius: 0; }
+.tara-view-switcher button[aria-pressed='true'] { background: var(--tara-sage); color: white; }
+.tara-agenda-layout { display: grid; align-items: start; gap: var(--tara-space-6); margin-top: var(--tara-space-6); }
+
+.tara-week-calendar { min-width: 0; border: 1px solid var(--tara-line); background: var(--tara-paper); }
+.tara-week-calendar__toolbar { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: var(--tara-space-4); border-bottom: 1px solid var(--tara-line); padding: 0 var(--tara-space-4); }
+.tara-week-calendar__navigation { display: flex; align-items: center; gap: var(--tara-space-2); }
+.tara-week-calendar__navigation button { display: grid; width: 40px; height: 40px; place-items: center; border: 0; background: transparent; color: var(--tara-ink); cursor: pointer; }
+.tara-week-calendar__navigation button:hover { background: var(--tara-sable); }
+.tara-week-calendar__navigation h2 { min-width: 150px; margin: 0; font-family: var(--tara-font-display); font-size: 1.5rem; font-weight: 500; text-align: center; text-transform: capitalize; }
+.tara-week-calendar__today { min-height: 36px; border: 0; border-bottom: 1px solid var(--tara-terra-dark); background: transparent; padding: 0 var(--tara-space-2); color: var(--tara-terra-dark); font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+.tara-week-calendar__scroller { overflow-x: auto; }
+.tara-week-calendar__grid { display: grid; min-width: 720px; grid-template-columns: 54px repeat(7, minmax(84px, 1fr)); }
+.tara-week-calendar__corner,
+.tara-week-calendar__day,
+.tara-week-calendar__time,
+.tara-week-calendar__cell { border-right: 1px solid var(--tara-line); border-bottom: 1px solid var(--tara-line); }
+.tara-week-calendar__day { display: flex; min-height: 54px; align-items: center; justify-content: center; gap: 6px; color: var(--tara-muted); font-size: 0.6875rem; text-transform: uppercase; }
+.tara-week-calendar__day strong { color: var(--tara-ink); font-family: var(--tara-font-display); font-size: 1.125rem; font-weight: 600; }
+.tara-week-calendar__day.is-today { background: #f0e4d2; color: var(--tara-terra-dark); }
+.tara-week-calendar__time { display: flex; min-height: 60px; align-items: flex-start; justify-content: center; padding-top: 9px; color: var(--tara-muted); font-size: 0.6875rem; font-variant-numeric: tabular-nums; }
+.tara-week-calendar__cell { min-height: 60px; padding: var(--tara-space-1); }
+.tara-week-calendar__cell > button { display: flex; width: 100%; min-height: 50px; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid #ccd2c2; background: #e8ecdf; color: #344121; font: inherit; cursor: pointer; transition: border-color 160ms ease-out, background 160ms ease-out; }
+.tara-week-calendar__cell > button:hover { border-color: var(--tara-sage); background: #dfe5d3; }
+.tara-week-calendar__cell > button.is-selected { border-color: var(--tara-terracotta); background: #f2d8cb; color: #733a29; box-shadow: inset 0 0 0 1px var(--tara-terracotta); }
+.tara-week-calendar__cell > button.is-full { border-color: var(--tara-brown); background: var(--tara-brown); color: var(--tara-sable); }
+.tara-week-calendar__cell > button.is-blocked { border-color: #d8b0a7; background: #f5e4df; color: var(--tara-danger); }
+.tara-week-calendar__cell > button strong { font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.tara-week-calendar__cell > button span { font-size: 0.625rem; }
+.tara-week-calendar__cell > button:focus-visible,
+.tara-week-calendar__navigation button:focus-visible,
+.tara-week-calendar__today:focus-visible { outline: 2px solid var(--tara-terracotta); outline-offset: 2px; }
+.tara-week-calendar__legend { display: flex; min-height: 44px; align-items: center; gap: var(--tara-space-5); padding: 0 var(--tara-space-4); color: var(--tara-muted); font-size: 0.6875rem; }
+.tara-week-calendar__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.tara-week-calendar__legend i { width: 9px; height: 9px; background: #e8ecdf; border: 1px solid #ccd2c2; }
+.tara-week-calendar__legend i.is-busy { background: #f2d8cb; border-color: var(--tara-terracotta); }
+.tara-week-calendar__legend i.is-full { background: var(--tara-brown); border-color: var(--tara-brown); }
+
+.tara-agenda-detail { min-width: 0; }
+.tara-agenda-detail__empty { border: 1px dashed var(--tara-line); padding: var(--tara-space-8); color: var(--tara-muted); font-size: 0.875rem; text-align: center; }
+.tara-session-panel { overflow: hidden; border: 1px solid var(--tara-line); background: var(--tara-paper); }
+.tara-session-panel__header { border-bottom: 1px solid var(--tara-line); background: #f5ecdf; padding: var(--tara-space-5); }
+.tara-session-panel__header h2 { font-family: var(--tara-font-display); font-size: 1.75rem; font-weight: 500; }
+.tara-session-panel__body { display: grid; gap: var(--tara-space-5); padding: var(--tara-space-5); }
+.tara-session-panel__body > section + section { border-top-color: var(--tara-line); }
+.tara-session-panel button,
+.tara-session-panel input { border-radius: 0 !important; }
+.tara-session-panel__body li { border-radius: 0 !important; background: transparent !important; border-bottom: 1px solid var(--tara-line); padding-right: 0 !important; padding-left: 0 !important; }
+.tara-session-panel__body li:last-child { border-bottom: 0; }
+.tara-session-panel input:focus { border-color: var(--tara-terracotta) !important; box-shadow: 0 0 0 2px #f1d0c4 !important; }
+.tara-schedule-editor { margin-top: var(--tara-space-6); }
+.tara-schedule-editor > div,
+.tara-schedule-editor input,
+.tara-schedule-editor select,
+.tara-schedule-editor button { border-radius: 0 !important; }
+.tara-empty-agenda { max-width: 560px; margin-top: var(--tara-space-8); border: 1px dashed var(--tara-line); padding: var(--tara-space-8) var(--tara-space-6); text-align: center; }
+
+@media (min-width: 768px) {
+  .tara-admin-shell { display: grid; grid-template-columns: 224px minmax(0, 1fr); }
+  .tara-admin-mobile-header { display: none; }
+  .tara-admin-sidebar { position: sticky; top: 0; display: flex; height: 100vh; flex-direction: column; background: var(--tara-olive); padding: var(--tara-space-6) var(--tara-space-4) var(--tara-space-5); color: var(--tara-sable); }
+  /* Enseigne : logo passé en blanc (même recette que le footer du site,
+     brightness(0) invert(1)) posé directement sur le brun — plus de pavé
+     beige — et double filet laiton signature de la charte en dessous. */
+  .tara-admin-sidebar__brand { position: relative; border-bottom: 1px solid rgba(184, 146, 77, 0.5); padding: var(--tara-space-3) var(--tara-space-2) var(--tara-space-5); text-align: center; }
+  .tara-admin-sidebar__brand::after { content: ''; position: absolute; right: 0; bottom: -4px; left: 0; height: 1px; background: rgba(184, 146, 77, 0.2); }
+  .tara-admin-sidebar__brand img { width: 102px; height: auto; filter: brightness(0) invert(1); opacity: 0.92; }
+  .tara-admin-sidebar__brand p { margin: var(--tara-space-3) 0 0; color: var(--tara-brass); font-size: 0.6563rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+  .tara-admin-sidebar__section { margin: var(--tara-space-8) var(--tara-space-3) var(--tara-space-2); color: #c8bba7; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+  .tara-admin-sidebar nav { display: grid; gap: var(--tara-space-1); }
+  .tara-admin-nav-link { display: flex; min-height: 44px; align-items: center; gap: var(--tara-space-3); border: 1px solid transparent; padding: 0 var(--tara-space-3); color: #ded3c3; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: background 180ms ease-out, color 180ms ease-out; }
+  .tara-admin-nav-link:hover { background: #45572b; color: white; }
+  .tara-admin-nav-link.is-active { background: #52663180; color: white; box-shadow: inset 2px 0 0 var(--tara-brass); }
+  .tara-admin-nav-link.is-active svg { color: var(--tara-terracotta); }
+  .tara-admin-sidebar__footer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--tara-space-2); margin-top: auto; border-top: 1px solid #566a3455; padding-top: var(--tara-space-4); }
+  .tara-admin-sidebar__avatar { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--tara-brass); color: white; font-size: 0.75rem; }
+  .tara-admin-sidebar__footer strong { display: block; color: white; font-family: var(--tara-font-display); font-size: 0.9375rem; font-weight: 500; }
+  .tara-admin-sidebar__footer span { display: block; margin-top: 2px; color: #c8bba7; font-size: 0.6875rem; }
+  .tara-admin-sidebar__footer > svg { color: #a79a88; }
+  .tara-admin-sidebar__signature { margin: var(--tara-space-4) 0 0; color: #df856c; font-family: Caveat, cursive; font-size: 1.25rem; text-align: center; transform: rotate(-2deg); }
+  .tara-admin-main { padding: var(--tara-space-8); }
+  .tara-dashboard__layout { grid-template-columns: minmax(280px, 0.8fr) minmax(480px, 1.4fr); }
+}
+
+@media (min-width: 1360px) {
+  .tara-agenda-layout { grid-template-columns: minmax(620px, 1fr) 320px; }
+  .tara-agenda-detail { position: sticky; top: var(--tara-space-6); max-height: calc(100vh - 48px); overflow-y: auto; }
+}
+
+@media (min-width: 1280px) {
+  .tara-admin-shell { grid-template-columns: 240px minmax(0, 1fr); }
+  .tara-admin-main { padding: var(--tara-space-8) var(--tara-space-12) var(--tara-space-12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tara-primary-action,
+  .tara-admin-nav-link,
+  .tara-week-calendar__cell > button { transition: none; }
+}

@@ -1,0 +1,10 @@
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+node_modules
+.output
+.nitro
+.tanstack
+dist
+src/routeTree.gen.ts
+src/types/database.types.ts

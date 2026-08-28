@@ -55,6 +55,9 @@ Document Tara/
 .kombai/
 .planning/
 
+# superpowers scratch (ledger, briefs, reports)
+.superpowers/
+
 # tokenade — per-project cache / scaffold flag / dedup refs
 .tokenade/
 

@@ -22,6 +22,7 @@ import { Route as AdminHorairesRouteImport } from './routes/admin/horaires'
 import { Route as AdminDemandesRouteImport } from './routes/admin/demandes'
 import { Route as AdminContenuRouteImport } from './routes/admin/contenu'
 import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
+import { Route as ApiWebhooksStripeRouteImport } from './routes/api.webhooks.stripe'
 import { Route as ApiWebhooksBrevoRouteImport } from './routes/api.webhooks.brevo'
 import { Route as ApiReservationsCheckoutRouteImport } from './routes/api.reservations.checkout'
 
@@ -90,6 +91,11 @@ const AdminAgendaRoute = AdminAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
+  id: '/api/webhooks/stripe',
+  path: '/api/webhooks/stripe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWebhooksBrevoRoute = ApiWebhooksBrevoRouteImport.update({
   id: '/api/webhooks/brevo',
   path: '/api/webhooks/brevo',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
+    | '/api/webhooks/stripe'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
+    | '/api/webhooks/stripe'
   id:
     | '__root__'
     | '/'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
+    | '/api/webhooks/stripe'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -213,6 +225,7 @@ export interface RootRouteChildren {
   NewsletterConfirmRoute: typeof NewsletterConfirmRoute
   ApiReservationsCheckoutRoute: typeof ApiReservationsCheckoutRoute
   ApiWebhooksBrevoRoute: typeof ApiWebhooksBrevoRoute
+  ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -308,6 +321,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgendaRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/api/webhooks/stripe': {
+      id: '/api/webhooks/stripe'
+      path: '/api/webhooks/stripe'
+      fullPath: '/api/webhooks/stripe'
+      preLoaderRoute: typeof ApiWebhooksStripeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/webhooks/brevo': {
       id: '/api/webhooks/brevo'
       path: '/api/webhooks/brevo'
@@ -359,6 +379,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsletterConfirmRoute: NewsletterConfirmRoute,
   ApiReservationsCheckoutRoute: ApiReservationsCheckoutRoute,
   ApiWebhooksBrevoRoute: ApiWebhooksBrevoRoute,
+  ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

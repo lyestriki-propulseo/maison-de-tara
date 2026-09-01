@@ -11,6 +11,9 @@ beforeEach(() => {
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
 })
 
 afterEach(() => {

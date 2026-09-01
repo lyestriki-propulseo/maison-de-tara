@@ -21,6 +21,9 @@ test('sendTransactionalEmail appelle /v3/smtp/email avec la bonne charge utile',
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
   const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }))
   global.fetch = fetchMock as unknown as typeof fetch
 
@@ -51,6 +54,9 @@ test('sendTransactionalEmail lève BrevoError si Brevo refuse', async () => {
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
   global.fetch = vi.fn().mockResolvedValue(new Response('bad request', { status: 400 })) as unknown as typeof fetch
 
   const { sendTransactionalEmail, BrevoError } = await import('./client')
@@ -67,6 +73,9 @@ test('addContactToList ne fait rien si BREVO_NEWSLETTER_LIST_ID est absent', asy
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
   const fetchMock = vi.fn()
   global.fetch = fetchMock as unknown as typeof fetch
 

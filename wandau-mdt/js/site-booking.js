@@ -1,9 +1,9 @@
 // js/site-booking.js — Tunnel de réservation unifié (atelier libre OU événement).
-// Écrit directement en base via le guichet public `book_reservation` (RPC SECURITY DEFINER :
-// impose toujours status='pending'/source='online', calcule lui-même l'acompte — jamais de prix
-// ni de statut envoyé par le client). Lit les disponibilités via les vues `public_availability` /
-// `public_availability_events` (3 états, jamais de chiffres bruts). Remplace l'ancien formulaire
-// "submissions" (jamais activé, table inexistante) — décision produit du 19/08.
+// Le paiement se fait via Stripe Checkout (POST /api/reservations/checkout sur l'app admin, qui
+// calcule le prix côté serveur et renvoie l'URL Stripe) : la réservation n'est créée qu'après
+// paiement confirmé, par webhook (voir docs/superpowers/specs/2026-09-01-stripe-reservations-design.md
+// dans le dépôt app). Lit les disponibilités via les vues `public_availability` /
+// `public_availability_events` (3 états, jamais de chiffres bruts).
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
 
 const CONFIGURED =
@@ -29,6 +29,8 @@ function initBooking(form) {
   const eventsMsg = document.getElementById('rf-events-msg');
   const modeAtelier = document.getElementById('rf-mode-atelier');
   const modeEvenement = document.getElementById('rf-mode-evenement');
+  const acompteAtelier = document.getElementById('rf-acompte-atelier');
+  const acompteEvenement = document.getElementById('rf-acompte-evenement');
   const capMsg = document.getElementById('rf-capacity-msg');
   const msg = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('[type="submit"]');
@@ -138,6 +140,8 @@ function initBooking(form) {
     const mode = form.mode.value;
     modeAtelier.hidden = mode !== 'atelier';
     modeEvenement.hidden = mode !== 'evenement';
+    if (acompteAtelier) acompteAtelier.hidden = mode !== 'atelier';
+    if (acompteEvenement) acompteEvenement.hidden = mode !== 'evenement';
     refreshCapacity();
   }
 

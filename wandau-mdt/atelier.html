@@ -359,9 +359,10 @@
           </div>
 
           <div>
-            <!-- Acompte rétabli (12/06) : calculé côté serveur par le guichet book_reservation,
-                 Monetico sera installé pour le payer en ligne. -->
-            <p class="acompte" data-mdt-content="atelier.reserve.acompte">Un acompte de <strong>6&nbsp;€ par personne</strong> est demandé pour confirmer la réservation. Il est déduit de votre facture finale, et le reste se règle sur place le jour de l'atelier.</p>
+            <!-- Paiement Stripe (01/09) : le prix est calculé côté serveur, jamais envoyé par le
+                 client. Deux mentions, une par mode, togglées par toggleMode() dans site-booking.js. -->
+            <p class="acompte" id="rf-acompte-atelier" data-mdt-content="atelier.reserve.acompte">Le paiement de <strong>6&nbsp;€ par personne</strong> se fait en ligne à l'étape suivante, par carte bancaire. Il est déduit de votre facture finale, le reste se règle sur place le jour de l'atelier.</p>
+            <p class="acompte" id="rf-acompte-evenement" data-mdt-content="atelier.reserve.acompte_evenement" hidden>Le montant à régler en ligne pour cet événement s'affiche à l'étape suivante, par carte bancaire.</p>
             <div class="fgrid">
               <fieldset class="fld fld--pills fld--span">
                 <legend>Nombre de participants</legend>
@@ -391,7 +392,7 @@
                 <input id="rf-tel" name="telephone" type="tel" autocomplete="tel">
               </div>
             </div>
-            <button type="submit" class="btn btn--block">Demander cette réservation</button>
+            <button type="submit" class="btn btn--block">Réserver et payer</button>
             <p class="form-msg" role="status" aria-live="polite"></p>
           </div>
 

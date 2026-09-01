@@ -94,7 +94,7 @@ export function ContentImageField({
         {currentImagePath ? (
           <img src={currentImagePath} alt="" className="h-16 w-24 rounded-md object-cover" />
         ) : (
-          <div className="flex h-16 w-24 items-center justify-center rounded-md bg-neutral-100 text-[10px] text-neutral-400">
+          <div className="flex h-16 w-24 items-center justify-center rounded-md bg-neutral-100 text-[0.625rem] text-neutral-400">
             Aucune photo
           </div>
         )}
@@ -128,7 +128,7 @@ export function ContentImageField({
         className="mt-2 max-w-full cursor-grab touch-none rounded-md border border-neutral-300 active:cursor-grabbing"
         style={{ width: FRAME_WIDTH, height: frameHeight }}
       />
-      <p className="mt-1 text-[11px] text-neutral-500">Glissez la photo pour la repositionner.</p>
+      <p className="mt-1 text-[0.6875rem] text-neutral-500">Glissez la photo pour la repositionner.</p>
       <label className="mt-2 flex items-center gap-2 text-xs text-neutral-600">
         Zoom
         <input

@@ -98,13 +98,17 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       p_stripe_payment_intent_id: null,
       p_amount_cents: 0,
     } as never)
-    if (error) return json({ message: error.message }, 400)
+    if (error) {
+      console.error('[api:reservations.checkout] confirm_reservation_payment (branche 0€) a échoué :', error.message, { targetId, customerEmail })
+      return json({ message: 'Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.' }, 400)
+    }
     return json({ url: `${SITE_ORIGIN}/confirmation-reservation.html?id=${id}` })
   }
 
   const stripe = stripeClient()
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
+    payment_method_types: ['card'],
     line_items: [
       {
         price_data: {

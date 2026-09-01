@@ -68,6 +68,7 @@ test('checkout.session.completed : appelle confirm_reservation_payment puis 200'
               id: 'cs_test_1',
               payment_intent: 'pi_1',
               amount_total: 1200,
+              payment_status: 'paid',
               metadata: {
                 mode: 'atelier',
                 sessionInstanceId: '11111111-1111-1111-1111-111111111111',
@@ -93,7 +94,7 @@ test('checkout.session.completed : appelle confirm_reservation_payment puis 200'
 })
 
 test('capacité prise entre-temps : rembourse automatiquement', async () => {
-  const rpcMock = vi.fn().mockResolvedValue({ data: null, error: { message: 'Capacité dépassée' } })
+  const rpcMock = vi.fn().mockResolvedValue({ data: null, error: { message: 'Capacité dépassée', code: '23514' } })
   const refundMock = vi.fn().mockResolvedValue({})
   vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ rpc: rpcMock }) }))
   vi.doMock('@/lib/stripe/client', () => ({
@@ -106,6 +107,7 @@ test('capacité prise entre-temps : rembourse automatiquement', async () => {
               id: 'cs_test_2',
               payment_intent: 'pi_2',
               amount_total: 1200,
+              payment_status: 'paid',
               metadata: {
                 mode: 'atelier',
                 sessionInstanceId: '11111111-1111-1111-1111-111111111111',
@@ -126,4 +128,76 @@ test('capacité prise entre-temps : rembourse automatiquement', async () => {
   const res = await webhookHandler(request('{}', 'sig-ok'))
   expect(res.status).toBe(200)
   expect(refundMock).toHaveBeenCalledWith({ payment_intent: 'pi_2' })
+})
+
+test('payment_status non payé (SEPA/Klarna en attente) : ne confirme pas, 200', async () => {
+  const rpcMock = vi.fn().mockResolvedValue({ data: 'resa-1', error: null })
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ rpc: rpcMock }) }))
+  vi.doMock('@/lib/stripe/client', () => ({
+    stripeClient: () => ({
+      webhooks: {
+        constructEvent: () => ({
+          type: 'checkout.session.completed',
+          data: {
+            object: {
+              id: 'cs_test_3',
+              payment_intent: 'pi_3',
+              amount_total: 1200,
+              payment_status: 'unpaid',
+              metadata: {
+                mode: 'atelier',
+                sessionInstanceId: '11111111-1111-1111-1111-111111111111',
+                eventId: '',
+                partySize: '2',
+                customerName: 'Chloé',
+                customerEmail: 'chloe@example.com',
+                customerPhone: '',
+              },
+            },
+          },
+        }),
+      },
+    }),
+  }))
+  const { webhookHandler } = await import('./api.webhooks.stripe')
+  const res = await webhookHandler(request('{}', 'sig-ok'))
+  expect(res.status).toBe(200)
+  expect(rpcMock).not.toHaveBeenCalled()
+})
+
+test('erreur inattendue (pas check_violation) : ne rembourse pas, 500 pour laisser Stripe retenter', async () => {
+  const rpcMock = vi.fn().mockResolvedValue({ data: null, error: { message: 'DB down' } })
+  const refundMock = vi.fn().mockResolvedValue({})
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ rpc: rpcMock }) }))
+  vi.doMock('@/lib/stripe/client', () => ({
+    stripeClient: () => ({
+      webhooks: {
+        constructEvent: () => ({
+          type: 'checkout.session.completed',
+          data: {
+            object: {
+              id: 'cs_test_4',
+              payment_intent: 'pi_4',
+              amount_total: 1200,
+              payment_status: 'paid',
+              metadata: {
+                mode: 'atelier',
+                sessionInstanceId: '11111111-1111-1111-1111-111111111111',
+                eventId: '',
+                partySize: '2',
+                customerName: 'Dan',
+                customerEmail: 'dan@example.com',
+                customerPhone: '',
+              },
+            },
+          },
+        }),
+      },
+      refunds: { create: refundMock },
+    }),
+  }))
+  const { webhookHandler } = await import('./api.webhooks.stripe')
+  const res = await webhookHandler(request('{}', 'sig-ok'))
+  expect(res.status).toBe(500)
+  expect(refundMock).not.toHaveBeenCalled()
 })

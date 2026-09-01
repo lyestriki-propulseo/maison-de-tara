@@ -67,6 +67,7 @@ test('200 et url Stripe si disponible (atelier, 6€/pers)', async () => {
   expect(body.url).toBe('https://checkout.stripe.com/test-session')
   expect(createMock).toHaveBeenCalledTimes(1)
   expect(createMock.mock.calls[0]?.[0].line_items[0].price_data.unit_amount).toBe(1200)
+  expect(createMock.mock.calls[0]?.[0].payment_method_types).toEqual(['card'])
 })
 
 test('événement avec acompte désactivé : pas de Stripe, réservation confirmée directement', async () => {
@@ -94,4 +95,34 @@ test('événement avec acompte désactivé : pas de Stripe, réservation confirm
   const body = await res.json()
   expect(body.url).toContain('confirmation-reservation.html')
   expect(rpcMock).toHaveBeenCalledWith('confirm_reservation_payment', expect.objectContaining({ p_amount_cents: 0 }))
+})
+
+test('événement avec acompte désactivé : erreur métier de confirm_reservation_payment → 400 générique (pas le message Postgres brut)', async () => {
+  const rpcMock = vi.fn((name: string) => {
+    if (name === 'check_availability') return Promise.resolve({ data: true, error: null })
+    if (name === 'confirm_reservation_payment')
+      return Promise.resolve({
+        data: null,
+        error: { message: 'Une réservation a déjà été enregistrée avec cet email il y a moins de 5 minutes. Merci de patienter avant de réessayer.' },
+      })
+    return Promise.resolve({ data: null, error: null })
+  })
+  const chain = {
+    select: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockResolvedValue({
+      data: { title: 'Brunch', deposit_enabled: false, deposit_amount_cents: null },
+      error: null,
+    }),
+  }
+  vi.doMock('@/lib/supabase/admin', () => ({
+    supabaseAdmin: () => ({ rpc: rpcMock, from: () => chain }),
+  }))
+  const { checkoutHandler } = await import('./api.reservations.checkout')
+  const res = await checkoutHandler(
+    request({ ...validBody, mode: 'evenement', targetId: '22222222-2222-4222-8222-222222222222' }),
+  )
+  expect(res.status).toBe(400)
+  const body = await res.json()
+  expect(body.message).toBe('Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.')
 })

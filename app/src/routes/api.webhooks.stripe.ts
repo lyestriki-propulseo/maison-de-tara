@@ -8,8 +8,16 @@ async function handleCheckoutCompleted(session: {
   id: string
   payment_intent: string | null
   amount_total: number | null
+  payment_status: string
   metadata: Record<string, string> | null
-}) {
+}): Promise<{ retry: boolean }> {
+  if (session.payment_status !== 'paid') {
+    // Mode de paiement différé (SEPA, Klarna...) : le paiement n'est pas encore confirmé. La
+    // session est créée avec payment_method_types: ['card'] (toujours synchrone), donc ce cas ne
+    // devrait jamais arriver en pratique — garde-fou défensif seulement.
+    return { retry: false }
+  }
+
   const m = session.metadata ?? {}
   const db = supabaseAdmin()
 
@@ -29,13 +37,21 @@ async function handleCheckoutCompleted(session: {
   } as never)
 
   if (error) {
-    // La place a été prise entre l'ouverture de la session Stripe et la confirmation du paiement
-    // (course rare sur la toute dernière place, cf. spec §2) : on rembourse automatiquement plutôt
-    // que de laisser un client payé sans réservation.
-    console.error('[webhook:stripe] confirm_reservation_payment a échoué, remboursement :', error.message, {
+    const isBusinessError = (error as { code?: string }).code === '23514'
+    console.error('[webhook:stripe] confirm_reservation_payment a échoué :', error.message, {
       sessionId: session.id,
       customerEmail: m.customerEmail,
+      businessError: isBusinessError,
     })
+
+    if (!isBusinessError) {
+      // Erreur inattendue (DB indisponible, permission manquante...) : ne pas rembourser, laisser
+      // Stripe re-livrer l'événement plus tard plutôt que de le déclarer traité à tort.
+      return { retry: true }
+    }
+
+    // Erreur métier attendue (capacité prise entre-temps, cooldown, validation) : terminale, on
+    // rembourse plutôt que de laisser un client payé sans réservation (cf. spec §2).
     if (session.payment_intent) {
       const stripe = stripeClient()
       await stripe.refunds.create({ payment_intent: session.payment_intent }).catch((refundErr) => {
@@ -43,6 +59,8 @@ async function handleCheckoutCompleted(session: {
       })
     }
   }
+
+  return { retry: false }
 }
 
 export async function webhookHandler(request: Request): Promise<Response> {
@@ -61,14 +79,18 @@ export async function webhookHandler(request: Request): Promise<Response> {
   }
 
   if (event.type === 'checkout.session.completed') {
-    await handleCheckoutCompleted(
+    const { retry } = await handleCheckoutCompleted(
       event.data.object as {
         id: string
         payment_intent: string | null
         amount_total: number | null
+        payment_status: string
         metadata: Record<string, string> | null
       },
     )
+    if (retry) {
+      return new Response(JSON.stringify({ ok: false }), { status: 500, headers: { 'Content-Type': 'application/json' } })
+    }
   }
 
   return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' } })

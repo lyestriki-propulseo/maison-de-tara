@@ -38,6 +38,10 @@ function initBooking(form) {
   let capacityCheckId = 0;
   const preselectEvent = new URLSearchParams(location.search).get('event');
 
+  if (new URLSearchParams(location.search).get('paiement') === 'annule') {
+    setMsg('Paiement annulé — vous pouvez réessayer quand vous voulez.');
+  }
+
   Promise.all([
     fetchRows('public_availability', 'id,session_date,start_time,availability'),
     fetchRows('public_availability_events', 'id,title,starts_at,availability'),
@@ -197,6 +201,8 @@ function initBooking(form) {
   slotsBox.addEventListener('change', refreshCapacity);
   dateHidden.addEventListener('change', renderSlots);
 
+  const CHECKOUT_URL = 'https://admin.maisondetara.propulseo-site.com/api/reservations/checkout';
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const mode = form.mode.value;
@@ -216,35 +222,29 @@ function initBooking(form) {
     }
 
     submitBtn.disabled = true;
+    setMsg('Redirection vers le paiement…');
     try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/book_reservation`, {
+      const res = await fetch(CHECKOUT_URL, {
         method: 'POST',
-        headers: { ...HEADERS, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          p_session_instance_id: mode === 'atelier' ? targetId : null,
-          p_event_id: mode === 'evenement' ? targetId : null,
-          p_party_size: Number(form.participants.value),
-          p_customer_name: nom,
-          p_customer_email: email,
-          p_customer_phone: form.telephone.value.trim() || null,
+          mode,
+          targetId,
+          partySize: Number(form.participants.value),
+          customerName: nom,
+          customerEmail: email,
+          customerPhone: form.telephone.value.trim() || undefined,
         }),
       });
       const data = await res.json().catch(() => null);
       if (!res.ok) {
         setMsg((data && data.message) || 'Une erreur est survenue, merci de réessayer.');
+        submitBtn.disabled = false;
         return;
       }
-      setMsg("Merci ! Votre demande est enregistrée. Tara vous recontacte pour confirmer et prendre l'acompte.");
-      form.reset();
-      // form.reset() ne déclenche pas 'change' sur les radios : on resynchronise nous-mêmes
-      // l'affichage du mode et l'état du bouton/message de capacité.
-      toggleMode();
-      slotsBox.textContent = '';
-      slotsMsg.hidden = true;
-      selectEvent('');
+      window.location.href = data.url;
     } catch (err) {
       setMsg('Une erreur est survenue, merci de réessayer.');
-    } finally {
       submitBtn.disabled = false;
     }
   });

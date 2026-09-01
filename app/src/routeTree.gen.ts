@@ -23,6 +23,7 @@ import { Route as AdminDemandesRouteImport } from './routes/admin/demandes'
 import { Route as AdminContenuRouteImport } from './routes/admin/contenu'
 import { Route as AdminAgendaRouteImport } from './routes/admin/agenda'
 import { Route as ApiWebhooksBrevoRouteImport } from './routes/api.webhooks.brevo'
+import { Route as ApiReservationsCheckoutRouteImport } from './routes/api.reservations.checkout'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -94,6 +95,11 @@ const ApiWebhooksBrevoRoute = ApiWebhooksBrevoRouteImport.update({
   path: '/api/webhooks/brevo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReservationsCheckoutRoute = ApiReservationsCheckoutRouteImport.update({
+  id: '/api/reservations/checkout',
+  path: '/api/reservations/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRoutesByTo {
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin': typeof AdminIndexRoute
+  '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRoutesById {
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/reservations/checkout': typeof ApiReservationsCheckoutRoute
   '/api/webhooks/brevo': typeof ApiWebhooksBrevoRoute
 }
 export interface FileRouteTypes {
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/newsletter/confirm'
     | '/admin/'
+    | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/newsletter/confirm'
     | '/admin'
+    | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
   id:
     | '__root__'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/newsletter/confirm'
     | '/admin/'
+    | '/api/reservations/checkout'
     | '/api/webhooks/brevo'
   fileRoutesById: FileRoutesById
 }
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ApiHealthRoute: typeof ApiHealthRoute
   NewsletterConfirmRoute: typeof NewsletterConfirmRoute
+  ApiReservationsCheckoutRoute: typeof ApiReservationsCheckoutRoute
   ApiWebhooksBrevoRoute: typeof ApiWebhooksBrevoRoute
 }
 
@@ -302,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhooksBrevoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/reservations/checkout': {
+      id: '/api/reservations/checkout'
+      path: '/api/reservations/checkout'
+      fullPath: '/api/reservations/checkout'
+      preLoaderRoute: typeof ApiReservationsCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -337,17 +357,9 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ApiHealthRoute: ApiHealthRoute,
   NewsletterConfirmRoute: NewsletterConfirmRoute,
+  ApiReservationsCheckoutRoute: ApiReservationsCheckoutRoute,
   ApiWebhooksBrevoRoute: ApiWebhooksBrevoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

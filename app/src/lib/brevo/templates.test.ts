@@ -23,12 +23,14 @@ test('reservationAlertForTara inclut le nom du client et le lien admin', () => {
   expect(html).toContain('/admin/reservations')
 })
 
-test('reservationConfirmationForCustomer mentionne le rappel acompte', () => {
-  const { html } = reservationConfirmationForCustomer({
+test('reservationConfirmationForCustomer confirme le paiement (pas un rappel d’acompte)', () => {
+  const { subject, html } = reservationConfirmationForCustomer({
     customerName: 'Jeanne',
     targetLabel: 'Atelier libre · 2026-09-01 10:00',
   })
-  expect(html).toContain('acompte')
+  expect(subject).toContain('confirmée')
+  expect(html).toContain('paiement a bien été reçu')
+  expect(html).not.toContain('acompte')
 })
 
 test('newsletterConfirmation contient le lien de confirmation', () => {

@@ -306,8 +306,6 @@ export type Database = {
           amount_cents: number
           currency: string
           status: Database['public']['Enums']['payment_status']
-          monetico_code_retour: string | null
-          monetico_payload: Json | null
           paid_at: string | null
           created_at: string
           updated_at: string
@@ -319,8 +317,6 @@ export type Database = {
           amount_cents: number
           currency?: string
           status?: Database['public']['Enums']['payment_status']
-          monetico_code_retour?: string | null
-          monetico_payload?: Json | null
           paid_at?: string | null
           created_at?: string
           updated_at?: string
@@ -332,8 +328,6 @@ export type Database = {
           amount_cents?: number
           currency?: string
           status?: Database['public']['Enums']['payment_status']
-          monetico_code_retour?: string | null
-          monetico_payload?: Json | null
           paid_at?: string | null
           created_at?: string
           updated_at?: string

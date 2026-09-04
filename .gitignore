@@ -63,3 +63,6 @@ Document Tara/
 
 # tokenade — legacy per-project embedding model cache (now global)
 .fastembed_cache/
+
+# skill projetpropul — marqueur local (id CRM + dernier commit reporté), pas partagé
+.propulseo.json

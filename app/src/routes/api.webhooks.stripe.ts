@@ -21,10 +21,7 @@ async function handleCheckoutCompleted(session: {
   const m = session.metadata ?? {}
   const db = supabaseAdmin()
 
-  // ponytail: Functions absent de database.types.ts (scripts/gen-types.mjs ne les introspecte pas,
-  // le générateur maison hardcode `Functions: never` — voir Task 3 report). Cast local le temps que
-  // le générateur soit étendu ; aucun impact runtime, la RPC est déjà appelée en JS non typé ailleurs.
-  const { error } = await db.rpc('confirm_reservation_payment' as never, {
+  const { error } = await db.rpc('confirm_reservation_payment', {
     p_session_instance_id: m.sessionInstanceId || null,
     p_event_id: m.eventId || null,
     p_party_size: Number(m.partySize) || 0,
@@ -34,7 +31,7 @@ async function handleCheckoutCompleted(session: {
     p_stripe_checkout_session_id: session.id,
     p_stripe_payment_intent_id: session.payment_intent,
     p_amount_cents: session.amount_total ?? 0,
-  } as never)
+  })
 
   if (error) {
     const isBusinessError = (error as { code?: string }).code === '23514'

@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2, Plus, Trash2 } from 'lucide-react'
 import { getSiteHours, saveSiteHours } from '@/lib/site-data'
-import { WEEKDAYS, hoursSchema, type Hours, type WeekdayKey } from '@/lib/site-settings'
+import { WEEKDAYS, hoursSchema   } from '@/lib/site-settings'
+import type {Hours, WeekdayKey} from '@/lib/site-settings';
 
 export const Route = createFileRoute('/admin/horaires')({
   loader: () => getSiteHours(),

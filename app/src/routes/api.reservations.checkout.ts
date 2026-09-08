@@ -40,14 +40,11 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   const sessionInstanceId = mode === 'atelier' ? targetId : null
   const eventId = mode === 'evenement' ? targetId : null
 
-  // ponytail: Functions absent de database.types.ts (scripts/gen-types.mjs ne les introspecte pas,
-  // le générateur maison hardcode `Functions: never` — voir Task 3 report). Cast local le temps que
-  // le générateur soit étendu ; aucun impact runtime, la RPC est déjà appelée en JS non typé ailleurs.
-  const { data: available, error: availError } = await db.rpc('check_availability' as never, {
+  const { data: available, error: availError } = await db.rpc('check_availability', {
     p_session_instance_id: sessionInstanceId,
     p_event_id: eventId,
     p_party_size: partySize,
-  } as never)
+  })
   if (availError) return json({ message: 'Impossible de vérifier la disponibilité' }, 500)
   if (!available) {
     return json(
@@ -87,7 +84,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   if (amountCents === 0) {
     // Acompte désactivé sur cet événement : pas de paiement à prendre, réservation confirmée
     // directement (même fonction que le webhook, montant 0).
-    const { data: id, error } = await db.rpc('confirm_reservation_payment' as never, {
+    const { data: id, error } = await db.rpc('confirm_reservation_payment', {
       p_session_instance_id: sessionInstanceId,
       p_event_id: eventId,
       p_party_size: partySize,
@@ -97,7 +94,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       p_stripe_checkout_session_id: `free-${crypto.randomUUID()}`,
       p_stripe_payment_intent_id: null,
       p_amount_cents: 0,
-    } as never)
+    })
     if (error) {
       console.error('[api:reservations.checkout] confirm_reservation_payment (branche 0€) a échoué :', error.message, { targetId, customerEmail })
       return json({ message: 'Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.' }, 400)

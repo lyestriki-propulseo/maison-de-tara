@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lucide-react'
 import { deleteEvent, listEvents, upsertEvent } from '@/lib/events-data'
-import { EVENT_TYPES, eventInputSchema, eventTypeLabel, type EventType } from '@/lib/events'
+import { EVENT_TYPES, eventInputSchema, eventTypeLabel  } from '@/lib/events'
+import type {EventType} from '@/lib/events';
 
 export const Route = createFileRoute('/admin/programme')({
   loader: () => listEvents(),
@@ -86,7 +87,7 @@ function ProgrammePage() {
     setForm({
       id: ev.id,
       title: ev.title,
-      eventType: ev.eventType as EventType,
+      eventType: ev.eventType,
       description: ev.description,
       startsAt: toLocalInput(ev.startsAt),
       capacity: ev.capacity,
@@ -122,7 +123,7 @@ function ProgrammePage() {
           data: {
             id: ev.id,
             title: ev.title,
-            eventType: ev.eventType as EventType,
+            eventType: ev.eventType,
             description: ev.description,
             startsAt: ev.startsAt,
             capacity: ev.capacity,

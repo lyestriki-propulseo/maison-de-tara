@@ -13,7 +13,7 @@ export const listNewsletterSubscribers = createServerFn({ method: 'GET' })
       .limit(500)
     if (error) throw new Error(error.message || 'Impossible de charger les inscrits à la newsletter')
 
-    return (data ?? []).map((row) => ({
+    return data.map((row) => ({
       id: row.id,
       email: row.email,
       status: row.status,

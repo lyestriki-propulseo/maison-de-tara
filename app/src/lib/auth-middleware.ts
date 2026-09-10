@@ -23,7 +23,7 @@ export const staffMiddleware = createMiddleware({ type: 'function' })
 
     const admin = supabaseAdmin()
     const { data: userData, error } = await admin.auth.getUser(token)
-    if (error || !userData.user) throw new Error('Session invalide ou expirée.')
+    if (error) throw new Error('Session invalide ou expirée.')
 
     const { data: profile, error: profileError } = await admin
       .from('profiles')

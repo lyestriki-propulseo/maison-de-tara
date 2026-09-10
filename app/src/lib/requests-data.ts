@@ -13,7 +13,7 @@ export const listRequests = createServerFn({ method: 'GET' })
       .limit(500)
     if (error) throw new Error(error.message || 'Impossible de charger les demandes')
 
-    return (data ?? []).map((row) => ({
+    return data.map((row) => ({
       id: row.id,
       requestType: row.request_type,
       status: row.status,

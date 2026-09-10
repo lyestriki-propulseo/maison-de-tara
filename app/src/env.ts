@@ -10,6 +10,9 @@ export const env = createEnv({
     BREVO_SENDER_EMAIL: z.string().email(),
     BREVO_WEBHOOK_SECRET: z.string().min(16),
     BREVO_NEWSLETTER_LIST_ID: z.string().min(1).optional(),
+    STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
   },
   clientPrefix: 'VITE_',
   client: {

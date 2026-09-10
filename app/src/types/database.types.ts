@@ -306,8 +306,6 @@ export type Database = {
           amount_cents: number
           currency: string
           status: Database['public']['Enums']['payment_status']
-          monetico_code_retour: string | null
-          monetico_payload: Json | null
           paid_at: string | null
           created_at: string
           updated_at: string
@@ -319,8 +317,6 @@ export type Database = {
           amount_cents: number
           currency?: string
           status?: Database['public']['Enums']['payment_status']
-          monetico_code_retour?: string | null
-          monetico_payload?: Json | null
           paid_at?: string | null
           created_at?: string
           updated_at?: string
@@ -332,8 +328,6 @@ export type Database = {
           amount_cents?: number
           currency?: string
           status?: Database['public']['Enums']['payment_status']
-          monetico_code_retour?: string | null
-          monetico_payload?: Json | null
           paid_at?: string | null
           created_at?: string
           updated_at?: string
@@ -484,11 +478,13 @@ export type Database = {
           status: Database['public']['Enums']['reservation_status']
           source: Database['public']['Enums']['reservation_source']
           deposit_amount_cents: number
-          payment_id: string | null
           notes: string | null
           created_at: string
           updated_at: string
           notified_at: string | null
+          stripe_checkout_session_id: string | null
+          stripe_payment_intent_id: string | null
+          paid_at: string | null
         }
         Insert: {
           id?: string
@@ -501,11 +497,13 @@ export type Database = {
           status?: Database['public']['Enums']['reservation_status']
           source?: Database['public']['Enums']['reservation_source']
           deposit_amount_cents?: number
-          payment_id?: string | null
           notes?: string | null
           created_at?: string
           updated_at?: string
           notified_at?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          paid_at?: string | null
         }
         Update: {
           id?: string
@@ -518,11 +516,13 @@ export type Database = {
           status?: Database['public']['Enums']['reservation_status']
           source?: Database['public']['Enums']['reservation_source']
           deposit_amount_cents?: number
-          payment_id?: string | null
           notes?: string | null
           created_at?: string
           updated_at?: string
           notified_at?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          paid_at?: string | null
         }
         Relationships: []
       }

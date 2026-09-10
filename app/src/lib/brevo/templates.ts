@@ -38,12 +38,12 @@ export function reservationConfirmationForCustomer(params: {
   targetLabel: string
 }): { subject: string; html: string } {
   return {
-    subject: 'Votre demande de réservation — Maison de Tara',
+    subject: 'Votre réservation est confirmée — Maison de Tara',
     html: wrap(`
       <p>Bonjour ${escapeHtml(params.customerName)},</p>
-      <p>Votre demande de réservation pour <strong>${params.targetLabel}</strong> est bien enregistrée.</p>
-      <p>Tara vous recontacte pour confirmer et prendre l'acompte.</p>
-      <p>À très vite,<br>Maison de Tara</p>
+      <p>Votre réservation pour <strong>${params.targetLabel}</strong> est confirmée, le paiement a bien été reçu.</p>
+      <p>Vous n'avez rien d'autre à faire.</p>
+      <p>À très bientôt à la maison,<br>Maison de Tara</p>
     `),
   }
 }

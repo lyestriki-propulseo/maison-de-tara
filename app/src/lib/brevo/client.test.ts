@@ -21,8 +21,11 @@ test('sendTransactionalEmail appelle /v3/smtp/email avec la bonne charge utile',
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
   const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }))
-  global.fetch = fetchMock as unknown as typeof fetch
+  global.fetch = fetchMock
 
   const { sendTransactionalEmail } = await import('./client')
   await sendTransactionalEmail({ to: { email: 'client@example.com', name: 'Client' }, subject: 'Sujet', html: '<p>Corps</p>' })
@@ -51,7 +54,10 @@ test('sendTransactionalEmail lève BrevoError si Brevo refuse', async () => {
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
-  global.fetch = vi.fn().mockResolvedValue(new Response('bad request', { status: 400 })) as unknown as typeof fetch
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
+  global.fetch = vi.fn().mockResolvedValue(new Response('bad request', { status: 400 }))
 
   const { sendTransactionalEmail, BrevoError } = await import('./client')
   await expect(
@@ -67,8 +73,11 @@ test('addContactToList ne fait rien si BREVO_NEWSLETTER_LIST_ID est absent', asy
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'x')
   vi.stubEnv('VITE_SUPABASE_URL', 'https://x.supabase.co')
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'x')
+  vi.stubEnv('STRIPE_SECRET_KEY', 'sk_test_x')
+  vi.stubEnv('STRIPE_PUBLISHABLE_KEY', 'pk_test_x')
+  vi.stubEnv('STRIPE_WEBHOOK_SECRET', 'whsec_x')
   const fetchMock = vi.fn()
-  global.fetch = fetchMock as unknown as typeof fetch
+  global.fetch = fetchMock
 
   const { addContactToList } = await import('./client')
   await addContactToList('client@example.com')

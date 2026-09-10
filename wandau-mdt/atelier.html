@@ -363,6 +363,7 @@
                  client. Deux mentions, une par mode, togglées par toggleMode() dans site-booking.js. -->
             <p class="acompte" id="rf-acompte-atelier" data-mdt-content="atelier.reserve.acompte">Le paiement de <strong>6&nbsp;€ par personne</strong> se fait en ligne à l'étape suivante, par carte bancaire. Il est déduit de votre facture finale, le reste se règle sur place le jour de l'atelier.</p>
             <p class="acompte" id="rf-acompte-evenement" data-mdt-content="atelier.reserve.acompte_evenement" hidden>Le montant à régler en ligne pour cet événement s'affiche à l'étape suivante, par carte bancaire.</p>
+            <p class="refund-policy">Annulation au moins 48&nbsp;h avant votre créneau&nbsp;: le paiement de réservation est remboursé. Passé ce délai, appelez Tara pour convenir d'un changement de date.</p>
             <div class="fgrid">
               <fieldset class="fld fld--pills fld--span">
                 <legend>Nombre de participants</legend>
@@ -393,7 +394,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn--block">Réserver et payer</button>
-            <p class="form-msg" role="status" aria-live="polite"></p>
+            <p class="form-msg" id="rf-form-msg" role="status" aria-live="polite"></p>
           </div>
 
         </form>
@@ -509,30 +510,5 @@
 <script type="module" src="js/site-booking.js"></script>
 <!-- Contenu éditable (photos + textes) piloté par Tara depuis /admin/contenu -->
 <script type="module" src="js/site-content.js"></script>
-<!-- Toggle hero centré / 2 colonnes (demande cliente 26/08) — choix mémorisé -->
-<button class="hero-layout-toggle" id="heroLayoutToggle" type="button" aria-pressed="false">Vue : 2 colonnes</button>
-<script>
-(function(){
-  "use strict";
-  var KEY = "mdt-atelier-hero-layout";
-  var hero = document.querySelector(".premium-atelier .hero");
-  var btn = document.getElementById("heroLayoutToggle");
-  if (!hero || !btn) return;
-  function apply(mode) {
-    var centered = mode === "center";
-    hero.classList.toggle("hero--center", centered);
-    btn.textContent = centered ? "Vue : centrée" : "Vue : 2 colonnes";
-    btn.setAttribute("aria-pressed", String(centered));
-  }
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved === "center") apply("center");
-  btn.addEventListener("click", function () {
-    var next = hero.classList.contains("hero--center") ? "columns" : "center";
-    apply(next);
-    try { localStorage.setItem(KEY, next); } catch (e) {}
-  });
-})();
-</script>
 </body>
 </html>

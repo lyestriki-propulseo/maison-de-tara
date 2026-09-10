@@ -34,6 +34,8 @@ function initBooking(form) {
   const capMsg = document.getElementById('rf-capacity-msg');
   const msg = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('[type="submit"]');
+  const nameField = form.nom;
+  const emailField = form.email;
 
   let sessions = [];
   let events = [];
@@ -202,6 +204,12 @@ function initBooking(form) {
 
   form.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener('change', toggleMode));
   form.querySelectorAll('input[name="participants"]').forEach((r) => r.addEventListener('change', refreshCapacity));
+  [nameField, emailField].forEach((field) => {
+    field.addEventListener('input', () => {
+      field.removeAttribute('aria-invalid');
+      field.removeAttribute('aria-describedby');
+    });
+  });
   slotsBox.addEventListener('change', refreshCapacity);
   dateHidden.addEventListener('change', renderSlots);
 
@@ -213,19 +221,26 @@ function initBooking(form) {
     const targetId = mode === 'atelier'
       ? form.querySelector('input[name="creneau"]:checked')?.value
       : eventsList.dataset.selected;
-    const nom = form.nom.value.trim();
-    const email = form.email.value.trim();
+    const nom = nameField.value.trim();
+    const email = emailField.value.trim();
+
+    [nameField, emailField].forEach((field) => field.removeAttribute('aria-invalid'));
 
     if (!targetId) {
       setMsg(mode === 'atelier' ? 'Merci de choisir une date et un créneau.' : 'Merci de choisir un événement.');
       return;
     }
-    if (!nom || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-      setMsg('Merci de compléter votre nom et un email valide.');
+    if (!nom) {
+      showFieldError(nameField, 'Indiquez votre nom pour continuer.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      showFieldError(emailField, 'Indiquez une adresse e-mail valide pour continuer.');
       return;
     }
 
     submitBtn.disabled = true;
+    form.setAttribute('aria-busy', 'true');
     setMsg('Redirection vers le paiement…');
     try {
       const res = await fetch(CHECKOUT_URL, {
@@ -244,16 +259,31 @@ function initBooking(form) {
       if (!res.ok) {
         setMsg((data && data.message) || 'Une erreur est survenue, merci de réessayer.');
         submitBtn.disabled = false;
+        form.removeAttribute('aria-busy');
+        return;
+      }
+      if (!data || typeof data.url !== 'string') {
+        setMsg('Le lien de paiement est indisponible. Merci de réessayer dans un instant.');
+        submitBtn.disabled = false;
+        form.removeAttribute('aria-busy');
         return;
       }
       window.location.href = data.url;
     } catch (err) {
       setMsg('Une erreur est survenue, merci de réessayer.');
       submitBtn.disabled = false;
+      form.removeAttribute('aria-busy');
     }
   });
 
   function setMsg(text) {
     msg.textContent = text;
+  }
+
+  function showFieldError(field, text) {
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', 'rf-form-msg');
+    setMsg(text);
+    field.focus();
   }
 }

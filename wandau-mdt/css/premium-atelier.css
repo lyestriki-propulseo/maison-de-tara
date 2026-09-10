@@ -186,11 +186,6 @@
 .premium-atelier .hero h1 em{font-style:italic;color:var(--mdt-olive-deep)}
 /* Aligne sur Mon histoire (meme taille/police que hero__intro histoire) */
 .premium-atelier .hero__intro{max-width:36ch;font-size:clamp(1rem, 1vw + .6rem, 1.15rem);line-height:1.75;color:rgba(44,36,25,.82);margin:0}
-/* Toggle centré / 2 colonnes — variante hero--center (comme la boutique) */
-.premium-atelier .hero.hero--center{ text-align:center; }
-.premium-atelier .hero.hero--center .hero__grid{ grid-template-columns:1fr; justify-items:center; max-width:62ch; margin:0 auto; }
-.premium-atelier .hero.hero--center .hero__intro{ margin-left:auto; margin-right:auto; text-align:center; }
-.hero-layout-toggle{ position:fixed; bottom:1rem; right:1rem; z-index:999; background:var(--blanc, #FBF7EC); border:1px solid var(--laiton, #B8924D); padding:.6rem 1.2rem; border-radius:999px; font-family:var(--sans, Inter, sans-serif); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; box-shadow:0 4px 16px rgba(44,36,25,.12); }
 /* Retour Tara #17 : 21rem bridait la photo SOUS la largeur de sa propre colonne
    (~375px) ; 30rem la laisse remplir les ~469px de la grille 6fr/5fr.
    Le min() borne en plus la photo par la hauteur d'ecran, pour que le hero tienne
@@ -360,6 +355,9 @@
   background:rgba(240,236,219,.6);margin-bottom:2rem;
 }
 .premium-atelier .acompte strong{color:var(--terracotta)}
+.premium-atelier .refund-policy{
+  margin:-1rem 0 1.8rem;font-size:.82rem;line-height:1.6;color:rgba(44,36,25,.72);
+}
 
 /* sélecteur de date maison (js/mdt-datepicker.js) */
 .premium-atelier .dp{position:relative}

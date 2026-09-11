@@ -66,3 +66,10 @@ Document Tara/
 
 # skill projetpropul — marqueur local (id CRM + dernier commit reporté), pas partagé
 .propulseo.json
+
+# Local visual-review artefacts and third-party reference material
+.playwright-mcp/
+/accueil-after.png
+/hero.png
+/kit-python.zip
+/pastel-comments-*-exported-*.csv

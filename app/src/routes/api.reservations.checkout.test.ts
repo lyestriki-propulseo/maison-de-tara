@@ -93,7 +93,7 @@ test('événement avec acompte désactivé : pas de Stripe, réservation confirm
   )
   expect(res.status).toBe(200)
   const body = await res.json()
-  expect(body.url).toContain('confirmation-reservation.html')
+  expect(body.url).toContain('confirmation-reservation')
   expect(rpcMock).toHaveBeenCalledWith('confirm_reservation_payment', expect.objectContaining({ p_amount_cents: 0 }))
 })
 

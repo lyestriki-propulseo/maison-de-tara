@@ -44,8 +44,8 @@ function mapRow(row) {
     titre: row.title,
     type: TYPE_MAP[row.event_type] || 'evenement',
     description: row.description || '',
-    // Tunnel de réservation unifié (atelier.html) : ?event=<id> présélectionne cet événement.
-    lienReservation: 'atelier.html?event=' + encodeURIComponent(row.id) + '#reserver',
+    // Tunnel de réservation unifié (/atelier) : ?event=<id> présélectionne cet événement.
+    lienReservation: '/atelier?event=' + encodeURIComponent(row.id) + '#reserver',
   };
 }
 

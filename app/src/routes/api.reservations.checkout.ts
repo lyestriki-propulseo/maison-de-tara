@@ -99,7 +99,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       console.error('[api:reservations.checkout] confirm_reservation_payment (branche 0€) a échoué :', error.message, { targetId, customerEmail })
       return json({ message: 'Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.' }, 400)
     }
-    return json({ url: `${SITE_ORIGIN}/confirmation-reservation.html?id=${id}` })
+    return json({ url: `${SITE_ORIGIN}/confirmation-reservation?id=${id}` })
   }
 
   const stripe = stripeClient()
@@ -118,8 +118,8 @@ export async function checkoutHandler(request: Request): Promise<Response> {
     ],
     customer_email: customerEmail,
     metadata,
-    success_url: `${SITE_ORIGIN}/confirmation-reservation.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_ORIGIN}/atelier.html?paiement=annule#reserver`,
+    success_url: `${SITE_ORIGIN}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_ORIGIN}/atelier?paiement=annule#reserver`,
   })
 
   if (!session.url) return json({ message: 'Stripe n’a pas renvoyé de lien de paiement' }, 500)

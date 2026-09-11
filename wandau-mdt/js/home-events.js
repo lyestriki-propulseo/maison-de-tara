@@ -53,7 +53,7 @@ import { loadEvents } from './site-events.js';
 
         var cta = el('a', 'btn ' + (featured ? 'btn--primary' : 'btn--outline') + ' event-row__cta',
           e.lienReservation ? 'Réserver' : 'En savoir plus');
-        cta.href = e.lienReservation || 'calendrier.html';
+        cta.href = e.lienReservation || '/calendrier';
         art.appendChild(cta);
 
         root.appendChild(art);
@@ -67,7 +67,7 @@ import { loadEvents } from './site-events.js';
     .catch(function () {
       var p = el('p', 'events-fallback', 'Le programme arrive bientôt. Retrouvez toutes les dates sur la page calendrier.');
       var a = el('a', '', 'Voir le calendrier');
-      a.href = 'calendrier.html';
+      a.href = '/calendrier';
       p.appendChild(document.createTextNode(' '));
       p.appendChild(a);
       root.appendChild(p);

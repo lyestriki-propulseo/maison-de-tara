@@ -416,6 +416,29 @@ body.has-hero header.slider {
   font-weight: 400;
 }
 
+/* Hero — la signature est le logotype fourni par la cliente. Le PNG comporte
+   une marge transparente généreuse : ce cadre la masque sans altérer le fichier
+   source et garde une composition stable à toutes les tailles d'écran. */
+.hero-title__intro { display: block; }
+.hero-brandmark {
+  display: block;
+  position: relative;
+  width: clamp(16rem, 34vw, 41rem);
+  aspect-ratio: 3436 / 956;
+  overflow: hidden;
+  margin-top: -0.08em;
+}
+.slider .slider-texts .swiper-slide .hero-brandmark > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 232.83% !important;
+  max-width: none !important;
+  height: auto !important;
+  transform: translate(-50%, -50%) !important;
+}
+
 /* Paragraphe sous H1 (taille + retrait proportionnels) */
 .slider .slider-texts .swiper-slide p {
   font-family: var(--mdt-font-body) !important;
@@ -1211,6 +1234,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
 @media (max-width: 1200px) {
   body.has-hero header.slider { height: auto !important; min-height: 100vh; padding-top: 176px !important; padding-bottom: 80px !important; }
   .slider .slider-texts .swiper-slide p { max-width: 100%; }
+  .hero-brandmark { width: min(100%, 41rem); }
 }
 @media (max-width: 600px) {
   /* Logo pré-scroll ramené à une taille mobile (le clamp(64px,11.5vh,112px)
@@ -1218,6 +1242,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
      recouvrait le H1) + offset du hero recalé dessous. */
   body.has-hero:not(.is-scrolled) .mdt-logo__image { height: 56px; }
   body.has-hero header.slider { padding-top: 148px !important; }
+  .hero-brandmark { width: min(100%, 27rem); }
 }
 
 /* ============================================================

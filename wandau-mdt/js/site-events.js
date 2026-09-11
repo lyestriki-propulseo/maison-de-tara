@@ -49,11 +49,19 @@ function mapRow(row) {
   };
 }
 
+// Le calendrier public est une vitrine des rendez-vous à venir. Les éléments
+// passés restent bien dans l'admin (historique et réservations) mais ne sont
+// plus montrés aux visiteurs dès le lendemain, heure de Paris.
+function keepUpcoming(events) {
+  const today = PARIS_DATE.format(new Date());
+  return events.filter((event) => typeof event.date === 'string' && event.date >= today);
+}
+
 function fromStaticFile() {
   return fetch('data/events.json').then((r) => {
     if (!r.ok) throw new Error(String(r.status));
     return r.json();
-  });
+  }).then((events) => (Array.isArray(events) ? keepUpcoming(events) : []));
 }
 
 // Renvoie une promesse de tableau d'événements au format { date, titre, type, description, lienReservation }.
@@ -68,6 +76,6 @@ export function loadEvents() {
       if (!r.ok) throw new Error(String(r.status));
       return r.json();
     })
-    .then((rows) => (Array.isArray(rows) ? rows.map(mapRow) : []))
+    .then((rows) => (Array.isArray(rows) ? keepUpcoming(rows.map(mapRow)) : []))
     .catch(fromStaticFile);
 }

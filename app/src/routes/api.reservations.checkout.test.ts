@@ -22,11 +22,23 @@ afterEach(() => {
   vi.doUnmock('@/lib/stripe/client')
 })
 
-function request(body: unknown) {
+function request(body: unknown, origin?: string) {
   return new Request('http://localhost/api/reservations/checkout', {
     method: 'POST',
     body: JSON.stringify(body),
+    headers: origin ? { Origin: origin } : {},
   })
+}
+
+function mockStripeOk() {
+  const createMock = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
+  vi.doMock('@/lib/supabase/admin', () => ({
+    supabaseAdmin: () => ({ rpc: vi.fn().mockResolvedValue({ data: true, error: null }) }),
+  }))
+  vi.doMock('@/lib/stripe/client', () => ({
+    stripeClient: () => ({ checkout: { sessions: { create: createMock } } }),
+  }))
+  return createMock
 }
 
 const validBody = {
@@ -125,4 +137,25 @@ test('événement avec acompte désactivé : erreur métier de confirm_reservati
   expect(res.status).toBe(400)
   const body = await res.json()
   expect(body.message).toBe('Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.')
+})
+
+test.each(['https://maisondetara.com', 'https://www.maisondetara.com', 'https://maisondetara.propulseo-site.com'])(
+  'domaine du site %s accepté : CORS et retours Stripe restent sur ce domaine',
+  async (origin) => {
+    const createMock = mockStripeOk()
+    const { checkoutHandler } = await import('./api.reservations.checkout')
+    const res = await checkoutHandler(request(validBody, origin))
+    expect(res.headers.get('Access-Control-Allow-Origin')).toBe(origin)
+    const params = createMock.mock.calls[0]?.[0]
+    expect(params.success_url).toBe(`${origin}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`)
+    expect(params.cancel_url).toBe(`${origin}/atelier?paiement=annule#reserver`)
+  },
+)
+
+test('domaine inconnu ou absent : CORS et retours retombent sur maisondetara.com', async () => {
+  const createMock = mockStripeOk()
+  const { checkoutHandler } = await import('./api.reservations.checkout')
+  const res = await checkoutHandler(request(validBody, 'https://evil.example'))
+  expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://maisondetara.com')
+  expect(createMock.mock.calls[0]?.[0].success_url).toMatch(/^https:\/\/maisondetara\.com\//)
 })

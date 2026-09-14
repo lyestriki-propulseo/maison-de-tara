@@ -4,7 +4,9 @@ import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { stripeClient } from '@/lib/stripe/client'
 
-const SITE_ORIGIN = 'https://maisondetara.propulseo-site.com'
+const PRIMARY_SITE_ORIGIN = 'https://maisondetara.com'
+// L'ancien domaine reste accepté pendant la transition vers maisondetara.com.
+const SITE_ORIGINS = [PRIMARY_SITE_ORIGIN, 'https://www.maisondetara.com', 'https://maisondetara.propulseo-site.com']
 
 const bodySchema = z.object({
   mode: z.enum(['atelier', 'evenement']),
@@ -15,22 +17,32 @@ const bodySchema = z.object({
   customerPhone: z.string().trim().optional(),
 })
 
-function corsHeaders(): Record<string, string> {
+/** Domaine du site appelant s'il est connu, sinon le domaine principal. */
+function siteOrigin(request: Request): string {
+  const origin = request.headers.get('Origin') ?? ''
+  return SITE_ORIGINS.includes(origin) ? origin : PRIMARY_SITE_ORIGIN
+}
+
+function corsHeaders(origin: string): Record<string, string> {
   return {
-    'Access-Control-Allow-Origin': SITE_ORIGIN,
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    Vary: 'Origin',
   }
 }
 
-function json(body: unknown, status = 200): Response {
+function jsonResponse(body: unknown, status: number, origin: string): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders() },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
   })
 }
 
 export async function checkoutHandler(request: Request): Promise<Response> {
+  const site = siteOrigin(request)
+  const json = (body: unknown, status = 200) => jsonResponse(body, status, site)
+
   const payload: unknown = await request.json().catch(() => null)
   const parsed = bodySchema.safeParse(payload)
   if (!parsed.success) return json({ message: 'Requête invalide' }, 400)
@@ -99,7 +111,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       console.error('[api:reservations.checkout] confirm_reservation_payment (branche 0€) a échoué :', error.message, { targetId, customerEmail })
       return json({ message: 'Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.' }, 400)
     }
-    return json({ url: `${SITE_ORIGIN}/confirmation-reservation?id=${id}` })
+    return json({ url: `${site}/confirmation-reservation?id=${id}` })
   }
 
   const stripe = stripeClient()
@@ -118,8 +130,8 @@ export async function checkoutHandler(request: Request): Promise<Response> {
     ],
     customer_email: customerEmail,
     metadata,
-    success_url: `${SITE_ORIGIN}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_ORIGIN}/atelier?paiement=annule#reserver`,
+    success_url: `${site}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${site}/atelier?paiement=annule#reserver`,
   })
 
   if (!session.url) return json({ message: 'Stripe n’a pas renvoyé de lien de paiement' }, 500)
@@ -130,7 +142,7 @@ export const Route = createFileRoute('/api/reservations/checkout')({
   server: {
     handlers: {
       POST: ({ request }) => checkoutHandler(request),
-      OPTIONS: () => new Response(null, { status: 204, headers: corsHeaders() }),
+      OPTIONS: ({ request }) => new Response(null, { status: 204, headers: corsHeaders(siteOrigin(request)) }),
     },
   },
 })

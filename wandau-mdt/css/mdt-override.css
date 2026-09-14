@@ -423,10 +423,12 @@ body.has-hero header.slider {
 .hero-brandmark {
   display: block;
   position: relative;
-  width: clamp(16rem, 34vw, 41rem);
+  /* Retour Tara 12/09 : logo un peu réduit et décollé du texte, sinon le haut de
+     la fleur touche le « v » de « Bienvenue ». */
+  width: clamp(14rem, 30vw, 36rem);
   aspect-ratio: 3436 / 956;
   overflow: hidden;
-  margin-top: -0.08em;
+  margin-top: 0.12em;
 }
 .slider .slider-texts .swiper-slide .hero-brandmark > img {
   position: absolute;
@@ -1234,7 +1236,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
 @media (max-width: 1200px) {
   body.has-hero header.slider { height: auto !important; min-height: 100vh; padding-top: 176px !important; padding-bottom: 80px !important; }
   .slider .slider-texts .swiper-slide p { max-width: 100%; }
-  .hero-brandmark { width: min(100%, 41rem); }
+  .hero-brandmark { width: min(100%, 36rem); }
 }
 @media (max-width: 600px) {
   /* Logo pré-scroll ramené à une taille mobile (le clamp(64px,11.5vh,112px)
@@ -1242,7 +1244,7 @@ body.has-hero:not(.is-scrolled) .mdt-header__cta .btn--primary:focus-visible {
      recouvrait le H1) + offset du hero recalé dessous. */
   body.has-hero:not(.is-scrolled) .mdt-logo__image { height: 56px; }
   body.has-hero header.slider { padding-top: 148px !important; }
-  .hero-brandmark { width: min(100%, 27rem); }
+  .hero-brandmark { width: min(100%, 24rem); }
 }
 
 /* ============================================================

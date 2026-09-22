@@ -1,7 +1,11 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
-import { updateContentImageSchema, updateContentTextSchema } from '@/lib/content'
+import {
+  updateContentImageFocusSchema,
+  updateContentImageSchema,
+  updateContentTextSchema,
+} from '@/lib/content'
 
 // CRUD du contenu éditable du site (photos + textes). Écran unique /admin/contenu, filtré par
 // page côté client. Le site public lit séparément en anon (RLS), voir js/site-content.js.
@@ -16,7 +20,9 @@ export const listContentBlocks = createServerFn({ method: 'GET' })
     const db = supabaseAdmin()
     const { data, error } = await db
       .from('content_blocks')
-      .select('id, page, section, field_key, field_type, label, text_value, image_path, image_caption, sort_order')
+      .select(
+        'id, page, section, field_key, field_type, label, text_value, image_path, image_caption, image_focus_x, image_focus_y, sort_order',
+      )
       .order('page')
       .order('sort_order')
     throwDatabaseError(error, 'Impossible de charger le contenu du site')
@@ -30,6 +36,8 @@ export const listContentBlocks = createServerFn({ method: 'GET' })
       textValue: row.text_value,
       imagePath: row.image_path,
       imageCaption: row.image_caption,
+      imageFocusX: row.image_focus_x,
+      imageFocusY: row.image_focus_y,
       sortOrder: row.sort_order,
     }))
   })
@@ -81,8 +89,30 @@ export const updateContentImage = createServerFn({ method: 'POST' })
 
     const { error } = await db
       .from('content_blocks')
-      .update({ image_path: publicUrl.publicUrl, image_caption: data.caption || null })
+      .update({
+        image_path: publicUrl.publicUrl,
+        image_caption: data.caption || null,
+        image_focus_x: data.focusX,
+        image_focus_y: data.focusY,
+      })
       .eq('id', data.id)
     throwDatabaseError(error, 'Impossible d’enregistrer la photo')
     return { id: data.id, imagePath: publicUrl.publicUrl }
+  })
+
+export const updateContentImageFocus = createServerFn({ method: 'POST' })
+  .middleware([staffMiddleware])
+  .validator(updateContentImageFocusSchema)
+  .handler(async ({ data }) => {
+    const db = supabaseAdmin()
+    const { error } = await db
+      .from('content_blocks')
+      .update({
+        image_caption: data.caption || null,
+        image_focus_x: data.focusX,
+        image_focus_y: data.focusY,
+      })
+      .eq('id', data.id)
+    throwDatabaseError(error, 'Impossible d’enregistrer le cadrage')
+    return { id: data.id }
   })

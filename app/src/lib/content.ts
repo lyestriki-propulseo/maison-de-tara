@@ -28,4 +28,13 @@ export const updateContentImageSchema = z.object({
   id: z.uuid(),
   dataUrl: z.string().startsWith('data:image/'),
   caption: z.string().trim().max(200).optional(),
+  focusX: z.number().min(0).max(100),
+  focusY: z.number().min(0).max(100),
+})
+
+export const updateContentImageFocusSchema = z.object({
+  id: z.uuid(),
+  caption: z.string().trim().max(200).optional(),
+  focusX: z.number().min(0).max(100),
+  focusY: z.number().min(0).max(100),
 })

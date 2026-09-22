@@ -32,7 +32,7 @@ const TEXT = [
   ['Hero', 'boutique.hero.titre1', 'Titre — ligne 1', 'La Boutique'],
   ['Hero', 'boutique.hero.titre2', 'Titre — ligne 2', 'de la Maison'],
   ['Hero', 'boutique.hero.texte1', 'Récit — premier paragraphe', "J'ai toujours aimé les maisons. Les maisons où l'on reçoit, où l'on prend le temps de dresser une jolie table, où les objets ont une histoire et où chaque détail participe à créer une atmosphère chaleureuse."],
-  ['Hero', 'boutique.hero.texte2', 'Récit — second paragraphe', "C'est cette envie que l'on retrouve dans la boutique de la maison. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques, art de la table et idées cadeaux choisis au fil de mes découvertes, de mes voyages et de mes coups de cœur."],
+  ['Hero', 'boutique.hero.texte2', 'Récit — second paragraphe', "C'est cette envie que l'on retrouve dans la boutique de la maison. Vous y trouverez une sélection de décoration, textiles, lampes, céramiques et art de la table, choisie au fil de mes découvertes, de mes voyages et de mes coups de cœur."],
 
   ['Galerie', 'boutique.galerie.surtitre', 'Surtitre', 'Ce que vous trouverez'],
   ['Galerie', 'boutique.galerie.titre', 'Titre', 'Une sélection pour la maison.'],
@@ -42,12 +42,8 @@ const TEXT = [
   ['Galerie', 'boutique.galerie.02.texte', 'Vignette 02 — texte', 'Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.'],
   ['Galerie', 'boutique.galerie.03.titre', 'Vignette 03 — titre', 'Céramiques'],
   ['Galerie', 'boutique.galerie.03.texte', 'Vignette 03 — texte', "Des pièces fabriquées à la main ou imaginées par des artisans que j'admire."],
-  ['Galerie', 'boutique.galerie.04.titre', 'Vignette 04 — titre', 'Lampes'],
-  ['Galerie', 'boutique.galerie.04.texte', 'Vignette 04 — texte', "Pour réchauffer la lumière d'une pièce et créer une atmosphère."],
   ['Galerie', 'boutique.galerie.05.titre', 'Vignette 05 — titre', 'Art de la table'],
   ['Galerie', 'boutique.galerie.05.texte', 'Vignette 05 — texte', 'De quoi dresser une jolie table et recevoir comme on aime.'],
-  ['Galerie', 'boutique.galerie.06.titre', 'Vignette 06 — titre', 'Idées cadeaux'],
-  ['Galerie', 'boutique.galerie.06.texte', 'Vignette 06 — texte', 'Pour faire plaisir, ou se faire plaisir, au fil des saisons.'],
 
   ['Artisanat', 'boutique.artisanat.surtitre', 'Surtitre', 'fait main'],
   ['Artisanat', 'boutique.artisanat.titre', 'Titre', "L'artisanat, au cœur de la sélection"],
@@ -65,9 +61,7 @@ const IMAGE = [
   ['Galerie', 'boutique.galerie.02.photo', 'Vignette 02 — photo', 'assets-premium-lp/blockprint-marigold.jpg', null],
   ['Galerie', 'boutique.galerie.interlude.photo', 'Interlude — photo', 'assets-charte/interieur-vase.jpg', "au détour d'une pièce"],
   ['Galerie', 'boutique.galerie.03.photo', 'Vignette 03 — photo', 'assets-premium-lp/ceramique-details.jpg', null],
-  ['Galerie', 'boutique.galerie.04.photo', 'Vignette 04 — photo', 'assets-charte/salon-terracotta.jpg', null],
   ['Galerie', 'boutique.galerie.05.photo', 'Vignette 05 — photo', 'assets-charte/boutique-plateaux.jpg', null],
-  ['Galerie', 'boutique.galerie.06.photo', 'Vignette 06 — photo', 'assets-premium-lp/experience-04-recuperer.jpg', null],
   ['Galerie', 'boutique.galerie.accent.photo', 'Accent — photo', 'assets-charte/tasses-rayees.jpg', 'coup de cœur'],
 ].map(([section, fieldKey, label, filePath, caption]) => ({ section, fieldKey, label, filePath, caption, sortOrder: next() }))
 

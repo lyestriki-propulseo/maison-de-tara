@@ -27,8 +27,13 @@ function applyText(el, value) {
   el.textContent = value;
 }
 
-function applyImage(el, imagePath, caption) {
+function applyImage(el, imagePath, caption, focusX, focusY) {
   el.src = imagePath;
+  const x = Number(focusX);
+  const y = Number(focusY);
+  if (Number.isFinite(x) && Number.isFinite(y)) {
+    el.style.objectPosition = `${Math.min(100, Math.max(0, x))}% ${Math.min(100, Math.max(0, y))}%`;
+  }
   if (!caption) return;
   el.alt = caption;
   const figure = el.closest('figure');
@@ -66,7 +71,9 @@ function applyRow(row) {
   if (!els.length) return;
   els.forEach((el) => {
     if (row.field_type === 'image') {
-      if (row.image_path) applyImage(el, row.image_path, row.image_caption);
+      if (row.image_path) {
+        applyImage(el, row.image_path, row.image_caption, row.image_focus_x, row.image_focus_y);
+      }
     } else if (row.text_value) {
       applyText(el, row.text_value);
     }
@@ -79,7 +86,7 @@ async function fetchPage(page) {
     SUPABASE_URL +
       '/rest/v1/content_blocks?page=eq.' +
       encodeURIComponent(page) +
-      '&select=field_key,field_type,text_value,image_path,image_caption',
+      '&select=field_key,field_type,text_value,image_path,image_caption,image_focus_x,image_focus_y',
     {
       headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
       // Sans ça, le navigateur peut resservir une réponse mise en cache pour cette

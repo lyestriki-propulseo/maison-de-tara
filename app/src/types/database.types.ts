@@ -21,6 +21,8 @@ export type Database = {
           text_value: string | null
           image_path: string | null
           image_caption: string | null
+          image_focus_x: number
+          image_focus_y: number
           sort_order: number
           updated_at: string
         }
@@ -34,6 +36,8 @@ export type Database = {
           text_value?: string | null
           image_path?: string | null
           image_caption?: string | null
+          image_focus_x?: number
+          image_focus_y?: number
           sort_order?: number
           updated_at?: string
         }
@@ -47,6 +51,8 @@ export type Database = {
           text_value?: string | null
           image_path?: string | null
           image_caption?: string | null
+          image_focus_x?: number
+          image_focus_y?: number
           sort_order?: number
           updated_at?: string
         }

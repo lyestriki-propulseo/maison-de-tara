@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
-import { listContentBlocks, updateContentImage, updateContentText } from '@/lib/content-data'
+import {
+  listContentBlocks,
+  updateContentImage,
+  updateContentImageFocus,
+  updateContentText,
+} from '@/lib/content-data'
 import { CONTENT_PAGES, contentPageLabel } from '@/lib/content'
 import { ContentImageField } from '@/components/admin/ContentImageField'
 
@@ -39,7 +44,9 @@ function ContenuPage() {
     setPending(row.id)
     setFeedback(undefined)
     try {
-      await updateContentText({ data: { id: row.id, textValue: drafts[row.id] ?? row.textValue ?? '' } })
+      await updateContentText({
+        data: { id: row.id, textValue: drafts[row.id] ?? row.textValue ?? '' },
+      })
       await router.invalidate()
       setFeedback({ kind: 'success', message: 'Texte enregistré.' })
     } catch (error) {
@@ -49,15 +56,39 @@ function ContenuPage() {
     }
   }
 
-  async function saveImage(row: ContentRow, dataUrl: string, caption: string) {
+  async function saveImage(
+    row: ContentRow,
+    dataUrl: string,
+    caption: string,
+    focusX: number,
+    focusY: number,
+  ) {
     setPending(row.id)
     setFeedback(undefined)
     try {
-      await updateContentImage({ data: { id: row.id, dataUrl, caption } })
+      await updateContentImage({ data: { id: row.id, dataUrl, caption, focusX, focusY } })
       await router.invalidate()
       setFeedback({ kind: 'success', message: 'Photo enregistrée.' })
+      return true
     } catch (error) {
       setFeedback({ kind: 'error', message: errorMessage(error) })
+      return false
+    } finally {
+      setPending(null)
+    }
+  }
+
+  async function saveImageFocus(row: ContentRow, caption: string, focusX: number, focusY: number) {
+    setPending(row.id)
+    setFeedback(undefined)
+    try {
+      await updateContentImageFocus({ data: { id: row.id, caption, focusX, focusY } })
+      await router.invalidate()
+      setFeedback({ kind: 'success', message: 'Cadrage enregistré.' })
+      return true
+    } catch (error) {
+      setFeedback({ kind: 'error', message: errorMessage(error) })
+      return false
     } finally {
       setPending(null)
     }
@@ -68,8 +99,12 @@ function ContenuPage() {
       <div className="tara-page-heading">
         <div>
           <p className="text-sm font-medium text-[#4A5D2E]">Le site</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-[-0.025em] text-[#1A1815]">Contenu du site</h1>
-          <p className="tara-page-intro">Les photos et les textes de chaque page, modifiables directement ici.</p>
+          <h1 className="mt-1 text-3xl font-semibold tracking-[-0.025em] text-[#1A1815]">
+            Contenu du site
+          </h1>
+          <p className="tara-page-intro">
+            Les photos et les textes de chaque page, modifiables directement ici.
+          </p>
         </div>
       </div>
 
@@ -82,7 +117,9 @@ function ContenuPage() {
             type="button"
             onClick={() => setPage(p.value)}
             className={`min-h-9 rounded-full px-3.5 text-xs font-semibold transition-colors ${
-              page === p.value ? 'bg-[#4A5D2E] text-white' : 'bg-[#4A5D2E]/8 text-[#31421E] hover:bg-[#4A5D2E]/15'
+              page === p.value
+                ? 'bg-[#4A5D2E] text-white'
+                : 'bg-[#4A5D2E]/8 text-[#31421E] hover:bg-[#4A5D2E]/15'
             }`}
           >
             {p.label}
@@ -91,11 +128,18 @@ function ContenuPage() {
       </div>
 
       {sections.length === 0 ? (
-        <p className="mt-8 text-center text-sm text-neutral-600">Rien à afficher pour « {contentPageLabel(page)} » pour l’instant.</p>
+        <p className="mt-8 text-center text-sm text-neutral-600">
+          Rien à afficher pour « {contentPageLabel(page)} » pour l’instant.
+        </p>
       ) : (
         sections.map(([section, rows]) => (
-          <section key={section} className="mt-6 rounded-xl border border-[#4A5D2E]/15 bg-white p-5">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[#4A5D2E]">{section}</h2>
+          <section
+            key={section}
+            className="mt-6 rounded-xl border border-[#4A5D2E]/15 bg-white p-5"
+          >
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[#4A5D2E]">
+              {section}
+            </h2>
             <div className="mt-4 flex flex-col gap-5">
               {rows.map((row) =>
                 row.fieldType === 'image' ? (
@@ -104,9 +148,15 @@ function ContenuPage() {
                     label={row.label}
                     currentImagePath={row.imagePath}
                     currentCaption={row.imageCaption}
+                    currentFocusX={row.imageFocusX}
+                    currentFocusY={row.imageFocusY}
                     pending={pending === row.id}
-                    onSave={(dataUrl, caption) => saveImage(row, dataUrl, caption)}
-                    onCancel={() => {}}
+                    onSave={(dataUrl, caption, focusX, focusY) =>
+                      saveImage(row, dataUrl, caption, focusX, focusY)
+                    }
+                    onSaveFocus={(caption, focusX, focusY) =>
+                      saveImageFocus(row, caption, focusX, focusY)
+                    }
                   />
                 ) : (
                   <label key={row.id} className="block text-xs font-medium text-neutral-600">

@@ -1124,8 +1124,9 @@ body.is-scrolled .mdt-header { top: 0; }
   border-bottom: 1px solid var(--color-line);
   transition: color 0.3s;
   min-height: 44px;
-  display: flex;
-  align-items: center;
+  /* block, pas flex : en flex, « La » et <em>boutique</em> deviennent deux
+     éléments séparés et l'espace entre eux disparaît (« Laboutique »). */
+  display: block;
   text-decoration: none;
 }
 .drawer__nav a:hover,

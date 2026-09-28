@@ -483,3 +483,10 @@
   .premium-calendrier .cal-nav { width: 44px; height: 44px; }
 }
 
+
+/* Aucun événement publié : le message « bientôt disponible » s'affichait deux
+   fois une fois les colonnes empilées (programme + carte). Sur téléphone on
+   masque la carte quand elle ne contient que ce message (audit 28/09). */
+@media (max-width: 767px) {
+  .premium-calendrier .cal-card:has(> .cal-fallback:only-child) { display: none; }
+}

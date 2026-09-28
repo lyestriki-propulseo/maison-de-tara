@@ -430,3 +430,8 @@
   .premium-histoire .corps .lead::first-letter{ font-size:3.8em; }
 }
 
+
+/* « ? » seul sur sa ligne (audit 28/09) : lignes équilibrées sur mobile. */
+@media (max-width: 767px){
+  .premium-histoire .page-envoi__script{text-wrap:balance}
+}

@@ -2127,3 +2127,12 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
     inset: -14px -6px;
   }
 }
+
+/* MOBILE — pied de page et pages légales (audit 28/09) */
+@media (max-width: 767px) {
+  /* Coordonnées : une par ligne, sans les « · » qui restaient seuls en bout de ligne. */
+  .mdt-footer-coords { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .mdt-footer-coords .dot { display: none; }
+  /* Mentions / confidentialité : même marge latérale que les autres pages (12 → 20 px). */
+  .page-legale .content-section .container { padding-inline: 20px; }
+}

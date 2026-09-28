@@ -605,3 +605,9 @@
   .premium-atelier .pill span{display:inline-flex;align-items:center;min-height:44px}
   .premium-atelier .pills--num .pill span{min-width:44px;justify-content:center}
 }
+
+/* Numéros de chapitre 01-04 : alignés sur le texte (ils touchaient le bord
+   gauche de l'écran, x = 0) — audit 28/09. */
+@media (max-width:560px){
+  .premium-atelier .chap__num{padding-inline:20px}
+}

@@ -361,6 +361,16 @@ body.has-hero header.slider {
   background: var(--mdt-hero-bg);
 }
 
+/* Mobile : pas de zoom d'entrée (scale 1.4 → 1 dans style.css). Pendant
+   l'animation le hero mesurait 140 % de l'écran : la page s'élargissait à
+   ~470 px et le burger du header fixe sortait de l'écran. On garde le fondu. */
+@media (max-width: 767px) {
+  .slider,
+  .page-header {
+    transform: none;
+  }
+}
+
 /* Layer wallpaper tara-green par dessus, mix-blend screen — donne la texture fleurie de la LP */
 .slider .slider-images .swiper-slide.mdt-slide-bg::before {
   content: "";

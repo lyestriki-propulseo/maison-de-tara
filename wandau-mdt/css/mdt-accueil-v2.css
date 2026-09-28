@@ -119,6 +119,9 @@ body.av2 #newsletter form button { border-radius: 999px !important; }
     margin-inline: 0;
     padding-bottom: 6px;
     scrollbar-width: none;
+    /* Centré + overflow = la 1re carte (L'Atelier) sort à gauche, hors
+       d'atteinte du scroll. Bootstrap met !important sur justify-content-center. */
+    justify-content: flex-start !important;
   }
   body.av2 #univers .row.justify-content-center::-webkit-scrollbar { display: none; }
   body.av2 #univers .row.justify-content-center > [class*="col-"] {

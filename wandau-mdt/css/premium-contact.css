@@ -536,3 +536,9 @@
 .premium-contact .dp__day.is-selected{background:var(--terracotta);color:var(--blanc)}
 .premium-contact .dp__note{font-size:.72rem;font-style:italic;color:color-mix(in srgb, var(--encre) 55%, transparent);margin-top:.5rem;text-align:center}
 
+
+/* Mobile : cibles tactiles ≥ 44 px (audit 28/09) — desktop inchangé. */
+@media (max-width: 767px){
+  .premium-contact .pill span{display:inline-flex;align-items:center;min-height:44px}
+  .premium-contact .coord a{display:inline-block;padding-block:10px;margin-block:-10px}
+}

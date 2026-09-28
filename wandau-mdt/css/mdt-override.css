@@ -2095,3 +2095,35 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
     body.has-hero header.slider { min-height: 100dvh; }
   }
 }
+
+/* ============================================================
+   MOBILE — cibles tactiles ≥ 44 px + menu plein écran réel (28/09)
+   Tout est sous 767 px : le desktop ne bouge pas.
+   Pour les liens en ligne (footer, cartes, note newsletter) on agrandit
+   la zone de tap par un pseudo-élément invisible : la mise en page ne
+   bouge pas, seul le doigt a plus de marge.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Menu : 100vh compte la barre Safari → le bas (tél./e-mail) passait
+     dessous. dvh = hauteur visible, et défilement interne en secours. */
+  .drawer__panel { height: 100vh; height: 100dvh; overflow-y: auto; }
+  .drawer__contact a { min-height: 44px; }
+
+  .mdt-header__cta .btn { min-height: 44px; }
+  .mdt-logo { min-height: 44px; }
+
+  .mdt-card-cta,
+  .mdt-footer-nav a,
+  .mdt-footer-coords a,
+  .mdt-footer-bottom a,
+  .newsletter-box .form small a { position: relative; }
+  .mdt-card-cta::before,
+  .mdt-footer-nav a::before,
+  .mdt-footer-coords a::before,
+  .mdt-footer-bottom a::before,
+  .newsletter-box .form small a::before {
+    content: "";
+    position: absolute;
+    inset: -14px -6px;
+  }
+}

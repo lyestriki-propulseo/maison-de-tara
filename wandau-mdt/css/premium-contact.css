@@ -475,8 +475,13 @@
 @media (max-width: 600px) {
   .premium-contact .field input,
   .premium-contact .field textarea{font-size:1rem}
-  /* CTA du hero centre sur telephone. */
-  .premium-contact .hero-cta{text-align:center}
+  /* CTA du hero : empilés, espacés, même largeur (retour Tara 28/09 : les deux
+     boutons se touchaient et n'avaient pas la même largeur). */
+  .premium-contact .hero-cta{display:flex; flex-direction:column; align-items:center; gap:12px}
+  .premium-contact .hero-cta .btn{width:min(100%, 280px); justify-content:center; margin:0}
+  /* Arche 3/4 dans une photo paysage : centrée, l'enseigne était coupée
+     (« SON de TARA »). On décale le cadrage vers la gauche. */
+  .premium-contact .arch-photo img{object-position:39% 50%}
 }
 
 /* Sélecteur Message / Privatisation + agenda (mêmes composants que le tunnel de réservation,

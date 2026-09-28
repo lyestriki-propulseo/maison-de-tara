@@ -1104,7 +1104,7 @@ body.is-scrolled .mdt-header { top: 0; }
   align-items: center;
   margin-bottom: 40px;
 }
-.drawer__header .mdt-logo__image { height: 44px; }
+/* Logo du drawer : voir « …sauf dans le menu mobile » (bloc has-hero). */
 
 .drawer__close {
   width: 44px;
@@ -1222,6 +1222,10 @@ body.has-hero:not(.is-scrolled) .mdt-nav a::after { background: var(--mdt-laiton
 /* Logo PNG passé en blanc + agrandi sur le hero (proportionnel à la hauteur
    d'écran, ≈110px sur un 1080p), revient en couleur 68px au scroll */
 body.has-hero:not(.is-scrolled) .mdt-logo__image { filter: brightness(0) invert(1); height: clamp(64px, 11.5vh, 112px); }
+/* …sauf dans le menu mobile : son panneau est crème, le logo blanc y
+   devenait invisible (retour Tara 28/09). Couleur d'origine, un peu agrandi. */
+body.has-hero:not(.is-scrolled) .drawer__header .mdt-logo__image,
+.drawer__header .mdt-logo__image { filter: none; height: 56px; }
 body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
 
 /* CTA au-dessus du hero : la couleur d'action est verte, or le hero EST vert

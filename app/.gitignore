@@ -11,3 +11,8 @@ dist-ssr
 .vinxi
 __unconfig*
 todos.json
+
+# Tests E2E Playwright : session du compte de test et rapports
+e2e/.auth/
+e2e/.results/
+e2e/.report/

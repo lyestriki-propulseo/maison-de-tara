@@ -1,6 +1,7 @@
-import { CalendarDays, Clock3, Home, Image, Mail, MessageSquare, Sparkles, Users } from 'lucide-react'
-import { createFileRoute, Outlet, Link } from '@tanstack/react-router'
+import { CalendarDays, Clock3, Home, Image, Mail, MessageSquare } from 'lucide-react'
+import { createFileRoute, Outlet, Link, useLocation } from '@tanstack/react-router'
 import { requireSession } from '@/lib/admin-auth'
+import { RESERVATION_PATHS } from '@/components/admin/ReservationsTabs'
 import taraLogo from '../../assets/mdt_logo_complet_transparent.png?url'
 import '../../components/admin/admin-shell.css'
 
@@ -11,15 +12,20 @@ export const Route = createFileRoute('/admin')({
 })
 
 function AdminLayout() {
+  const pathname = useLocation({ select: (location) => location.pathname })
+  const inReservations = RESERVATION_PATHS.some((path) => pathname.startsWith(path))
   return (
     <div className="tara-admin-shell">
       <header className="tara-admin-mobile-header">
         <img src={taraLogo} alt="Maison de Tara" />
         <nav aria-label="Navigation admin">
           <AdminLink to="/admin" exact>Accueil</AdminLink>
-          <AdminLink to="/admin/agenda">Agenda</AdminLink>
-          <AdminLink to="/admin/programme">Programme</AdminLink>
-          <AdminLink to="/admin/reservations">Réservations</AdminLink>
+          <Link
+            to="/admin/agenda"
+            className={`tara-admin-mobile-link${inReservations ? ' is-active' : ''}`}
+          >
+            Réservations
+          </Link>
           <AdminLink to="/admin/contenu">Contenu</AdminLink>
           <AdminLink to="/admin/horaires">Horaires</AdminLink>
           <AdminLink to="/admin/newsletter">Newsletter</AdminLink>
@@ -44,28 +50,12 @@ function AdminLayout() {
             <Home size={17} aria-hidden="true" />
             Accueil
           </Link>
+          {/* Planning, Événements, Réservations et Réglages : une seule rubrique à onglets. */}
           <Link
             to="/admin/agenda"
-            className="tara-admin-nav-link"
-            activeProps={{ className: 'tara-admin-nav-link is-active' }}
+            className={`tara-admin-nav-link${inReservations ? ' is-active' : ''}`}
           >
             <CalendarDays size={17} aria-hidden="true" />
-            Agenda
-          </Link>
-          <Link
-            to="/admin/programme"
-            className="tara-admin-nav-link"
-            activeProps={{ className: 'tara-admin-nav-link is-active' }}
-          >
-            <Sparkles size={17} aria-hidden="true" />
-            Programme
-          </Link>
-          <Link
-            to="/admin/reservations"
-            className="tara-admin-nav-link"
-            activeProps={{ className: 'tara-admin-nav-link is-active' }}
-          >
-            <Users size={17} aria-hidden="true" />
             Réservations
           </Link>
           <Link
@@ -126,9 +116,6 @@ function AdminLink({
 }: {
   to:
     | '/admin'
-    | '/admin/agenda'
-    | '/admin/programme'
-    | '/admin/reservations'
     | '/admin/contenu'
     | '/admin/horaires'
     | '/admin/newsletter'

@@ -1,11 +1,17 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { AgendaManager } from '@/components/admin/AgendaManager'
+import { ScheduleGridEditor } from '@/components/admin/ScheduleGridEditor'
 
 const invalidate = vi.fn()
 
 vi.mock('@tanstack/react-router', () => ({
   useRouter: () => ({ invalidate }),
+  Link: ({ to, children, className }: { to: string; children: React.ReactNode; className?: string }) => (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  ),
 }))
 
 vi.mock('@/lib/admin-data', () => ({
@@ -57,7 +63,7 @@ describe('AgendaManager', () => {
   test('affiche le détail du créneau sélectionné et ses réservations', () => {
     render(<AgendaManager data={agendaData} />)
 
-    expect(screen.getByRole('heading', { name: 'Agenda' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Planning de l’atelier' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Semaine précédente' })).toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: /samedi 18 juillet.*2 réservations sur 12/i }),
@@ -67,13 +73,32 @@ describe('AgendaManager', () => {
     expect(screen.getByRole('button', { name: 'Bloquer' })).toBeInTheDocument()
   })
 
-  test('bascule vers l’éditeur de grille sans ouvrir de modale', () => {
+  test('affiche les onglets de la rubrique Réservations, sans la grille', () => {
     render(<AgendaManager data={agendaData} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Définir les horaires' }))
+    const tabs = screen.getByRole('navigation', { name: 'Rubrique Réservations' })
+    for (const [label, href] of [
+      ['Planning', '/admin/agenda'],
+      ['Événements', '/admin/programme'],
+      ['Réservations', '/admin/reservations'],
+      ['Réglages', '/admin/reglages'],
+    ]) {
+      expect(within(tabs).getByRole('link', { name: label })).toHaveAttribute('href', href)
+    }
+    expect(screen.queryByRole('heading', { name: 'Grille hebdomadaire' })).not.toBeInTheDocument()
+  })
+})
+
+describe('ScheduleGridEditor', () => {
+  test('affiche la grille existante et enregistre les horaires', () => {
+    const onSave = vi.fn().mockResolvedValue(true)
+    render(<ScheduleGridEditor templates={agendaData.templates} pending={false} onSave={onSave} />)
 
     expect(screen.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('Samedi')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Enregistrer et générer' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
+    expect(onSave).toHaveBeenCalledWith([
+      { weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 },
+    ])
   })
 })

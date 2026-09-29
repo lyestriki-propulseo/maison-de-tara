@@ -4,6 +4,7 @@ import { AlertCircle, CheckCircle2, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lu
 import { deleteEvent, listEvents, upsertEvent } from '@/lib/events-data'
 import { eventInputSchema, eventTypeLabel } from '@/lib/events'
 import { EMPTY_EVENT_FORM, EventForm } from '@/components/admin/EventForm'
+import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 import type { EventFormState } from '@/components/admin/EventForm'
 
 export const Route = createFileRoute('/admin/programme')({
@@ -145,15 +146,17 @@ function ProgrammePage() {
 
   return (
     <div className="tara-admin-page">
+      <ReservationsTabs />
       <div className="tara-page-heading">
         <div>
-          <p className="text-sm font-medium text-[#4A5D2E]">Le site</p>
+          <p className="text-sm font-medium text-[#4A5D2E]">Programme de la maison</p>
           <h1 className="mt-1 text-3xl font-semibold tracking-[-0.025em] text-[#1A1815]">
-            Programme de la maison
+            Événements
           </h1>
           <p className="tara-page-intro">
-            Ateliers, soirées et rendez-vous. Les événements publiés apparaissent sur le site
-            (calendrier + accueil).
+            Ateliers spéciaux, soirées et rendez-vous, avec leurs propres places et leur acompte.
+            Les événements publiés apparaissent sur le site (calendrier + accueil) et se réservent
+            en ligne.
           </p>
         </div>
         <button

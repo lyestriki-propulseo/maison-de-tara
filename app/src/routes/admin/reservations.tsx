@@ -13,6 +13,7 @@ import {
 import type {ReservationStatus} from '@/lib/reservations';
 import { ReservationForm  } from '@/components/admin/ReservationForm'
 import type {ManualReservationInput} from '@/components/admin/ReservationForm';
+import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 
 export const Route = createFileRoute('/admin/reservations')({
   loader: async () => {
@@ -68,6 +69,7 @@ function ReservationsPage() {
 
   return (
     <div className="tara-admin-page">
+      <ReservationsTabs />
       <div className="tara-page-heading">
         <div>
           <p className="text-sm font-medium text-[#4A5D2E]">Le suivi</p>

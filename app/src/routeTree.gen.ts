@@ -16,6 +16,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as NewsletterConfirmRouteImport } from './routes/newsletter.confirm'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as AdminReservationsRouteImport } from './routes/admin/reservations'
+import { Route as AdminReglagesRouteImport } from './routes/admin/reglages'
 import { Route as AdminProgrammeRouteImport } from './routes/admin/programme'
 import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
 import { Route as AdminHorairesRouteImport } from './routes/admin/horaires'
@@ -59,6 +60,11 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
 const AdminReservationsRoute = AdminReservationsRouteImport.update({
   id: '/reservations',
   path: '/reservations',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminReglagesRoute = AdminReglagesRouteImport.update({
+  id: '/reglages',
+  path: '/reglages',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminProgrammeRoute = AdminProgrammeRouteImport.update({
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reglages': typeof AdminReglagesRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reglages': typeof AdminReglagesRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/admin/horaires': typeof AdminHorairesRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/programme': typeof AdminProgrammeRoute
+  '/admin/reglages': typeof AdminReglagesRoute
   '/admin/reservations': typeof AdminReservationsRoute
   '/api/health': typeof ApiHealthRoute
   '/newsletter/confirm': typeof NewsletterConfirmRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/admin/horaires'
     | '/admin/newsletter'
     | '/admin/programme'
+    | '/admin/reglages'
     | '/admin/reservations'
     | '/api/health'
     | '/newsletter/confirm'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/admin/horaires'
     | '/admin/newsletter'
     | '/admin/programme'
+    | '/admin/reglages'
     | '/admin/reservations'
     | '/api/health'
     | '/newsletter/confirm'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/admin/horaires'
     | '/admin/newsletter'
     | '/admin/programme'
+    | '/admin/reglages'
     | '/admin/reservations'
     | '/api/health'
     | '/newsletter/confirm'
@@ -277,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/reservations'
       fullPath: '/admin/reservations'
       preLoaderRoute: typeof AdminReservationsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/reglages': {
+      id: '/admin/reglages'
+      path: '/reglages'
+      fullPath: '/admin/reglages'
+      preLoaderRoute: typeof AdminReglagesRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/admin/programme': {
@@ -352,6 +371,7 @@ interface AdminRouteRouteChildren {
   AdminHorairesRoute: typeof AdminHorairesRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
   AdminProgrammeRoute: typeof AdminProgrammeRoute
+  AdminReglagesRoute: typeof AdminReglagesRoute
   AdminReservationsRoute: typeof AdminReservationsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -363,6 +383,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminHorairesRoute: AdminHorairesRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
   AdminProgrammeRoute: AdminProgrammeRoute,
+  AdminReglagesRoute: AdminReglagesRoute,
   AdminReservationsRoute: AdminReservationsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

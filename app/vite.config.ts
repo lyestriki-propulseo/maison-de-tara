@@ -13,6 +13,8 @@ const config = defineConfig({
     fs: {
       allow: ['..'],
     },
+    // Les rapports et traces Playwright (e2e/) ne doivent pas recharger l'admin pendant les tests.
+    watch: { ignored: ['**/e2e/**'] },
   },
   plugins: [
     devtools(),

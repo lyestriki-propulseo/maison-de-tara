@@ -361,6 +361,16 @@ body.has-hero header.slider {
   background: var(--mdt-hero-bg);
 }
 
+/* Mobile : pas de zoom d'entrée (scale 1.4 → 1 dans style.css). Pendant
+   l'animation le hero mesurait 140 % de l'écran : la page s'élargissait à
+   ~470 px et le burger du header fixe sortait de l'écran. On garde le fondu. */
+@media (max-width: 767px) {
+  .slider,
+  .page-header {
+    transform: none;
+  }
+}
+
 /* Layer wallpaper tara-green par dessus, mix-blend screen — donne la texture fleurie de la LP */
 .slider .slider-images .swiper-slide.mdt-slide-bg::before {
   content: "";
@@ -1094,7 +1104,7 @@ body.is-scrolled .mdt-header { top: 0; }
   align-items: center;
   margin-bottom: 40px;
 }
-.drawer__header .mdt-logo__image { height: 44px; }
+/* Logo du drawer : voir « …sauf dans le menu mobile » (bloc has-hero). */
 
 .drawer__close {
   width: 44px;
@@ -1124,8 +1134,9 @@ body.is-scrolled .mdt-header { top: 0; }
   border-bottom: 1px solid var(--color-line);
   transition: color 0.3s;
   min-height: 44px;
-  display: flex;
-  align-items: center;
+  /* block, pas flex : en flex, « La » et <em>boutique</em> deviennent deux
+     éléments séparés et l'espace entre eux disparaît (« Laboutique »). */
+  display: block;
   text-decoration: none;
 }
 .drawer__nav a:hover,
@@ -1211,6 +1222,10 @@ body.has-hero:not(.is-scrolled) .mdt-nav a::after { background: var(--mdt-laiton
 /* Logo PNG passé en blanc + agrandi sur le hero (proportionnel à la hauteur
    d'écran, ≈110px sur un 1080p), revient en couleur 68px au scroll */
 body.has-hero:not(.is-scrolled) .mdt-logo__image { filter: brightness(0) invert(1); height: clamp(64px, 11.5vh, 112px); }
+/* …sauf dans le menu mobile : son panneau est crème, le logo blanc y
+   devenait invisible (retour Tara 28/09). Couleur d'origine, un peu agrandi. */
+body.has-hero:not(.is-scrolled) .drawer__header .mdt-logo__image,
+.drawer__header .mdt-logo__image { filter: none; height: 56px; }
 body.has-hero:not(.is-scrolled) .burger { color: var(--mdt-sable); }
 
 /* CTA au-dessus du hero : la couleur d'action est verte, or le hero EST vert
@@ -2079,4 +2094,45 @@ body.has-hero .mdt-newsletter::before { display: none !important; }
   @media (max-width: 900px) {
     body.has-hero header.slider { min-height: 100dvh; }
   }
+}
+
+/* ============================================================
+   MOBILE — cibles tactiles ≥ 44 px + menu plein écran réel (28/09)
+   Tout est sous 767 px : le desktop ne bouge pas.
+   Pour les liens en ligne (footer, cartes, note newsletter) on agrandit
+   la zone de tap par un pseudo-élément invisible : la mise en page ne
+   bouge pas, seul le doigt a plus de marge.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Menu : 100vh compte la barre Safari → le bas (tél./e-mail) passait
+     dessous. dvh = hauteur visible, et défilement interne en secours. */
+  .drawer__panel { height: 100vh; height: 100dvh; overflow-y: auto; }
+  .drawer__contact a { min-height: 44px; }
+
+  .mdt-header__cta .btn { min-height: 44px; }
+  .mdt-logo { min-height: 44px; }
+
+  .mdt-card-cta,
+  .mdt-footer-nav a,
+  .mdt-footer-coords a,
+  .mdt-footer-bottom a,
+  .newsletter-box .form small a { position: relative; }
+  .mdt-card-cta::before,
+  .mdt-footer-nav a::before,
+  .mdt-footer-coords a::before,
+  .mdt-footer-bottom a::before,
+  .newsletter-box .form small a::before {
+    content: "";
+    position: absolute;
+    inset: -14px -6px;
+  }
+}
+
+/* MOBILE — pied de page et pages légales (audit 28/09) */
+@media (max-width: 767px) {
+  /* Coordonnées : une par ligne, sans les « · » qui restaient seuls en bout de ligne. */
+  .mdt-footer-coords { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .mdt-footer-coords .dot { display: none; }
+  /* Mentions / confidentialité : même marge latérale que les autres pages (12 → 20 px). */
+  .page-legale .content-section .container { padding-inline: 20px; }
 }

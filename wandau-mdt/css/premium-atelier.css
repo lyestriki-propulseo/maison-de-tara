@@ -594,3 +594,20 @@
   }
 }
 
+
+/* Mobile : cibles tactiles ≥ 44 px (audit 28/09) — desktop inchangé. */
+@media (max-width: 767px){
+  .premium-atelier .dp__nav{width:2.75rem;height:2.75rem}
+  /* 7 colonnes dans ~280 px : la largeur suit la colonne (≈ 40 px), la
+     hauteur passe à 44. */
+  .premium-atelier .dp__grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .premium-atelier .dp__day{width:100%;height:2.75rem}
+  .premium-atelier .pill span{display:inline-flex;align-items:center;min-height:44px}
+  .premium-atelier .pills--num .pill span{min-width:44px;justify-content:center}
+}
+
+/* Numéros de chapitre 01-04 : alignés sur le texte (ils touchaient le bord
+   gauche de l'écran, x = 0) — audit 28/09. */
+@media (max-width:560px){
+  .premium-atelier .chap__num{padding-inline:20px}
+}

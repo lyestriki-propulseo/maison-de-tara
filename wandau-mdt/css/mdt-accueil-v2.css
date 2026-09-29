@@ -119,6 +119,9 @@ body.av2 #newsletter form button { border-radius: 999px !important; }
     margin-inline: 0;
     padding-bottom: 6px;
     scrollbar-width: none;
+    /* Centré + overflow = la 1re carte (L'Atelier) sort à gauche, hors
+       d'atteinte du scroll. Bootstrap met !important sur justify-content-center. */
+    justify-content: flex-start !important;
   }
   body.av2 #univers .row.justify-content-center::-webkit-scrollbar { display: none; }
   body.av2 #univers .row.justify-content-center > [class*="col-"] {
@@ -134,3 +137,52 @@ body.av2 #newsletter form button { border-radius: 999px !important; }
 }
 
 /* ---------- Footer & header héritent déjà du langage premium ✓ */
+
+/* ---------- Mobile : finitions (audit 28/09, desktop intact) */
+@media (max-width: 600px) {
+  /* Parcours 01-04 : chaque carte remplit sa colonne → les fonds beiges
+     finissent au même niveau même si un titre prend 3 lignes. */
+  body.av2 #parcours .row.g-0 > [class*="col-"] { display: flex; }
+  body.av2 #parcours .image-icon-box { display: flex; flex-direction: column; width: 100%; }
+  body.av2 #parcours .image-icon-box .content-box { flex: 1; }
+
+  /* Réalisations : 6 grandes photos empilées (~1 800 px) → grille 2 par
+     rangée. Les conteneurs du défilement horizontal desktop s'effacent
+     (display: contents) pour que les photos deviennent les cases de la grille. */
+  body.av2 #realisations .scroll-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-inline: 20px;
+    transform: none !important;
+  }
+  body.av2 #realisations .scroll-wrapper,
+  body.av2 #realisations .scroll-wrapper .container-fluid,
+  body.av2 #realisations .scroll-wrapper .row,
+  body.av2 #realisations .scroll-wrapper .row > [class*="col-"] { display: contents; }
+  body.av2 #realisations .image-box { margin: 0; padding: 0; transform: none !important; }
+  body.av2 #realisations .image-box img {
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  /* Rendez-vous : titre + bouton centrés comme les autres sections. */
+  body.av2 .events-rows__heading {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  body.av2 #home-events .events-fallback { text-align: center; }
+
+  /* Grandes occasions : la 5e vignette, seule sur sa rangée, est centrée. */
+  body.av2 .mdt-occasions-lp > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 6px);
+  }
+}

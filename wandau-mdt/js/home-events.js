@@ -22,8 +22,20 @@ import { loadEvents } from './site-events.js';
     return n;
   }
 
+  function showFallback() {
+    var p = el('p', 'events-fallback', 'Le programme arrive bientôt. Retrouvez toutes les dates sur la page calendrier.');
+    var a = el('a', '', 'Voir le calendrier');
+    a.href = '/calendrier';
+    p.appendChild(document.createTextNode(' '));
+    p.appendChild(a);
+    root.appendChild(p);
+  }
+
   loadEvents()
     .then(function (events) {
+      // Aucun événement publié : sans ce message la section restait un grand blanc.
+      if (!events.length) { showFallback(); return; }
+
       var now = new Date();
       now.setHours(0, 0, 0, 0);
       var tries = events.slice().sort(function (a, b) { return a.date.localeCompare(b.date); });
@@ -64,12 +76,5 @@ import { loadEvents } from './site-events.js';
         setTimeout(function () { window.__mdtLoco.update(); }, 120);
       }
     })
-    .catch(function () {
-      var p = el('p', 'events-fallback', 'Le programme arrive bientôt. Retrouvez toutes les dates sur la page calendrier.');
-      var a = el('a', '', 'Voir le calendrier');
-      a.href = '/calendrier';
-      p.appendChild(document.createTextNode(' '));
-      p.appendChild(a);
-      root.appendChild(p);
-    });
+    .catch(showFallback);
 })();

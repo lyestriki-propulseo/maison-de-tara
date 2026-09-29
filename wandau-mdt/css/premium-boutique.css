@@ -543,3 +543,13 @@
 .premium-boutique .eyebrow{color:#8A6A30}
 .premium-boutique .galerie .surtitre{color:#8A6A30}
 
+
+/* Galerie 2 colonnes (audit 28/09) : photos au même format et titres plus
+   petits, sinon cartes en escalier et titres sur 3 lignes. */
+@media (max-width: 560px){
+  .premium-boutique .murs > .piece:not(.piece--interlude):not(.piece--accent) img{
+    aspect-ratio:3 / 4; height:auto; object-fit:cover;
+  }
+  /* !important : la règle globale h1-h6 de mdt-override.css l'impose aussi. */
+  .premium-boutique .piece h3{font-size:1.15rem !important; line-height:1.2 !important}
+}

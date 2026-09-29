@@ -57,8 +57,9 @@ test('enregistrer les horaires puis remettre les originaux', async ({ page }) =>
   await expect(page.getByRole('status')).toContainText('Horaires enregistrés.')
 })
 
-test('régler l’acompte de l’atelier puis le remettre', async ({ page }) => {
-  await page.goto('/admin/horaires')
+test('régler l’acompte de l’atelier puis le remettre (Réservations › Réglages)', async ({ page }) => {
+  await page.goto('/admin/reglages')
+  await expect(page.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeVisible()
   const field = page.getByLabel('Acompte par personne (€)')
   const original = await field.inputValue()
 

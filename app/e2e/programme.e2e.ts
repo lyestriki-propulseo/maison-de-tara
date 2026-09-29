@@ -79,7 +79,7 @@ test('une soirée qui privatise bloque puis rouvre le créneau d’atelier', asy
   expect(blocked.note).toBe(`Privatisé : ${title}`)
 
   // Dépublier garde la privatisation cochée mais rouvre le créneau.
-  await eventRow(page, title).getByRole('button', { name: 'Dépublier' }).click()
+  await eventRow(page, title).getByRole('button', { name: 'Dépublier', exact: true }).click()
   await expect(page.getByRole('status')).toContainText('Événement dépublié.')
   await expect(page.getByRole('status')).toContainText('rouvert')
   const reopened = await readSlot(slot.id)
@@ -87,7 +87,7 @@ test('une soirée qui privatise bloque puis rouvre le créneau d’atelier', asy
   expect(reopened.blocked_by_event_id).toBeNull()
 
   // Republier re-bloque (la case « privatiser » n'a pas été perdue en route).
-  await eventRow(page, title).getByRole('button', { name: 'Publier' }).click()
+  await eventRow(page, title).getByRole('button', { name: 'Publier', exact: true }).click()
   await expect(page.getByRole('status')).toContainText('bloqué')
   expect((await readSlot(slot.id)).status).toBe('blocked')
 

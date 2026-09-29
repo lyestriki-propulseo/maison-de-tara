@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { stripeClient } from '@/lib/stripe/client'
+import { readAtelierDepositCents } from '@/lib/booking-settings-data'
 
 const PRIMARY_SITE_ORIGIN = 'https://maisondetara.com'
 // L'ancien domaine reste accepté pendant la transition vers maisondetara.com.
@@ -68,7 +69,13 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   let amountCents: number
   let label: string
   if (mode === 'atelier') {
-    amountCents = 600 * partySize
+    let depositCents: number
+    try {
+      depositCents = await readAtelierDepositCents(db)
+    } catch {
+      return json({ message: 'Impossible de calculer l’acompte' }, 500)
+    }
+    amountCents = depositCents * partySize
     label = 'Atelier libre — Maison de Tara'
   } else {
     const { data: event, error: eventError } = await db
@@ -94,8 +101,8 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   }
 
   if (amountCents === 0) {
-    // Acompte désactivé sur cet événement : pas de paiement à prendre, réservation confirmée
-    // directement (même fonction que le webhook, montant 0).
+    // Acompte à 0 (événement sans acompte, ou atelier réglé à 0 € par Tara) : pas de paiement,
+    // réservation confirmée directement (même fonction que le webhook, montant 0).
     const { data: id, error } = await db.rpc('confirm_reservation_payment', {
       p_session_instance_id: sessionInstanceId,
       p_event_id: eventId,

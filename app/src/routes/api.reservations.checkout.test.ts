@@ -30,10 +30,22 @@ function request(body: unknown, origin?: string) {
   })
 }
 
+// Réglage « acompte atelier » lu dans site_settings (null = jamais réglé → 6 € par défaut).
+function settingsTable(value: unknown = null) {
+  return {
+    select: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    maybeSingle: vi.fn().mockResolvedValue({ data: value === null ? null : { value }, error: null }),
+  }
+}
+
 function mockStripeOk() {
   const createMock = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
   vi.doMock('@/lib/supabase/admin', () => ({
-    supabaseAdmin: () => ({ rpc: vi.fn().mockResolvedValue({ data: true, error: null }) }),
+    supabaseAdmin: () => ({
+      rpc: vi.fn().mockResolvedValue({ data: true, error: null }),
+      from: () => settingsTable(),
+    }),
   }))
   vi.doMock('@/lib/stripe/client', () => ({
     stripeClient: () => ({ checkout: { sessions: { create: createMock } } }),
@@ -65,13 +77,7 @@ test('409 si plus de disponibilité', async () => {
 })
 
 test('200 et url Stripe si disponible (atelier, 6€/pers)', async () => {
-  const createMock = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
-  vi.doMock('@/lib/supabase/admin', () => ({
-    supabaseAdmin: () => ({ rpc: vi.fn().mockResolvedValue({ data: true, error: null }) }),
-  }))
-  vi.doMock('@/lib/stripe/client', () => ({
-    stripeClient: () => ({ checkout: { sessions: { create: createMock } } }),
-  }))
+  const createMock = mockStripeOk()
   const { checkoutHandler } = await import('./api.reservations.checkout')
   const res = await checkoutHandler(request(validBody))
   expect(res.status).toBe(200)
@@ -80,6 +86,41 @@ test('200 et url Stripe si disponible (atelier, 6€/pers)', async () => {
   expect(createMock).toHaveBeenCalledTimes(1)
   expect(createMock.mock.calls[0]?.[0].line_items[0].price_data.unit_amount).toBe(1200)
   expect(createMock.mock.calls[0]?.[0].payment_method_types).toEqual(['card'])
+})
+
+test('atelier : applique l’acompte réglé par Tara dans l’admin (8 €/pers)', async () => {
+  const createMock = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
+  vi.doMock('@/lib/supabase/admin', () => ({
+    supabaseAdmin: () => ({
+      rpc: vi.fn().mockResolvedValue({ data: true, error: null }),
+      from: () => settingsTable({ cents: 800 }),
+    }),
+  }))
+  vi.doMock('@/lib/stripe/client', () => ({
+    stripeClient: () => ({ checkout: { sessions: { create: createMock } } }),
+  }))
+  const { checkoutHandler } = await import('./api.reservations.checkout')
+  const res = await checkoutHandler(request(validBody))
+  expect(res.status).toBe(200)
+  expect(createMock.mock.calls[0]?.[0].line_items[0].price_data.unit_amount).toBe(1600)
+})
+
+test('atelier à 0 € : pas de Stripe, réservation confirmée directement', async () => {
+  const rpcMock = vi.fn((name: string) =>
+    Promise.resolve(
+      name === 'confirm_reservation_payment'
+        ? { data: 'resa-2', error: null }
+        : { data: true, error: null },
+    ),
+  )
+  vi.doMock('@/lib/supabase/admin', () => ({
+    supabaseAdmin: () => ({ rpc: rpcMock, from: () => settingsTable({ cents: 0 }) }),
+  }))
+  const { checkoutHandler } = await import('./api.reservations.checkout')
+  const res = await checkoutHandler(request(validBody))
+  expect(res.status).toBe(200)
+  expect((await res.json()).url).toContain('confirmation-reservation')
+  expect(rpcMock).toHaveBeenCalledWith('confirm_reservation_payment', expect.objectContaining({ p_amount_cents: 0 }))
 })
 
 test('événement avec acompte désactivé : pas de Stripe, réservation confirmée directement', async () => {

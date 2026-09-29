@@ -2,11 +2,16 @@ import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2, Plus, Trash2 } from 'lucide-react'
 import { getSiteHours, saveSiteHours } from '@/lib/site-data'
+import { getAtelierDeposit } from '@/lib/booking-settings-data'
 import { WEEKDAYS, hoursSchema   } from '@/lib/site-settings'
 import type {Hours, WeekdayKey} from '@/lib/site-settings';
+import { AtelierDepositSetting } from '@/components/admin/AtelierDepositSetting'
 
 export const Route = createFileRoute('/admin/horaires')({
-  loader: () => getSiteHours(),
+  loader: async () => {
+    const [hours, deposit] = await Promise.all([getSiteHours(), getAtelierDeposit()])
+    return { hours, depositCents: deposit.cents }
+  },
   component: HorairesPage,
 })
 
@@ -17,7 +22,7 @@ function errorMessage(error: unknown) {
 
 function HorairesPage() {
   const router = useRouter()
-  const initial = Route.useLoaderData()
+  const { hours: initial, depositCents } = Route.useLoaderData()
   const [hours, setHours] = useState<Hours>(initial)
   const [pending, setPending] = useState(false)
   const [feedback, setFeedback] = useState<
@@ -95,6 +100,8 @@ function HorairesPage() {
           </button>
         </div>
       </section>
+
+      <AtelierDepositSetting initialCents={depositCents} />
     </div>
   )
 }

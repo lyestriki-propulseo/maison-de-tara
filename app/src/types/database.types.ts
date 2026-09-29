@@ -21,10 +21,10 @@ export type Database = {
           text_value: string | null
           image_path: string | null
           image_caption: string | null
-          image_focus_x: number
-          image_focus_y: number
           sort_order: number
           updated_at: string
+          image_focus_x: number
+          image_focus_y: number
         }
         Insert: {
           id?: string
@@ -36,10 +36,10 @@ export type Database = {
           text_value?: string | null
           image_path?: string | null
           image_caption?: string | null
-          image_focus_x?: number
-          image_focus_y?: number
           sort_order?: number
           updated_at?: string
+          image_focus_x?: number
+          image_focus_y?: number
         }
         Update: {
           id?: string
@@ -51,10 +51,10 @@ export type Database = {
           text_value?: string | null
           image_path?: string | null
           image_caption?: string | null
-          image_focus_x?: number
-          image_focus_y?: number
           sort_order?: number
           updated_at?: string
+          image_focus_x?: number
+          image_focus_y?: number
         }
         Relationships: []
       }
@@ -75,6 +75,7 @@ export type Database = {
           published_at: string | null
           created_at: string
           updated_at: string
+          privatise: boolean
         }
         Insert: {
           id?: string
@@ -92,6 +93,7 @@ export type Database = {
           published_at?: string | null
           created_at?: string
           updated_at?: string
+          privatise?: boolean
         }
         Update: {
           id?: string
@@ -109,6 +111,7 @@ export type Database = {
           published_at?: string | null
           created_at?: string
           updated_at?: string
+          privatise?: boolean
         }
         Relationships: []
       }
@@ -544,6 +547,7 @@ export type Database = {
           note: string | null
           created_at: string
           updated_at: string
+          blocked_by_event_id: string | null
         }
         Insert: {
           id?: string
@@ -556,6 +560,7 @@ export type Database = {
           note?: string | null
           created_at?: string
           updated_at?: string
+          blocked_by_event_id?: string | null
         }
         Update: {
           id?: string
@@ -568,6 +573,7 @@ export type Database = {
           note?: string | null
           created_at?: string
           updated_at?: string
+          blocked_by_event_id?: string | null
         }
         Relationships: []
       }

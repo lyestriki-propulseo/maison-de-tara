@@ -42,4 +42,29 @@ describe('eventInputSchema', () => {
   it('refuse une capacité nulle', () => {
     expect(eventInputSchema.safeParse({ ...base, capacity: 0 }).success).toBe(false)
   })
+  it('ne privatise pas par défaut, sans heure de fin', () => {
+    const parsed = eventInputSchema.parse(base)
+    expect(parsed.privatise).toBe(false)
+    expect(parsed.endsAt).toBeNull()
+  })
+  it('exige une heure de fin pour privatiser la salle', () => {
+    const result = eventInputSchema.safeParse({ ...base, privatise: true })
+    expect(result.success).toBe(false)
+  })
+  it('refuse une fin avant le début', () => {
+    const result = eventInputSchema.safeParse({
+      ...base,
+      privatise: true,
+      endsAt: '2026-10-03T13:00',
+    })
+    expect(result.success).toBe(false)
+  })
+  it('accepte une privatisation avec une fin après le début', () => {
+    const result = eventInputSchema.safeParse({
+      ...base,
+      privatise: true,
+      endsAt: '2026-10-03T17:00',
+    })
+    expect(result.success).toBe(true)
+  })
 })

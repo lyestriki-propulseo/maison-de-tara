@@ -13,17 +13,29 @@ export const EVENT_TYPES = [
 
 export type EventType = (typeof EVENT_TYPES)[number]['value']
 
-export const eventInputSchema = z.object({
-  id: z.uuid().optional(),
-  title: z.string().trim().min(2, 'Titre trop court').max(160),
-  eventType: z.enum(['workshop', 'soiree', 'kids', 'collaboration', 'autre']),
-  description: z.string().trim().max(2000).optional().default(''),
-  startsAt: z.string().min(1, 'Date requise'),
-  capacity: z.number().int().min(1).max(200),
-  depositEnabled: z.boolean(),
-  depositAmountCents: z.number().int().min(0).max(100000).nullable().default(null),
-  published: z.boolean(),
-})
+export const eventInputSchema = z
+  .object({
+    id: z.uuid().optional(),
+    title: z.string().trim().min(2, 'Titre trop court').max(160),
+    eventType: z.enum(['workshop', 'soiree', 'kids', 'collaboration', 'autre']),
+    description: z.string().trim().max(2000).optional().default(''),
+    startsAt: z.string().min(1, 'Date requise'),
+    endsAt: z.string().nullable().default(null),
+    capacity: z.number().int().min(1).max(200),
+    depositEnabled: z.boolean(),
+    depositAmountCents: z.number().int().min(0).max(100000).nullable().default(null),
+    // Privatise la salle : bloque les créneaux d'atelier libre pendant l'événement une fois publié.
+    privatise: z.boolean().default(false),
+    published: z.boolean(),
+  })
+  .refine((event) => !event.privatise || Boolean(event.endsAt), {
+    message: 'Indiquez l’heure de fin pour privatiser la salle',
+    path: ['endsAt'],
+  })
+  .refine(
+    (event) => !event.endsAt || new Date(event.endsAt).getTime() > new Date(event.startsAt).getTime(),
+    { message: 'La fin doit être après le début', path: ['endsAt'] },
+  )
 
 export type EventInput = z.infer<typeof eventInputSchema>
 

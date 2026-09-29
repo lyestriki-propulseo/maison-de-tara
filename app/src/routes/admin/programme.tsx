@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lucide-react'
 import { deleteEvent, listEvents, upsertEvent } from '@/lib/events-data'
-import { EVENT_TYPES, eventInputSchema, eventTypeLabel  } from '@/lib/events'
-import type {EventType} from '@/lib/events';
+import { eventInputSchema, eventTypeLabel } from '@/lib/events'
+import { EMPTY_EVENT_FORM, EventForm } from '@/components/admin/EventForm'
+import type { EventFormState } from '@/components/admin/EventForm'
 
 export const Route = createFileRoute('/admin/programme')({
   loader: () => listEvents(),
@@ -11,27 +12,20 @@ export const Route = createFileRoute('/admin/programme')({
 })
 
 type EventRow = Awaited<ReturnType<typeof listEvents>>[number]
-type FormState = {
-  id?: string
-  title: string
-  eventType: EventType
-  description: string
-  startsAt: string
-  capacity: number
-  depositEnabled: boolean
-  depositAmountCents: number
-  published: boolean
-}
+type SaveResult = Awaited<ReturnType<typeof upsertEvent>>
 
-const EMPTY_FORM: FormState = {
-  title: '',
-  eventType: 'workshop',
-  description: '',
-  startsAt: '',
-  capacity: 12,
-  depositEnabled: true,
-  depositAmountCents: 600,
-  published: false,
+// Message de succès complété par l'effet de la privatisation sur l'agenda.
+function withPrivatisation(base: string, result: SaveResult): string {
+  const { blocked, reopened, reservedConflicts } = result.privatisation
+  const parts = [base]
+  if (blocked > 0) parts.push(`${blocked} créneau(x) d’atelier bloqué(s) pour la privatisation.`)
+  if (reopened > blocked) parts.push(`${reopened - blocked} créneau(x) d’atelier rouvert(s).`)
+  if (reservedConflicts > 0) {
+    parts.push(
+      `Attention : ${reservedConflicts} réservation(s) d’atelier existent déjà pendant l’événement — à gérer dans Réservations.`,
+    )
+  }
+  return parts.join(' ')
 }
 
 const DATE_FMT = new Intl.DateTimeFormat('fr-FR', {
@@ -63,17 +57,17 @@ function toLocalInput(iso: string): string {
 function ProgrammePage() {
   const router = useRouter()
   const events = Route.useLoaderData()
-  const [form, setForm] = useState<FormState | null>(null)
+  const [form, setForm] = useState<EventFormState | null>(null)
   const [pending, setPending] = useState(false)
   const [feedback, setFeedback] = useState<{ kind: 'success' | 'error'; message: string }>()
 
-  async function runAction(action: () => Promise<unknown>, success: string) {
+  async function runAction<T>(action: () => Promise<T>, success: string | ((result: T) => string)) {
     setPending(true)
     setFeedback(undefined)
     try {
-      await action()
+      const result = await action()
       await router.invalidate()
-      setFeedback({ kind: 'success', message: success })
+      setFeedback({ kind: 'success', message: typeof success === 'string' ? success : success(result) })
       return true
     } catch (error) {
       setFeedback({ kind: 'error', message: errorMessage(error) })
@@ -90,9 +84,11 @@ function ProgrammePage() {
       eventType: ev.eventType,
       description: ev.description,
       startsAt: toLocalInput(ev.startsAt),
+      endsAt: ev.endsAt ? toLocalInput(ev.endsAt) : '',
       capacity: ev.capacity,
       depositEnabled: ev.depositEnabled,
       depositAmountCents: ev.depositAmountCents ?? 600,
+      privatise: ev.privatise,
       published: ev.published,
     })
     setFeedback(undefined)
@@ -103,6 +99,7 @@ function ProgrammePage() {
     const parsed = eventInputSchema.safeParse({
       ...form,
       startsAt: toIsoUtc(form.startsAt),
+      endsAt: form.endsAt ? toIsoUtc(form.endsAt) : null,
       depositAmountCents: form.depositEnabled ? form.depositAmountCents : null,
     })
     if (!parsed.success) {
@@ -111,12 +108,14 @@ function ProgrammePage() {
     }
     const ok = await runAction(
       () => upsertEvent({ data: parsed.data }),
-      form.id ? 'Événement mis à jour.' : 'Événement créé.',
+      (result) => withPrivatisation(form.id ? 'Événement mis à jour.' : 'Événement créé.', result),
     )
     if (ok) setForm(null)
   }
 
   function togglePublish(ev: EventRow) {
+    // Toutes les valeurs de l'événement sont renvoyées : un champ oublié serait remis à son
+    // défaut (ex. privatise → false) à chaque publication.
     void runAction(
       () =>
         upsertEvent({
@@ -126,13 +125,16 @@ function ProgrammePage() {
             eventType: ev.eventType,
             description: ev.description,
             startsAt: ev.startsAt,
+            endsAt: ev.endsAt,
             capacity: ev.capacity,
             depositEnabled: ev.depositEnabled,
             depositAmountCents: ev.depositAmountCents,
+            privatise: ev.privatise,
             published: !ev.published,
           },
         }),
-      ev.published ? 'Événement dépublié.' : 'Événement publié sur le site.',
+      (result) =>
+        withPrivatisation(ev.published ? 'Événement dépublié.' : 'Événement publié sur le site.', result),
     )
   }
 
@@ -157,7 +159,7 @@ function ProgrammePage() {
         <button
           type="button"
           onClick={() => {
-            setForm({ ...EMPTY_FORM })
+            setForm({ ...EMPTY_EVENT_FORM })
             setFeedback(undefined)
           }}
           className="tara-primary-action inline-flex items-center gap-2"
@@ -220,97 +222,6 @@ function ProgrammePage() {
         )}
       </section>
     </div>
-  )
-}
-
-function EventForm({
-  form,
-  pending,
-  onChange,
-  onSave,
-  onCancel,
-}: {
-  form: FormState
-  pending: boolean
-  onChange: (next: FormState) => void
-  onSave: () => void
-  onCancel: () => void
-}) {
-  const set = (patch: Partial<FormState>) => onChange({ ...form, ...patch })
-  const inputCls =
-    'mt-1 min-h-10 w-full rounded-lg border border-neutral-300 bg-white px-3 text-sm text-[#1A1815] outline-none focus:border-[#4A5D2E] focus:ring-2 focus:ring-[#4A5D2E]/15'
-
-  return (
-    <section className="mt-6 rounded-xl border border-[#4A5D2E]/20 bg-[#F8F6F1] p-5">
-      <h2 className="text-lg font-semibold text-[#1A1815]">
-        {form.id ? 'Modifier l’événement' : 'Nouvel événement'}
-      </h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
-          Titre
-          <input className={inputCls} value={form.title} onChange={(e) => set({ title: e.target.value })} />
-        </label>
-        <label className="text-xs font-medium text-neutral-600">
-          Type
-          <select className={inputCls} value={form.eventType} onChange={(e) => set({ eventType: e.target.value as EventType })}>
-            {EVENT_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="text-xs font-medium text-neutral-600">
-          Date et heure
-          <input type="datetime-local" className={inputCls} value={form.startsAt} onChange={(e) => set({ startsAt: e.target.value })} />
-        </label>
-        <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
-          Description
-          <textarea className={`${inputCls} min-h-20`} value={form.description} onChange={(e) => set({ description: e.target.value })} />
-        </label>
-        <label className="text-xs font-medium text-neutral-600">
-          Places
-          <input type="number" min={1} max={200} className={inputCls} value={form.capacity} onChange={(e) => set({ capacity: Number(e.target.value) })} />
-        </label>
-        <label className="text-xs font-medium text-neutral-600">
-          Acompte (€) à la réservation
-          <input
-            type="number"
-            min={0}
-            step={1}
-            disabled={!form.depositEnabled}
-            className={`${inputCls} disabled:opacity-50`}
-            value={Math.round(form.depositAmountCents / 100)}
-            onChange={(e) => set({ depositAmountCents: Math.round(Number(e.target.value) * 100) })}
-          />
-        </label>
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <input type="checkbox" checked={form.depositEnabled} onChange={(e) => set({ depositEnabled: e.target.checked })} />
-          Acompte demandé en ligne
-        </label>
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <input type="checkbox" checked={form.published} onChange={(e) => set({ published: e.target.checked })} />
-          Publié sur le site
-        </label>
-      </div>
-      <div className="mt-5 flex justify-end gap-2">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="min-h-10 rounded-lg border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
-        >
-          Annuler
-        </button>
-        <button
-          type="button"
-          disabled={pending}
-          onClick={onSave}
-          className="min-h-10 rounded-lg bg-[#4A5D2E] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#3B4B24] disabled:opacity-50"
-        >
-          {pending ? 'Enregistrement…' : 'Enregistrer'}
-        </button>
-      </div>
-    </section>
   )
 }
 

@@ -794,8 +794,10 @@ function ScheduleGridEditor({
             Grille hebdomadaire
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-6 text-neutral-600">
-            Cette grille sert de modèle. À l&apos;enregistrement, les créneaux manquants des 60
-            prochains jours sont créés sans toucher aux créneaux déjà ajustés.
+            Cette grille sert de modèle. À l&apos;enregistrement, les créneaux des 60 prochains
+            jours sont créés ; ceux déjà présents gardent leur capacité et leur blocage. Les
+            créneaux d&apos;un horaire retiré de la grille disparaissent, sauf s&apos;ils ont des
+            réservations.
           </p>
         </div>
         <button

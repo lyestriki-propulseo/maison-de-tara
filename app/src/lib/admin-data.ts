@@ -5,6 +5,7 @@ import {
   buildFutureSessionInstances,
   capacitySchema,
   manualReservationSchema,
+  removableInstanceIds,
   scheduleGridSchema,
   sessionActionSchema,
 } from '@/lib/admin-schedule'
@@ -288,6 +289,40 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
       throwDatabaseError(error, 'Impossible de désactiver les anciens horaires')
     }
 
+    // Les créneaux futurs des horaires retirés restaient dans l'agenda (mélange 12/25 places
+    // vu par Tara le 27/09) : on les supprime, sauf ceux qui portent une réservation.
+    let removed = 0
+    if (toDeactivate.length > 0) {
+      const { data: stale, error: staleError } = await db
+        .from('session_instances')
+        .select('id')
+        .in('template_id', toDeactivate)
+        .gte('session_date', todayString())
+      throwDatabaseError(staleError, 'Impossible de lire les anciens créneaux')
+      const staleIds = (stale ?? []).map((instance) => instance.id)
+
+      if (staleIds.length > 0) {
+        const { data: booked, error: bookedError } = await db
+          .from('reservations')
+          .select('session_instance_id')
+          .in('session_instance_id', staleIds)
+        throwDatabaseError(bookedError, 'Impossible de vérifier les réservations')
+        const removable = removableInstanceIds(
+          staleIds,
+          (booked ?? []).map((reservation) => reservation.session_instance_id),
+        )
+
+        if (removable.length > 0) {
+          const { error: deleteError } = await db
+            .from('session_instances')
+            .delete()
+            .in('id', removable)
+          throwDatabaseError(deleteError, 'Impossible de retirer les anciens créneaux')
+          removed = removable.length
+        }
+      }
+    }
+
     const futureInstances = buildFutureSessionInstances(activeTemplates, todayString(), 60)
     const { error: instancesError } = await db.from('session_instances').upsert(futureInstances, {
       onConflict: 'session_date,start_time',
@@ -295,5 +330,5 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
     })
     throwDatabaseError(instancesError, 'Impossible de générer les futurs créneaux')
 
-    return { templates: activeTemplates.length, generated: futureInstances.length }
+    return { templates: activeTemplates.length, generated: futureInstances.length, removed }
   })

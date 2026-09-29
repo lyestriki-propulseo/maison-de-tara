@@ -94,3 +94,13 @@ export function buildFutureSessionInstances(
     `${a.session_date}-${a.start_time}`.localeCompare(`${b.session_date}-${b.start_time}`),
   )
 }
+
+// Créneaux d'un horaire retiré de la grille : on ne supprime que ceux qui n'ont aucune
+// réservation (la clé étrangère des réservations l'interdirait de toute façon).
+export function removableInstanceIds(
+  instanceIds: string[],
+  reservedInstanceIds: Array<string | null>,
+) {
+  const reserved = new Set(reservedInstanceIds)
+  return instanceIds.filter((id) => !reserved.has(id))
+}

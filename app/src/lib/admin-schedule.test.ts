@@ -2,8 +2,20 @@ import { describe, expect, test } from 'vitest'
 import {
   buildFutureSessionInstances,
   manualReservationSchema,
+  removableInstanceIds,
   scheduleGridSchema,
 } from '@/lib/admin-schedule'
+
+describe('removableInstanceIds', () => {
+  test('garde les créneaux qui ont au moins une réservation', () => {
+    expect(removableInstanceIds(['a', 'b', 'c'], ['b', null])).toEqual(['a', 'c'])
+  })
+
+  test('ne renvoie rien quand tout est réservé ou que la liste est vide', () => {
+    expect(removableInstanceIds(['a'], ['a'])).toEqual([])
+    expect(removableInstanceIds([], [])).toEqual([])
+  })
+})
 
 describe('manualReservationSchema', () => {
   test('accepte une réservation manuelle complète', () => {

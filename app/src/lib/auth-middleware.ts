@@ -10,10 +10,17 @@ import { supabaseAdmin } from '@/lib/supabase/admin'
 // vérifie et exige un rôle staff/admin avant d'exécuter le handler.
 export const staffMiddleware = createMiddleware({ type: 'function' })
   .client(async ({ next }) => {
-    const { data } = await supabaseBrowser().auth.getSession()
-    const token = data.session?.access_token
+    const auth = supabaseBrowser().auth
+    const { data } = await auth.getSession()
+    let token = data.session?.access_token
+    // Jeton expiré pendant que l'onglet dormait : on tente un renouvellement avant d'abandonner.
+    if (!token) {
+      const { data: refreshed } = await auth.refreshSession()
+      token = refreshed.session?.access_token
+    }
+    if (!token) throw new Error('Votre session a expiré : rechargez la page et reconnectez-vous.')
     return next({
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      headers: { Authorization: `Bearer ${token}` },
     })
   })
   .server(async ({ next }) => {

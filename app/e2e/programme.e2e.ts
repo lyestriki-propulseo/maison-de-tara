@@ -98,8 +98,10 @@ test('une soirée qui privatise bloque puis rouvre le créneau d’atelier', asy
   expect((await readSlot(slot.id)).status).toBe('open')
 })
 
-test('une session expirée pendant la veille ne bloque plus les actions', async ({ page }) => {
-  // Reproduit le bug « Non authentifié. » (28/09) : jeton expiré dans le navigateur.
+test('une action reste possible avec une session marquée expirée dans le navigateur', async ({ page }) => {
+  // ⚠️ Ne reproduit PAS le bug « Non authentifié. » du 28/09 (vérifié le 29/09 : ce test passe aussi
+  // sur l'ancien code). Le serveur accepte encore le jeton : seule une vraie expiration (1 h
+  // d'inactivité) déclenche la course au renouvellement. Garde-fou de non-régression seulement.
   await page.goto('/admin/programme')
   await page.evaluate(() => {
     const key = Object.keys(localStorage).find((k) => k.startsWith('sb-') && k.endsWith('-auth-token'))

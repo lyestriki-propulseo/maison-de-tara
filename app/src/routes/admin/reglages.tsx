@@ -34,12 +34,16 @@ function ReglagesPage() {
     setPending(true)
     setFeedback(undefined)
     try {
-      await saveScheduleGrid({ data: { slots, until } })
+      const result = await saveScheduleGrid({ data: { slots, until } })
       await router.invalidate()
       const untilLabel = LONG_DATE.format(new Date(`${until}T12:00:00Z`))
+      const conflicts =
+        result.privatisationConflicts > 0
+          ? ` ${result.privatisationConflicts} créneau(x) réservé(s) chevauchent un événement privatisé — à vérifier dans le Planning.`
+          : ''
       setFeedback({
         kind: 'success',
-        message: `Horaires enregistrés, créneaux créés jusqu’au ${untilLabel}.`,
+        message: `Horaires enregistrés, créneaux créés jusqu’au ${untilLabel}.${conflicts}`,
       })
       return true
     } catch (error) {

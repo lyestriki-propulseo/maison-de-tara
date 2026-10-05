@@ -14,8 +14,8 @@ function throwDatabaseError(error: { message: string } | null, fallback: string)
 type PrivatisationResult = { blocked: number; reopened: number; reservedConflicts: number }
 
 // Bloque (ou rouvre) les créneaux d'atelier que l'événement privatise — voir la migration
-// 20260929100000_event_privatisation.sql.
-async function syncPrivatisation(
+// 20260929100000_event_privatisation.sql. Aussi rappelée après chaque génération de créneaux.
+export async function syncPrivatisation(
   db: ReturnType<typeof supabaseAdmin>,
   eventId: string,
   releaseOnly = false,

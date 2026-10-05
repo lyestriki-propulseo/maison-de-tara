@@ -1,7 +1,8 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
-import { daysBetweenInclusive, parisToday } from '@/lib/paris-date'
+import { addDaysIso, daysBetweenInclusive, parisToday } from '@/lib/paris-date'
+import { syncPrivatisation } from '@/lib/events-data'
 import {
   buildFutureSessionInstances,
   capacitySchema,
@@ -346,5 +347,26 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
     })
     throwDatabaseError(instancesError, 'Impossible de générer les futurs créneaux')
 
-    return { templates: activeTemplates.length, generated: futureInstances.length, removed }
+    // Les créneaux tout juste créés n'étaient pas bloqués par les événements privatisés déjà
+    // publiés : on re-synchronise chacun d'eux (à partir de la veille, pour ne pas rater un
+    // événement du jour). Le compteur signale les réservations déjà posées sur un créneau bloqué.
+    const { data: privatised, error: privatisedError } = await db
+      .from('events')
+      .select('id')
+      .eq('published', true)
+      .eq('privatise', true)
+      .gte('starts_at', `${addDaysIso(today, -1)}T00:00:00Z`)
+    throwDatabaseError(privatisedError, 'Impossible de lire les événements privatisés')
+    let privatisationConflicts = 0
+    for (const event of privatised ?? []) {
+      const result = await syncPrivatisation(db, event.id)
+      privatisationConflicts += result.reservedConflicts
+    }
+
+    return {
+      templates: activeTemplates.length,
+      generated: futureInstances.length,
+      removed,
+      privatisationConflicts,
+    }
   })

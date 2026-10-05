@@ -125,7 +125,19 @@ async function loadContent() {
   const page = document.body.dataset.mdtPage;
   try {
     const results = await Promise.all([fetchPage('global'), page ? fetchPage(page) : []]);
-    results.flat().forEach(applyRow);
+    const rows = results.flat();
+    rows.forEach(applyRow);
+    // Blocs optionnels (ex. vignettes de la galerie boutique) : affichés si le
+    // champ témoin est rempli en base, retirés s'il est vide. Clé absente de la
+    // base → on garde l'état statique du HTML.
+    const byKey = new Map(rows.map((r) => [r.field_key, r]));
+    document.querySelectorAll('[data-mdt-hide-if-empty]').forEach((el) => {
+      const row = byKey.get(el.dataset.mdtHideIfEmpty);
+      if (!row) return;
+      if (row.text_value && row.text_value.trim()) el.hidden = false;
+      else el.remove();
+    });
+    window.__mdtLoco?.update?.();
   } catch (err) {
     /* On garde le contenu statique déjà présent dans le HTML. */
   }

@@ -354,39 +354,15 @@
 .premium-boutique .cadre--paysage img{aspect-ratio:16/10}
 .premium-boutique .cadre--arche img{aspect-ratio:3/4.1}
 
-/* accrochage asymétrique */
-.premium-boutique .piece--01{grid-column:1 / span 5;grid-row:1}
-.premium-boutique .piece--02{grid-column:7 / span 6;grid-row:1;margin-top:clamp(3rem,8vw,7rem)}
-.premium-boutique .piece--interlude{
-  grid-column:2 / span 4;grid-row:2;
-  margin-top:clamp(-2rem,-3vw,-3.5rem); /* chevauchement léger */
-  z-index:2;
-}
-.premium-boutique .piece--03{grid-column:7 / span 5;grid-row:2;margin-top:clamp(1.5rem,4vw,3rem)}
-.premium-boutique .piece--05{grid-column:1 / span 7;grid-row:3;margin-top:clamp(4rem,9vw,8rem)}
-.premium-boutique .piece--accent{
-  grid-column:9 / span 3;grid-row:3;
-  align-self:end;
-  margin-bottom:clamp(1rem,3vw,2.5rem);
-  z-index:2;
-}
-.premium-boutique .piece--accent .cadre{box-shadow:0 18px 40px -22px color-mix(in srgb, var(--encre) 45%, transparent)}
-.premium-boutique .piece--accent img{aspect-ratio:1/1}
-
-/* légende d'interlude (photo d'ambiance sans univers) */
-.premium-boutique .piece--interlude figcaption,
-.premium-boutique .piece--accent figcaption{
-  font-size:.8125rem;
-  color:color-mix(in srgb, var(--encre) 68%, var(--blanc));
-}
-.premium-boutique .piece--interlude .main,
-.premium-boutique .piece--accent .main{
-  font-family:var(--f-main);
-  font-weight:400;
-  font-size:1.3rem;
-  color:var(--laiton);
-  display:block;line-height:1.15;
-}
+/* Galerie pilotée par l'admin (05/10) : les vignettes 01→06 remplies dans
+   /admin/contenu s'affichent dans l'ordre, les vides sont retirées par
+   site-content.js. Grille générique 2 colonnes, numéros calculés par un
+   compteur CSS : une vignette masquée ne laisse pas de trou dans la
+   numérotation. */
+.premium-boutique .murs{counter-reset:piece}
+.premium-boutique .murs > .piece{grid-column:span 6;counter-increment:piece}
+.premium-boutique .murs > .piece:nth-child(even){margin-top:clamp(2.5rem,5.5vw,5rem)}
+.premium-boutique .piece .num::before{content:counter(piece, decimal-leading-zero)}
 
 /* ============================================================
    Bande artisanat — immersion block print
@@ -520,23 +496,14 @@
 @media (max-width: 900px){
   .premium-boutique .recit-suite{max-width:60ch}
   .premium-boutique .murs{grid-template-columns:repeat(6,1fr)}
-  .premium-boutique .piece--01{grid-column:1 / span 5;grid-row:auto}
-  .premium-boutique .piece--02{grid-column:2 / span 5;grid-row:auto;margin-top:0}
-  .premium-boutique .piece--interlude{grid-column:1 / span 4;grid-row:auto;margin-top:0}
-  .premium-boutique .piece--03{grid-column:2 / span 5;grid-row:auto;margin-top:0}
-  .premium-boutique .piece--05{grid-column:1 / span 6;grid-row:auto;margin-top:0}
-  .premium-boutique .piece--accent{grid-column:3 / span 4;grid-row:auto;margin-bottom:0}
+  .premium-boutique .murs > .piece{grid-column:span 3}
 }
 @media (max-width: 560px){
   /* Boutique : photos en 2x2 (2 par rangee) pour reduire leur taille et
-     raccourcir la page. Interlude et accent restent pleine largeur. */
+     raccourcir la page. Une vignette seule en fin de liste prend la largeur. */
   .premium-boutique .murs{grid-template-columns:1fr 1fr; gap:12px; align-items:start}
-  .premium-boutique .piece--01,
-  .premium-boutique .piece--02,
-  .premium-boutique .piece--03,
-  .premium-boutique .piece--05{grid-column:auto}
-  .premium-boutique .piece--interlude,
-  .premium-boutique .piece--accent{grid-column:1 / -1}
+  .premium-boutique .murs > .piece{grid-column:auto;margin-top:0}
+  .premium-boutique .murs > .piece:last-child:nth-child(odd){grid-column:1 / -1}
 }
 
 /* Contraste (revue expert 12/06) */
@@ -547,7 +514,7 @@
 /* Galerie 2 colonnes (audit 28/09) : photos au même format et titres plus
    petits, sinon cartes en escalier et titres sur 3 lignes. */
 @media (max-width: 560px){
-  .premium-boutique .murs > .piece:not(.piece--interlude):not(.piece--accent) img{
+  .premium-boutique .murs > .piece img{
     aspect-ratio:3 / 4; height:auto; object-fit:cover;
   }
   /* !important : la règle globale h1-h6 de mdt-override.css l'impose aussi. */

@@ -71,7 +71,6 @@
 <meta property="og:title" content="La Boutique · Maison de Tara">
 <meta property="og:description" content="Décoration, textiles block print, lampes, céramiques et art de la table choisis avec soin : la boutique de la Maison de Tara, à La Garenne-Colombes.">
 <link rel="stylesheet" href="css/premium-boutique.css">
-<link rel="stylesheet" href="css/premium-boutique-mep.css">
 </head>
 <body data-mdt-page="boutique">
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
@@ -231,7 +230,7 @@
 
   <!-- Retour cliente 25/08 : ligne décorative blockprint-row supprimée -->
 
-  <!-- ====================== GALERIE DES 4 UNIVERS ====================== -->
+  <!-- ====================== GALERIE DES UNIVERS (01→06, pilotée par l’admin) ====================== -->
   <section class="galerie floral" aria-labelledby="titre-galerie">
     <div class="container">
       <div class="galerie-titre reveal">
@@ -239,53 +238,71 @@
         <h2 id="titre-galerie" data-mdt-content="boutique.galerie.titre">Une sélection pour la maison.</h2>
       </div>
 
-      <!-- Retour cliente 28/08 : les 2 photos d'ambiance sans numero
-           (« au detour d'une piece », « coup de coeur ») sont retirees, et la
-           photo du 01 Decoration devient celle du vase (ex-interlude).
-           Cles admin orphelines a vider si elles portent des valeurs :
-           boutique.galerie.interlude.photo / boutique.galerie.accent.photo -->
+      <!-- Retour 05/10 : la galerie affiche exactement les vignettes 01→06
+           saisies dans /admin/contenu, dans l'ordre. Une vignette dont le titre
+           est vide en base est retirée par site-content.js (data-mdt-hide-if-empty) ;
+           05 et 06 sont masquées tant que la base ne les a pas remplies.
+           Numéros (01, 02…) calculés en CSS pour ne jamais laisser de trou.
+           Replis statiques 01-04 = textes en base au 05/10. -->
       <div class="murs">
 
-        <!-- Retour cliente 28/08 : retour à l'ordre d'origine — Décoration en 01,
-             Textiles & block print en 02 (annule le retour du 25/08). -->
-        <figure class="piece piece--01 reveal">
+        <figure class="piece reveal" data-mdt-hide-if-empty="boutique.galerie.01.titre">
           <div class="cadre cadre--arche double-bordure">
             <img src="../assets-charte/interieur-vase.jpg" alt="Un vase fleuri posé devant une commode ancienne dans un intérieur" loading="lazy" data-mdt-content="boutique.galerie.01.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">01</span><h3 data-mdt-content="boutique.galerie.01.titre">Décoration</h3>
-            <p data-mdt-content="boutique.galerie.01.texte">Des objets et pièces qui donnent du caractère et de la chaleur à un intérieur.</p>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.01.titre">Décoration &amp; Art de la table</h3>
+            <p data-mdt-content="boutique.galerie.01.texte">Des objets choisis pour apporter du caractère, de la couleur et une histoire à la maison.</p>
           </figcaption>
         </figure>
 
-        <figure class="piece piece--02 reveal" data-delay="1">
+        <figure class="piece reveal" data-delay="1" data-mdt-hide-if-empty="boutique.galerie.02.titre">
           <div class="cadre cadre--paysage double-bordure">
             <img src="../assets-premium-lp/blockprint-marigold.jpg" alt="Textile imprimé block print aux motifs orangés" loading="lazy" data-mdt-content="boutique.galerie.02.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">02</span><h3 data-mdt-content="boutique.galerie.02.titre">Textiles &amp; block print</h3>
-            <p data-mdt-content="boutique.galerie.02.texte">Imprimés à la main, belles matières et savoir-faire transmis de génération en génération.</p>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.02.titre">Textiles &amp; Block print</h3>
+            <p data-mdt-content="boutique.galerie.02.texte">Des textiles aux motifs, couleurs et imprimés qui font écho à mes racines indiennes et à mon goût pour le block print. Pour habiller une table, un canapé ou simplement apporter de la couleur à la maison.</p>
           </figcaption>
         </figure>
 
-
-        <figure class="piece piece--03 reveal" data-delay="1">
+        <figure class="piece reveal" data-mdt-hide-if-empty="boutique.galerie.03.titre">
           <div class="cadre cadre--portrait double-bordure">
             <img src="../assets-premium-lp/ceramique-details.jpg" alt="Détails de céramiques façonnées à la main" loading="lazy" data-mdt-content="boutique.galerie.03.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">03</span><h3 data-mdt-content="boutique.galerie.03.titre">Céramiques</h3>
-            <p data-mdt-content="boutique.galerie.03.texte">Des pièces fabriquées à la main ou imaginées par des artisans que j'admire.</p>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.03.titre">Céramiques</h3>
+            <p data-mdt-content="boutique.galerie.03.texte">Des céramiques choisies pour leurs formes, leurs couleurs et leurs détails. Des pièces à utiliser au quotidien ou simplement à aimer regarder.</p>
           </figcaption>
         </figure>
 
-        <figure class="piece piece--05 reveal" data-delay="1">
+        <figure class="piece reveal" data-delay="1" data-mdt-hide-if-empty="boutique.galerie.04.titre">
           <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-charte/tasses-rayees.jpg" alt="Des tasses rayées présentées en boutique" loading="lazy" data-mdt-content="boutique.galerie.04.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.04.titre">Papeterie &amp; idées cadeaux</h3>
+            <p data-mdt-content="boutique.galerie.04.texte">Des carnets, cartes, petits objets et jolies attentions à offrir à quelqu’un… ou à s’offrir tout simplement.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece reveal" data-mdt-hide-if-empty="boutique.galerie.05.titre" hidden>
+          <div class="cadre cadre--portrait double-bordure">
             <img src="../assets-charte/boutique-plateaux.jpg" alt="Plateaux et art de la table présentés en boutique" loading="lazy" data-mdt-content="boutique.galerie.05.photo">
           </div>
           <figcaption>
-            <span class="num" aria-hidden="true">05</span><h3 data-mdt-content="boutique.galerie.05.titre">Art de la table</h3>
-            <p data-mdt-content="boutique.galerie.05.texte">De quoi dresser une jolie table et recevoir comme on aime.</p>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.05.titre"></h3>
+            <p data-mdt-content="boutique.galerie.05.texte"></p>
+          </figcaption>
+        </figure>
+
+        <figure class="piece reveal" data-delay="1" data-mdt-hide-if-empty="boutique.galerie.06.titre" hidden>
+          <div class="cadre cadre--paysage double-bordure">
+            <img src="../assets-charte/salon-terracotta.jpg" alt="Un salon aux tons terracotta" loading="lazy" data-mdt-content="boutique.galerie.06.photo">
+          </div>
+          <figcaption>
+            <span class="num" aria-hidden="true"></span><h3 data-mdt-content="boutique.galerie.06.titre"></h3>
+            <p data-mdt-content="boutique.galerie.06.texte"></p>
           </figcaption>
         </figure>
 
@@ -355,44 +372,6 @@
     </div>
   </div>
 </footer>
-<!-- Choix de la mise en page de la galerie — outil de décision, invisible pour
-     les visiteurs. S'active en ajoutant ?mep à l'URL (comme ?lab sur l'accueil).
-     Le choix est retenu dans le navigateur, il ne change rien côté visiteurs. -->
-<script>
-(function(){
-  "use strict";
-  var KEY = "mdt-boutique-mep";
-  var params = new URLSearchParams(location.search);
-  var stored = null;
-  try { stored = localStorage.getItem(KEY); } catch (e) {}
-  var actif = params.get("mep");
-  if (actif === "c" || actif === "actuelle") stored = actif;
-  if (stored === "c") document.body.classList.add("mep-c");
-  if (!params.has("mep")) return;
-
-  var bar = document.createElement("div");
-  bar.className = "mep-switch";
-  bar.setAttribute("role", "group");
-  bar.setAttribute("aria-label", "Mise en page de la galerie");
-  [["actuelle", "Mise en page actuelle"], ["c", "Nouvelle mise en page"]].forEach(function(o){
-    var b = document.createElement("button");
-    b.type = "button";
-    b.textContent = o[1];
-    b.addEventListener("click", function(){
-      document.body.classList.toggle("mep-c", o[0] === "c");
-      try { localStorage.setItem(KEY, o[0]); } catch (e) {}
-      bar.querySelectorAll("button").forEach(function(x, i){
-        x.setAttribute("aria-pressed", String((i === 1) === (o[0] === "c")));
-      });
-    });
-    bar.appendChild(b);
-  });
-  document.body.appendChild(bar);
-  bar.querySelectorAll("button").forEach(function(x, i){
-    x.setAttribute("aria-pressed", String((i === 1) === document.body.classList.contains("mep-c")));
-  });
-})();
-</script>
 <!-- JS minimal : drawer uniquement (pages calendrier / lab — scroll natif, sans preloader / Locomotive / jQuery) -->
 <script src="js/drawer.js"></script>
 <script src="js/header-pages.js"></script>

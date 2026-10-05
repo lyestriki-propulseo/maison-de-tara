@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useRouter } from '@tanstack/react-router'
 import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
+import { WeekCalendar, startOfWeek } from '@/components/admin/AgendaWeekCalendar'
+import { addDaysIso, parisToday } from '@/lib/paris-date'
 import {
   AlertCircle,
   Ban,
   CalendarDays,
   CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
   Clock3,
   Mail,
   Phone,
@@ -24,28 +24,11 @@ import {
 type AgendaData = Awaited<ReturnType<typeof getAgendaData>>
 type Session = AgendaData['sessions'][number]
 
-const DAY_FORMAT = new Intl.DateTimeFormat('fr-FR', {
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-})
-
 const SHORT_DATE_FORMAT = new Intl.DateTimeFormat('fr-FR', {
   weekday: 'short',
   day: 'numeric',
   month: 'short',
 })
-
-const MONTH_FORMAT = new Intl.DateTimeFormat('fr-FR', {
-  month: 'long',
-  year: 'numeric',
-})
-
-const CALENDAR_DAY_FORMAT = new Intl.DateTimeFormat('fr-FR', {
-  weekday: 'short',
-  day: 'numeric',
-})
-
 
 const RESERVATION_STATUS = {
   pending: 'En attente',
@@ -54,30 +37,14 @@ const RESERVATION_STATUS = {
   no_show: 'Absente',
 } as const
 
-function formatDate(date: string, short = false) {
-  const value = new Date(`${date}T12:00:00Z`)
-  return (short ? SHORT_DATE_FORMAT : DAY_FORMAT).format(value)
+function formatShortDate(date: string) {
+  return SHORT_DATE_FORMAT.format(new Date(`${date}T12:00:00Z`))
 }
 
-function parseIsoDate(date: string) {
-  return new Date(`${date}T12:00:00Z`)
-}
-
-function toIsoDate(date: Date) {
-  return date.toISOString().slice(0, 10)
-}
-
-function addDays(date: string, amount: number) {
-  const value = parseIsoDate(date)
-  value.setUTCDate(value.getUTCDate() + amount)
-  return toIsoDate(value)
-}
-
-function startOfWeek(date: string) {
-  const value = parseIsoDate(date)
-  const offset = (value.getUTCDay() + 6) % 7
-  value.setUTCDate(value.getUTCDate() - offset)
-  return toIsoDate(value)
+function firstSessionId(sessions: Array<Session>, weekStart: string) {
+  const weekEnd = addDaysIso(weekStart, 6)
+  const inWeek = sessions.find((s) => s.date >= weekStart && s.date <= weekEnd)
+  return (inWeek ?? sessions[0])?.id ?? null
 }
 
 function errorMessage(error: unknown) {
@@ -85,34 +52,26 @@ function errorMessage(error: unknown) {
   return 'Une erreur inattendue est survenue'
 }
 
-export function AgendaManager({ data }: { data: AgendaData }) {
+export function AgendaManager({ data, today: todayProp }: { data: AgendaData; today?: string }) {
   const router = useRouter()
-  const [selectedId, setSelectedId] = useState<string | null>(data.sessions[0]?.id ?? null)
+  const today = todayProp ?? parisToday()
+  const [weekStart, setWeekStart] = useState(() => startOfWeek(today))
+  const [selectedId, setSelectedId] = useState<string | null>(
+    () => firstSessionId(data.sessions, startOfWeek(today)),
+  )
   const [pendingAction, setPendingAction] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<
     { kind: 'success' | 'error'; message: string } | undefined
   >()
-  const [weekStart, setWeekStart] = useState(() =>
-    startOfWeek(data.sessions[0]?.date ?? toIsoDate(new Date())),
-  )
 
   const selected = data.sessions.find((session) => session.id === selectedId) ?? null
-  const groupedSessions = useMemo(() => {
-    const groups = new Map<string, Array<Session>>()
-    for (const session of data.sessions) {
-      const current = groups.get(session.date) ?? []
-      current.push(session)
-      groups.set(session.date, current)
-    }
-    return [...groups.entries()]
-  }, [data.sessions])
 
   useEffect(() => {
     if (data.sessions.length === 0) setSelectedId(null)
     else if (!data.sessions.some((session) => session.id === selectedId)) {
-      setSelectedId(data.sessions.at(0)?.id ?? null)
+      setSelectedId(firstSessionId(data.sessions, weekStart))
     }
-  }, [data.sessions, selectedId])
+  }, [data.sessions, selectedId, weekStart])
 
   async function runAction(label: string, action: () => Promise<unknown>, success: string) {
     setPendingAction(label)
@@ -156,36 +115,11 @@ export function AgendaManager({ data }: { data: AgendaData }) {
             sessions={data.sessions}
             templates={data.templates}
             weekStart={weekStart}
+            today={today}
             selectedId={selectedId}
             onChangeWeek={setWeekStart}
             onSelect={setSelectedId}
           />
-          <div className="hidden">
-            {groupedSessions.map(([date, sessions]) => (
-              <section key={date}>
-                <div className="mb-2 flex items-center justify-between gap-4">
-                  <h2 className="text-sm font-semibold capitalize text-[#1A1815]">
-                    {formatDate(date)}
-                  </h2>
-                  <span className="text-xs text-neutral-500">
-                    {sessions.length} créneau{sessions.length > 1 ? 'x' : ''}
-                  </span>
-                </div>
-                <div className="overflow-hidden rounded-xl border border-[#4A5D2E]/15 bg-white">
-                  {sessions.map((session, index) => (
-                    <SessionRow
-                      key={session.id}
-                      session={session}
-                      selected={session.id === selectedId}
-                      separated={index > 0}
-                      onSelect={() => setSelectedId(session.id)}
-                    />
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-
           <aside className="tara-agenda-detail">
             {selected ? (
               <SessionDetails
@@ -218,180 +152,6 @@ function Feedback({ kind, children }: { kind: 'success' | 'error'; children: Rea
       <Icon className="mt-0.5 shrink-0" size={17} aria-hidden="true" />
       <span>{children}</span>
     </div>
-  )
-}
-
-function WeekCalendar({
-  sessions,
-  templates,
-  weekStart,
-  selectedId,
-  onChangeWeek,
-  onSelect,
-}: {
-  sessions: Array<Session>
-  templates: AgendaData['templates']
-  weekStart: string
-  selectedId: string | null
-  onChangeWeek: (date: string) => void
-  onSelect: (id: string) => void
-}) {
-  const days = useMemo(() => Array.from({ length: 7 }, (_, index) => addDays(weekStart, index)), [weekStart])
-  const weekEnd = days.at(-1) ?? weekStart
-  const weekSessions = useMemo(
-    () => sessions.filter((session) => session.date >= weekStart && session.date <= weekEnd),
-    [sessions, weekEnd, weekStart],
-  )
-  const times = useMemo(() => {
-    const values = new Set<string>()
-    for (const session of weekSessions) values.add(session.time.slice(0, 5))
-    if (values.size === 0) {
-      for (const template of templates) values.add(template.startTime.slice(0, 5))
-    }
-    if (values.size === 0) {
-      values.add('10:00')
-      values.add('14:00')
-    }
-    return [...values].sort()
-  }, [templates, weekSessions])
-  const sessionLookup = useMemo(
-    () => new Map(weekSessions.map((session) => [`${session.date}-${session.time.slice(0, 5)}`, session])),
-    [weekSessions],
-  )
-  const monthLabel = MONTH_FORMAT.format(parseIsoDate(weekStart))
-
-  return (
-    <section className="tara-week-calendar" aria-label={`Semaine du ${formatDate(weekStart)}`}>
-      <header className="tara-week-calendar__toolbar">
-        <div className="tara-week-calendar__navigation">
-          <button type="button" onClick={() => onChangeWeek(addDays(weekStart, -7))} aria-label="Semaine précédente">
-            <ChevronLeft size={18} aria-hidden="true" />
-          </button>
-          <h2>{monthLabel}</h2>
-          <button type="button" onClick={() => onChangeWeek(addDays(weekStart, 7))} aria-label="Semaine suivante">
-            <ChevronRight size={18} aria-hidden="true" />
-          </button>
-        </div>
-        <button type="button" className="tara-week-calendar__today" onClick={() => onChangeWeek(startOfWeek(toIsoDate(new Date())))}>
-          Aujourd’hui
-        </button>
-      </header>
-
-      <div className="tara-week-calendar__scroller">
-        <div className="tara-week-calendar__grid" style={{ '--calendar-rows': times.length } as React.CSSProperties}>
-          <div className="tara-week-calendar__corner" />
-          {days.map((date) => {
-            const parts = CALENDAR_DAY_FORMAT.formatToParts(parseIsoDate(date))
-            const weekday = parts.find((part) => part.type === 'weekday')?.value.replace('.', '') ?? ''
-            const day = parts.find((part) => part.type === 'day')?.value ?? ''
-            const isToday = date === toIsoDate(new Date())
-            return (
-              <div key={date} className={`tara-week-calendar__day ${isToday ? 'is-today' : ''}`}>
-                <span>{weekday}</span>
-                <strong>{day}</strong>
-              </div>
-            )
-          })}
-
-          {times.flatMap((time) => [
-            <div className="tara-week-calendar__time" key={`time-${time}`}>{time}</div>,
-            ...days.map((date) => {
-              const session = sessionLookup.get(`${date}-${time}`)
-              const free = session ? Math.max(session.capacity - session.reserved, 0) : 0
-              const isFull = session ? session.reserved >= session.capacity : false
-              return (
-                <div className="tara-week-calendar__cell" key={`${date}-${time}`}>
-                  {session ? (
-                    <button
-                      type="button"
-                      className={`${session.id === selectedId ? 'is-selected' : ''} ${isFull ? 'is-full' : ''} ${session.status === 'blocked' ? 'is-blocked' : ''}`}
-                      onClick={() => onSelect(session.id)}
-                      aria-pressed={session.id === selectedId}
-                      aria-label={`${formatDate(date)}, ${time}, ${session.status === 'blocked' ? 'bloqué' : `${session.reserved} réservations sur ${session.capacity}`}`}
-                    >
-                      {session.status === 'blocked' ? (
-                        <><Ban size={14} aria-hidden="true" /><span>Bloqué</span></>
-                      ) : (
-                        <><strong>{session.reserved}/{session.capacity}</strong><span>{isFull ? 'Complet' : `${free} libre${free > 1 ? 's' : ''}`}</span></>
-                      )}
-                    </button>
-                  ) : null}
-                </div>
-              )
-            }),
-          ])}
-        </div>
-      </div>
-
-      <footer className="tara-week-calendar__legend">
-        <span><i className="is-open" /> Disponible</span>
-        <span><i className="is-busy" /> Presque complet</span>
-        <span><i className="is-full" /> Complet</span>
-      </footer>
-    </section>
-  )
-}
-
-function SessionRow({
-  session,
-  selected,
-  separated,
-  onSelect,
-}: {
-  session: Session
-  selected: boolean
-  separated: boolean
-  onSelect: () => void
-}) {
-  const free = Math.max(session.capacity - session.reserved, 0)
-  const fill = session.capacity > 0 ? Math.min((session.reserved / session.capacity) * 100, 100) : 0
-
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`group flex w-full items-center gap-4 px-4 py-4 text-left transition-colors focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-[#4A5D2E] ${
-        separated ? 'border-t border-[#4A5D2E]/12' : ''
-      } ${selected ? 'bg-[#EEF2E8]' : 'hover:bg-[#F8F6F1]'}`}
-      aria-current={selected ? 'true' : undefined}
-    >
-      <div className="w-14 shrink-0">
-        <span className="text-lg font-semibold tabular-nums text-[#1A1815]">
-          {session.time.slice(0, 5)}
-        </span>
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          {session.status === 'blocked' ? (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-red-700">
-              <Ban size={14} aria-hidden="true" /> Bloqué
-            </span>
-          ) : (
-            <span className="text-sm font-medium text-neutral-700">
-              {free} place{free > 1 ? 's' : ''} libre{free > 1 ? 's' : ''}
-            </span>
-          )}
-          <span className="text-xs text-neutral-500">
-            {session.reserved}/{session.capacity} réservé{session.reserved > 1 ? 'es' : 'e'}
-          </span>
-        </div>
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#4A5D2E]/10" aria-hidden="true">
-          <div
-            className={`h-full rounded-full ${session.status === 'blocked' ? 'bg-red-300' : 'bg-[#6E844B]'}`}
-            style={{ width: `${session.status === 'blocked' ? 100 : fill}%` }}
-          />
-        </div>
-      </div>
-
-      <ChevronRight
-        size={18}
-        className={`shrink-0 transition-transform ${
-          selected ? 'translate-x-0 text-[#4A5D2E]' : 'text-neutral-400 group-hover:translate-x-0.5'
-        }`}
-        aria-hidden="true"
-      />
-    </button>
   )
 }
 
@@ -450,7 +210,7 @@ function SessionDetails({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-medium capitalize text-[#4A5D2E]">
-              {formatDate(session.date, true)}
+              {formatShortDate(session.date)}
             </p>
             <h2 className="mt-1 text-2xl font-semibold tabular-nums text-[#1A1815]">
               {session.time.slice(0, 5)}

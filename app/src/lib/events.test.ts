@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { eventInputSchema, eventTypeLabel, formatDuration, formatPricePerPerson, slugify } from '@/lib/events'
+import { effectivePriceCents, eventInputSchema, eventTypeLabel, formatDuration, formatPricePerPerson, slugify } from '@/lib/events'
 
 describe('slugify', () => {
   it('retire les accents et met en kebab-case', () => {
@@ -89,5 +89,16 @@ describe('formatDuration', () => {
     expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T16:00:00Z')).toBe('2h')
     expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T15:30:00Z')).toBe('1h30')
     expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T14:45:00Z')).toBe('45 min')
+  })
+})
+
+describe('effectivePriceCents', () => {
+  it('renvoie le prix quand il est actif', () => {
+    expect(effectivePriceCents(true, 4500)).toBe(4500)
+  })
+  it('renvoie 0 quand le prix est désactivé ou absent', () => {
+    expect(effectivePriceCents(false, 4500)).toBe(0)
+    expect(effectivePriceCents(true, null)).toBe(0)
+    expect(effectivePriceCents(false, null)).toBe(0)
   })
 })

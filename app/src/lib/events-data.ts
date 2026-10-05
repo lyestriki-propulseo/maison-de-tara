@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
-import { canPublishEvent, eventInputSchema, slugify } from '@/lib/events'
+import { canPublishEvent, effectivePriceCents, eventInputSchema, slugify } from '@/lib/events'
 
 // CRUD des événements du programme. Lecture/écriture côté serveur (service_role) + garde staff.
 // Le site public lit séparément les événements PUBLIÉS en anon (RLS).
@@ -53,7 +53,7 @@ export const listEvents = createServerFn({ method: 'GET' })
       endsAt: row.ends_at,
       capacity: row.capacity,
       // Prix par personne (colonne historique `deposit_amount_cents`) ; 0 = pas encore fixé.
-      priceCents: row.deposit_amount_cents ?? 0,
+      priceCents: effectivePriceCents(row.deposit_enabled, row.deposit_amount_cents),
       privatise: row.privatise,
       published: row.published,
     }))
@@ -113,7 +113,7 @@ export const setEventPublished = createServerFn({ method: 'POST' })
       throwDatabaseError(error, 'Impossible de charger l’événement')
       if (!row) throw new Error('Événement introuvable')
       // Même règle que le paiement (api.reservations.checkout) : sans prix actif, pas de publication.
-      const priceCents = row.deposit_enabled ? (row.deposit_amount_cents ?? 0) : 0
+      const priceCents = effectivePriceCents(row.deposit_enabled, row.deposit_amount_cents)
       if (!canPublishEvent({ endsAt: row.ends_at, priceCents })) {
         throw new Error(MISSING_END_OR_PRICE)
       }

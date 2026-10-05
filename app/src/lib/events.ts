@@ -17,6 +17,12 @@ export type EventType = (typeof EVENT_TYPES)[number]['value']
 // `events.deposit_amount_cents` (colonne historique, non renommée) avec `deposit_enabled = true`.
 export const MIN_EVENT_PRICE_CENTS = 100
 
+// Prix par personne effectif : 0 si le prix est désactivé ou absent. Même règle que le paiement
+// (api.reservations.checkout) — à utiliser partout où l'on lit le prix d'une ligne `events`.
+export function effectivePriceCents(depositEnabled: boolean, amountCents: number | null): number {
+  return depositEnabled ? (amountCents ?? 0) : 0
+}
+
 export const eventInputSchema = z
   .object({
     id: z.uuid().optional(),

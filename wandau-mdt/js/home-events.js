@@ -57,9 +57,17 @@ import { loadEvents } from './site-events.js';
         body.appendChild(el('div', 'event-row__meta', (TYPES[e.type] || 'Rendez-vous') + ' · Maison de Tara'));
         var title = el(featured ? 'h3' : 'h4', 'event-row__title', e.titre);
         body.appendChild(title);
+        // « Jeudi 26 novembre 2026 · 18h30 · 2h · <strong>45 € / pers.</strong> · description »
+        // (horaire, durée et prix absents du repli data/events.json : simplement omis).
         var time = el('div', 'event-row__time',
           JOURS[d.getDay()] + ' ' + d.getDate() + ' ' + MOIS_LONGS[d.getMonth()] + ' ' + d.getFullYear()
-          + (e.description ? ' · ' + e.description : ''));
+          + (e.horaire ? ' · ' + e.horaire : '')
+          + (e.duree ? ' · ' + e.duree : ''));
+        if (e.prix) {
+          time.appendChild(document.createTextNode(' · '));
+          time.appendChild(el('strong', '', e.prix));
+        }
+        if (e.description) time.appendChild(document.createTextNode(' · ' + e.description));
         body.appendChild(time);
         art.appendChild(body);
 

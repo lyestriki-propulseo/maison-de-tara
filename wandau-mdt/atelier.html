@@ -366,7 +366,10 @@
             <!-- Paiement Stripe (01/09) : le prix est calculé côté serveur, jamais envoyé par le
                  client. Deux mentions, une par mode, togglées par toggleMode() dans site-booking.js. -->
             <p class="acompte" id="rf-acompte-atelier" data-mdt-content="atelier.reserve.acompte">Le paiement de <strong>6&nbsp;€ par personne</strong> se fait en ligne à l'étape suivante, par carte bancaire. Il est déduit de votre facture finale, le reste se règle sur place le jour de l'atelier.</p>
-            <p class="acompte" id="rf-acompte-evenement" data-mdt-content="atelier.reserve.acompte_evenement" hidden>Le montant à régler en ligne pour cet événement s'affiche à l'étape suivante, par carte bancaire.</p>
+            <!-- Mention événement : le texte éditable (data-mdt-content, réécrit par site-content.js) est
+                 dans son propre <span> ; le prix de l'événement choisi va dans #rf-prix-evenement, qui
+                 le remplace quand un prix valide est connu (site-booking.js). -->
+            <p class="acompte" id="rf-acompte-evenement" hidden><span data-mdt-content="atelier.reserve.acompte_evenement">Le prix de l’événement est réglé en totalité en ligne, par carte bancaire.</span><span id="rf-prix-evenement" hidden></span></p>
             <p class="refund-policy">Annulation au moins 48&nbsp;h avant votre créneau&nbsp;: le paiement de réservation est remboursé. Passé ce délai, appelez Tara pour convenir d'un changement de date.</p>
             <div class="fgrid">
               <fieldset class="fld fld--pills fld--span">

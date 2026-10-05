@@ -78,6 +78,9 @@ import { loadEvents } from './site-events.js';
       meta.appendChild(el('span', 'tag ' + type.cls, type.label));
       var weekday = JOURS_SEMAINE[new Date(d.y, d.m - 1, d.d).getDay()];
       meta.appendChild(el('span', 'prog-weekday', weekday + ' ' + d.d + ' ' + MOIS[d.m - 1].toLowerCase() + ' ' + d.y));
+      // Durée et prix par personne (absents du repli data/events.json : non affichés).
+      if (ev.duree) meta.appendChild(el('span', 'prog-duree', ev.duree));
+      if (ev.prix) meta.appendChild(el('span', 'prog-prix', ev.prix));
       body.appendChild(meta);
 
       body.appendChild(el('h3', 'prog-title', ev.titre || ''));

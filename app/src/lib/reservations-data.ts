@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
 import { parisToday } from '@/lib/paris-date'
+import { RESERVATION_WHEN, isUpcoming } from '@/lib/reservations'
 
 // Listing global des réservations (ateliers libres + événements du programme), pour que Tara
 // suive qui a réservé quoi, tous statuts confondus. Les tables n'ont pas de relations déclarées
@@ -12,34 +13,107 @@ function throwDatabaseError(error: { message: string } | null, fallback: string)
   if (error) throw new Error(error.message || fallback)
 }
 
+const RESERVATION_COLUMNS =
+  'id, session_instance_id, event_id, party_size, customer_name, customer_email, customer_phone, status, source, notes, created_at'
+const PAGE_SIZE = 1000
+const IN_CHUNK = 100
+
+const PARIS_TIME = new Intl.DateTimeFormat('fr-FR', {
+  timeZone: 'Europe/Paris',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+})
+
+type QueryResult<T> = PromiseLike<{ data: T[] | null; error: { message: string } | null }>
+
+// PostgREST plafonne une réponse à 1000 lignes : on pagine pour ne rien perdre.
+async function fetchAllPages<T>(page: (from: number, to: number) => QueryResult<T>, fallback: string) {
+  const all: T[] = []
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await page(from, from + PAGE_SIZE - 1)
+    throwDatabaseError(error, fallback)
+    const rows = data ?? []
+    all.push(...rows)
+    if (rows.length < PAGE_SIZE) return all
+  }
+}
+
+function chunks(ids: string[]) {
+  const out: string[][] = []
+  for (let i = 0; i < ids.length; i += IN_CHUNK) out.push(ids.slice(i, i + IN_CHUNK))
+  return out
+}
+
+type SessionRow = { id: string; session_date: string; start_time: string }
+type EventRow = { id: string; title: string; starts_at: string }
+
+// « À venir » : on part des cibles (créneaux et événements d'aujourd'hui ou plus tard, jour de Paris),
+// puis on charge leurs réservations par paquets de 100 ids (longueur d'URL de l'API).
+async function loadUpcoming(db: ReturnType<typeof supabaseAdmin>, today: string) {
+  // Marge d'un jour côté SQL, puis tri fin en mémoire au jour de Paris (pas de calcul de fuseau en SQL).
+  const since = new Date(Date.now() - 86_400_000).toISOString()
+  const [sessions, rawEvents] = await Promise.all([
+    fetchAllPages<SessionRow>(
+      (from, to) =>
+        db.from('session_instances').select('id, session_date, start_time').gte('session_date', today).order('id').range(from, to),
+      'Impossible de charger les créneaux liés',
+    ),
+    fetchAllPages<EventRow>(
+      (from, to) => db.from('events').select('id, title, starts_at').gte('starts_at', since).order('id').range(from, to),
+      'Impossible de charger les événements liés',
+    ),
+  ])
+  const events = rawEvents.filter((e) => isUpcoming(parisToday(new Date(e.starts_at)), today))
+  const results = await Promise.all([
+    ...chunks(sessions.map((s) => s.id)).map((chunk) =>
+      db.from('reservations').select(RESERVATION_COLUMNS).in('session_instance_id', chunk),
+    ),
+    ...chunks(events.map((e) => e.id)).map((chunk) =>
+      db.from('reservations').select(RESERVATION_COLUMNS).in('event_id', chunk),
+    ),
+  ])
+  const byId = new Map(
+    results.flatMap(({ data, error }) => {
+      throwDatabaseError(error, 'Impossible de charger les réservations')
+      return (data ?? []).map((r) => [r.id, r] as const)
+    }),
+  )
+  return { reservations: [...byId.values()], sessions, events }
+}
+
+// « Passées » : les 300 dernières réservations créées, dont la cible est passée ou supprimée.
+async function loadRecent(db: ReturnType<typeof supabaseAdmin>) {
+  const { data: rows, error } = await db
+    .from('reservations')
+    .select(RESERVATION_COLUMNS)
+    .order('created_at', { ascending: false })
+    .limit(300)
+  throwDatabaseError(error, 'Impossible de charger les réservations')
+  const reservations = rows ?? []
+  const sessionIds = [...new Set(reservations.map((r) => r.session_instance_id).filter((id) => id != null))]
+  const eventIds = [...new Set(reservations.map((r) => r.event_id).filter((id) => id != null))]
+  const [{ data: sessions, error: sessionsError }, { data: events, error: eventsError }] = await Promise.all([
+    db.from('session_instances').select('id, session_date, start_time').in('id', sessionIds),
+    db.from('events').select('id, title, starts_at').in('id', eventIds),
+  ])
+  throwDatabaseError(sessionsError, 'Impossible de charger les créneaux liés')
+  throwDatabaseError(eventsError, 'Impossible de charger les événements liés')
+  return { reservations, sessions: sessions ?? [], events: events ?? [] }
+}
+
 export const listReservations = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
-  .handler(async () => {
+  .validator(z.object({ when: z.enum(RESERVATION_WHEN) }))
+  .handler(async ({ data }) => {
     const db = supabaseAdmin()
-    const { data: rows, error } = await db
-      .from('reservations')
-      .select(
-        'id, session_instance_id, event_id, party_size, customer_name, customer_email, customer_phone, status, source, notes, created_at',
-      )
-      .order('created_at', { ascending: false })
-      .limit(300)
-    throwDatabaseError(error, 'Impossible de charger les réservations')
-    const reservations = rows ?? []
+    const today = parisToday()
+    const loaded = data.when === 'upcoming' ? await loadUpcoming(db, today) : await loadRecent(db)
 
-    const sessionIds = [...new Set(reservations.map((r) => r.session_instance_id).filter((id) => id != null))]
-    const eventIds = [...new Set(reservations.map((r) => r.event_id).filter((id) => id != null))]
+    const sessionById = new Map(loaded.sessions.map((s) => [s.id, s]))
+    const eventById = new Map(loaded.events.map((e) => [e.id, e]))
 
-    const [{ data: sessions, error: sessionsError }, { data: events, error: eventsError }] = await Promise.all([
-      db.from('session_instances').select('id, session_date, start_time').in('id', sessionIds),
-      db.from('events').select('id, title, starts_at').in('id', eventIds),
-    ])
-    throwDatabaseError(sessionsError, 'Impossible de charger les créneaux liés')
-    throwDatabaseError(eventsError, 'Impossible de charger les événements liés')
-
-    const sessionById = new Map((sessions ?? []).map((s) => [s.id, s]))
-    const eventById = new Map((events ?? []).map((e) => [e.id, e]))
-
-    return reservations.map((r) => {
+    const entries = loaded.reservations.map((r) => {
       const session = r.session_instance_id ? sessionById.get(r.session_instance_id) : undefined
       const event = r.event_id ? eventById.get(r.event_id) : undefined
       const target = event
@@ -51,7 +125,9 @@ export const listReservations = createServerFn({ method: 'GET' })
               at: `${session.session_date}T${session.start_time}`,
             }
           : { kind: 'inconnu' as const, label: 'Cible supprimée', at: null }
-      return {
+      const targetDay = event ? parisToday(new Date(event.starts_at)) : session ? session.session_date : null
+      const startTime = event ? PARIS_TIME.format(new Date(event.starts_at)) : session ? session.start_time.slice(0, 5) : ''
+      const row = {
         id: r.id,
         partySize: r.party_size,
         customerName: r.customer_name,
@@ -62,8 +138,16 @@ export const listReservations = createServerFn({ method: 'GET' })
         notes: r.notes,
         createdAt: r.created_at,
         target,
+        targetDay,
       }
+      return { row, sortKey: `${targetDay ?? ''}T${startTime}` }
     })
+
+    if (data.when === 'past') return entries.map((e) => e.row).filter((r) => !isUpcoming(r.targetDay, today))
+    return entries
+      .filter((e) => isUpcoming(e.row.targetDay, today))
+      .sort((a, b) => a.sortKey.localeCompare(b.sortKey) || a.row.createdAt.localeCompare(b.row.createdAt))
+      .map((e) => e.row)
   })
 
 export const updateReservationStatus = createServerFn({ method: 'POST' })

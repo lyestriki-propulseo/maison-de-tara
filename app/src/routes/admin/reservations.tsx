@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
+import { z } from 'zod'
 import { AlertCircle, CheckCircle2, Plus } from 'lucide-react'
 import { listReservations, listReservationTargets, updateReservationStatus } from '@/lib/reservations-data'
 import { createManualReservation } from '@/lib/admin-data'
@@ -7,18 +8,26 @@ import {
   RESERVATION_DATE_FMT,
   RESERVATION_SOURCE_LABEL,
   RESERVATION_STATUSES,
-  reservationStatusLabel
-  
+  RESERVATION_WHEN,
+  reservationStatusLabel,
 } from '@/lib/reservations'
 import type {ReservationStatus} from '@/lib/reservations';
 import { ReservationForm  } from '@/components/admin/ReservationForm'
 import type {ManualReservationInput} from '@/components/admin/ReservationForm';
 import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 
+// `?when=past` affiche l'historique ; sans paramètre (ou valeur inconnue), les réservations à venir.
+const searchSchema = z.object({ when: z.enum(RESERVATION_WHEN).optional().catch(undefined) })
+
 export const Route = createFileRoute('/admin/reservations')({
-  loader: async () => {
-    const [reservations, targets] = await Promise.all([listReservations(), listReservationTargets()])
-    return { reservations, targets }
+  validateSearch: searchSchema,
+  loaderDeps: ({ search }) => ({ when: search.when ?? 'upcoming' }),
+  loader: async ({ deps }) => {
+    const [reservations, targets] = await Promise.all([
+      listReservations({ data: { when: deps.when } }),
+      listReservationTargets(),
+    ])
+    return { reservations, targets, when: deps.when }
   },
   component: ReservationsPage,
 })
@@ -31,7 +40,7 @@ function errorMessage(error: unknown) {
 
 function ReservationsPage() {
   const router = useRouter()
-  const { reservations, targets } = Route.useLoaderData()
+  const { reservations, targets, when } = Route.useLoaderData()
   const [filter, setFilter] = useState<string>('all')
   const [formOpen, setFormOpen] = useState(false)
   const [pending, setPending] = useState(false)
@@ -96,7 +105,16 @@ function ReservationsPage() {
         <ReservationForm targets={targets} pending={pending} onSave={saveManual} onCancel={() => setFormOpen(false)} />
       ) : null}
 
-      <div className="mt-6 flex flex-wrap gap-2">
+      <nav aria-label="Période" className="mt-6 inline-flex rounded-lg bg-[#4A5D2E]/8 p-1">
+        <WhenLink active={when === 'upcoming'} search={{}}>
+          À venir
+        </WhenLink>
+        <WhenLink active={when === 'past'} search={{ when: 'past' }}>
+          Passées
+        </WhenLink>
+      </nav>
+
+      <div className="mt-4 flex flex-wrap gap-2">
         <FilterTab active={filter === 'all'} onClick={() => setFilter('all')}>
           Toutes ({reservations.length})
         </FilterTab>
@@ -109,7 +127,13 @@ function ReservationsPage() {
 
       <section className="mt-4 overflow-hidden rounded-xl border border-[#4A5D2E]/15 bg-white">
         {visible.length === 0 ? (
-          <p className="p-8 text-center text-sm text-neutral-600">Aucune réservation pour ce filtre.</p>
+          <p className="p-8 text-center text-sm text-neutral-600">
+            {filter !== 'all'
+              ? 'Aucune réservation pour ce filtre.'
+              : when === 'past'
+                ? 'Aucune réservation passée.'
+                : 'Aucune réservation à venir.'}
+          </p>
         ) : (
           <ul className="divide-y divide-[#4A5D2E]/12">
             {visible.map((r) => (
@@ -150,6 +174,30 @@ function ReservationsPage() {
         )}
       </section>
     </div>
+  )
+}
+
+function WhenLink({
+  active,
+  search,
+  children,
+}: {
+  active: boolean
+  search: z.infer<typeof searchSchema>
+  children: React.ReactNode
+}) {
+  return (
+    <Link
+      to="/admin/reservations"
+      search={search}
+      // Recherche exacte : sinon « À venir » (sans paramètre) resterait actif sur `?when=past`.
+      activeOptions={{ exact: true }}
+      className={`inline-flex min-h-9 items-center rounded-md px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] ${
+        active ? 'bg-white text-[#31421E] shadow-sm' : 'text-neutral-600 hover:text-[#31421E]'
+      }`}
+    >
+      {children}
+    </Link>
   )
 }
 

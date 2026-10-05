@@ -19,23 +19,20 @@ export const getDashboardStats = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
   const db = supabaseAdmin()
-  const today = parisToday()
 
-  const [subscribers, newRequests, upcomingSessions, reservations] = await Promise.all([
-    db.from('newsletter_subscribers').select('*', { count: 'exact', head: true }),
+  const [counts, newRequests] = await Promise.all([
+    db.rpc('dashboard_counts', { p_today: parisToday() }),
     db.from('requests').select('*', { count: 'exact', head: true }).eq('status', 'nouvelle'),
-    db
-      .from('session_instances')
-      .select('*', { count: 'exact', head: true })
-      .gte('session_date', today),
-    db.from('reservations').select('*', { count: 'exact', head: true }),
   ])
+  throwDatabaseError(counts.error, 'Impossible de charger les chiffres du tableau de bord')
+  throwDatabaseError(newRequests.error, 'Impossible de charger les demandes')
+  const row = counts.data?.[0]
 
   return {
-    subscribers: subscribers.count ?? 0,
     newRequests: newRequests.count ?? 0,
-    upcomingSessions: upcomingSessions.count ?? 0,
-    reservations: reservations.count ?? 0,
+    upcomingReservations: row?.upcoming_reservations ?? 0,
+    openSessions30d: row?.open_sessions_30d ?? 0,
+    newsletterConfirmed: row?.newsletter_confirmed ?? 0,
   }
 })
 

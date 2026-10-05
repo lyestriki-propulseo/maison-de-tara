@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
 import type { ScheduleSlot } from '@/lib/admin-schedule'
+import { addDaysIso, endOfYearIso, parisToday } from '@/lib/paris-date'
 
 // Grille hebdomadaire de l'atelier (modèle des créneaux), éditée dans Réservations › Réglages.
 type Template = ScheduleSlot & { id: string }
@@ -23,8 +24,10 @@ export function ScheduleGridEditor({
 }: {
   templates: Array<Template>
   pending: boolean
-  onSave: (slots: Array<ScheduleSlot>) => Promise<boolean>
+  onSave: (slots: Array<ScheduleSlot>, until: string) => Promise<boolean>
 }) {
+  const today = parisToday()
+  const [until, setUntil] = useState(() => endOfYearIso(today))
   const [slots, setSlots] = useState<Array<EditorSlot>>(() =>
     templates.map((template) => ({ ...template, key: template.id })),
   )
@@ -47,10 +50,9 @@ export function ScheduleGridEditor({
             Grille hebdomadaire
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-6 text-neutral-600">
-            Cette grille sert de modèle. À l&apos;enregistrement, les créneaux des 60 prochains
-            jours sont créés ; ceux déjà présents gardent leur capacité et leur blocage. Les
-            créneaux d&apos;un horaire retiré de la grille disparaissent, sauf s&apos;ils ont des
-            réservations.
+            Les créneaux sont créés jusqu’à la date choisie. Ceux qui existent déjà gardent leur
+            capacité et leur blocage : pour changer la capacité d’un créneau déjà créé, ouvrez-le
+            dans le Planning.
           </p>
         </div>
         <button
@@ -151,23 +153,37 @@ export function ScheduleGridEditor({
           Retirer une ligne désactive cet horaire pour les prochaines générations ; les réservations
           existantes restent intactes.
         </p>
-        <button
-          type="button"
-          disabled={pending || slots.length === 0}
-          onClick={() =>
-            onSave(
-              slots.map(({ weekday, startTime, durationMinutes, capacity }) => ({
-                weekday,
-                startTime,
-                durationMinutes,
-                capacity,
-              })),
-            )
-          }
-          className="min-h-11 shrink-0 rounded-lg bg-[#4A5D2E] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#3B4B24] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {pending ? 'Enregistrement…' : 'Enregistrer et générer'}
-        </button>
+        <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-end">
+          <label className="text-xs font-medium text-neutral-600">
+            Générer jusqu’au
+            <input
+              type="date"
+              value={until}
+              min={today}
+              max={addDaysIso(today, 366)}
+              onChange={(event) => setUntil(event.target.value)}
+              className="mt-1 block min-h-11 w-full rounded-lg border border-neutral-300 bg-white px-3 text-sm text-[#1A1815] outline-none focus:border-[#4A5D2E] focus:ring-2 focus:ring-[#4A5D2E]/15"
+            />
+          </label>
+          <button
+            type="button"
+            disabled={pending || slots.length === 0 || !until}
+            onClick={() =>
+              onSave(
+                slots.map(({ weekday, startTime, durationMinutes, capacity }) => ({
+                  weekday,
+                  startTime,
+                  durationMinutes,
+                  capacity,
+                })),
+                until,
+              )
+            }
+            className="min-h-11 shrink-0 rounded-lg bg-[#4A5D2E] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#3B4B24] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {pending ? 'Enregistrement…' : 'Enregistrer et générer'}
+          </button>
+        </div>
       </div>
     </section>
   )

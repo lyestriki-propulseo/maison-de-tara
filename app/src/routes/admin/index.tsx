@@ -8,9 +8,9 @@ export const Route = createFileRoute('/admin/')({
 })
 
 const LEDGER = [
-  { key: 'reservations', label: 'Réservations', icon: Users },
-  { key: 'upcomingSessions', label: 'Sessions à venir', icon: CalendarDays },
-  { key: 'subscribers', label: 'Abonnés newsletter', icon: Mail },
+  { key: 'upcomingReservations', label: 'Réservations à venir', icon: Users },
+  { key: 'openSessions30d', label: 'Créneaux ouverts — 30 prochains jours', icon: CalendarDays },
+  { key: 'newsletterConfirmed', label: 'Abonnés newsletter confirmés', icon: Mail },
 ] as const
 
 function Dashboard() {
@@ -44,8 +44,8 @@ function Dashboard() {
         <section className="tara-dashboard__ledger" aria-labelledby="activity-title">
           <div className="tara-dashboard__ledger-heading">
             <div>
-              <p>Aujourd’hui</p>
-              <h2 id="activity-title">Activité de la maison</h2>
+              <p>En un coup d’œil</p>
+              <h2 id="activity-title">Vue d’ensemble</h2>
             </div>
             <span>Données en direct</span>
           </div>

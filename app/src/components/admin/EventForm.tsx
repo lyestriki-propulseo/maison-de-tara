@@ -9,8 +9,8 @@ export type EventFormState = {
   startsAt: string
   endsAt: string
   capacity: number
-  depositEnabled: boolean
-  depositAmountCents: number
+  // Saisie brute en euros (« 45 », « 12.5 ») : convertie en centimes à l'enregistrement.
+  priceEuros: string
   privatise: boolean
   published: boolean
 }
@@ -22,8 +22,7 @@ export const EMPTY_EVENT_FORM: EventFormState = {
   startsAt: '',
   endsAt: '',
   capacity: 12,
-  depositEnabled: true,
-  depositAmountCents: 600,
+  priceEuros: '',
   privatise: false,
   published: false,
 }
@@ -75,28 +74,27 @@ export function EventForm({
           <input type="datetime-local" className={inputCls} value={form.startsAt} onChange={(e) => set({ startsAt: e.target.value })} />
         </label>
         <label className="text-xs font-medium text-neutral-600">
-          Fin {form.privatise ? '' : '(facultatif)'}
+          Fin
           <input type="datetime-local" className={inputCls} value={form.endsAt} onChange={(e) => set({ endsAt: e.target.value })} />
         </label>
         <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
           Description
           <textarea className={`${inputCls} min-h-20`} value={form.description} onChange={(e) => set({ description: e.target.value })} />
         </label>
-        <label className="text-xs font-medium text-neutral-600">
-          Acompte (€) à la réservation
+        <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
+          Prix par personne (€)
           <input
             type="number"
-            min={0}
-            step={1}
-            disabled={!form.depositEnabled}
-            className={`${inputCls} disabled:opacity-50`}
-            value={Math.round(form.depositAmountCents / 100)}
-            onChange={(e) => set({ depositAmountCents: Math.round(Number(e.target.value) * 100) })}
+            min="1"
+            step="0.5"
+            inputMode="decimal"
+            className={`${inputCls} sm:max-w-48`}
+            value={form.priceEuros}
+            onChange={(e) => set({ priceEuros: e.target.value })}
           />
-        </label>
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <input type="checkbox" checked={form.depositEnabled} onChange={(e) => set({ depositEnabled: e.target.checked })} />
-          Acompte demandé en ligne
+          <span className="mt-1 block font-normal text-neutral-500">
+            Payé en totalité en ligne au moment de la réservation.
+          </span>
         </label>
         <label className="flex items-start gap-2 text-sm text-neutral-700 sm:col-span-2">
           <input type="checkbox" className="mt-1" checked={form.privatise} onChange={(e) => set({ privatise: e.target.checked })} />
@@ -132,4 +130,9 @@ export function EventForm({
       </div>
     </section>
   )
+}
+
+// « 45 » → 4500 ; champ vide → undefined (le schéma demande alors le prix).
+export function priceEurosToCents(priceEuros: string): number | undefined {
+  return priceEuros.trim() === '' ? undefined : Math.round(Number(priceEuros) * 100)
 }

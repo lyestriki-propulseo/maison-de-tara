@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import {
   buildFutureSessionInstances,
+  isUntilInRange,
   manualReservationSchema,
   removableInstanceIds,
   scheduleGridSchema,
@@ -81,9 +82,33 @@ describe('scheduleGridSchema', () => {
         { weekday: 2, startTime: '10:00', durationMinutes: 120, capacity: 12 },
         { weekday: 2, startTime: '10:00', durationMinutes: 90, capacity: 8 },
       ],
+      until: '2026-12-31',
     })
 
     expect(result.success).toBe(false)
+  })
+})
+
+describe('scheduleGridSchema.until', () => {
+  const slots = [{ weekday: 2, startTime: '10:00', durationMinutes: 120, capacity: 25 }]
+  test('accepte une date dans l’année qui vient', () => {
+    expect(scheduleGridSchema.safeParse({ slots, until: '2026-12-31' }).success).toBe(true)
+  })
+  test('refuse une date au format invalide', () => {
+    expect(scheduleGridSchema.safeParse({ slots, until: '31/12/2026' }).success).toBe(false)
+  })
+})
+
+describe('isUntilInRange', () => {
+  test('refuse une date passée ou à plus d’un an', () => {
+    expect(isUntilInRange('2026-10-04', '2026-10-05')).toBe(false)
+    expect(isUntilInRange('2027-10-07', '2026-10-05')).toBe(false)
+    expect(isUntilInRange('2026-12-31', '2026-10-05')).toBe(true)
+  })
+
+  test('accepte aujourd’hui et la borne d’un an', () => {
+    expect(isUntilInRange('2026-10-05', '2026-10-05')).toBe(true)
+    expect(isUntilInRange('2027-10-06', '2026-10-05')).toBe(true)
   })
 })
 

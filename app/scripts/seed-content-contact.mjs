@@ -1,3 +1,4 @@
+// ⚠️ Écrase le contenu saisi par Tara. Ne relancer que sur une base vide.
 // Sème les 33 champs de contenu éditable de la page Contact : texte tel quel (sans mise en forme,
 // cf. décision produit) + la photo de devanture actuelle du site uploadée dans le bucket Storage 'medias'.
 // Exclusions volontaires (décidées avec Lyes) : la FAQ #10 (réponse avec liens calendrier/Instagram,
@@ -34,7 +35,7 @@ const next = () => order++
 const TEXT = [
   ['Hero', 'contact.hero.eyebrow', 'Amorce', 'Une question ?'],
   ['Hero', 'contact.hero.titre', 'Titre', 'Venir à la maison'],
-  ['Hero', 'contact.hero.intro', 'Introduction', 'La maison vous accueille au 1 Rue Gabriel Péri, à La Garenne-Colombes. Boutique, café ou atelier, on vous reçoit comme à la maison.'],
+  ['Hero', 'contact.hero.intro', 'Introduction', "La maison vous accueille au 22 Place de la Liberté, à La Garenne-Colombes. Boutique, café ou atelier, on vous reçoit comme à la maison."],
 
   ['Comment venir', 'contact.acces.train.titre', 'Train — titre', 'En train'],
   ['Comment venir', 'contact.acces.train.texte', 'Train — texte', 'À quelques minutes à pied de la gare de La Garenne-Colombes, facilement accessible depuis Paris Saint-Lazare (Ligne L).'],

@@ -23,6 +23,14 @@ export type DatabaseWithRpc = Omit<Database, 'public'> & {
         }
         Returns: string
       }
+      dashboard_counts: {
+        Args: { p_today: string }
+        Returns: Array<{
+          upcoming_reservations: number
+          open_sessions_30d: number
+          newsletter_confirmed: number
+        }>
+      }
       sync_event_privatisation: {
         Args: { p_event_id: string; p_release_only?: boolean }
         Returns: Array<{ blocked: number; reopened: number; reserved_conflicts: number }>

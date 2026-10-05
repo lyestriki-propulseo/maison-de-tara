@@ -22,6 +22,7 @@ export default [
       '.tanstack/**',
       'dist/**',
       'src/routeTree.gen.ts',
+      'e2e/.report/**',
     ],
   },
 ]

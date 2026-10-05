@@ -3,7 +3,7 @@ import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { saveAtelierDeposit } from '@/lib/booking-settings-data'
 import { atelierDepositSchema } from '@/lib/booking-settings'
 
-// Acompte par personne demandé en ligne pour l'atelier libre (les événements ont le leur).
+// Acompte par personne demandé en ligne pour l'atelier libre (les événements ont leur propre prix).
 export function AtelierDepositSetting({ initialCents }: { initialCents: number }) {
   const [euros, setEuros] = useState(String(initialCents / 100))
   const [pending, setPending] = useState(false)
@@ -43,7 +43,8 @@ export function AtelierDepositSetting({ initialCents }: { initialCents: number }
       <h2 className="text-lg font-semibold text-[#1A1815]">Acompte de l’atelier libre</h2>
       <p className="mt-1 max-w-2xl text-sm leading-6 text-neutral-600">
         Montant payé en ligne par personne à la réservation d’un atelier libre, déduit de la facture
-        sur place. Mettez 0 pour ne rien demander. Les événements ont leur propre acompte.
+        sur place. Mettez 0 pour ne rien demander. Les événements ont leur propre prix, payé en
+        totalité en ligne.
       </p>
       <div className="mt-4 flex flex-wrap items-end gap-3">
         <label className="text-xs font-medium text-neutral-600">

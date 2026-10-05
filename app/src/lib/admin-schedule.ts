@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { addDaysIso } from '@/lib/paris-date'
 
 const timeSchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Heure invalide')
 
@@ -39,6 +40,8 @@ export const scheduleSlotSchema = z.object({
 export const scheduleGridSchema = z
   .object({
     slots: z.array(scheduleSlotSchema).min(1).max(60),
+    // Dernier jour (inclus) jusqu'auquel les créneaux sont générés — borné par isUntilInRange.
+    until: z.iso.date(),
   })
   .superRefine(({ slots }, context) => {
     const seen = new Set<string>()
@@ -54,6 +57,11 @@ export const scheduleGridSchema = z
       seen.add(key)
     }
   })
+
+// Génération bornée : pas dans le passé, au plus un an (366 j) après aujourd'hui (date Paris).
+export function isUntilInRange(until: string, today: string): boolean {
+  return until >= today && until <= addDaysIso(today, 366)
+}
 
 export type ScheduleSlot = z.infer<typeof scheduleSlotSchema>
 

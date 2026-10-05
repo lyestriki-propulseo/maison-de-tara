@@ -21,31 +21,31 @@ vi.mock('@/lib/admin-data', () => ({
   updateSessionCapacity: vi.fn(),
 }))
 
-const agendaData = {
-  sessions: [
+const baseSession = {
+  id: '59f7069f-82e7-44df-a907-c2d22bc6062f',
+  date: '2026-07-18',
+  time: '14:00:00',
+  durationMinutes: 120,
+  capacity: 12,
+  status: 'open' as const,
+  note: null,
+  reserved: 2,
+  reservations: [
     {
-      id: '59f7069f-82e7-44df-a907-c2d22bc6062f',
-      date: '2026-07-18',
-      time: '14:00:00',
-      durationMinutes: 120,
-      capacity: 12,
-      status: 'open' as const,
-      note: null,
-      reserved: 2,
-      reservations: [
-        {
-          id: 'f84754c9-e818-44f9-a756-776708e85d9e',
-          customerName: 'Camille Martin',
-          customerEmail: 'camille@example.com',
-          customerPhone: '06 12 34 56 78',
-          partySize: 2,
-          status: 'confirmed' as const,
-          source: 'manual' as const,
-          notes: null,
-        },
-      ],
+      id: 'f84754c9-e818-44f9-a756-776708e85d9e',
+      customerName: 'Camille Martin',
+      customerEmail: 'camille@example.com',
+      customerPhone: '06 12 34 56 78',
+      partySize: 2,
+      status: 'confirmed' as const,
+      source: 'manual' as const,
+      notes: null,
     },
   ],
+}
+
+const agendaData = {
+  sessions: [baseSession],
   templates: [
     {
       id: '30de4593-e347-490d-9322-b4ebad0ed960',
@@ -61,7 +61,7 @@ describe('AgendaManager', () => {
   beforeEach(() => invalidate.mockReset())
 
   test('affiche le détail du créneau sélectionné et ses réservations', () => {
-    render(<AgendaManager data={agendaData} />)
+    render(<AgendaManager data={agendaData} today="2026-07-13" />)
 
     expect(screen.getByRole('heading', { name: 'Planning de l’atelier' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Semaine précédente' })).toBeInTheDocument()
@@ -73,8 +73,59 @@ describe('AgendaManager', () => {
     expect(screen.getByRole('button', { name: 'Bloquer' })).toBeInTheDocument()
   })
 
+  const dataOn = (date: string) => ({
+    ...agendaData,
+    sessions: [{ ...baseSession, date }],
+  })
+
+  test('ouvre sur la semaine en cours avec une plage de dates', () => {
+    render(<AgendaManager data={dataOn('2026-10-08')} today="2026-10-04" />)
+    expect(screen.getByRole('heading', { level: 2, name: /sept\./ })).toHaveTextContent(
+      '28 sept. – 4 oct. 2026',
+    )
+  })
+
+  test('même mois : le mois n’est écrit qu’une fois', () => {
+    render(<AgendaManager data={dataOn('2026-10-08')} today="2026-10-05" />)
+    expect(screen.getByRole('heading', { level: 2, name: /oct\./ })).toHaveTextContent(
+      '5 – 11 oct. 2026',
+    )
+  })
+
+  test('semaine à cheval sur deux années', () => {
+    render(<AgendaManager data={dataOn('2026-12-30')} today="2026-12-30" />)
+    expect(screen.getByRole('heading', { level: 2, name: /déc\./ })).toHaveTextContent(
+      '28 déc. 2026 – 3 janv. 2027',
+    )
+  })
+
+  test('désactive « Semaine précédente » sur la semaine en cours', () => {
+    render(<AgendaManager data={dataOn('2026-10-08')} today="2026-10-05" />)
+    expect(screen.getByRole('button', { name: 'Semaine précédente' })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Semaine suivante' }))
+    expect(screen.getByRole('button', { name: 'Semaine précédente' })).toBeEnabled()
+  })
+
+  test('marque les jours passés de la semaine', () => {
+    render(<AgendaManager data={dataOn('2026-10-08')} today="2026-10-07" />)
+    expect(screen.getByText("lun").closest('[data-past]')).not.toBeNull()
+    expect(screen.getByText("jeu").closest('[data-past]')).toBeNull()
+  })
+
+  test('sélectionne par défaut un créneau de la semaine en cours', () => {
+    const data = {
+      ...agendaData,
+      sessions: [
+        { ...baseSession, id: 'old', date: '2026-09-01', reservations: [] },
+        { ...baseSession, id: 'now', date: '2026-10-08' },
+      ],
+    }
+    render(<AgendaManager data={data} today="2026-10-05" />)
+    expect(screen.getByText('Camille Martin')).toBeInTheDocument()
+  })
+
   test('affiche les onglets de la rubrique Réservations, sans la grille', () => {
-    render(<AgendaManager data={agendaData} />)
+    render(<AgendaManager data={agendaData} today="2026-07-13" />)
 
     const tabs = screen.getByRole('navigation', { name: 'Rubrique Réservations' })
     for (const [label, href] of [
@@ -97,8 +148,9 @@ describe('ScheduleGridEditor', () => {
     expect(screen.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('Samedi')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
-    expect(onSave).toHaveBeenCalledWith([
-      { weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 },
-    ])
+    expect(onSave).toHaveBeenCalledWith(
+      [{ weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 }],
+      expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+    )
   })
 })

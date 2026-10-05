@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AlertCircle, CheckCircle2, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lucide-react'
-import { deleteEvent, listEvents, upsertEvent } from '@/lib/events-data'
-import { eventInputSchema, eventTypeLabel } from '@/lib/events'
-import { EMPTY_EVENT_FORM, EventForm } from '@/components/admin/EventForm'
+import { deleteEvent, listEvents, setEventPublished, upsertEvent } from '@/lib/events-data'
+import {
+  canPublishEvent,
+  eventInputSchema,
+  eventTypeLabel,
+  formatDuration,
+  formatPricePerPerson,
+} from '@/lib/events'
+import { EMPTY_EVENT_FORM, EventForm, priceEurosToCents } from '@/components/admin/EventForm'
 import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 import type { EventFormState } from '@/components/admin/EventForm'
 
@@ -87,8 +93,7 @@ function ProgrammePage() {
       startsAt: toLocalInput(ev.startsAt),
       endsAt: ev.endsAt ? toLocalInput(ev.endsAt) : '',
       capacity: ev.capacity,
-      depositEnabled: ev.depositEnabled,
-      depositAmountCents: ev.depositAmountCents ?? 600,
+      priceEuros: ev.priceCents > 0 ? String(ev.priceCents / 100) : '',
       privatise: ev.privatise,
       published: ev.published,
     })
@@ -100,8 +105,8 @@ function ProgrammePage() {
     const parsed = eventInputSchema.safeParse({
       ...form,
       startsAt: toIsoUtc(form.startsAt),
-      endsAt: form.endsAt ? toIsoUtc(form.endsAt) : null,
-      depositAmountCents: form.depositEnabled ? form.depositAmountCents : null,
+      endsAt: form.endsAt ? toIsoUtc(form.endsAt) : '',
+      priceCents: priceEurosToCents(form.priceEuros),
     })
     if (!parsed.success) {
       setFeedback({ kind: 'error', message: parsed.error.issues[0]?.message ?? 'Formulaire invalide.' })
@@ -115,25 +120,13 @@ function ProgrammePage() {
   }
 
   function togglePublish(ev: EventRow) {
-    // Toutes les valeurs de l'événement sont renvoyées : un champ oublié serait remis à son
-    // défaut (ex. privatise → false) à chaque publication.
+    // Seul `published` est écrit : dépublier passe toujours, publier exige une fin et un prix.
+    if (!ev.published && !canPublishEvent(ev)) {
+      setFeedback({ kind: 'error', message: 'Ajoutez une heure de fin et un prix avant de publier' })
+      return
+    }
     void runAction(
-      () =>
-        upsertEvent({
-          data: {
-            id: ev.id,
-            title: ev.title,
-            eventType: ev.eventType,
-            description: ev.description,
-            startsAt: ev.startsAt,
-            endsAt: ev.endsAt,
-            capacity: ev.capacity,
-            depositEnabled: ev.depositEnabled,
-            depositAmountCents: ev.depositAmountCents,
-            privatise: ev.privatise,
-            published: !ev.published,
-          },
-        }),
+      () => setEventPublished({ data: { id: ev.id, published: !ev.published } }),
       (result) =>
         withPrivatisation(ev.published ? 'Événement dépublié.' : 'Événement publié sur le site.', result),
     )
@@ -154,7 +147,8 @@ function ProgrammePage() {
             Événements
           </h1>
           <p className="tara-page-intro">
-            Ateliers spéciaux, soirées et rendez-vous, avec leurs propres places et leur acompte.
+            Ateliers spéciaux, soirées et rendez-vous, avec leurs propres places et le prix par personne,
+            payé en totalité en ligne.
             Les événements publiés apparaissent sur le site (calendrier + accueil) et se réservent
             en ligne.
           </p>
@@ -206,6 +200,11 @@ function ProgrammePage() {
                   <p className="mt-1 truncate text-sm font-semibold text-[#1A1815]">{ev.title}</p>
                   <p className="text-xs capitalize text-neutral-500">
                     {DATE_FMT.format(new Date(ev.startsAt))} · {ev.capacity} places
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    {ev.priceCents > 0 ? formatPricePerPerson(ev.priceCents) : 'Prix à définir'}
+                    {' · '}
+                    {ev.endsAt ? formatDuration(ev.startsAt, ev.endsAt) : 'Fin à définir'}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">

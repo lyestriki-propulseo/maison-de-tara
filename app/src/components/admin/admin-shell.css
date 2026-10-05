@@ -217,3 +217,7 @@
   .tara-admin-nav-link,
   .tara-week-calendar__cell > button { transition: none; }
 }
+.tara-week-calendar__day.is-past { opacity: 0.45; }
+.tara-week-calendar__cell.is-past { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(60, 50, 40, 0.05) 6px 7px); }
+.tara-week-calendar__cell.is-past > button { opacity: 0.55; cursor: default; }
+.tara-week-calendar__navigation button:disabled { opacity: 0.35; cursor: not-allowed; }

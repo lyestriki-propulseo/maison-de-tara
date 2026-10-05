@@ -5,7 +5,7 @@ import type { Page } from '@playwright/test'
 import type { Slot } from './support/db'
 
 // Programme : brouillon (jamais publié), validations, puis privatisation sur un vrai créneau
-// (l'événement [TEST] n'est publié que quelques secondes, 1 place, avec acompte).
+// (l'événement [TEST] n'est publié que quelques secondes, 1 place, avec un prix).
 test.describe.configure({ mode: 'serial' })
 
 let slot: Slot
@@ -33,6 +33,8 @@ test('créer un brouillon, le modifier puis le supprimer', async ({ page }) => {
   const title = `${TEST_PREFIX} Brouillon ${Date.now()}`
   await openNewEvent(page, title)
   await page.getByLabel('Date et heure').fill('2027-12-31T10:00')
+  await page.getByLabel(/^Fin/).fill('2027-12-31T12:00')
+  await page.getByLabel(/Prix par personne/).fill('45')
   await page.getByLabel('Places').fill('3')
   await page.getByRole('button', { name: 'Enregistrer' }).click()
   await expect(page.getByRole('status')).toContainText('Événement créé.')
@@ -43,6 +45,7 @@ test('créer un brouillon, le modifier puis le supprimer', async ({ page }) => {
   await page.getByRole('button', { name: 'Enregistrer' }).click()
   await expect(page.getByRole('status')).toContainText('Événement mis à jour.')
   await expect(eventRow(page, title)).toContainText('4 places')
+  await expect(eventRow(page, title)).toContainText(/45\s€ \/ pers\. · 2h/)
 
   page.once('dialog', (dialog) => void dialog.accept())
   await eventRow(page, title).getByRole('button', { name: 'Supprimer' }).click()
@@ -50,12 +53,13 @@ test('créer un brouillon, le modifier puis le supprimer', async ({ page }) => {
   await expect(eventRow(page, title)).toHaveCount(0)
 })
 
-test('refuse de privatiser sans heure de fin', async ({ page }) => {
+test('refuse un événement sans heure de fin', async ({ page }) => {
   await openNewEvent(page, `${TEST_PREFIX} Sans fin`)
   await page.getByLabel('Date et heure').fill('2027-12-31T19:00')
+  await page.getByLabel(/Prix par personne/).fill('45')
   await page.getByLabel(/Privatiser la salle/).check()
   await page.getByRole('button', { name: 'Enregistrer' }).click()
-  await expect(page.getByRole('alert')).toContainText('Indiquez l’heure de fin pour privatiser la salle')
+  await expect(page.getByRole('alert')).toContainText('Indiquez l’heure de fin.')
 })
 
 test('une soirée qui privatise bloque puis rouvre le créneau d’atelier', async ({ page }) => {
@@ -69,6 +73,7 @@ test('une soirée qui privatise bloque puis rouvre le créneau d’atelier', asy
   await page.getByLabel('Places').fill('1')
   await page.getByLabel('Date et heure').fill(start)
   await page.getByLabel(/^Fin/).fill(end)
+  await page.getByLabel(/Prix par personne/).fill('45')
   await page.getByLabel(/Privatiser la salle/).check()
   await page.getByLabel('Publié sur le site').check()
   await page.getByRole('button', { name: 'Enregistrer' }).click()
@@ -113,6 +118,8 @@ test('une action reste possible avec une session marquée expirée dans le navig
   await page.reload()
   await openNewEvent(page, `${TEST_PREFIX} Session ${Date.now()}`)
   await page.getByLabel('Date et heure').fill('2027-12-30T10:00')
+  await page.getByLabel(/^Fin/).fill('2027-12-30T12:00')
+  await page.getByLabel(/Prix par personne/).fill('45')
   await page.getByRole('button', { name: 'Enregistrer' }).click()
   await expect(page.getByRole('status')).toContainText('Événement créé.')
   await expect(page.getByRole('alert')).toHaveCount(0)

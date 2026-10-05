@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { eventInputSchema, eventTypeLabel, slugify } from '@/lib/events'
+import { eventInputSchema, eventTypeLabel, formatDuration, formatPricePerPerson, slugify } from '@/lib/events'
 
 describe('slugify', () => {
   it('retire les accents et met en kebab-case', () => {
@@ -24,9 +24,9 @@ describe('eventInputSchema', () => {
     title: 'Atelier découverte',
     eventType: 'workshop' as const,
     startsAt: '2026-10-03T14:00',
+    endsAt: '2026-10-03T16:00',
     capacity: 12,
-    depositEnabled: true,
-    depositAmountCents: 600,
+    priceCents: 4500,
     published: true,
   }
   it('valide un événement correct', () => {
@@ -42,14 +42,22 @@ describe('eventInputSchema', () => {
   it('refuse une capacité nulle', () => {
     expect(eventInputSchema.safeParse({ ...base, capacity: 0 }).success).toBe(false)
   })
-  it('ne privatise pas par défaut, sans heure de fin', () => {
-    const parsed = eventInputSchema.parse(base)
-    expect(parsed.privatise).toBe(false)
-    expect(parsed.endsAt).toBeNull()
+  it('ne privatise pas par défaut', () => {
+    expect(eventInputSchema.parse(base).privatise).toBe(false)
   })
-  it('exige une heure de fin pour privatiser la salle', () => {
-    const result = eventInputSchema.safeParse({ ...base, privatise: true })
+  it('exige un prix d’au moins 1 €', () => {
+    expect(eventInputSchema.safeParse({ ...base, priceCents: 50 }).success).toBe(false)
+    expect(eventInputSchema.safeParse({ ...base, priceCents: undefined }).success).toBe(false)
+  })
+  it('exige une heure de fin après le début', () => {
+    const result = eventInputSchema.safeParse({ ...base, endsAt: null })
     expect(result.success).toBe(false)
+    expect(eventInputSchema.safeParse({ ...base, endsAt: '' }).error?.issues[0]?.message).toBe(
+      'Indiquez l’heure de fin.',
+    )
+  })
+  it('accepte 12,50 €', () => {
+    expect(eventInputSchema.safeParse({ ...base, priceCents: 1250 }).success).toBe(true)
   })
   it('refuse une fin avant le début', () => {
     const result = eventInputSchema.safeParse({
@@ -66,5 +74,20 @@ describe('eventInputSchema', () => {
       endsAt: '2026-10-03T17:00',
     })
     expect(result.success).toBe(true)
+  })
+})
+
+describe('formatPricePerPerson', () => {
+  it('affiche le prix par personne en euros', () => {
+    expect(formatPricePerPerson(4500)).toBe('45\u00a0€ / pers.')
+    expect(formatPricePerPerson(1250)).toBe('12,50\u00a0€ / pers.')
+  })
+})
+
+describe('formatDuration', () => {
+  it('affiche la durée en heures et minutes', () => {
+    expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T16:00:00Z')).toBe('2h')
+    expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T15:30:00Z')).toBe('1h30')
+    expect(formatDuration('2026-10-03T14:00:00Z', '2026-10-03T14:45:00Z')).toBe('45 min')
   })
 })

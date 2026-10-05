@@ -76,7 +76,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       return json({ message: 'Impossible de calculer l’acompte' }, 500)
     }
     amountCents = depositCents * partySize
-    label = 'Atelier libre — Maison de Tara'
+    label = `Acompte atelier — ${partySize} pers.`
   } else {
     const { data: event, error: eventError } = await db
       .from('events')
@@ -86,8 +86,13 @@ export async function checkoutHandler(request: Request): Promise<Response> {
       .maybeSingle()
     if (eventError) return json({ message: 'Impossible de charger l’événement' }, 500)
     if (!event) return json({ message: 'Événement introuvable ou non publié' }, 404)
-    amountCents = event.deposit_enabled && event.deposit_amount_cents ? event.deposit_amount_cents * partySize : 0
-    label = `${event.title} — Maison de Tara`
+    // Événement = prix complet par personne payé en ligne. Sans prix valide, on refuse :
+    // jamais de confirmation gratuite pour un événement (seul l'atelier peut être à 0 €).
+    if (!event.deposit_enabled || !event.deposit_amount_cents || event.deposit_amount_cents < 100) {
+      return json({ message: 'Cet événement n’est pas encore ouvert à la réservation.' }, 409)
+    }
+    amountCents = event.deposit_amount_cents * partySize
+    label = `${event.title} — ${partySize} pers.`
   }
 
   const metadata = {
@@ -101,7 +106,7 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   }
 
   if (amountCents === 0) {
-    // Acompte à 0 (événement sans acompte, ou atelier réglé à 0 € par Tara) : pas de paiement,
+    // Acompte atelier réglé à 0 € par Tara : pas de paiement,
     // réservation confirmée directement (même fonction que le webhook, montant 0).
     const { data: id, error } = await db.rpc('confirm_reservation_payment', {
       p_session_instance_id: sessionInstanceId,
@@ -122,24 +127,36 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   }
 
   const stripe = stripeClient()
-  const session = await stripe.checkout.sessions.create({
-    mode: 'payment',
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'eur',
-          unit_amount: amountCents,
-          product_data: { name: label },
+  // En mode événement, l'annulation ramène sur le tunnel avec l'événement présélectionné.
+  const cancelQuery = eventId ? `paiement=annule&event=${eventId}` : 'paiement=annule'
+  let session: Awaited<ReturnType<typeof stripe.checkout.sessions.create>>
+  try {
+    session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            unit_amount: amountCents,
+            product_data: { name: label },
+          },
+          quantity: 1,
         },
-        quantity: 1,
-      },
-    ],
-    customer_email: customerEmail,
-    metadata,
-    success_url: `${site}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${site}/atelier?paiement=annule#reserver`,
-  })
+      ],
+      customer_email: customerEmail,
+      metadata,
+      success_url: `${site}/confirmation-reservation?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${site}/atelier?${cancelQuery}#reserver`,
+    })
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error)
+    console.error('[api:reservations.checkout] création de la session Stripe échouée :', reason, { targetId })
+    return json(
+      { message: 'Le paiement en ligne est momentanément indisponible. Merci de réessayer dans quelques minutes.' },
+      502,
+    )
+  }
 
   if (!session.url) return json({ message: 'Stripe n’a pas renvoyé de lien de paiement' }, 500)
   return json({ url: session.url })

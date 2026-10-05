@@ -123,61 +123,87 @@ test('atelier à 0 € : pas de Stripe, réservation confirmée directement', as
   expect(rpcMock).toHaveBeenCalledWith('confirm_reservation_payment', expect.objectContaining({ p_amount_cents: 0 }))
 })
 
-test('événement avec acompte désactivé : pas de Stripe, réservation confirmée directement', async () => {
-  const rpcMock = vi.fn((name: string) => {
-    if (name === 'check_availability') return Promise.resolve({ data: true, error: null })
-    if (name === 'confirm_reservation_payment') return Promise.resolve({ data: 'resa-1', error: null })
-    return Promise.resolve({ data: null, error: null })
-  })
+const eventId = '22222222-2222-4222-8222-222222222222'
+
+// Événement lu dans `events` + Stripe simulé. `confirmRpc` ne doit jamais servir pour un événement.
+function mockEvent(event: { title: string; deposit_enabled: boolean; deposit_amount_cents: number | null }) {
+  const stripeCreate = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
+  const confirmRpc = vi.fn().mockResolvedValue({ data: 'resa-1', error: null })
+  const rpc = vi.fn((name: string) =>
+    name === 'confirm_reservation_payment' ? confirmRpc() : Promise.resolve({ data: true, error: null }),
+  )
   const chain = {
     select: vi.fn().mockReturnThis(),
     eq: vi.fn().mockReturnThis(),
-    maybeSingle: vi.fn().mockResolvedValue({
-      data: { title: 'Brunch', deposit_enabled: false, deposit_amount_cents: null },
-      error: null,
-    }),
+    maybeSingle: vi.fn().mockResolvedValue({ data: event, error: null }),
   }
-  vi.doMock('@/lib/supabase/admin', () => ({
-    supabaseAdmin: () => ({ rpc: rpcMock, from: () => chain }),
+  vi.doMock('@/lib/supabase/admin', () => ({ supabaseAdmin: () => ({ rpc, from: () => chain }) }))
+  vi.doMock('@/lib/stripe/client', () => ({
+    stripeClient: () => ({ checkout: { sessions: { create: stripeCreate } } }),
   }))
+  return { stripeCreate, confirmRpc }
+}
+
+async function postEvent(partySize: number) {
   const { checkoutHandler } = await import('./api.reservations.checkout')
-  const res = await checkoutHandler(
-    request({ ...validBody, mode: 'evenement', targetId: '22222222-2222-4222-8222-222222222222' }),
-  )
+  return checkoutHandler(request({ ...validBody, mode: 'evenement', targetId: eventId, partySize }))
+}
+
+test('facture le prix complet par personne pour un événement', async () => {
+  const { stripeCreate } = mockEvent({ title: 'Soirée', deposit_enabled: true, deposit_amount_cents: 4500 })
+  const res = await postEvent(2)
   expect(res.status).toBe(200)
-  const body = await res.json()
-  expect(body.url).toContain('confirmation-reservation')
-  expect(rpcMock).toHaveBeenCalledWith('confirm_reservation_payment', expect.objectContaining({ p_amount_cents: 0 }))
+  expect(stripeCreate).toHaveBeenCalledWith(
+    expect.objectContaining({
+      line_items: [
+        expect.objectContaining({
+          quantity: 1,
+          price_data: expect.objectContaining({ unit_amount: 9000, product_data: { name: 'Soirée — 2 pers.' } }),
+        }),
+      ],
+    }),
+  )
 })
 
-test('événement avec acompte désactivé : erreur métier de confirm_reservation_payment → 400 générique (pas le message Postgres brut)', async () => {
-  const rpcMock = vi.fn((name: string) => {
-    if (name === 'check_availability') return Promise.resolve({ data: true, error: null })
-    if (name === 'confirm_reservation_payment')
-      return Promise.resolve({
-        data: null,
-        error: { message: 'Une réservation a déjà été enregistrée avec cet email il y a moins de 5 minutes. Merci de patienter avant de réessayer.' },
-      })
-    return Promise.resolve({ data: null, error: null })
-  })
-  const chain = {
-    select: vi.fn().mockReturnThis(),
-    eq: vi.fn().mockReturnThis(),
-    maybeSingle: vi.fn().mockResolvedValue({
-      data: { title: 'Brunch', deposit_enabled: false, deposit_amount_cents: null },
-      error: null,
-    }),
-  }
-  vi.doMock('@/lib/supabase/admin', () => ({
-    supabaseAdmin: () => ({ rpc: rpcMock, from: () => chain }),
-  }))
+test('refuse un événement sans prix au lieu de le confirmer gratuitement', async () => {
+  const { stripeCreate, confirmRpc } = mockEvent({ title: 'Soirée', deposit_enabled: false, deposit_amount_cents: null })
+  const res = await postEvent(2)
+  expect(res.status).toBe(409)
+  expect((await res.json()).message).toBe('Cet événement n’est pas encore ouvert à la réservation.')
+  expect(confirmRpc).not.toHaveBeenCalled()
+  expect(stripeCreate).not.toHaveBeenCalled()
+})
+
+test('refuse un événement à moins de 1 € (ancien acompte à 0)', async () => {
+  const { confirmRpc } = mockEvent({ title: 'Soirée', deposit_enabled: true, deposit_amount_cents: 0 })
+  const res = await postEvent(1)
+  expect(res.status).toBe(409)
+  expect(confirmRpc).not.toHaveBeenCalled()
+})
+
+test('garde l’événement présélectionné si le paiement est annulé', async () => {
+  const { stripeCreate } = mockEvent({ title: 'Soirée', deposit_enabled: true, deposit_amount_cents: 4500 })
+  await postEvent(1)
+  expect(stripeCreate.mock.calls[0]?.[0].cancel_url).toContain(`event=${eventId}`)
+})
+
+test('atelier : libellé Stripe « Acompte atelier — N pers. »', async () => {
+  const createMock = mockStripeOk()
+  const { checkoutHandler } = await import('./api.reservations.checkout')
+  await checkoutHandler(request(validBody))
+  expect(createMock.mock.calls[0]?.[0].line_items[0].price_data.product_data.name).toBe('Acompte atelier — 2 pers.')
+})
+
+test('Stripe en panne : 502 JSON avec les en-têtes CORS', async () => {
+  const { stripeCreate } = mockEvent({ title: 'Soirée', deposit_enabled: true, deposit_amount_cents: 4500 })
+  stripeCreate.mockRejectedValueOnce(new Error('Stripe down'))
   const { checkoutHandler } = await import('./api.reservations.checkout')
   const res = await checkoutHandler(
-    request({ ...validBody, mode: 'evenement', targetId: '22222222-2222-4222-8222-222222222222' }),
+    request({ ...validBody, mode: 'evenement', targetId: eventId }, 'https://www.maisondetara.com'),
   )
-  expect(res.status).toBe(400)
-  const body = await res.json()
-  expect(body.message).toBe('Impossible de confirmer la réservation. Merci de réessayer ou de contacter Tara.')
+  expect(res.status).toBe(502)
+  expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://www.maisondetara.com')
+  expect(typeof (await res.json()).message).toBe('string')
 })
 
 test.each(['https://maisondetara.com', 'https://www.maisondetara.com', 'https://maisondetara.propulseo-site.com'])(

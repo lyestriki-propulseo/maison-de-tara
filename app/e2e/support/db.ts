@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { TEST_PREFIX, e2eEnv } from './env'
 import type { DatabaseWithRpc } from '@/types/database-rpc.types'
+import { addDaysIso, parisToday } from '@/lib/paris-date'
 
 // Accès service_role réservé aux tests : préparer, vérifier en base, et surtout NETTOYER.
 export function testDb() {
@@ -18,16 +19,18 @@ export type Slot = {
   note: string | null
 }
 
-// Créneau cible des tests : le dernier créneau ouvert à venir, sans réservation ni note, avec au
-// moins 2 places (pour tester la capacité). Le plus lointain possible = le moins visité.
+// Créneau cible des tests : le dernier créneau ouvert des 6 prochaines semaines, sans réservation
+// ni note, avec au moins 2 places (pour tester la capacité). Le plus lointain possible = le moins
+// visité. Borné à 42 jours : les créneaux sont désormais générés jusqu'à la fin de l'année.
 export async function pickTestSlot(): Promise<Slot> {
   const db = testDb()
-  const today = new Date().toISOString().slice(0, 10)
+  const today = parisToday()
   const { data, error } = await db
     .from('session_instances')
     .select('id, session_date, start_time, duration_minutes, capacity, note')
     .eq('status', 'open')
     .gte('session_date', today)
+    .lte('session_date', addDaysIso(today, 42))
     .is('note', null)
     .gte('capacity', 2)
     .order('session_date', { ascending: false })

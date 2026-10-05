@@ -97,8 +97,9 @@ describe('ScheduleGridEditor', () => {
     expect(screen.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('Samedi')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
-    expect(onSave).toHaveBeenCalledWith([
-      { weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 },
-    ])
+    expect(onSave).toHaveBeenCalledWith(
+      [{ weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 }],
+      expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+    )
   })
 })

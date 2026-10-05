@@ -8,6 +8,13 @@ import { ScheduleGridEditor } from '@/components/admin/ScheduleGridEditor'
 import { AtelierDepositSetting } from '@/components/admin/AtelierDepositSetting'
 import type { ScheduleSlot } from '@/lib/admin-schedule'
 
+const LONG_DATE = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+
 // Réservations › Réglages : ce qui se règle rarement (grille des créneaux, acompte de l'atelier).
 export const Route = createFileRoute('/admin/reglages')({
   loader: async () => {
@@ -23,13 +30,17 @@ function ReglagesPage() {
   const [pending, setPending] = useState(false)
   const [feedback, setFeedback] = useState<{ kind: 'success' | 'error'; message: string }>()
 
-  async function saveGrid(slots: Array<ScheduleSlot>) {
+  async function saveGrid(slots: Array<ScheduleSlot>, until: string) {
     setPending(true)
     setFeedback(undefined)
     try {
-      await saveScheduleGrid({ data: { slots } })
+      await saveScheduleGrid({ data: { slots, until } })
       await router.invalidate()
-      setFeedback({ kind: 'success', message: 'Grille enregistrée et prochains créneaux générés.' })
+      const untilLabel = LONG_DATE.format(new Date(`${until}T12:00:00Z`))
+      setFeedback({
+        kind: 'success',
+        message: `Horaires enregistrés, créneaux créés jusqu’au ${untilLabel}.`,
+      })
       return true
     } catch (error) {
       setFeedback({

@@ -1,9 +1,11 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
+import { daysBetweenInclusive, parisToday } from '@/lib/paris-date'
 import {
   buildFutureSessionInstances,
   capacitySchema,
+  isUntilInRange,
   manualReservationSchema,
   removableInstanceIds,
   scheduleGridSchema,
@@ -16,7 +18,7 @@ export const getDashboardStats = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
   const db = supabaseAdmin()
-  const today = new Date().toISOString().slice(0, 10)
+  const today = parisToday()
 
   const [subscribers, newRequests, upcomingSessions, reservations] = await Promise.all([
     db.from('newsletter_subscribers').select('*', { count: 'exact', head: true }),
@@ -36,10 +38,6 @@ export const getDashboardStats = createServerFn({ method: 'GET' })
   }
 })
 
-function todayString() {
-  return new Date().toISOString().slice(0, 10)
-}
-
 function throwDatabaseError(error: { message: string } | null, fallback: string) {
   if (error) throw new Error(error.message || fallback)
 }
@@ -49,7 +47,7 @@ export const getAgendaData = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
   const db = supabaseAdmin()
-  const today = todayString()
+  const today = parisToday()
 
   const [{ data: sessions, error: sessionsError }, { data: templates, error: templatesError }] =
     await Promise.all([
@@ -59,7 +57,7 @@ export const getAgendaData = createServerFn({ method: 'GET' })
         .gte('session_date', today)
         .order('session_date')
         .order('start_time')
-        .limit(300),
+        .limit(1000),
       db
         .from('session_templates')
         .select('id, weekday, start_time, duration_minutes, capacity, active')
@@ -88,16 +86,26 @@ export const getAgendaData = createServerFn({ method: 'GET' })
     }>
   >()
   if (ids.length > 0) {
-    const { data: reservations, error } = await db
-      .from('reservations')
-      .select(
-        'id, session_instance_id, customer_name, customer_email, customer_phone, party_size, status, source, notes',
-      )
-      .in('session_instance_id', ids)
-      .order('created_at')
-
-    throwDatabaseError(error, 'Impossible de charger les réservations')
-    for (const reservation of reservations ?? []) {
+    // Jusqu'à 1000 créneaux (fin d'année) : on découpe le filtre `in` par paquets de 100 ids
+    // pour ne pas dépasser la longueur d'URL admise par l'API.
+    const chunks: string[][] = []
+    for (let i = 0; i < ids.length; i += 100) chunks.push(ids.slice(i, i + 100))
+    const results = await Promise.all(
+      chunks.map((chunk) =>
+        db
+          .from('reservations')
+          .select(
+            'id, session_instance_id, customer_name, customer_email, customer_phone, party_size, status, source, notes',
+          )
+          .in('session_instance_id', chunk)
+          .order('created_at'),
+      ),
+    )
+    const reservations = results.flatMap(({ data, error }) => {
+      throwDatabaseError(error, 'Impossible de charger les réservations')
+      return data ?? []
+    })
+    for (const reservation of reservations) {
       if (!reservation.session_instance_id) continue
       const current = reservationsBySession.get(reservation.session_instance_id) ?? []
       current.push({
@@ -224,6 +232,10 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
   .middleware([staffMiddleware])
   .validator(scheduleGridSchema)
   .handler(async ({ data }) => {
+    const today = parisToday()
+    if (!isUntilInRange(data.until, today)) {
+      throw new Error('Choisissez une date entre aujourd’hui et dans un an.')
+    }
     const db = supabaseAdmin()
     const { data: existing, error: existingError } = await db
       .from('session_templates')
@@ -297,7 +309,7 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
         .from('session_instances')
         .select('id')
         .in('template_id', toDeactivate)
-        .gte('session_date', todayString())
+        .gte('session_date', today)
       throwDatabaseError(staleError, 'Impossible de lire les anciens créneaux')
       const staleIds = (stale ?? []).map((instance) => instance.id)
 
@@ -323,7 +335,11 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
       }
     }
 
-    const futureInstances = buildFutureSessionInstances(activeTemplates, todayString(), 60)
+    const futureInstances = buildFutureSessionInstances(
+      activeTemplates,
+      today,
+      daysBetweenInclusive(today, data.until),
+    )
     const { error: instancesError } = await db.from('session_instances').upsert(futureInstances, {
       onConflict: 'session_date,start_time',
       ignoreDuplicates: true,

@@ -2,6 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
+import { parisToday } from '@/lib/paris-date'
 
 // Listing global des réservations (ateliers libres + événements du programme), pour que Tara
 // suive qui a réservé quoi, tous statuts confondus. Les tables n'ont pas de relations déclarées
@@ -85,7 +86,7 @@ export const listReservationTargets = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
     const db = supabaseAdmin()
-    const today = new Date().toISOString().slice(0, 10)
+    const today = parisToday()
     const [{ data: sessions, error: sessionsError }, { data: events, error: eventsError }] = await Promise.all([
       db
         .from('session_instances')
@@ -94,7 +95,7 @@ export const listReservationTargets = createServerFn({ method: 'GET' })
         .gte('session_date', today)
         .order('session_date')
         .order('start_time')
-        .limit(120),
+        .limit(400),
       db
         .from('events')
         .select('id, title, starts_at')

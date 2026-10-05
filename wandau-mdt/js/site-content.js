@@ -9,6 +9,19 @@ const CONFIGURED =
   /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
 
 function applyText(el, value) {
+  if (el.dataset.mdtMode === 'lines') {
+    const i = value.indexOf(', ');
+    if (i === -1) {
+      el.textContent = value;
+      return;
+    }
+    el.replaceChildren(
+      document.createTextNode(value.slice(0, i)),
+      document.createElement('br'),
+      document.createTextNode(value.slice(i + 2)),
+    );
+    return;
+  }
   if (el.dataset.mdtMode === 'list') {
     const tag = el.querySelector('li') ? 'li' : 'p';
     el.replaceChildren(
@@ -53,6 +66,11 @@ function syncContactHrefs(key, value) {
     const tel = 'tel:' + value.replace(/[^\d+]/g, '');
     document.querySelectorAll('a[href^="tel:"]').forEach((a) => {
       a.href = tel;
+    });
+  } else if (key === 'global.contact.adresse') {
+    const src = 'https://www.google.com/maps?q=' + encodeURIComponent(value) + '&output=embed';
+    document.querySelectorAll('.map-frame iframe').forEach((f) => {
+      if (f.getAttribute('src') !== src) f.setAttribute('src', src);
     });
   } else if (key === 'global.contact.email') {
     document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {

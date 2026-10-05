@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { staffMiddleware } from '@/lib/auth-middleware'
-import { addDaysIso, daysBetweenInclusive, parisToday } from '@/lib/paris-date'
+import { daysBetweenInclusive, parisToday } from '@/lib/paris-date'
 import { syncPrivatisation } from '@/lib/events-data'
 import {
   buildFutureSessionInstances,
@@ -348,14 +348,18 @@ export const saveScheduleGrid = createServerFn({ method: 'POST' })
     throwDatabaseError(instancesError, 'Impossible de générer les futurs créneaux')
 
     // Les créneaux tout juste créés n'étaient pas bloqués par les événements privatisés déjà
-    // publiés : on re-synchronise chacun d'eux (à partir de la veille, pour ne pas rater un
-    // événement du jour). Le compteur signale les réservations déjà posées sur un créneau bloqué.
+    // publiés : on re-synchronise chacun de ceux qui ne sont pas encore terminés (fin = ends_at,
+    // ou starts_at + 2 h sans heure de fin, comme la fonction SQL). Le compteur signale les
+    // réservations déjà posées sur un créneau bloqué.
+    const now = Date.now()
+    const nowIso = new Date(now).toISOString()
+    const twoHoursAgoIso = new Date(now - 2 * 60 * 60 * 1000).toISOString()
     const { data: privatised, error: privatisedError } = await db
       .from('events')
       .select('id')
       .eq('published', true)
       .eq('privatise', true)
-      .gte('starts_at', `${addDaysIso(today, -1)}T00:00:00Z`)
+      .or(`ends_at.gte.${nowIso},and(ends_at.is.null,starts_at.gte.${twoHoursAgoIso})`)
     throwDatabaseError(privatisedError, 'Impossible de lire les événements privatisés')
     let privatisationConflicts = 0
     for (const event of privatised ?? []) {

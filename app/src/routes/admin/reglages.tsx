@@ -39,7 +39,7 @@ function ReglagesPage() {
       const untilLabel = LONG_DATE.format(new Date(`${until}T12:00:00Z`))
       const conflicts =
         result.privatisationConflicts > 0
-          ? ` ${result.privatisationConflicts} créneau(x) réservé(s) chevauchent un événement privatisé — à vérifier dans le Planning.`
+          ? ` ${result.privatisationConflicts} réservation(s) sur des créneaux qui chevauchent un événement privatisé — à vérifier dans le Planning.`
           : ''
       setFeedback({
         kind: 'success',

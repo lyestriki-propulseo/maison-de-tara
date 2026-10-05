@@ -5,6 +5,7 @@
 // dans le dépôt app). Lit les disponibilités via les vues `public_availability` /
 // `public_availability_events` (3 états, jamais de chiffres bruts).
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+import { formatEuros, formatPrixParPersonne, prixValide } from './site-events.js';
 
 const CONFIGURED =
   /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
@@ -31,6 +32,10 @@ function initBooking(form) {
   const modeEvenement = document.getElementById('rf-mode-evenement');
   const acompteAtelier = document.getElementById('rf-acompte-atelier');
   const acompteEvenement = document.getElementById('rf-acompte-evenement');
+  // Mention générique éditable (data-mdt-content) et prix de l'événement choisi (span séparé,
+  // jamais réécrit par site-content.js).
+  const acompteEvenementTexte = acompteEvenement?.querySelector('[data-mdt-content]');
+  const prixEvenement = document.getElementById('rf-prix-evenement');
   const capMsg = document.getElementById('rf-capacity-msg');
   const msg = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('[type="submit"]');
@@ -48,7 +53,7 @@ function initBooking(form) {
 
   Promise.all([
     fetchRows('public_availability', 'id,session_date,start_time,availability'),
-    fetchRows('public_availability_events', 'id,title,starts_at,availability'),
+    fetchRows('public_availability_events', 'id,title,starts_at,availability,price_cents'),
   ]).then(([s, e]) => {
     sessions = s;
     events = e;
@@ -124,6 +129,10 @@ function initBooking(form) {
       const etat = document.createElement('span');
       etat.textContent = ETAT_LABEL[ev.availability];
       if (ev.availability !== 'disponible') etat.className = 'evt-pick__etat--' + (ev.availability === 'presque_complet' ? 'presque' : 'complet');
+      // Prix par personne (vue public_availability_events.price_cents) accolé à la date, seulement
+      // s'il est payable : « 26 nov. · 45 € / pers. » (garde la mise en page date | état).
+      const prix = formatPrixParPersonne(ev.price_cents);
+      if (prix) date.textContent += ' · ' + prix;
       meta.append(date, etat);
       btn.append(title, meta);
       btn.addEventListener('click', () => selectEvent(ev.id));
@@ -135,7 +144,21 @@ function initBooking(form) {
   function selectEvent(id) {
     eventsList.dataset.selected = id;
     eventsList.querySelectorAll('.evt-pick').forEach((b) => b.classList.toggle('is-selected', b.dataset.id === id));
+    updatePrixEvenement();
     refreshCapacity();
+  }
+
+  // Événement choisi avec un prix payable (≥ 1 €) : on remplace la mention générique par le montant.
+  // Sans prix valide, rien n'est annoncé : le serveur refusera le paiement (409) avec son message.
+  function updatePrixEvenement() {
+    if (!prixEvenement) return;
+    const ev = events.find((e) => e.id === eventsList.dataset.selected);
+    const ok = Boolean(ev) && prixValide(ev.price_cents);
+    prixEvenement.textContent = ok
+      ? `Paiement en ligne de ${formatEuros(ev.price_cents)} par personne, en totalité, par carte bancaire.`
+      : '';
+    prixEvenement.hidden = !ok;
+    if (acompteEvenementTexte) acompteEvenementTexte.hidden = ok;
   }
 
   function toggleMode() {

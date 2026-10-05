@@ -9,6 +9,19 @@ const CONFIGURED =
   /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
 
 function applyText(el, value) {
+  if (el.dataset.mdtMode === 'lines') {
+    const i = value.indexOf(', ');
+    if (i === -1) {
+      el.textContent = value;
+      return;
+    }
+    el.replaceChildren(
+      document.createTextNode(value.slice(0, i)),
+      document.createElement('br'),
+      document.createTextNode(value.slice(i + 2)),
+    );
+    return;
+  }
   if (el.dataset.mdtMode === 'list') {
     const tag = el.querySelector('li') ? 'li' : 'p';
     el.replaceChildren(
@@ -53,6 +66,11 @@ function syncContactHrefs(key, value) {
     const tel = 'tel:' + value.replace(/[^\d+]/g, '');
     document.querySelectorAll('a[href^="tel:"]').forEach((a) => {
       a.href = tel;
+    });
+  } else if (key === 'global.contact.adresse') {
+    const src = 'https://www.google.com/maps?q=' + encodeURIComponent(value) + '&output=embed';
+    document.querySelectorAll('.map-frame iframe').forEach((f) => {
+      if (f.getAttribute('src') !== src) f.setAttribute('src', src);
     });
   } else if (key === 'global.contact.email') {
     document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
@@ -107,7 +125,19 @@ async function loadContent() {
   const page = document.body.dataset.mdtPage;
   try {
     const results = await Promise.all([fetchPage('global'), page ? fetchPage(page) : []]);
-    results.flat().forEach(applyRow);
+    const rows = results.flat();
+    rows.forEach(applyRow);
+    // Blocs optionnels (ex. vignettes de la galerie boutique) : affichés si le
+    // champ témoin est rempli en base, retirés s'il est vide. Clé absente de la
+    // base → on garde l'état statique du HTML.
+    const byKey = new Map(rows.map((r) => [r.field_key, r]));
+    document.querySelectorAll('[data-mdt-hide-if-empty]').forEach((el) => {
+      const row = byKey.get(el.dataset.mdtHideIfEmpty);
+      if (!row) return;
+      if (row.text_value && row.text_value.trim()) el.hidden = false;
+      else el.remove();
+    });
+    window.__mdtLoco?.update?.();
   } catch (err) {
     /* On garde le contenu statique déjà présent dans le HTML. */
   }

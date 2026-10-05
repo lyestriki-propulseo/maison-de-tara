@@ -235,6 +235,17 @@
   color: var(--terracotta);
 }
 
+/* Durée et prix par personne, dans .prog-meta (calqués sur .prog-time). */
+.premium-calendrier .prog-duree,
+.premium-calendrier .prog-prix {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--terracotta);
+  white-space: nowrap;
+}
+
 .premium-calendrier .prog-meta {
   display: flex;
   align-items: center;

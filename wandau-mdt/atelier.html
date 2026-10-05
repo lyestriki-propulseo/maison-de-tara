@@ -21,12 +21,12 @@
   "name": "Maison de Tara",
   "description": "Atelier de peinture sur céramique, café et boutique de décoration d'inspiration indienne à La Garenne-Colombes.",
   "url": "https://maisondetara.com/",
-  "telephone": "+33650535149",
+  "telephone": "+33180882235",
   "email": "contact@maisondetara.com",
   "image": "https://maisondetara.com/images/og-maison-de-tara.jpg",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "1 Rue Gabriel Péri",
+    "streetAddress": "22 Place de la Liberté",
     "postalCode": "92250",
     "addressLocality": "La Garenne-Colombes",
     "addressCountry": "FR"
@@ -125,12 +125,12 @@
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
         <span class="sr-only">Téléphone :</span>
-        <a href="tel:+33650535149" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span></a>
+        <a href="tel:+33180882235" aria-label="Appeler la Maison de Tara"><span data-mdt-content="global.contact.telephone">+33 1 80 88 22 35</span></a>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>
         <span class="sr-only">Adresse :</span>
-        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span data-mdt-content="global.contact.adresse">22 Place de la Liberté, 92250 La Garenne-Colombes</span>
       </li>
       <li>
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
@@ -157,7 +157,7 @@
     </nav>
     <div class="mdt-header__cta">
       <!-- Tél visible uniquement sur mobile (la topbar qui le porte y est masquée) -->
-      <a class="mdt-header__tel" href="tel:+33650535149" aria-label="Appeler la Maison de Tara">
+      <a class="mdt-header__tel" href="tel:+33180882235" aria-label="Appeler la Maison de Tara">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
       </a>
       <a href="/atelier#reserver" class="btn btn--primary">Réserver ma session</a>
@@ -191,9 +191,9 @@
       <a href="/atelier#reserver" class="btn btn--primary" data-drawer-close>Réserver ma session</a>
     </div>
     <div class="drawer__contact">
-      <a href="tel:+33650535149">
+      <a href="tel:+33180882235">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
-        <span data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</span>
+        <span data-mdt-content="global.contact.telephone">+33 1 80 88 22 35</span>
       </a>
       <a href="mailto:contact@maisondetara.com">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
@@ -366,7 +366,10 @@
             <!-- Paiement Stripe (01/09) : le prix est calculé côté serveur, jamais envoyé par le
                  client. Deux mentions, une par mode, togglées par toggleMode() dans site-booking.js. -->
             <p class="acompte" id="rf-acompte-atelier" data-mdt-content="atelier.reserve.acompte">Le paiement de <strong>6&nbsp;€ par personne</strong> se fait en ligne à l'étape suivante, par carte bancaire. Il est déduit de votre facture finale, le reste se règle sur place le jour de l'atelier.</p>
-            <p class="acompte" id="rf-acompte-evenement" data-mdt-content="atelier.reserve.acompte_evenement" hidden>Le montant à régler en ligne pour cet événement s'affiche à l'étape suivante, par carte bancaire.</p>
+            <!-- Mention événement : le texte éditable (data-mdt-content, réécrit par site-content.js) est
+                 dans son propre <span> ; le prix de l'événement choisi va dans #rf-prix-evenement, qui
+                 le remplace quand un prix valide est connu (site-booking.js). -->
+            <p class="acompte" id="rf-acompte-evenement" hidden><span data-mdt-content="atelier.reserve.acompte_evenement">Le prix de l’événement est réglé en totalité en ligne, par carte bancaire.</span><span id="rf-prix-evenement" hidden></span></p>
             <p class="refund-policy">Annulation au moins 48&nbsp;h avant votre créneau&nbsp;: le paiement de réservation est remboursé. Passé ce délai, appelez Tara pour convenir d'un changement de date.</p>
             <div class="fgrid">
               <fieldset class="fld fld--pills fld--span">
@@ -468,9 +471,9 @@
         <a href="/contact">Contact</a>
       </nav>
       <div class="mdt-footer-coords">
-        <span data-mdt-content="global.contact.adresse">1 Rue Gabriel Péri, 92250 La Garenne-Colombes</span>
+        <span data-mdt-content="global.contact.adresse">22 Place de la Liberté, 92250 La Garenne-Colombes</span>
         <span class="dot" aria-hidden="true">·</span>
-        <a href="tel:+33650535149" data-mdt-content="global.contact.telephone">+33 6 50 53 51 49</a>
+        <a href="tel:+33180882235" data-mdt-content="global.contact.telephone">+33 1 80 88 22 35</a>
         <span class="dot" aria-hidden="true">·</span>
         <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a>
         <span class="dot" aria-hidden="true">·</span>

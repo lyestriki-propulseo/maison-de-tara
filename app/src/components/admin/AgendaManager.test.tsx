@@ -146,11 +146,44 @@ describe('ScheduleGridEditor', () => {
     render(<ScheduleGridEditor templates={agendaData.templates} pending={false} onSave={onSave} />)
 
     expect(screen.getByRole('heading', { name: 'Grille hebdomadaire' })).toBeInTheDocument()
-    expect(screen.getByDisplayValue('Samedi')).toBeInTheDocument()
+    const samedi = screen.getByRole('group', { name: 'Samedi' })
+    expect(within(samedi).getByDisplayValue('14:00')).toBeInTheDocument()
+    expect(within(screen.getByRole('group', { name: 'Lundi' })).getByText('Fermé')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
     expect(onSave).toHaveBeenCalledWith(
       [{ weekday: 6, startTime: '14:00', durationMinutes: 120, capacity: 12 }],
       expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
     )
+  })
+
+  test('ajoute un horaire sur la ligne du jour', () => {
+    const onSave = vi.fn().mockResolvedValue(true)
+    render(<ScheduleGridEditor templates={agendaData.templates} pending={false} onSave={onSave} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ajouter un horaire le lundi' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
+    expect(onSave.mock.calls[0]?.[0]).toContainEqual({
+      weekday: 1,
+      startTime: '10:00',
+      durationMinutes: 120,
+      capacity: 25,
+    })
+  })
+
+  test('copie les horaires d’un jour vers d’autres jours', () => {
+    const onSave = vi.fn().mockResolvedValue(true)
+    render(<ScheduleGridEditor templates={agendaData.templates} pending={false} onSave={onSave} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copier les horaires du samedi' }))
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Dimanche' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Copier vers 1 jour' }))
+    expect(within(screen.getByRole('group', { name: 'Dimanche' })).getByDisplayValue('14:00')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer et générer' }))
+    expect(onSave.mock.calls[0]?.[0]).toContainEqual({
+      weekday: 0,
+      startTime: '14:00',
+      durationMinutes: 120,
+      capacity: 12,
+    })
   })
 })

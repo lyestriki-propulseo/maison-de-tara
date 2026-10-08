@@ -134,6 +134,23 @@ test('CA-06 — titre vidé = section masquée ; autre champ vidé = ce bloc seu
   await expect(field(page, 'confidentialite.donnees.titre')).toBeVisible()
 })
 
+test('CA-06 — section « Éditeur » masquée : la ligne Contact obligatoire reste affichée', async ({
+  page,
+}) => {
+  await mockSupabase(page, {
+    content: {
+      global: rows({ 'global.contact.email': 'bonjour@exemple.fr' }),
+      'mentions-legales': rows({ 'mentions-legales.editeur.titre': null }),
+    },
+  })
+  await page.goto(MENTIONS)
+  await expect(section(page, 'mentions-legales.editeur.titre')).toHaveCount(0)
+  await expect(field(page, 'mentions-legales.editeur.texte')).toHaveCount(0)
+  await expect(page.locator('.mdt-legal a[data-mdt-content="global.contact.email"]')).toHaveText(
+    'bonjour@exemple.fr',
+  )
+})
+
 test('CA-07 — Supabase injoignable : le texte statique des deux pages reste affiché', async ({
   page,
 }) => {

@@ -11,6 +11,8 @@ export const CONTENT_PAGES = [
   { value: 'calendrier', label: 'Calendrier' },
   { value: 'contact', label: 'Contact' },
   { value: 'histoire', label: 'Histoire' },
+  { value: 'mentions-legales', label: 'Mentions légales' },
+  { value: 'confidentialite', label: 'Politique de confidentialité' },
 ] as const
 
 export type ContentPage = (typeof CONTENT_PAGES)[number]['value']

@@ -18,8 +18,8 @@ export type AvailabilityEvent = {
 }
 
 export type SupabaseMock = {
-  /** Lignes content_blocks de la page `atelier`. */
-  atelierContent?: ContentRow[]
+  /** Lignes content_blocks par page (`global`, `atelier`, `mentions-legales`…). */
+  content?: Partial<Record<string, ContentRow[]>>
   events?: AvailabilityEvent[]
   /** Retard (ms) de la réponse content_blocks, pour rejouer les courses entre requêtes. */
   contentDelayMs?: number
@@ -43,9 +43,9 @@ export async function mockSupabase(page: Page, mock: SupabaseMock = {}): Promise
     const url = new URL(route.request().url())
     const resource = url.pathname.split('/rest/v1/')[1] ?? ''
     if (resource === 'content_blocks') {
-      if (url.searchParams.get('page') !== 'eq.atelier') return json(route, [])
+      const pageName = (url.searchParams.get('page') ?? '').replace(/^eq\./, '')
       await wait(mock.contentDelayMs)
-      return json(route, mock.atelierContent ?? [])
+      return json(route, mock.content?.[pageName] ?? [])
     }
     if (resource === 'public_availability_events') {
       await wait(mock.availabilityDelayMs)

@@ -37,7 +37,7 @@ test('CA-02 — le texte saisi s’affiche sous le paiement, la phrase « rembou
   page,
 }) => {
   await mockSupabase(page, {
-    atelierContent: rows({ [COND_ATELIER]: 'Report possible jusqu’à 48 h avant.' }),
+    content: { atelier: rows({ [COND_ATELIER]: 'Report possible jusqu’à 48 h avant.' }) },
   })
   const html = await (await page.request.get(PAGE)).text()
   expect(html).not.toMatch(/rembours/i)
@@ -61,10 +61,12 @@ test('CA-03 — bascule Atelier libre / Événement : seul le texte du mode affi
   page,
 }) => {
   await mockSupabase(page, {
-    atelierContent: rows({
-      [COND_ATELIER]: 'Conditions atelier',
-      [COND_EVENEMENT]: 'Conditions événement',
-    }),
+    content: {
+      atelier: rows({
+        [COND_ATELIER]: 'Conditions atelier',
+        [COND_EVENEMENT]: 'Conditions événement',
+      }),
+    },
   })
   await page.goto(PAGE)
   await expect(field(page, COND_ATELIER)).toBeVisible()
@@ -89,10 +91,12 @@ for (const ordre of [
     await mockSupabase(page, {
       ...ordre,
       events: [EVENT],
-      atelierContent: rows({
-        [COND_ATELIER]: 'Conditions atelier',
-        [COND_EVENEMENT]: 'Conditions événement',
-      }),
+      content: {
+        atelier: rows({
+          [COND_ATELIER]: 'Conditions atelier',
+          [COND_EVENEMENT]: 'Conditions événement',
+        }),
+      },
     })
     await page.goto(`${PAGE}?event=${EVENT.id}`)
     await expect(field(page, COND_EVENEMENT)).toHaveText('Conditions événement')
@@ -104,7 +108,7 @@ for (const ordre of [
 
 test('CA-04 — champ vidé : aucune ligne de conditions, dans les deux modes', async ({ page }) => {
   await mockSupabase(page, {
-    atelierContent: rows({ [COND_ATELIER]: null, [COND_EVENEMENT]: null }),
+    content: { atelier: rows({ [COND_ATELIER]: null, [COND_EVENEMENT]: null }) },
   })
   await page.goto(PAGE)
   // Attend que le contenu soit appliqué : le champ vide est retiré de la page.
@@ -131,7 +135,9 @@ test('CA-07 — « Paiement — événement » : texte de Tara avant le choix, r
 }) => {
   await mockSupabase(page, {
     events: [EVENT],
-    atelierContent: rows({ [PAIEMENT_EVENEMENT]: 'Le prix se règle en ligne (texte de Tara).' }),
+    content: {
+      atelier: rows({ [PAIEMENT_EVENEMENT]: 'Le prix se règle en ligne (texte de Tara).' }),
+    },
   })
   await page.goto(PAGE)
   await chooseMode(page, 'evenement')

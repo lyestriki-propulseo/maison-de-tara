@@ -1,7 +1,7 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: validee
+statut: suspendue
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -149,3 +149,4 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
 - 2026-10-08 — v1 brouillon révisé après relecture : rien en dur, texte de départ = mots de Tara (décision
   de Lyes) ; ajout de CA-07 « Paiement — événement » (décision de Lyes).
 - 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).
+- 2026-10-08 — suspendue au démarrage de la construction : CA-07 décrit mal le comportement actuel (`site-booking.js:151-162` : dès qu'un événement avec prix est choisi, la phrase automatique « Paiement en ligne de X € par personne… » **remplace** le texte éditable, elle ne le suit pas). Version 2 proposée à Lyes.

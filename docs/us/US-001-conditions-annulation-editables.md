@@ -1,7 +1,7 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: brouillon
+statut: validee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -148,3 +148,4 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
 - 2026-10-08 — v1 brouillon (demande de Tara par mail du 08/10 ; choix de Lyes : deux textes, un par mode).
 - 2026-10-08 — v1 brouillon révisé après relecture : rien en dur, texte de départ = mots de Tara (décision
   de Lyes) ; ajout de CA-07 « Paiement — événement » (décision de Lyes).
+- 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).

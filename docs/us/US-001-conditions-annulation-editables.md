@@ -1,8 +1,8 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: suspendue
-version: 1
+statut: validee
+version: 2
 projet: Maison de Tara (site + admin)
 ---
 
@@ -57,7 +57,9 @@ le texte de l'acompte. S'il choisit « Événement », il lit à la place le tex
 - **CA-06** — Étant donné Supabase injoignable, quand le visiteur ouvre la page Atelier, alors aucune
   ligne de conditions ne s'affiche (jamais l'ancienne phrase « remboursé »).
 - **CA-07** — Étant donné le champ « Paiement — événement » modifié et enregistré, quand le visiteur
-  choisit un événement, alors il lit le nouveau texte (suivi du prix de l'événement, comme aujourd'hui).
+  passe en mode « Événement » sans avoir choisi d'événement (ou choisit un événement sans prix
+  payable), alors il lit le nouveau texte ; quand il choisit un événement avec un prix, la phrase
+  automatique « Paiement en ligne de X € par personne… » le remplace, comme aujourd'hui (v2).
 
 ## Faits et hypothèses
 
@@ -150,3 +152,4 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
   de Lyes) ; ajout de CA-07 « Paiement — événement » (décision de Lyes).
 - 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).
 - 2026-10-08 — suspendue au démarrage de la construction : CA-07 décrit mal le comportement actuel (`site-booking.js:151-162` : dès qu'un événement avec prix est choisi, la phrase automatique « Paiement en ligne de X € par personne… » **remplace** le texte éditable, elle ne le suit pas). Version 2 proposée à Lyes.
+- 2026-10-08 — v2 : CA-07 reformulé pour décrire le comportement actuel (texte remplacé par le montant une fois l'événement choisi). Validée par Lyes (choix « Comme aujourd'hui », dans la conversation).

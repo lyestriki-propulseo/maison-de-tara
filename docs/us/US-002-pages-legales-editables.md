@@ -1,7 +1,7 @@
 ---
 id: US-002
 titre: Tara modifie elle-même les pages Mentions légales et Politique de confidentialité
-statut: brouillon
+statut: validee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -224,3 +224,4 @@ ligne). Écartés : limite de 4 000 caractères (sections < 600 caractères), no
 - 2026-10-08 — v1 brouillon (demande de Tara par mail du 07/10 ; choix de Lyes : une case par section).
 - 2026-10-08 — v1 brouillon révisé après relecture (4 bloquants traités, voir « Relecture »).
 - 2026-10-08 — faits mis à jour : politique complétée (8 sections, 3 listes), hébergeur des mentions renseigné.
+- 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).

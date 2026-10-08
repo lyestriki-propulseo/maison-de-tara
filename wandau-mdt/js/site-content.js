@@ -4,11 +4,17 @@
 // Progressif : si Supabase n'est pas configuré, indisponible, ou qu'un champ n'a pas encore été
 // personnalisé (valeur vide), le HTML statique déjà présent reste affiché tel quel.
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+import { renderTexte } from './content-format.js';
 
 const CONFIGURED =
   /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
 
 function applyText(el, value) {
+  // Texte long mis en forme (paragraphes, retours à la ligne, liens) — pages légales.
+  if (el.dataset.mdtMode === 'texte') {
+    renderTexte(el, value);
+    return;
+  }
   if (el.dataset.mdtMode === 'lines') {
     const i = value.indexOf(', ');
     if (i === -1) {
@@ -73,7 +79,8 @@ function syncContactHrefs(key, value) {
       if (f.getAttribute('src') !== src) f.setAttribute('src', src);
     });
   } else if (key === 'global.contact.email') {
-    document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
+    // Sauf les liens tirés d'un texte saisi par Tara (content-format.js) : ils gardent leur adresse.
+    document.querySelectorAll('a[href^="mailto:"]:not([data-mdt-autolink])').forEach((a) => {
       a.href = 'mailto:' + value;
     });
   } else if (key === 'global.contact.instagram') {

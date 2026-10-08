@@ -59,7 +59,8 @@ ces lignes, et l'adresse email est cliquable.
   hors du lien (« écrivez-nous à contact@maisondetara.com. » → lien `mailto:contact@maisondetara.com`).
   `cnil.fr` ou `www.…` sans `http` restent du texte. Du HTML saisi (ex. `<b>`, `<script>`) s'affiche
   tel quel, comme du texte, sans être interprété.
-- **CA-05** — Étant donné la section « Données collectées » de la politique, quand Tara modifie sa liste
+- **CA-05** — Étant donné une section à liste de la politique (« Données collectées », « Durée de
+  conservation », « Destinataires »), quand Tara modifie sa liste
   (une ligne = un élément), alors la page affiche une liste à puces avec un élément par ligne non vide.
 - **CA-06** — Étant donné une section dont Tara vide le titre et enregistre, quand le visiteur ouvre la
   page, alors la section entière (titre et texte) n'apparaît plus. Étant donné un autre champ vidé (texte
@@ -74,9 +75,11 @@ ces lignes, et l'adresse email est cliquable.
   Hébergement, Propriété intellectuelle, Données personnelles, Cookies, Responsabilité. La section Éditeur
   utilise des `<br>` et contient le téléphone lié à `global.contact.telephone` (le HTML statique affiche
   encore l'ancien numéro, la base porte le bon).
-- **Fait** (`wandau-mdt/_src/politique-de-confidentialite.html`) : 6 sections : Responsable,
-  Données collectées (paragraphe + liste `<ul>` à 3 éléments en gras + paragraphe), Finalités, Durée de
-  conservation, Destinataires, Vos droits. Liens `mailto:` dans le texte.
+- **Fait** (`wandau-mdt/_src/politique-de-confidentialite.html`, complétée le 08/10 — `site-deploy`
+  2f3a8e5) : 8 sections : Responsable, Données collectées (paragraphe + liste `<ul>` + paragraphe),
+  Finalités, Durée de conservation (liste seule), Destinataires (paragraphe + liste), Transferts hors UE,
+  Cookies et mesure d'audience (2 paragraphes), Vos droits. Liens `mailto:` dans le texte. Les
+  mentions (b780139) ont un lien `https://www.ovhcloud.com` dans Hébergement.
 - **Fait** : les deux pages chargent déjà `js/site-content.js` (pour les coordonnées du pied de page),
   mais n'ont pas d'attribut `data-mdt-page` sur `<body>`.
 - **Fait** (`js/site-content.js`) : modes existants `lines` (coupe à la première « , ») et `list` (une ligne = un
@@ -97,8 +100,9 @@ ces lignes, et l'adresse email est cliquable.
   `.mdt-legal h2/p/ul/li` sont descendantes : l'enveloppe ne change pas le rendu.
 - **Hypothèse** : les liens créés depuis le texte de Tara sont marqués (ex. `data-mdt-autolink`) et exclus
   de `syncContactHrefs`, qui réécrit aujourd'hui tous les `a[href^="mailto:"]` de la page.
-- **Hypothèse** : « Données collectées » = 4 champs (titre, introduction, liste, conclusion) ; la liste
-  réutilise le mode `list` existant.
+- **Hypothèse** : une section avec liste = titre + introduction + liste + conclusion (champs vides
+  masqués, CA-06) : « Données collectées », « Durée de conservation », « Destinataires » ; la liste
+  réutilise le mode `list` existant. Les autres sections = titre + texte.
 - **Hypothèse (tests)** : CA-03/04/05 = tests unitaires `node:test` de la fonction pure, sur le modèle
   de `tests/umami.test.mjs` (nom de test préfixé par le CA). CA-02/06/07 = test navigateur Playwright sur
   le site servi en local, réponses Supabase simulées (`page.route`) — jamais en modifiant les pages en
@@ -219,3 +223,4 @@ ligne). Écartés : limite de 4 000 caractères (sections < 600 caractères), no
 
 - 2026-10-08 — v1 brouillon (demande de Tara par mail du 07/10 ; choix de Lyes : une case par section).
 - 2026-10-08 — v1 brouillon révisé après relecture (4 bloquants traités, voir « Relecture »).
+- 2026-10-08 — faits mis à jour : politique complétée (8 sections, 3 listes), hébergeur des mentions renseigné.

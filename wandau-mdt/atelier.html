@@ -370,7 +370,11 @@
                  dans son propre <span> ; le prix de l'événement choisi va dans #rf-prix-evenement, qui
                  le remplace quand un prix valide est connu (site-booking.js). -->
             <p class="acompte" id="rf-acompte-evenement" hidden><span data-mdt-content="atelier.reserve.acompte_evenement">Le prix de l’événement est réglé en totalité en ligne, par carte bancaire.</span><span id="rf-prix-evenement" hidden></span></p>
-            <p class="refund-policy">Annulation au moins 48&nbsp;h avant votre créneau&nbsp;: le paiement de réservation est remboursé. Passé ce délai, appelez Tara pour convenir d'un changement de date.</p>
+            <!-- Conditions d'annulation (US-001) : un texte par mode, écrit par Tara dans /admin/contenu.
+                 L'enveloppe (id) est basculée par toggleMode() ; le <p> porte le texte éditable. Rien en
+                 dur : vide = rien d'affiché (CSS :empty), champ vidé en base = <p> retiré (hide-if-empty). -->
+            <div id="rf-conditions-atelier"><p class="refund-policy" data-mdt-content="atelier.reserve.conditions" data-mdt-hide-if-empty="atelier.reserve.conditions"></p></div>
+            <div id="rf-conditions-evenement" hidden><p class="refund-policy" data-mdt-content="atelier.reserve.conditions_evenement" data-mdt-hide-if-empty="atelier.reserve.conditions_evenement"></p></div>
             <div class="fgrid">
               <fieldset class="fld fld--pills fld--span">
                 <legend>Nombre de participants</legend>

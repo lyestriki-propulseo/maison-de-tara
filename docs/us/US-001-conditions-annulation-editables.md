@@ -1,7 +1,7 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: validee
+statut: en_construction
 version: 2
 projet: Maison de Tara (site + admin)
 ---

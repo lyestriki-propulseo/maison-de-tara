@@ -1,7 +1,7 @@
 ---
 id: US-002
 titre: Tara modifie elle-même les pages Mentions légales et Politique de confidentialité
-statut: en_construction
+statut: verifiee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -211,13 +211,13 @@ ligne). Écartés : limite de 4 000 caractères (sections < 600 caractères), no
 
 | Critère | Preuve (test, capture, requête) | Commit | État |
 |---|---|---|---|
-| CA-01 | | | non vérifié |
-| CA-02 | | | non vérifié |
-| CA-03 | | | non vérifié |
-| CA-04 | | | non vérifié |
-| CA-05 | | | non vérifié |
-| CA-06 | | | non vérifié |
-| CA-07 | | | non vérifié |
+| CA-01 | `app/e2e/contenu-pages-legales.e2e.ts` ×2 (Mentions, Politique) contre l'admin de prod (08/10, ok) | eeed745 | ok |
+| CA-02 | `app/e2e-site/pages-legales.e2e.ts` « CA-02 — … » ; prod : 6 et 8 sections rendues depuis la base | 941d210 | ok |
+| CA-03 | `tests/content-format.test.mjs` « CA-03 » ×4 (site) + e2e « CA-03 » ; prod : Éditeur sur 4 lignes, Cookies en 2 paragraphes | 2edb984, 17aaf45 | ok |
+| CA-04 | `tests/content-format.test.mjs` « CA-04 » ×6 + e2e « CA-04 » (dont HTML non interprété, synchro Coordonnées) ; prod : 2 mailto, lien OVH en nouvel onglet, point final hors du lien | 2edb984, 17aaf45 | ok |
+| CA-05 | e2e « CA-05 » ; prod : listes de 4, 4 et 5 puces | 941d210 | ok |
+| CA-06 | e2e « CA-06 » ×2 (titre vidé, bloc vidé, ligne Contact conservée) | 941d210, a9f1688, 9ab2c16 | ok |
+| CA-07 | e2e « CA-07 — Supabase injoignable… » | 941d210 | ok |
 
 ## Historique
 
@@ -225,3 +225,4 @@ ligne). Écartés : limite de 4 000 caractères (sections < 600 caractères), no
 - 2026-10-08 — v1 brouillon révisé après relecture (4 bloquants traités, voir « Relecture »).
 - 2026-10-08 — faits mis à jour : politique complétée (8 sections, 3 listes), hébergeur des mentions renseigné.
 - 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).
+- 2026-10-08 — construite et vérifiée (tous les critères prouvés), **en production le 08/10** (site a9f1688, migration 20261008130000, admin fe86153). Relecture de code : ligne Contact sortie de la section Éditeur (a9f1688). En attente de l'acceptation de Lyes. Même constat de cache Cloudflare (4 h) que l'US-001.

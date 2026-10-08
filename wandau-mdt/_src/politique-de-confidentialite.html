@@ -6,7 +6,7 @@
 <meta name="description" content="Politique de confidentialité du site de la Maison de Tara.">
 <meta name="robots" content="noindex">
 </head>
-<body class="page-legale">
+<body class="page-legale" data-mdt-page="confidentialite">
 <!-- include: header -->
 <main id="main" class="mdt-natural-scroll">
   <section class="content-section mdt-floral-soft">
@@ -15,47 +15,84 @@
         <span class="mdt-eyebrow">Informations</span>
         <h1>Politique de confidentialité</h1>
       </div>
-      <!-- Complétée le 08/10/2026 à partir des services réellement branchés (Supabase,
-           Stripe, Brevo, OVH, Cloudflare, Umami, GlitchTip, Google Fonts/Maps).
-           Reste à fournir par Tara : la raison sociale. Durées de conservation =
-           recommandations CNIL, à faire confirmer par Tara. -->
+      <!-- Éditable section par section depuis /admin/contenu, page « Politique de confidentialité »
+           (US-002). Le HTML ci-dessous n'est qu'un repli (base injoignable) : la vraie valeur vient de
+           content_blocks. Section = bloc data-mdt-hide-if-empty sur la clé de son titre (titre vidé =
+           section masquée) ; texte en data-mdt-mode="texte", listes en data-mdt-mode="list".
+           Contenu complété le 08/10/2026 (services réellement branchés) ; raison sociale et durées de
+           conservation à confirmer par Tara, qui les modifie elle-même. -->
       <div class="mdt-legal">
-        <h2>Responsable du traitement</h2>
-        <p><span class="todo">[À COMPLÉTER : raison sociale]</span> · Maison de Tara, 22 Place de la Liberté, 92250 La Garenne-Colombes · contact : <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a></p>
-        <h2>Données collectées</h2>
-        <p>Le site collecte uniquement les données que vous renseignez dans ses formulaires&nbsp;:</p>
-        <ul>
-          <li><strong>Réservation d'un atelier ou d'un événement</strong> : nom, e-mail, téléphone (facultatif), créneau ou événement choisi, nombre de participants.</li>
-          <li><strong>Paiement en ligne</strong> : vos coordonnées bancaires sont saisies directement sur la page sécurisée de notre prestataire de paiement, Stripe. La Maison de Tara n'y a jamais accès&nbsp;; elle reçoit seulement la confirmation et le montant du paiement.</li>
-          <li><strong>Contact et demande de privatisation</strong> : nom, e-mail, message et, pour une privatisation, téléphone, date souhaitée, nombre de personnes et type d'événement.</li>
-          <li><strong>Lettre de la maison</strong> : adresse e-mail.</li>
-        </ul>
-        <p>Le site mesure aussi sa fréquentation de façon anonyme et enregistre ses erreurs techniques (voir «&nbsp;Cookies et mesure d'audience&nbsp;»).</p>
-        <h2>Finalités et bases légales</h2>
-        <p>Ces données servent exclusivement à gérer vos réservations et leur paiement (exécution du contrat), à répondre à vos messages et demandes de privatisation (mesures précontractuelles et intérêt légitime), à vous envoyer la lettre de la maison (consentement, retirable à tout moment grâce au lien de désinscription présent dans chaque envoi), à respecter nos obligations comptables (obligation légale) et à assurer le bon fonctionnement et la sécurité du site (intérêt légitime).</p>
-        <h2>Durée de conservation</h2>
-        <ul>
-          <li><strong>Réservations et échanges avec nos clients</strong> : 3 ans après le dernier contact.</li>
-          <li><strong>Pièces comptables liées aux paiements</strong> : 10 ans, comme l'exige la loi.</li>
-          <li><strong>Demandes de contact sans suite</strong> : 3 ans après le dernier échange.</li>
-          <li><strong>Lettre de la maison</strong> : jusqu'à votre désinscription.</li>
-        </ul>
-        <h2>Destinataires et sous-traitants</h2>
-        <p>Vos données sont destinées à la seule Maison de Tara. Elles ne sont ni vendues, ni transmises à des tiers à des fins commerciales. Pour fonctionner, le site s'appuie sur des prestataires techniques qui les traitent pour notre compte et selon nos instructions&nbsp;:</p>
-        <ul>
-          <li><strong>Supabase</strong> (base de données) : serveurs situés à Francfort, en Allemagne.</li>
-          <li><strong>Stripe</strong> (paiement en ligne) : Stripe Payments Europe Ltd, Irlande.</li>
-          <li><strong>Brevo</strong> (e-mails de confirmation et lettre de la maison) : Sendinblue SAS, France.</li>
-          <li><strong>OVHcloud</strong> (hébergement du site, mesure d'audience et suivi des erreurs, administrés par notre prestataire web Propul'SEO) : OVH SAS, serveurs en France.</li>
-          <li><strong>Cloudflare</strong> (diffusion et protection du site) : Cloudflare, Inc.</li>
-        </ul>
-        <h2>Transferts hors de l'Union européenne</h2>
-        <p>Certains prestataires (Stripe, Cloudflare, Supabase, ainsi que Google pour les polices d'écriture et la carte) appartiennent à des groupes américains et peuvent transférer des données aux États-Unis. Ces transferts sont encadrés par le cadre de protection des données UE–États-Unis (Data Privacy Framework) ou par les clauses contractuelles types de la Commission européenne.</p>
-        <h2>Cookies et mesure d'audience</h2>
-        <p>Le site lui-même ne dépose aucun cookie publicitaire ni de suivi. Sa fréquentation est mesurée avec Umami, un outil hébergé en France qui n'utilise pas de cookie et ne conserve aucune donnée permettant de vous identifier (seulement la page consultée, la taille de l'écran, la langue et le site d'où vous venez). Les erreurs techniques sont enregistrées avec GlitchTip, après suppression de toute information personnelle.</p>
-        <p>Deux services externes peuvent en revanche utiliser leurs propres cookies&nbsp;: la carte Google Maps de la page Contact, et la page de paiement Stripe, pour sécuriser les transactions. Les polices d'écriture du site sont chargées depuis les serveurs de Google, qui reçoivent à cette occasion votre adresse IP.</p>
-        <h2>Vos droits</h2>
-        <p>Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Vous pouvez aussi retirer votre consentement à tout moment (par exemple en vous désinscrivant de la lettre) et définir des directives sur le sort de vos données après votre décès. Pour exercer ces droits, écrivez-nous à <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>. Si, après nous avoir contactés, vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (cnil.fr).</p>
+        <div data-mdt-hide-if-empty="confidentialite.responsable.titre">
+          <h2 data-mdt-content="confidentialite.responsable.titre">Responsable du traitement</h2>
+          <div data-mdt-content="confidentialite.responsable.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.responsable.texte">
+            <p><span class="todo">[À COMPLÉTER : raison sociale]</span> · Maison de Tara, 22 Place de la Liberté, 92250 La Garenne-Colombes · contact : <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a></p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.donnees.titre">
+          <h2 data-mdt-content="confidentialite.donnees.titre">Données collectées</h2>
+          <div data-mdt-content="confidentialite.donnees.intro" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.donnees.intro">
+            <p>Le site collecte uniquement les données que vous renseignez dans ses formulaires&nbsp;:</p>
+          </div>
+          <ul data-mdt-content="confidentialite.donnees.liste" data-mdt-mode="list" data-mdt-hide-if-empty="confidentialite.donnees.liste">
+            <li><strong>Réservation d'un atelier ou d'un événement</strong> : nom, e-mail, téléphone (facultatif), créneau ou événement choisi, nombre de participants.</li>
+            <li><strong>Paiement en ligne</strong> : vos coordonnées bancaires sont saisies directement sur la page sécurisée de notre prestataire de paiement, Stripe. La Maison de Tara n'y a jamais accès&nbsp;; elle reçoit seulement la confirmation et le montant du paiement.</li>
+            <li><strong>Contact et demande de privatisation</strong> : nom, e-mail, message et, pour une privatisation, téléphone, date souhaitée, nombre de personnes et type d'événement.</li>
+            <li><strong>Lettre de la maison</strong> : adresse e-mail.</li>
+          </ul>
+          <div data-mdt-content="confidentialite.donnees.conclusion" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.donnees.conclusion">
+            <p>Le site mesure aussi sa fréquentation de façon anonyme et enregistre ses erreurs techniques (voir «&nbsp;Cookies et mesure d'audience&nbsp;»).</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.finalites.titre">
+          <h2 data-mdt-content="confidentialite.finalites.titre">Finalités et bases légales</h2>
+          <div data-mdt-content="confidentialite.finalites.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.finalites.texte">
+            <p>Ces données servent exclusivement à gérer vos réservations et leur paiement (exécution du contrat), à répondre à vos messages et demandes de privatisation (mesures précontractuelles et intérêt légitime), à vous envoyer la lettre de la maison (consentement, retirable à tout moment grâce au lien de désinscription présent dans chaque envoi), à respecter nos obligations comptables (obligation légale) et à assurer le bon fonctionnement et la sécurité du site (intérêt légitime).</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.conservation.titre">
+          <h2 data-mdt-content="confidentialite.conservation.titre">Durée de conservation</h2>
+          <div data-mdt-content="confidentialite.conservation.intro" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.conservation.intro"></div>
+          <ul data-mdt-content="confidentialite.conservation.liste" data-mdt-mode="list" data-mdt-hide-if-empty="confidentialite.conservation.liste">
+            <li><strong>Réservations et échanges avec nos clients</strong> : 3 ans après le dernier contact.</li>
+            <li><strong>Pièces comptables liées aux paiements</strong> : 10 ans, comme l'exige la loi.</li>
+            <li><strong>Demandes de contact sans suite</strong> : 3 ans après le dernier échange.</li>
+            <li><strong>Lettre de la maison</strong> : jusqu'à votre désinscription.</li>
+          </ul>
+          <div data-mdt-content="confidentialite.conservation.conclusion" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.conservation.conclusion"></div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.destinataires.titre">
+          <h2 data-mdt-content="confidentialite.destinataires.titre">Destinataires et sous-traitants</h2>
+          <div data-mdt-content="confidentialite.destinataires.intro" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.destinataires.intro">
+            <p>Vos données sont destinées à la seule Maison de Tara. Elles ne sont ni vendues, ni transmises à des tiers à des fins commerciales. Pour fonctionner, le site s'appuie sur des prestataires techniques qui les traitent pour notre compte et selon nos instructions&nbsp;:</p>
+          </div>
+          <ul data-mdt-content="confidentialite.destinataires.liste" data-mdt-mode="list" data-mdt-hide-if-empty="confidentialite.destinataires.liste">
+            <li><strong>Supabase</strong> (base de données) : serveurs situés à Francfort, en Allemagne.</li>
+            <li><strong>Stripe</strong> (paiement en ligne) : Stripe Payments Europe Ltd, Irlande.</li>
+            <li><strong>Brevo</strong> (e-mails de confirmation et lettre de la maison) : Sendinblue SAS, France.</li>
+            <li><strong>OVHcloud</strong> (hébergement du site, mesure d'audience et suivi des erreurs, administrés par notre prestataire web Propul'SEO) : OVH SAS, serveurs en France.</li>
+            <li><strong>Cloudflare</strong> (diffusion et protection du site) : Cloudflare, Inc.</li>
+          </ul>
+          <div data-mdt-content="confidentialite.destinataires.conclusion" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.destinataires.conclusion"></div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.transferts.titre">
+          <h2 data-mdt-content="confidentialite.transferts.titre">Transferts hors de l'Union européenne</h2>
+          <div data-mdt-content="confidentialite.transferts.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.transferts.texte">
+            <p>Certains prestataires (Stripe, Cloudflare, Supabase, ainsi que Google pour les polices d'écriture et la carte) appartiennent à des groupes américains et peuvent transférer des données aux États-Unis. Ces transferts sont encadrés par le cadre de protection des données UE–États-Unis (Data Privacy Framework) ou par les clauses contractuelles types de la Commission européenne.</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.cookies.titre">
+          <h2 data-mdt-content="confidentialite.cookies.titre">Cookies et mesure d'audience</h2>
+          <div data-mdt-content="confidentialite.cookies.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.cookies.texte">
+            <p>Le site lui-même ne dépose aucun cookie publicitaire ni de suivi. Sa fréquentation est mesurée avec Umami, un outil hébergé en France qui n'utilise pas de cookie et ne conserve aucune donnée permettant de vous identifier (seulement la page consultée, la taille de l'écran, la langue et le site d'où vous venez). Les erreurs techniques sont enregistrées avec GlitchTip, après suppression de toute information personnelle.</p>
+            <p>Deux services externes peuvent en revanche utiliser leurs propres cookies&nbsp;: la carte Google Maps de la page Contact, et la page de paiement Stripe, pour sécuriser les transactions. Les polices d'écriture du site sont chargées depuis les serveurs de Google, qui reçoivent à cette occasion votre adresse IP.</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="confidentialite.droits.titre">
+          <h2 data-mdt-content="confidentialite.droits.titre">Vos droits</h2>
+          <div data-mdt-content="confidentialite.droits.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="confidentialite.droits.texte">
+            <p>Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Vous pouvez aussi retirer votre consentement à tout moment (par exemple en vous désinscrivant de la lettre) et définir des directives sur le sort de vos données après votre décès. Pour exercer ces droits, écrivez-nous à <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a>. Si, après nous avoir contactés, vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (cnil.fr).</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

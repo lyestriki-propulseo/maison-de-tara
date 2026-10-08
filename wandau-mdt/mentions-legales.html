@@ -70,7 +70,7 @@
 <meta name="description" content="Mentions légales du site de la Maison de Tara.">
 <meta name="robots" content="noindex">
 </head>
-<body class="page-legale">
+<body class="page-legale" data-mdt-page="mentions-legales">
 <!-- ====== HEADER MDT (hors smooth-scroll pour position fixed Locomotive-safe) ====== -->
 <a class="skip-link" href="#main">Aller au contenu</a>
 
@@ -208,28 +208,55 @@
         <span class="mdt-eyebrow">Informations</span>
         <h1>Mentions légales</h1>
       </div>
-      <!-- Squelette conforme LCEN — hébergeur complété le 08/10/2026. Les [À COMPLÉTER]
-           restants (identité de l'éditeur) attendent les infos juridiques de Tara. -->
+      <!-- Éditable section par section depuis /admin/contenu, page « Mentions légales » (US-002).
+           Le HTML ci-dessous n'est qu'un repli (base injoignable) : la vraie valeur vient de
+           content_blocks. Section = bloc data-mdt-hide-if-empty sur la clé de son titre (titre vidé =
+           section masquée) ; texte en data-mdt-mode="texte" (paragraphes, retours à la ligne, liens).
+           La ligne Contact reste hors champ : elle suit Contenu › Coordonnées. -->
       <div class="mdt-legal">
-        <h2>Éditeur du site</h2>
-        <p>
-          <span class="todo">[À COMPLÉTER : raison sociale]</span> · <span class="todo">[forme juridique]</span> au capital de <span class="todo">[capital]</span><br>
-          Siège social : <span class="todo">[adresse du siège]</span><br>
-          SIRET : <span class="todo">[SIRET]</span> · RCS : <span class="todo">[ville + numéro RCS]</span> · TVA intracommunautaire : <span class="todo">[numéro]</span><br>
-          Directrice de la publication : <span class="todo">[nom — Tara ?]</span><br>
-          Contact : <a href="mailto:contact@maisondetara.com">contact@maisondetara.com</a> · <span data-mdt-content="global.contact.telephone">+33 1 80 88 22 35</span>
-        </p>
-        <h2>Hébergement</h2>
-        <p>OVH SAS · 2 rue Kellermann, 59100 Roubaix, France · 09 72 10 10 07 · <a href="https://www.ovhcloud.com" target="_blank" rel="noopener noreferrer">ovhcloud.com</a><br>
-          Diffusion et protection du site : Cloudflare, Inc. · 101 Townsend Street, San Francisco, CA 94107, États-Unis</p>
-        <h2>Propriété intellectuelle</h2>
-        <p>L'ensemble des contenus de ce site (textes, photographies, illustrations, logo, charte graphique) est la propriété exclusive de la Maison de Tara, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
-        <h2>Données personnelles</h2>
-        <p>Les traitements de données réalisés via ce site sont décrits dans la <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
-        <h2>Cookies</h2>
-        <p>Ce site ne dépose lui-même aucun cookie de mesure d'audience ou de publicité. Les services externes qui peuvent utiliser leurs propres cookies (carte Google Maps, page de paiement Stripe) sont détaillés dans la <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
-        <h2>Responsabilité</h2>
-        <p>La Maison de Tara s'efforce de maintenir des informations exactes et à jour, sans pouvoir garantir l'absence d'erreurs ou d'omissions. Les informations présentées (horaires, tarifs, événements) sont indicatives et peuvent évoluer.</p>
+        <div data-mdt-hide-if-empty="mentions-legales.editeur.titre">
+          <h2 data-mdt-content="mentions-legales.editeur.titre">Éditeur du site</h2>
+          <div data-mdt-content="mentions-legales.editeur.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.editeur.texte">
+            <p>
+              <span class="todo">[À COMPLÉTER : raison sociale]</span> · <span class="todo">[forme juridique]</span> au capital de <span class="todo">[capital]</span><br>
+              Siège social : <span class="todo">[adresse du siège]</span><br>
+              SIRET : <span class="todo">[SIRET]</span> · RCS : <span class="todo">[ville + numéro RCS]</span> · TVA intracommunautaire : <span class="todo">[numéro]</span><br>
+              Directrice de la publication : <span class="todo">[nom — Tara ?]</span>
+            </p>
+          </div>
+          <p>Contact : <a href="mailto:contact@maisondetara.com" data-mdt-content="global.contact.email">contact@maisondetara.com</a> · <span data-mdt-content="global.contact.telephone">+33 1 80 88 22 35</span></p>
+        </div>
+        <div data-mdt-hide-if-empty="mentions-legales.hebergement.titre">
+          <h2 data-mdt-content="mentions-legales.hebergement.titre">Hébergement</h2>
+          <div data-mdt-content="mentions-legales.hebergement.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.hebergement.texte">
+            <p>OVH SAS · 2 rue Kellermann, 59100 Roubaix, France · 09 72 10 10 07 · <a href="https://www.ovhcloud.com" target="_blank" rel="noopener noreferrer">https://www.ovhcloud.com</a><br>
+              Diffusion et protection du site : Cloudflare, Inc. · 101 Townsend Street, San Francisco, CA 94107, États-Unis</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="mentions-legales.propriete.titre">
+          <h2 data-mdt-content="mentions-legales.propriete.titre">Propriété intellectuelle</h2>
+          <div data-mdt-content="mentions-legales.propriete.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.propriete.texte">
+            <p>L'ensemble des contenus de ce site (textes, photographies, illustrations, logo, charte graphique) est la propriété exclusive de la Maison de Tara, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="mentions-legales.donnees.titre">
+          <h2 data-mdt-content="mentions-legales.donnees.titre">Données personnelles</h2>
+          <div data-mdt-content="mentions-legales.donnees.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.donnees.texte">
+            <p>Les traitements de données réalisés via ce site sont décrits dans la <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="mentions-legales.cookies.titre">
+          <h2 data-mdt-content="mentions-legales.cookies.titre">Cookies</h2>
+          <div data-mdt-content="mentions-legales.cookies.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.cookies.texte">
+            <p>Ce site ne dépose lui-même aucun cookie de mesure d'audience ou de publicité. Les services externes qui peuvent utiliser leurs propres cookies (carte Google Maps, page de paiement Stripe) sont détaillés dans la <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
+          </div>
+        </div>
+        <div data-mdt-hide-if-empty="mentions-legales.responsabilite.titre">
+          <h2 data-mdt-content="mentions-legales.responsabilite.titre">Responsabilité</h2>
+          <div data-mdt-content="mentions-legales.responsabilite.texte" data-mdt-mode="texte" data-mdt-hide-if-empty="mentions-legales.responsabilite.texte">
+            <p>La Maison de Tara s'efforce de maintenir des informations exactes et à jour, sans pouvoir garantir l'absence d'erreurs ou d'omissions. Les informations présentées (horaires, tarifs, événements) sont indicatives et peuvent évoluer.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

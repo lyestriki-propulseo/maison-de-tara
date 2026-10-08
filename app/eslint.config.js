@@ -23,6 +23,7 @@ export default [
       'dist/**',
       'src/routeTree.gen.ts',
       'e2e/.report/**',
+      'e2e-site/.results/**',
     ],
   },
 ]

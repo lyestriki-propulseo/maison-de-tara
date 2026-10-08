@@ -16,3 +16,4 @@ todos.json
 e2e/.auth/
 e2e/.results/
 e2e/.report/
+e2e-site/.results/

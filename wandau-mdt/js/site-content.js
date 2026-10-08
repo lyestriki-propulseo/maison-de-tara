@@ -85,7 +85,7 @@ function syncContactHrefs(key, value) {
     });
   } else if (key === 'global.contact.instagram') {
     const handle = value.trim().replace(/^@/, '');
-    document.querySelectorAll('a[href*="instagram.com"]').forEach((a) => {
+    document.querySelectorAll('a[href*="instagram.com"]:not([data-mdt-autolink])').forEach((a) => {
       a.href = 'https://www.instagram.com/' + handle + '/';
     });
   }

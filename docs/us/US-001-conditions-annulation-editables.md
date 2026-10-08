@@ -1,7 +1,7 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: en_construction
+statut: verifiee
 version: 2
 projet: Maison de Tara (site + admin)
 ---
@@ -137,13 +137,13 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
 
 | Critère | Preuve (test, capture, requête) | Commit | État |
 |---|---|---|---|
-| CA-01 | | | non vérifié |
-| CA-02 | | | non vérifié |
-| CA-03 | | | non vérifié |
-| CA-04 | | | non vérifié |
-| CA-05 | | | non vérifié |
-| CA-06 | | | non vérifié |
-| CA-07 | | | non vérifié |
+| CA-01 | `app/e2e/contenu-conditions.e2e.ts` « CA-01 — … » contre l'admin de prod (08/10, ok) | a65f789 | ok |
+| CA-02 | `app/e2e-site/reservation-conditions.e2e.ts` « CA-02 — … » ; prod 08/10 : « rembours » absent de /atelier (HTML et page rendue), texte de Tara affiché | 7b00d17, bb9fd21 | ok |
+| CA-03 | 3 tests « CA-03 — … » (bascule ; arrivée `?event=` contenu avant / après les disponibilités) ; prod : texte atelier masqué en mode Événement | 7b00d17 | ok |
+| CA-04 | « CA-04 — champ vidé… » ; prod : `conditions_evenement` vide → élément retiré | 7b00d17 | ok |
+| CA-05 | Photo `content_blocks` avant / après migration (08/10) : 198 → 235 lignes, 37 nouvelles, **0 modifiée, 0 supprimée** | a65f789 | ok |
+| CA-06 | « CA-06 — Supabase injoignable… » (requêtes coupées) | 7b00d17 | ok |
+| CA-07 | « CA-07 — « Paiement — événement »… » ; prod : texte visible en mode Événement | a65f789, 7b00d17 | ok |
 
 ## Historique
 
@@ -153,3 +153,4 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
 - 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).
 - 2026-10-08 — suspendue au démarrage de la construction : CA-07 décrit mal le comportement actuel (`site-booking.js:151-162` : dès qu'un événement avec prix est choisi, la phrase automatique « Paiement en ligne de X € par personne… » **remplace** le texte éditable, elle ne le suit pas). Version 2 proposée à Lyes.
 - 2026-10-08 — v2 : CA-07 reformulé pour décrire le comportement actuel (texte remplacé par le montant une fois l'événement choisi). Validée par Lyes (choix « Comme aujourd'hui », dans la conversation).
+- 2026-10-08 — construite et vérifiée (tous les critères prouvés), **en production le 08/10** (site a9f1688, migration 20261008120000, admin fe86153). En attente de l'acceptation de Lyes. Constat hors US : Cloudflare met JS/CSS en cache 4 h (`max-age=14400`) → un visiteur venu dans les 4 h précédant un déploiement peut avoir l'ancien script avec la nouvelle page, le temps que son cache expire.

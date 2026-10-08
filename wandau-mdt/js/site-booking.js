@@ -36,6 +36,9 @@ function initBooking(form) {
   // jamais réécrit par site-content.js).
   const acompteEvenementTexte = acompteEvenement?.querySelector('[data-mdt-content]');
   const prixEvenement = document.getElementById('rf-prix-evenement');
+  // Conditions d'annulation, une par mode (texte éditable à l'intérieur, posé par site-content.js).
+  const conditionsAtelier = document.getElementById('rf-conditions-atelier');
+  const conditionsEvenement = document.getElementById('rf-conditions-evenement');
   const capMsg = document.getElementById('rf-capacity-msg');
   const msg = form.querySelector('.form-msg');
   const submitBtn = form.querySelector('[type="submit"]');
@@ -167,6 +170,8 @@ function initBooking(form) {
     modeEvenement.hidden = mode !== 'evenement';
     if (acompteAtelier) acompteAtelier.hidden = mode !== 'atelier';
     if (acompteEvenement) acompteEvenement.hidden = mode !== 'evenement';
+    if (conditionsAtelier) conditionsAtelier.hidden = mode !== 'atelier';
+    if (conditionsEvenement) conditionsEvenement.hidden = mode !== 'evenement';
     refreshCapacity();
   }
 

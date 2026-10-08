@@ -1,7 +1,7 @@
 ---
 id: US-002
 titre: Tara modifie elle-même les pages Mentions légales et Politique de confidentialité
-statut: validee
+statut: en_construction
 version: 1
 projet: Maison de Tara (site + admin)
 ---

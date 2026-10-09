@@ -1,7 +1,7 @@
 ---
 id: US-002
 titre: Tara modifie elle-même les pages Mentions légales et Politique de confidentialité
-statut: verifiee
+statut: livree
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -226,3 +226,5 @@ ligne). Écartés : limite de 4 000 caractères (sections < 600 caractères), no
 - 2026-10-08 — faits mis à jour : politique complétée (8 sections, 3 listes), hébergeur des mentions renseigné.
 - 2026-10-08 — v1 validée par Lyes (« je valide », dans la conversation).
 - 2026-10-08 — construite et vérifiée (tous les critères prouvés), **en production le 08/10** (site a9f1688, migration 20261008130000, admin fe86153). Relecture de code : ligne Contact sortie de la section Éditeur (a9f1688). En attente de l'acceptation de Lyes. Même constat de cache Cloudflare (4 h) que l'US-001.
+- 2026-10-09 — acceptée par Lyes (« ok j'accepte », dans la conversation).
+- 2026-10-09 — livrée : en production depuis le 2026-10-08.

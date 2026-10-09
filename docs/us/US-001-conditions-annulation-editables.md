@@ -1,7 +1,7 @@
 ---
 id: US-001
 titre: Tara modifie elle-même les conditions d'annulation affichées au moment de réserver
-statut: verifiee
+statut: livree
 version: 2
 projet: Maison de Tara (site + admin)
 ---
@@ -154,3 +154,5 @@ par Lyes : « Paiement — événement » modifiable (CA-07).
 - 2026-10-08 — suspendue au démarrage de la construction : CA-07 décrit mal le comportement actuel (`site-booking.js:151-162` : dès qu'un événement avec prix est choisi, la phrase automatique « Paiement en ligne de X € par personne… » **remplace** le texte éditable, elle ne le suit pas). Version 2 proposée à Lyes.
 - 2026-10-08 — v2 : CA-07 reformulé pour décrire le comportement actuel (texte remplacé par le montant une fois l'événement choisi). Validée par Lyes (choix « Comme aujourd'hui », dans la conversation).
 - 2026-10-08 — construite et vérifiée (tous les critères prouvés), **en production le 08/10** (site a9f1688, migration 20261008120000, admin fe86153). En attente de l'acceptation de Lyes. Constat hors US : Cloudflare met JS/CSS en cache 4 h (`max-age=14400`) → un visiteur venu dans les 4 h précédant un déploiement peut avoir l'ancien script avec la nouvelle page, le temps que son cache expire.
+- 2026-10-09 — acceptée par Lyes (« ok j'accepte », dans la conversation).
+- 2026-10-09 — livrée : en production depuis le 2026-10-08.

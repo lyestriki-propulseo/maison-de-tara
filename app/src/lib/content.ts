@@ -32,6 +32,7 @@ export const updateContentImageSchema = z.object({
   caption: z.string().trim().max(200).optional(),
   focusX: z.number().min(0).max(100),
   focusY: z.number().min(0).max(100),
+  zoom: z.number().min(1).max(3),
 })
 
 export const updateContentImageFocusSchema = z.object({
@@ -39,4 +40,5 @@ export const updateContentImageFocusSchema = z.object({
   caption: z.string().trim().max(200).optional(),
   focusX: z.number().min(0).max(100),
   focusY: z.number().min(0).max(100),
+  zoom: z.number().min(1).max(3),
 })

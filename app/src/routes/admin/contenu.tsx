@@ -9,6 +9,8 @@ import {
 } from '@/lib/content-data'
 import { CONTENT_PAGES, contentPageLabel } from '@/lib/content'
 import { ContentImageField } from '@/components/admin/ContentImageField'
+import type { Framing } from '@/components/admin/ImageFramer'
+import { imageFormat, isHiddenContentKey } from '@/lib/content-image-formats'
 
 export const Route = createFileRoute('/admin/contenu')({
   loader: () => listContentBlocks(),
@@ -30,7 +32,7 @@ function ContenuPage() {
   const [drafts, setDrafts] = useState<Record<string, string>>({})
 
   const sections = useMemo(() => {
-    const rows = blocks.filter((b) => b.page === page)
+    const rows = blocks.filter((b) => b.page === page && !isHiddenContentKey(b.fieldKey))
     const bySection = new Map<string, ContentRow[]>()
     for (const row of rows) {
       const list = bySection.get(row.section) ?? []
@@ -56,17 +58,20 @@ function ContenuPage() {
     }
   }
 
-  async function saveImage(
-    row: ContentRow,
-    dataUrl: string,
-    caption: string,
-    focusX: number,
-    focusY: number,
-  ) {
+  async function saveImage(row: ContentRow, dataUrl: string, caption: string, framing: Framing) {
     setPending(row.id)
     setFeedback(undefined)
     try {
-      await updateContentImage({ data: { id: row.id, dataUrl, caption, focusX, focusY } })
+      await updateContentImage({
+        data: {
+          id: row.id,
+          dataUrl,
+          caption,
+          focusX: framing.x,
+          focusY: framing.y,
+          zoom: framing.zoom,
+        },
+      })
       await router.invalidate()
       setFeedback({ kind: 'success', message: 'Photo enregistrée.' })
       return true
@@ -78,11 +83,13 @@ function ContenuPage() {
     }
   }
 
-  async function saveImageFocus(row: ContentRow, caption: string, focusX: number, focusY: number) {
+  async function saveImageFocus(row: ContentRow, caption: string, framing: Framing) {
     setPending(row.id)
     setFeedback(undefined)
     try {
-      await updateContentImageFocus({ data: { id: row.id, caption, focusX, focusY } })
+      await updateContentImageFocus({
+        data: { id: row.id, caption, focusX: framing.x, focusY: framing.y, zoom: framing.zoom },
+      })
       await router.invalidate()
       setFeedback({ kind: 'success', message: 'Cadrage enregistré.' })
       return true
@@ -150,13 +157,13 @@ function ContenuPage() {
                     currentCaption={row.imageCaption}
                     currentFocusX={row.imageFocusX}
                     currentFocusY={row.imageFocusY}
+                    currentZoom={row.imageZoom}
+                    format={imageFormat(row.fieldKey)}
                     pending={pending === row.id}
-                    onSave={(dataUrl, caption, focusX, focusY) =>
-                      saveImage(row, dataUrl, caption, focusX, focusY)
+                    onSave={(dataUrl, caption, framing) =>
+                      saveImage(row, dataUrl, caption, framing)
                     }
-                    onSaveFocus={(caption, focusX, focusY) =>
-                      saveImageFocus(row, caption, focusX, focusY)
-                    }
+                    onSaveFocus={(caption, framing) => saveImageFocus(row, caption, framing)}
                   />
                 ) : (
                   <label key={row.id} className="block text-xs font-medium text-neutral-600">

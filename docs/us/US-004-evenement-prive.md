@@ -1,7 +1,7 @@
 ---
 id: US-004
 titre: Tara crée un événement privé, sans prix ni réservation en ligne, qui privatise la salle
-statut: brouillon
+statut: validee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -146,3 +146,4 @@ e2e `programme.e2e.ts`, `e2e/support/db.ts`, `e2e-site/support/supabase-mock.ts`
 
 - 2026-10-14 — v1 brouillon (mail de Tara du 10/10 + capture ; choix de Lyes du 14/10).
 - 2026-10-14 — v1 révisée après relecture et décisions de Lyes (mention admin, libellé, réservations existantes).
+- 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).

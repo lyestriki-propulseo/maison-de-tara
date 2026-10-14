@@ -60,9 +60,9 @@ export function imageFormat(fieldKey: string): ImageFormat {
 }
 
 // Section « Certaines réalisations » de l'accueil : masquée sur le site (index.html), donc ses
-// photos n'ont aucun emplacement visible et ne sont pas proposées dans Contenu.
-const HIDDEN_PREFIXES = ['accueil.realisations.']
+// photos n'ont aucun emplacement visible et ne sont pas proposées dans Contenu (US-003 CA-01).
+const HIDDEN_PREFIXES = ['accueil.realisations.photo']
 
-export function isHiddenContentKey(fieldKey: string): boolean {
+export function isHiddenContentPhoto(fieldKey: string): boolean {
   return HIDDEN_PREFIXES.some((prefix) => fieldKey.startsWith(prefix))
 }

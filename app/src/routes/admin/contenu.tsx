@@ -10,7 +10,7 @@ import {
 import { CONTENT_PAGES, contentPageLabel } from '@/lib/content'
 import { ContentImageField } from '@/components/admin/ContentImageField'
 import type { Framing } from '@/components/admin/ImageFramer'
-import { imageFormat, isHiddenContentKey } from '@/lib/content-image-formats'
+import { imageFormat, isHiddenContentPhoto } from '@/lib/content-image-formats'
 
 export const Route = createFileRoute('/admin/contenu')({
   loader: () => listContentBlocks(),
@@ -32,7 +32,7 @@ function ContenuPage() {
   const [drafts, setDrafts] = useState<Record<string, string>>({})
 
   const sections = useMemo(() => {
-    const rows = blocks.filter((b) => b.page === page && !isHiddenContentKey(b.fieldKey))
+    const rows = blocks.filter((b) => b.page === page && !isHiddenContentPhoto(b.fieldKey))
     const bySection = new Map<string, ContentRow[]>()
     for (const row of rows) {
       const list = bySection.get(row.section) ?? []

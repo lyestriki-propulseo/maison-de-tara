@@ -32,6 +32,8 @@ export const e2eEnv = {
   password: () => required('E2E_PASSWORD'),
   supabaseUrl: () => required('SUPABASE_URL'),
   serviceRoleKey: () => required('SUPABASE_SERVICE_ROLE_KEY'),
+  // Clé publique du site (anon) : vérifier ce que voit un visiteur (US-004 CA-04).
+  anonKey: () => required('VITE_SUPABASE_ANON_KEY'),
 }
 
 // Préfixes qui marquent TOUTES les données créées par les tests (nettoyage ciblé).

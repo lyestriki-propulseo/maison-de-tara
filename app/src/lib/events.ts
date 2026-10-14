@@ -32,19 +32,29 @@ export const eventInputSchema = z
     startsAt: z.string().min(1, 'Date requise'),
     endsAt: z.string('Indiquez l’heure de fin.').min(1, 'Indiquez l’heure de fin.'),
     capacity: z.number().int().min(1).max(200),
-    priceCents: z
-      .number('Indiquez le prix par personne.')
-      .int()
-      .min(MIN_EVENT_PRICE_CENTS, 'Le prix doit être d’au moins 1 €.')
-      .max(100000),
+    priceCents: z.number('Indiquez le prix par personne.').int().max(100000).optional(),
     // Privatise la salle : bloque les créneaux d'atelier libre pendant l'événement une fois publié.
     privatise: z.boolean().default(false),
+    // Événement privé (US-004) : sur invitation, sans prix ni réservation en ligne, salle privatisée.
+    isPrivate: z.boolean().default(false),
     published: z.boolean(),
   })
   .refine((event) => new Date(event.endsAt).getTime() > new Date(event.startsAt).getTime(), {
     message: 'La fin doit être après le début',
     path: ['endsAt'],
   })
+  .superRefine((event, ctx) => {
+    if (event.isPrivate) return
+    if (event.priceCents === undefined) {
+      ctx.addIssue({ code: 'custom', message: 'Indiquez le prix par personne.', path: ['priceCents'] })
+    } else if (event.priceCents < MIN_EVENT_PRICE_CENTS) {
+      ctx.addIssue({ code: 'custom', message: 'Le prix doit être d’au moins 1 €.', path: ['priceCents'] })
+    }
+  })
+  // Un privé n'a jamais de prix (un ancien prix est effacé) et privatise toujours la salle.
+  .transform((event) =>
+    event.isPrivate ? { ...event, priceCents: undefined, privatise: true } : event,
+  )
 
 export type EventInput = z.infer<typeof eventInputSchema>
 
@@ -63,9 +73,14 @@ export function eventTypeLabel(value: string): string {
   return EVENT_TYPES.find((t) => t.value === value)?.label ?? 'Événement'
 }
 
-// Un événement ne peut être publié (donc réservé) qu'avec une fin et un prix d'au moins 1 €.
-export function canPublishEvent(event: { endsAt: string | null; priceCents: number }): boolean {
-  return Boolean(event.endsAt) && event.priceCents >= MIN_EVENT_PRICE_CENTS
+// Un événement ne peut être publié qu'avec une fin et, s'il est public (donc réservable), un prix
+// d'au moins 1 €. Un événement privé n'a pas de prix.
+export function canPublishEvent(event: {
+  endsAt: string | null
+  priceCents: number
+  isPrivate?: boolean
+}): boolean {
+  return Boolean(event.endsAt) && (event.isPrivate === true || event.priceCents >= MIN_EVENT_PRICE_CENTS)
 }
 
 const PRICE_FMT = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 })

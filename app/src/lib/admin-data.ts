@@ -18,23 +18,23 @@ import {
 export const getDashboardStats = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
-  const db = supabaseAdmin()
+    const db = supabaseAdmin()
 
-  const [counts, newRequests] = await Promise.all([
-    db.rpc('dashboard_counts', { p_today: parisToday() }),
-    db.from('requests').select('*', { count: 'exact', head: true }).eq('status', 'nouvelle'),
-  ])
-  throwDatabaseError(counts.error, 'Impossible de charger les chiffres du tableau de bord')
-  throwDatabaseError(newRequests.error, 'Impossible de charger les demandes')
-  const row = counts.data?.[0]
+    const [counts, newRequests] = await Promise.all([
+      db.rpc('dashboard_counts', { p_today: parisToday() }),
+      db.from('requests').select('*', { count: 'exact', head: true }).eq('status', 'nouvelle'),
+    ])
+    throwDatabaseError(counts.error, 'Impossible de charger les chiffres du tableau de bord')
+    throwDatabaseError(newRequests.error, 'Impossible de charger les demandes')
+    const row = counts.data?.[0]
 
-  return {
-    newRequests: newRequests.count ?? 0,
-    upcomingReservations: row?.upcoming_reservations ?? 0,
-    openSessions30d: row?.open_sessions_30d ?? 0,
-    newsletterConfirmed: row?.newsletter_confirmed ?? 0,
-  }
-})
+    return {
+      newRequests: newRequests.count ?? 0,
+      upcomingReservations: row?.upcoming_reservations ?? 0,
+      openSessions30d: row?.open_sessions_30d ?? 0,
+      newsletterConfirmed: row?.newsletter_confirmed ?? 0,
+    }
+  })
 
 function throwDatabaseError(error: { message: string } | null, fallback: string) {
   if (error) throw new Error(error.message || fallback)
@@ -44,109 +44,109 @@ function throwDatabaseError(error: { message: string } | null, fallback: string)
 export const getAgendaData = createServerFn({ method: 'GET' })
   .middleware([staffMiddleware])
   .handler(async () => {
-  const db = supabaseAdmin()
-  const today = parisToday()
+    const db = supabaseAdmin()
+    const today = parisToday()
 
-  const [{ data: sessions, error: sessionsError }, { data: templates, error: templatesError }] =
-    await Promise.all([
-      db
-        .from('session_instances')
-        .select('id, session_date, start_time, duration_minutes, capacity, status, note')
-        .gte('session_date', today)
-        .order('session_date')
-        .order('start_time')
-        .limit(1000),
-      db
-        .from('session_templates')
-        .select('id, weekday, start_time, duration_minutes, capacity, active')
-        .eq('active', true)
-        .order('weekday')
-        .order('start_time'),
-    ])
-
-  throwDatabaseError(sessionsError, 'Impossible de charger les créneaux')
-  throwDatabaseError(templatesError, 'Impossible de charger la grille')
-
-  const rows = sessions ?? []
-  const ids = rows.map((s) => s.id)
-
-  const reservationsBySession = new Map<
-    string,
-    Array<{
-      id: string
-      customerName: string
-      customerEmail: string
-      customerPhone: string | null
-      partySize: number
-      status: 'pending' | 'confirmed' | 'cancelled' | 'no_show'
-      source: 'online' | 'manual'
-      notes: string | null
-    }>
-  >()
-  if (ids.length > 0) {
-    // Jusqu'à 1000 créneaux (fin d'année) : on découpe le filtre `in` par paquets de 100 ids
-    // pour ne pas dépasser la longueur d'URL admise par l'API.
-    const chunks: string[][] = []
-    for (let i = 0; i < ids.length; i += 100) chunks.push(ids.slice(i, i + 100))
-    const results = await Promise.all(
-      chunks.map((chunk) =>
+    const [{ data: sessions, error: sessionsError }, { data: templates, error: templatesError }] =
+      await Promise.all([
         db
-          .from('reservations')
-          .select(
-            'id, session_instance_id, customer_name, customer_email, customer_phone, party_size, status, source, notes',
-          )
-          .in('session_instance_id', chunk)
-          .order('created_at'),
-      ),
-    )
-    const reservations = results.flatMap(({ data, error }) => {
-      throwDatabaseError(error, 'Impossible de charger les réservations')
-      return data ?? []
-    })
-    for (const reservation of reservations) {
-      if (!reservation.session_instance_id) continue
-      const current = reservationsBySession.get(reservation.session_instance_id) ?? []
-      current.push({
-        id: reservation.id,
-        customerName: reservation.customer_name,
-        customerEmail: reservation.customer_email,
-        customerPhone: reservation.customer_phone,
-        partySize: reservation.party_size,
-        status: reservation.status,
-        source: reservation.source,
-        notes: reservation.notes,
-      })
-      reservationsBySession.set(reservation.session_instance_id, current)
-    }
-  }
+          .from('session_instances')
+          .select('id, session_date, start_time, duration_minutes, capacity, status, note')
+          .gte('session_date', today)
+          .order('session_date')
+          .order('start_time')
+          .limit(1000),
+        db
+          .from('session_templates')
+          .select('id, weekday, start_time, duration_minutes, capacity, active')
+          .eq('active', true)
+          .order('weekday')
+          .order('start_time'),
+      ])
 
-  return {
-    sessions: rows.map((session) => {
-      const reservations = reservationsBySession.get(session.id) ?? []
-      const reserved = reservations
-        .filter((reservation) => ['pending', 'confirmed'].includes(reservation.status))
-        .reduce((sum, reservation) => sum + reservation.partySize, 0)
-      return {
-        id: session.id,
-        date: session.session_date,
-        time: session.start_time,
-        durationMinutes: session.duration_minutes,
-        capacity: session.capacity,
-        status: session.status,
-        note: session.note,
-        reserved,
-        reservations,
+    throwDatabaseError(sessionsError, 'Impossible de charger les créneaux')
+    throwDatabaseError(templatesError, 'Impossible de charger la grille')
+
+    const rows = sessions ?? []
+    const ids = rows.map((s) => s.id)
+
+    const reservationsBySession = new Map<
+      string,
+      Array<{
+        id: string
+        customerName: string
+        customerEmail: string
+        customerPhone: string | null
+        partySize: number
+        status: 'pending' | 'confirmed' | 'cancelled' | 'no_show'
+        source: 'online' | 'manual'
+        notes: string | null
+      }>
+    >()
+    if (ids.length > 0) {
+      // Jusqu'à 1000 créneaux (fin d'année) : on découpe le filtre `in` par paquets de 100 ids
+      // pour ne pas dépasser la longueur d'URL admise par l'API.
+      const chunks: string[][] = []
+      for (let i = 0; i < ids.length; i += 100) chunks.push(ids.slice(i, i + 100))
+      const results = await Promise.all(
+        chunks.map((chunk) =>
+          db
+            .from('reservations')
+            .select(
+              'id, session_instance_id, customer_name, customer_email, customer_phone, party_size, status, source, notes',
+            )
+            .in('session_instance_id', chunk)
+            .order('created_at'),
+        ),
+      )
+      const reservations = results.flatMap(({ data, error }) => {
+        throwDatabaseError(error, 'Impossible de charger les réservations')
+        return data ?? []
+      })
+      for (const reservation of reservations) {
+        if (!reservation.session_instance_id) continue
+        const current = reservationsBySession.get(reservation.session_instance_id) ?? []
+        current.push({
+          id: reservation.id,
+          customerName: reservation.customer_name,
+          customerEmail: reservation.customer_email,
+          customerPhone: reservation.customer_phone,
+          partySize: reservation.party_size,
+          status: reservation.status,
+          source: reservation.source,
+          notes: reservation.notes,
+        })
+        reservationsBySession.set(reservation.session_instance_id, current)
       }
-    }),
-    templates: (templates ?? []).map((template) => ({
-      id: template.id,
-      weekday: template.weekday,
-      startTime: template.start_time.slice(0, 5),
-      durationMinutes: template.duration_minutes,
-      capacity: template.capacity,
-    })),
-  }
-})
+    }
+
+    return {
+      sessions: rows.map((session) => {
+        const reservations = reservationsBySession.get(session.id) ?? []
+        const reserved = reservations
+          .filter((reservation) => ['pending', 'confirmed'].includes(reservation.status))
+          .reduce((sum, reservation) => sum + reservation.partySize, 0)
+        return {
+          id: session.id,
+          date: session.session_date,
+          time: session.start_time,
+          durationMinutes: session.duration_minutes,
+          capacity: session.capacity,
+          status: session.status,
+          note: session.note,
+          reserved,
+          reservations,
+        }
+      }),
+      templates: (templates ?? []).map((template) => ({
+        id: template.id,
+        weekday: template.weekday,
+        startTime: template.start_time.slice(0, 5),
+        durationMinutes: template.duration_minutes,
+        capacity: template.capacity,
+      })),
+    }
+  })
 
 export const setSessionBlocked = createServerFn({ method: 'POST' })
   .middleware([staffMiddleware])
@@ -206,6 +206,17 @@ export const createManualReservation = createServerFn({ method: 'POST' })
   .validator(manualReservationSchema)
   .handler(async ({ data }) => {
     const db = supabaseAdmin()
+    // Un événement privé (US-004) ne se réserve pas, même à la main : refusé ici, pas seulement
+    // masqué dans la liste (une liste restée ouverte peut proposer un événement devenu privé).
+    if (data.eventId) {
+      const { data: event, error: eventError } = await db
+        .from('events')
+        .select('is_private')
+        .eq('id', data.eventId)
+        .maybeSingle()
+      throwDatabaseError(eventError, 'Impossible de charger l’événement')
+      if (event?.is_private) throw new Error('Cet événement est privé : il ne se réserve pas.')
+    }
     const { data: reservation, error } = await db
       .from('reservations')
       .insert({

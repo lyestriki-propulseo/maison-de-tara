@@ -1,15 +1,10 @@
 import { useState } from 'react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { AlertCircle, CheckCircle2, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lucide-react'
+import { AlertCircle, CheckCircle2, Plus } from 'lucide-react'
 import { deleteEvent, listEvents, setEventPublished, upsertEvent } from '@/lib/events-data'
-import {
-  canPublishEvent,
-  eventInputSchema,
-  eventTypeLabel,
-  formatDuration,
-  formatPricePerPerson,
-} from '@/lib/events'
+import { canPublishEvent, eventInputSchema } from '@/lib/events'
 import { EMPTY_EVENT_FORM, EventForm, priceEurosToCents } from '@/components/admin/EventForm'
+import { EventListItem } from '@/components/admin/EventListItem'
 import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 import type { EventFormState } from '@/components/admin/EventForm'
 
@@ -34,15 +29,6 @@ function withPrivatisation(base: string, result: SaveResult): string {
   }
   return parts.join(' ')
 }
-
-const DATE_FMT = new Intl.DateTimeFormat('fr-FR', {
-  weekday: 'short',
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-})
 
 function errorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Une erreur inattendue est survenue'
@@ -95,6 +81,8 @@ function ProgrammePage() {
       capacity: ev.capacity,
       priceEuros: ev.priceCents > 0 ? String(ev.priceCents / 100) : '',
       privatise: ev.privatise,
+      isPrivate: ev.isPrivate,
+      reservationCount: ev.reservationCount,
       published: ev.published,
     })
     setFeedback(undefined)
@@ -120,9 +108,11 @@ function ProgrammePage() {
   }
 
   function togglePublish(ev: EventRow) {
-    // Seul `published` est écrit : dépublier passe toujours, publier exige une fin et un prix.
+    // Seul `published` est écrit : dépublier passe toujours, publier exige une fin et, sauf
+    // événement privé, un prix.
     if (!ev.published && !canPublishEvent(ev)) {
-      setFeedback({ kind: 'error', message: 'Ajoutez une heure de fin et un prix avant de publier' })
+      const manque = ev.isPrivate ? 'une heure de fin' : 'une heure de fin et un prix'
+      setFeedback({ kind: 'error', message: `Ajoutez ${manque} avant de publier` })
       return
     }
     void runAction(
@@ -185,76 +175,19 @@ function ProgrammePage() {
         ) : (
           <ul className="divide-y divide-[#4A5D2E]/12">
             {events.map((ev) => (
-              <li key={ev.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[#E4ECD8] px-2.5 py-0.5 text-xs font-semibold text-[#31421E]">
-                      {eventTypeLabel(ev.eventType)}
-                    </span>
-                    {ev.published ? (
-                      <span className="text-xs font-medium text-[#4A5D2E]">● Publié</span>
-                    ) : (
-                      <span className="text-xs font-medium text-neutral-400">○ Brouillon</span>
-                    )}
-                  </div>
-                  <p className="mt-1 truncate text-sm font-semibold text-[#1A1815]">{ev.title}</p>
-                  <p className="text-xs capitalize text-neutral-500">
-                    {DATE_FMT.format(new Date(ev.startsAt))} · {ev.capacity} places
-                  </p>
-                  <p className="text-xs text-neutral-500">
-                    {ev.priceCents > 0 ? formatPricePerPerson(ev.priceCents) : 'Prix à définir'}
-                    {' · '}
-                    {ev.endsAt ? formatDuration(ev.startsAt, ev.endsAt) : 'Fin à définir'}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <IconButton label={ev.published ? 'Dépublier' : 'Publier'} onClick={() => togglePublish(ev)} disabled={pending}>
-                    {ev.published ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </IconButton>
-                  <IconButton label="Modifier" onClick={() => edit(ev)} disabled={pending}>
-                    <Pencil size={16} />
-                  </IconButton>
-                  <IconButton label="Supprimer" danger onClick={() => remove(ev)} disabled={pending}>
-                    <Trash2 size={16} />
-                  </IconButton>
-                </div>
-              </li>
+              <EventListItem
+                key={ev.id}
+                ev={ev}
+                pending={pending}
+                onTogglePublish={() => togglePublish(ev)}
+                onEdit={() => edit(ev)}
+                onRemove={() => remove(ev)}
+              />
             ))}
           </ul>
         )}
       </section>
     </div>
-  )
-}
-
-function IconButton({
-  label,
-  danger = false,
-  disabled,
-  onClick,
-  children,
-}: {
-  label: string
-  danger?: boolean
-  disabled?: boolean
-  onClick: () => void
-  children: React.ReactNode
-}) {
-  return (
-    <button
-      type="button"
-      title={label}
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-      className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg transition-colors disabled:opacity-40 ${
-        danger
-          ? 'text-neutral-500 hover:bg-red-50 hover:text-red-700'
-          : 'text-neutral-600 hover:bg-[#4A5D2E]/8 hover:text-[#4A5D2E]'
-      }`}
-    >
-      {children}
-    </button>
   )
 }
 

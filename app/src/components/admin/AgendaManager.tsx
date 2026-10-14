@@ -3,6 +3,7 @@ import { Link, useRouter } from '@tanstack/react-router'
 import { ReservationsTabs } from '@/components/admin/ReservationsTabs'
 import { WeekCalendar, startOfWeek } from '@/components/admin/AgendaWeekCalendar'
 import { addDaysIso, parisToday } from '@/lib/paris-date'
+import { blockedSlotLabel } from '@/lib/agenda-labels'
 import {
   AlertCircle,
   Ban,
@@ -223,7 +224,7 @@ function SessionDetails({
                 : 'bg-[#E4ECD8] text-[#31421E]'
             }`}
           >
-            {session.status === 'blocked' ? 'Bloqué' : 'Ouvert'}
+            {session.status === 'blocked' ? blockedSlotLabel(session.note) : 'Ouvert'}
           </span>
         </div>
 

@@ -141,6 +141,8 @@
 .tara-week-calendar__cell > button.is-selected { border-color: var(--tara-terracotta); background: #f2d8cb; color: #733a29; box-shadow: inset 0 0 0 1px var(--tara-terracotta); }
 .tara-week-calendar__cell > button.is-full { border-color: var(--tara-brown); background: var(--tara-brown); color: var(--tara-sable); }
 .tara-week-calendar__cell > button.is-blocked { border-color: #d8b0a7; background: #f5e4df; color: var(--tara-danger); }
+/* « Privatisé : <titre> » (US-004) : titre long tenu sur 2 lignes dans la case. */
+.tara-week-calendar__cell > button.is-blocked span { max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 0.7rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
 .tara-week-calendar__cell > button strong { font-size: 0.75rem; font-variant-numeric: tabular-nums; }
 .tara-week-calendar__cell > button span { font-size: 0.625rem; }
 .tara-week-calendar__cell > button:focus-visible,

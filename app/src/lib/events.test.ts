@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { effectivePriceCents, eventInputSchema, eventTypeLabel, formatDuration, formatPricePerPerson, slugify } from '@/lib/events'
+import { canPublishEvent, effectivePriceCents, eventInputSchema, eventTypeLabel, formatDuration, formatPricePerPerson, slugify } from '@/lib/events'
 
 describe('slugify', () => {
   it('retire les accents et met en kebab-case', () => {
@@ -100,5 +100,37 @@ describe('effectivePriceCents', () => {
     expect(effectivePriceCents(false, 4500)).toBe(0)
     expect(effectivePriceCents(true, null)).toBe(0)
     expect(effectivePriceCents(false, null)).toBe(0)
+  })
+})
+
+// US-004 — événement privé (docs/us/US-004-evenement-prive.md)
+describe('événement privé', () => {
+  const prive = {
+    title: 'Syn’After – Synergie Entreprises',
+    eventType: 'soiree' as const,
+    startsAt: '2026-11-19T18:30:00Z',
+    endsAt: '2026-11-19T21:30:00Z',
+    capacity: 12,
+    isPrivate: true,
+    published: true,
+  }
+  it('CA-01 — s’enregistre sans prix, en brouillon comme publié', () => {
+    expect(eventInputSchema.safeParse(prive).success).toBe(true)
+    expect(eventInputSchema.safeParse({ ...prive, published: false }).success).toBe(true)
+  })
+  it('CA-01 — ignore un ancien prix et force la privatisation de la salle', () => {
+    const parsed = eventInputSchema.parse({ ...prive, priceCents: 4000, privatise: false })
+    expect(parsed.priceCents).toBeUndefined()
+    expect(parsed.privatise).toBe(true)
+  })
+  it('CA-07 — un événement reste public par défaut, avec son prix obligatoire', () => {
+    const { isPrivate: _ignore, ...publicEvent } = prive
+    expect(eventInputSchema.parse({ ...publicEvent, priceCents: 4500 }).isPrivate).toBe(false)
+    expect(eventInputSchema.safeParse(publicEvent).success).toBe(false)
+  })
+  it('CA-01 — un brouillon privé avec une fin peut être publié sans prix', () => {
+    expect(canPublishEvent({ endsAt: prive.endsAt, priceCents: 0, isPrivate: true })).toBe(true)
+    expect(canPublishEvent({ endsAt: null, priceCents: 0, isPrivate: true })).toBe(false)
+    expect(canPublishEvent({ endsAt: prive.endsAt, priceCents: 0, isPrivate: false })).toBe(false)
   })
 })

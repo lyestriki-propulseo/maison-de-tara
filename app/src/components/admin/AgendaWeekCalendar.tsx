@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Ban, ChevronLeft, ChevronRight } from 'lucide-react'
 import { addDaysIso } from '@/lib/paris-date'
+import { blockedSlotLabel } from '@/lib/agenda-labels'
 import type { getAgendaData } from '@/lib/admin-data'
 
 type AgendaData = Awaited<ReturnType<typeof getAgendaData>>
@@ -154,10 +155,10 @@ export function WeekCalendar({
                       className={`${session.id === selectedId ? 'is-selected' : ''} ${isFull ? 'is-full' : ''} ${session.status === 'blocked' ? 'is-blocked' : ''}`}
                       onClick={() => onSelect(session.id)}
                       aria-pressed={session.id === selectedId}
-                      aria-label={`${formatDate(date)}, ${time}, ${session.status === 'blocked' ? 'bloqué' : `${session.reserved} réservations sur ${session.capacity}`}`}
+                      aria-label={`${formatDate(date)}, ${time}, ${session.status === 'blocked' ? blockedSlotLabel(session.note).toLowerCase() : `${session.reserved} réservations sur ${session.capacity}`}`}
                     >
                       {session.status === 'blocked' ? (
-                        <><Ban size={14} aria-hidden="true" /><span>Bloqué</span></>
+                        <><Ban size={14} aria-hidden="true" /><span>{blockedSlotLabel(session.note)}</span></>
                       ) : (
                         <><strong>{session.reserved}/{session.capacity}</strong><span>{isFull ? 'Complet' : `${free} libre${free > 1 ? 's' : ''}`}</span></>
                       )}

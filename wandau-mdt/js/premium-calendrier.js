@@ -51,7 +51,7 @@ import { loadEvents } from './site-events.js';
   loadEvents()
     .then(function (events) {
       if (!Array.isArray(events) || !events.length) { fallback(); return; }
-      var sorted = events.slice().sort(function (a, b) { return a.date.localeCompare(b.date); });
+      var sorted = events.slice().sort(function (a, b) { return (a.date + (a.horaire || '')).localeCompare(b.date + (b.horaire || '')); });
       renderProgramme(sorted);
       initCalendar(sorted);
     })

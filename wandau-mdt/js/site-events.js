@@ -118,6 +118,10 @@ function mapPrivateRow(row) {
   };
 }
 
+function byDateTime(x, y) {
+  return (x.date + (x.horaire || '')).localeCompare(y.date + (y.horaire || ''));
+}
+
 const HEADERS = { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY };
 
 function fetchRows(path) {
@@ -140,6 +144,7 @@ export function loadEvents() {
     .then((rows) => (Array.isArray(rows) ? rows.map(mapPrivateRow) : []))
     .catch(() => []);
   return Promise.all([publics, prives])
-    .then(([a, b]) => keepUpcoming(a.concat(b)))
+    // Tri par date puis heure : un privé à 10 h passe avant un public à 19 h le même jour.
+    .then(([a, b]) => keepUpcoming(a.concat(b)).sort(byDateTime))
     .catch(fromStaticFile);
 }

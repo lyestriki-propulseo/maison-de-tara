@@ -1,8 +1,8 @@
 ---
 id: US-003
 titre: Tara cadre ses photos avec un zoom, dans un aperçu qui a la forme réelle de l'emplacement
-statut: verifiee
-version: 1
+statut: brouillon
+version: 2
 projet: Maison de Tara (site + admin)
 ---
 
@@ -21,11 +21,20 @@ importante coupée.
 cadre la bordure verte de son illustration de devanture, la fait glisser pour centrer la porte, et
 enregistre. Sur la page Atelier, l'arche montre exactement ce cadrage.
 
+**Exemple v2** : pour l'étape 01, Tara a mis une capture du calendrier de réservation, plus large
+que l'arche. À 100 %, l'arche coupe les côtés (« …ter libre », le formulaire). Elle dézoome jusqu'à
+voir le calendrier entier ; le vide sous la capture est rempli du crème de ses bords, la jonction ne
+se voit pas.
+
 ## Limites (ce que l'US ne fait PAS)
 
-- Pas de mode « image entière » avec fond autour (choix de Lyes du 14/10 : zoom seul) : le zoom part
-  de « la photo remplit le cadre » (100 %) et ne descend pas en dessous. Une image très large dans
-  une arche haute reste donc coupée sur les côtés.
+- ~~Pas de mode « image entière » avec fond autour~~ — retiré en v2 (Lyes, 14/10 après test en
+  ligne : dézoom voulu). Le dézoom s'arrête à « photo entière visible » : pas de photo plus petite
+  que ça au milieu du cadre.
+- Couleur de remplissage **automatique** (couleur des bords de la photo), non modifiable par Tara
+  (choix de Lyes du 14/10). Sur une vraie photo dont les bords ne sont pas unis, la bande de
+  remplissage se verra : accepté.
+- Pas de photo floutée en fond (option écartée par Lyes le 14/10).
 - Référence de cadrage = écran d'ordinateur de 1440 px (choix de Lyes du 14/10). À d'autres largeurs
   (1280, 1920 px, téléphone), le site garde le même centre et le même zoom, mais le bord visible peut
   varier un peu.
@@ -41,22 +50,34 @@ enregistre. Sur la page Atelier, l'arche montre exactement ce cadrage.
   forme (rapport largeur/hauteur de la zone visible de la photo, arrondi compris pour les arches) de
   son emplacement sur le site à 1440 px, pour les 40 emplacements visibles. Les 6 photos de « Certaines
   réalisations » (section masquée) n'apparaissent plus dans Contenu tant que la section est masquée.
-- **CA-02** — Étant donné une photo déjà en ligne, quand Tara ouvre son cadrage, alors elle peut
-  zoomer de 100 % à 300 % (curseur + boutons − / +) et faire glisser l'image, sans renvoyer le fichier.
-- **CA-03** — Étant donné une nouvelle photo choisie sur son ordinateur, quand Tara la cadre avant
-  l'envoi, alors elle dispose du même zoom et du même glisser, en repartant de 100 %.
+- **CA-02** (v2) — Étant donné une photo déjà en ligne, quand Tara ouvre son cadrage, alors elle peut
+  zoomer de « photo entière » (le plus petit zoom où toute la photo est visible dans le cadre de
+  l'emplacement à 1440 px, affiché en % : moins de 100 % quand la photo n'a pas la forme du cadre) à
+  300 % (curseur + boutons − / +), et faire glisser l'image, sans renvoyer le fichier.
+- **CA-03** (v2) — Étant donné une nouvelle photo choisie sur son ordinateur, quand Tara la cadre
+  avant l'envoi, alors elle dispose du même zoom (dézoom compris) et du même glisser, en repartant de
+  100 %.
 - **CA-04** — Étant donné un cadrage enregistré, quand un visiteur ouvre la page sur un écran de
   1440 px, alors la zone visible de la photo est la même que dans l'aperçu de l'admin (même zoom, même
   centre).
-- **CA-05** — Étant donné n'importe quel zoom et n'importe quel déplacement, quand la photo s'affiche
-  (admin ou site, à toutes les largeurs), alors elle remplit toujours son cadre sans bande vide et ne
-  déborde jamais de son emplacement (ni sur les éléments voisins, ni sur son liseré ou son cadre).
+- **CA-05** (v2) — Étant donné n'importe quel zoom et n'importe quel déplacement, quand la photo
+  s'affiche (admin ou site, à toutes les largeurs), alors : à 100 % et plus, elle remplit son cadre
+  sans bande vide ; en dessous de 100 %, la partie du cadre non couverte par la photo est remplie de
+  sa couleur de remplissage (CA-08), sans trou ni transparence, et la photo n'est jamais plus petite
+  que « photo entière » à la largeur affichée. Dans tous les cas, ni la photo ni le remplissage ne
+  débordent de l'emplacement (ni sur les éléments voisins, ni sur le liseré, le passe-partout ou le
+  cadre).
 - **CA-06** — Étant donné les photos déjà en ligne avant la livraison, quand la mise à jour est
   déployée, alors leur affichage ne change pas : même cadrage (dont les 2 photos déjà décalées de
   l'Accueil), mêmes arrondis, liserés et cadres dorés, mêmes effets de survol et d'apparition au
   défilement, même position (photo surélevée des privatisations comprise).
 - **CA-07** — Étant donné un cadrage enregistré, quand Tara rouvre le cadrage de la même photo, alors
-  elle retrouve le zoom et la position enregistrés.
+  elle retrouve le zoom et la position enregistrés (zoom inférieur à 100 % compris, v2).
+- **CA-08** (v2) — Étant donné un cadrage enregistré, quand il est enregistré, alors la couleur de
+  remplissage est calculée automatiquement à partir des bords de la photo (couleur moyenne du
+  pourtour) et enregistrée avec le cadrage ; pour une capture à fond uni (exemple : la capture
+  crème du calendrier), l'écart entre le remplissage et le bord de la photo est imperceptible (moins
+  de 3 points sur 255 par canal en moyenne le long de la jonction).
 
 ## Faits et hypothèses
 
@@ -96,6 +117,29 @@ enregistre. Sur la page Atelier, l'arche montre exactement ce cadrage.
   avec Supabase simulé (`pnpm e2e:site`), avant / après, avec les 2 cadrages décalés de prod et
   quelques survols ; CA-02/07 : e2e admin sur la prod selon le schéma « modifier puis remettre » de
   `contenu.e2e.ts`, zoom compris.
+
+### Ajouts v2 (14/10)
+
+- **Fait** (v1 en prod) : le rendu « zoom peint » (`js/image-zoom.js`, fond CSS de la balise <img>,
+  taille « cover × zoom », zone de contenu) et la colonne `image_zoom numeric(4,2)` contrainte à
+  `between 1 and 3` (migration `20261014120000`).
+- **Fait** (requête du 14/10) : les 46 photos sont sur le stockage Supabase
+  (`dpkykbqqgtpopdvtxlmo.supabase.co/storage/v1/object/public/medias/…`) ; leurs pixels sont
+  lisibles depuis l'admin en mode CORS anonyme (prouvé par `e2e/contenu-photos-zoom.e2e.ts`).
+- **Fait** (capture de Lyes du 14/10) : l'étape 01 de l'Atelier montre une capture du calendrier,
+  fond crème uni, plus large que l'arche (0,741).
+- **Hypothèse** : le zoom reste relatif à « la photo remplit le cadre » (1 = 100 %). « Photo
+  entière » = rapport entre l'échelle « contain » et l'échelle « cover » du cadre à 1440 px, calculé
+  dans l'admin à partir des dimensions de la photo et de la table des formats. La contrainte SQL
+  passe à `image_zoom > 0 and image_zoom <= 3` (le minimum dépend de la photo).
+- **Hypothèse** : nouvelle colonne `image_fill` (texte `#rrggbb`, vide = pas de remplissage),
+  calculée dans l'admin à chaque enregistrement de cadrage (moyenne des pixels du pourtour de la
+  photo, sur une copie réduite). Côté site, sous 100 % : un calque de couleur `image_fill` sous la
+  photo, limité à la zone de contenu ; taille de la photo bornée à « photo entière » à la largeur
+  affichée.
+- **Hypothèse (tests)** : mêmes preuves que v1 (calcul partagé, comparaison de pixels admin / site
+  en zone visible ET en zone remplie), plus un test de la couleur des bords sur une image à fond uni
+  et sur une image à bords contrastés.
 
 ## Relecture
 
@@ -147,7 +191,7 @@ corriger), R3 (largeur de référence 1440 px dans CA-01/CA-04) et R4 (décision
 
 **Traitement (2026-10-14, rédacteur)** — bloquants : R1 → CA-05 et hypothèse « enveloppe » (décision de Lyes : les 40 emplacements d'un coup) ; R2 → CA-06 détaillé + propriété `scale` ; R3 → référence 1440 px (décision de Lyes, Limites + CA-01/04) ; R4 → réalisations cachées de l'admin (décision de Lyes, CA-01). Intégrés : R5 (CA-01), R6 (Limites, CA-03, hypothèse image-crop), R7 et R12 (Limites), R8 et R9 (tests), R10 (format déclaré dans le code), R11 (tests).
 
-## Recette
+## Recette v1
 
 Recette du 14/10 (construction : admin `04e7c77` → `f37eae2`, site `5fa07f3` + `f9ca6ca`). Preuves en
 local : site servi depuis `C:/mdt-site` avec Supabase simulé (`pnpm e2e:site`, 27 ✓, 5 passes
@@ -187,3 +231,7 @@ vignette de la liste montrant le zoom.
 - 2026-10-14 — v1 révisée après relecture et décisions de Lyes (40 emplacements, 1440 px, réalisations cachées).
 - 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).
 - 2026-10-14 — construite (rendu « zoom peint », choix de Lyes) et vérifiée en local ; migration `image_zoom` en prod. Pas encore déployée.
+- 2026-10-14 — v1 déployée en prod (site 3b79024, admin 0f45105), non encore acceptée.
+- 2026-10-14 — v2 brouillon : dézoom jusqu'à « photo entière », vide rempli de la couleur des bords
+  (demande de Lyes après test en ligne, capture du calendrier dans l'arche de l'étape 01 ; choix
+  « couleur des bords auto »). CA-02, CA-03, CA-05, CA-07 reformulés, CA-08 ajouté.

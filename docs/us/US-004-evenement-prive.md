@@ -1,7 +1,7 @@
 ---
 id: US-004
 titre: Tara crée un événement privé, sans prix ni réservation en ligne, qui privatise la salle
-statut: en_construction
+statut: verifiee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -134,16 +134,19 @@ e2e `programme.e2e.ts`, `e2e/support/db.ts`, `e2e-site/support/supabase-mock.ts`
 
 | Critère | Preuve (test, capture, requête) | Commit | État |
 |---|---|---|---|
-| CA-01 | | | non vérifié |
-| CA-02 | | | non vérifié |
-| CA-03 | | | non vérifié |
-| CA-04 | | | non vérifié |
-| CA-05 | | | non vérifié |
-| CA-06 | | | non vérifié |
-| CA-07 | | | non vérifié |
+| CA-01 | `events.test.ts` « CA-01 » ×3 ; `e2e/evenement-prive.e2e.ts` « CA-01/02/04/06 » (prix et places masqués, privatiser coché et verrouillé, Publier depuis la liste sans prix) — admin local sur base de prod, 14/10 | 0ac0fb3, 84ce04f, ff98f8a | ok |
+| CA-02 | même e2e : brouillon = créneau ouvert ; publié = bloqué avec « Privatisé : <titre> » ; dépublié / supprimé = rouvert | 84ce04f, ff98f8a | ok |
+| CA-03 | `e2e-site/evenements-prives.e2e.ts` ×4 (mention + horaire sans prix ni bouton, absent de l'accueil, publics conservés si la vue échoue, ordre des heures) | 71045f8, d3e71d6, 2e6becd | ok |
+| CA-04 | e2e admin : lecture anon réelle des 3 accès (table, vue tunnel, vue calendrier) avec un privé publié → titre jamais renvoyé, vue = `starts_at`/`ends_at` seulement ; écriture anon sur la vue refusée (401, correctif b3ed88c) | 06022cd, b3ed88c, 17b7227 | ok |
+| CA-05 | `api.reservations.checkout.test.ts` « CA-05 (US-004) » (refus même avec un ancien prix) ; réservation manuelle : privé absent de la liste et refusé côté serveur | d19d16b, 17b7227 | ok |
+| CA-06 | `agenda-labels.test.ts` ×2 ; e2e : badge « Privé » dans le Programme, case d'agenda « Privatisé : <titre> » | 84ce04f, 8b830a5, ff98f8a | ok |
+| CA-07 | e2e « CA-07 » : avertissement « Cet événement a déjà 1 réservation(s)… » ; migration : empreinte des 3 événements existants identique avant/après | 06022cd, ff98f8a | ok |
+
+Non-régression : vitest 129/129, e2e admin complet 33/33 puis 8/8 après correctifs, e2e site 18/18, tests unitaires site 13/13 ; base propre après chaque passage.
 
 ## Historique
 
 - 2026-10-14 — v1 brouillon (mail de Tara du 10/10 + capture ; choix de Lyes du 14/10).
 - 2026-10-14 — v1 révisée après relecture et décisions de Lyes (mention admin, libellé, réservations existantes).
 - 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).
+- 2026-10-14 — construite et vérifiée (local + base de prod). Migrations 20261014100000 et 20261014110000 appliquées en prod (accord de Lyes) ; site et admin pas encore déployés. Relecture de code : vue rendue en lecture seule (faille d'écriture anon, aucun privé n'existait), réservation manuelle refusée côté serveur, dé-privatisation au retour en public, tri par heure.

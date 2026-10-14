@@ -76,6 +76,7 @@ export type Database = {
           created_at: string
           updated_at: string
           privatise: boolean
+          is_private: boolean
         }
         Insert: {
           id?: string
@@ -94,6 +95,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
           privatise?: boolean
+          is_private?: boolean
         }
         Update: {
           id?: string
@@ -112,6 +114,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
           privatise?: boolean
+          is_private?: boolean
         }
         Relationships: []
       }
@@ -402,6 +405,7 @@ export type Database = {
           ends_at: string | null
           image_path: string | null
           availability: string | null
+          price_cents: number | null
         }
         Insert: {
           id?: string | null
@@ -413,6 +417,7 @@ export type Database = {
           ends_at?: string | null
           image_path?: string | null
           availability?: string | null
+          price_cents?: number | null
         }
         Update: {
           id?: string | null
@@ -424,6 +429,22 @@ export type Database = {
           ends_at?: string | null
           image_path?: string | null
           availability?: string | null
+          price_cents?: number | null
+        }
+        Relationships: []
+      }
+      public_private_events: {
+        Row: {
+          starts_at: string | null
+          ends_at: string | null
+        }
+        Insert: {
+          starts_at?: string | null
+          ends_at?: string | null
+        }
+        Update: {
+          starts_at?: string | null
+          ends_at?: string | null
         }
         Relationships: []
       }

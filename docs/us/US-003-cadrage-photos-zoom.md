@@ -1,7 +1,7 @@
 ---
 id: US-003
 titre: Tara cadre ses photos avec un zoom, dans un aperçu qui a la forme réelle de l'emplacement
-statut: brouillon
+statut: en_construction
 version: 2
 projet: Maison de Tara (site + admin)
 ---
@@ -278,3 +278,4 @@ vignette de la liste montrant le zoom.
   « couleur des bords auto »). CA-02, CA-03, CA-05, CA-07 reformulés, CA-08 ajouté.
 - 2026-10-14 — v2 relue (sous-agent neuf), décisions de Lyes intégrées (mode « Photo entière »
   recalculé, photo déplaçable dans la bande).
+- 2026-10-14 — v2 validée par Lyes (réponse « oui construit là et met en ligne », dans la conversation) ; construction lancée.

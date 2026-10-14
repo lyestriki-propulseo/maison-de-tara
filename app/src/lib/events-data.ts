@@ -40,10 +40,21 @@ export const listEvents = createServerFn({ method: 'GET' })
     const { data, error } = await db
       .from('events')
       .select(
-        'id, title, event_type, description, starts_at, ends_at, capacity, deposit_enabled, deposit_amount_cents, privatise, published',
+        'id, title, event_type, description, starts_at, ends_at, capacity, deposit_enabled, deposit_amount_cents, privatise, is_private, published',
       )
       .order('starts_at', { ascending: true })
     throwDatabaseError(error, 'Impossible de charger les événements')
+    // Réservations en cours par événement : sert à avertir avant de passer un événement en privé.
+    const { data: resas, error: resasError } = await db
+      .from('reservations')
+      .select('event_id')
+      .in('status', ['pending', 'confirmed'])
+      .not('event_id', 'is', null)
+    throwDatabaseError(resasError, 'Impossible de charger les réservations')
+    const reservationsByEvent = new Map<string, number>()
+    for (const r of resas ?? []) {
+      if (r.event_id) reservationsByEvent.set(r.event_id, (reservationsByEvent.get(r.event_id) ?? 0) + 1)
+    }
     return (data ?? []).map((row) => ({
       id: row.id,
       title: row.title,
@@ -55,6 +66,8 @@ export const listEvents = createServerFn({ method: 'GET' })
       // Prix par personne (colonne historique `deposit_amount_cents`) ; 0 = pas encore fixé.
       priceCents: effectivePriceCents(row.deposit_enabled, row.deposit_amount_cents),
       privatise: row.privatise,
+      isPrivate: row.is_private,
+      reservationCount: reservationsByEvent.get(row.id) ?? 0,
       published: row.published,
     }))
   })
@@ -71,9 +84,11 @@ export const upsertEvent = createServerFn({ method: 'POST' })
       starts_at: data.startsAt,
       ends_at: data.endsAt,
       capacity: data.capacity,
-      deposit_enabled: true,
-      deposit_amount_cents: data.priceCents,
+      // Un privé n'a pas de prix : il est effacé, pour que le paiement le refuse toujours.
+      deposit_enabled: !data.isPrivate,
+      deposit_amount_cents: data.isPrivate ? null : (data.priceCents ?? null),
       privatise: data.privatise,
+      is_private: data.isPrivate,
       published: data.published,
       published_at: data.published ? new Date().toISOString() : null,
     }
@@ -96,9 +111,10 @@ export const upsertEvent = createServerFn({ method: 'POST' })
   })
 
 const MISSING_END_OR_PRICE = 'Ajoutez une heure de fin et un prix avant de publier'
+const MISSING_END = 'Ajoutez une heure de fin avant de publier'
 
 // Publier / dépublier depuis la liste : n'écrit que `published` (+ date), sans revalider tout
-// l'événement. Publier exige une fin et un prix ; dépublier passe toujours.
+// l'événement. Publier exige une fin et, sauf événement privé, un prix ; dépublier passe toujours.
 export const setEventPublished = createServerFn({ method: 'POST' })
   .middleware([staffMiddleware])
   .validator(z.object({ id: z.uuid(), published: z.boolean() }))
@@ -107,15 +123,15 @@ export const setEventPublished = createServerFn({ method: 'POST' })
     if (data.published) {
       const { data: row, error } = await db
         .from('events')
-        .select('ends_at, deposit_enabled, deposit_amount_cents')
+        .select('ends_at, deposit_enabled, deposit_amount_cents, is_private')
         .eq('id', data.id)
         .maybeSingle()
       throwDatabaseError(error, 'Impossible de charger l’événement')
       if (!row) throw new Error('Événement introuvable')
       // Même règle que le paiement (api.reservations.checkout) : sans prix actif, pas de publication.
       const priceCents = effectivePriceCents(row.deposit_enabled, row.deposit_amount_cents)
-      if (!canPublishEvent({ endsAt: row.ends_at, priceCents })) {
-        throw new Error(MISSING_END_OR_PRICE)
+      if (!canPublishEvent({ endsAt: row.ends_at, priceCents, isPrivate: row.is_private })) {
+        throw new Error(row.is_private ? MISSING_END : MISSING_END_OR_PRICE)
       }
     }
     const { error } = await db

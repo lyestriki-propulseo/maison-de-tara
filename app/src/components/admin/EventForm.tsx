@@ -12,6 +12,10 @@ export type EventFormState = {
   // Saisie brute en euros (« 45 », « 12.5 ») : convertie en centimes à l'enregistrement.
   priceEuros: string
   privatise: boolean
+  // Événement privé (US-004) : sans prix ni places, salle toujours privatisée.
+  isPrivate: boolean
+  // Réservations en cours : avertit avant de passer l'événement en privé (lecture seule).
+  reservationCount: number
   published: boolean
 }
 
@@ -24,6 +28,8 @@ export const EMPTY_EVENT_FORM: EventFormState = {
   capacity: 12,
   priceEuros: '',
   privatise: false,
+  isPrivate: false,
+  reservationCount: 0,
   published: false,
 }
 
@@ -55,6 +61,7 @@ export function EventForm({
           Titre
           <input className={inputCls} value={form.title} onChange={(e) => set({ title: e.target.value })} />
         </label>
+        <PrivateToggle form={form} onToggle={(isPrivate) => set({ isPrivate })} />
         <label className="text-xs font-medium text-neutral-600">
           Type
           <select className={inputCls} value={form.eventType} onChange={(e) => set({ eventType: e.target.value as EventType })}>
@@ -65,7 +72,7 @@ export function EventForm({
             ))}
           </select>
         </label>
-        <label className="text-xs font-medium text-neutral-600">
+        <label className={`text-xs font-medium text-neutral-600 ${form.isPrivate ? 'hidden' : ''}`}>
           Places
           <input type="number" min={1} max={200} className={inputCls} value={form.capacity} onChange={(e) => set({ capacity: Number(e.target.value) })} />
         </label>
@@ -81,7 +88,7 @@ export function EventForm({
           Description
           <textarea className={`${inputCls} min-h-20`} value={form.description} onChange={(e) => set({ description: e.target.value })} />
         </label>
-        <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
+        <label className={`text-xs font-medium text-neutral-600 sm:col-span-2 ${form.isPrivate ? 'hidden' : ''}`}>
           Prix par personne (€)
           <input
             type="number"
@@ -97,12 +104,19 @@ export function EventForm({
           </span>
         </label>
         <label className="flex items-start gap-2 text-sm text-neutral-700 sm:col-span-2">
-          <input type="checkbox" className="mt-1" checked={form.privatise} onChange={(e) => set({ privatise: e.target.checked })} />
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={form.isPrivate || form.privatise}
+            disabled={form.isPrivate}
+            onChange={(e) => set({ privatise: e.target.checked })}
+          />
           <span>
             Privatiser la salle
             <span className="block text-xs text-neutral-500">
-              Une fois publié, les créneaux d’atelier libre pendant l’événement sont bloqués. Ils se
-              rouvrent si vous décochez, dépubliez ou supprimez l’événement.
+              {form.isPrivate
+                ? 'Toujours privatisée pour un événement privé.'
+                : 'Une fois publié, les créneaux d’atelier libre pendant l’événement sont bloqués. Ils se rouvrent si vous décochez, dépubliez ou supprimez l’événement.'}
             </span>
           </span>
         </label>
@@ -129,6 +143,29 @@ export function EventForm({
         </button>
       </div>
     </section>
+  )
+}
+
+function PrivateToggle({ form, onToggle }: { form: EventFormState; onToggle: (isPrivate: boolean) => void }) {
+  return (
+    <div className="sm:col-span-2">
+      <label className="flex items-start gap-2 text-sm text-neutral-700">
+        <input type="checkbox" className="mt-1" checked={form.isPrivate} onChange={(e) => onToggle(e.target.checked)} />
+        <span>
+          Événement privé (sur invitation)
+          <span className="block text-xs text-neutral-500">
+            Sans prix ni réservation en ligne. Une fois publié, la salle est privatisée et le site
+            affiche seulement « Événement privé » à cette date.
+          </span>
+        </span>
+      </label>
+      {form.isPrivate && form.reservationCount > 0 ? (
+        <p role="alert" className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          Cet événement a déjà {form.reservationCount} réservation(s) : pensez à prévenir et
+          rembourser ces clients.
+        </p>
+      ) : null}
+    </div>
   )
 }
 

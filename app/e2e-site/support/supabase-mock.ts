@@ -17,10 +17,29 @@ export type AvailabilityEvent = {
   price_cents: number | null
 }
 
+export type PublicEventRow = {
+  id: string
+  title: string
+  event_type: string
+  description: string | null
+  starts_at: string
+  ends_at: string | null
+  deposit_enabled: boolean
+  deposit_amount_cents: number | null
+}
+
+export type PrivateEventRow = { starts_at: string; ends_at: string | null }
+
 export type SupabaseMock = {
   /** Lignes content_blocks par page (`global`, `atelier`, `mentions-legales`…). */
   content?: Partial<Record<string, ContentRow[]>>
   events?: AvailabilityEvent[]
+  /** Lignes de la table `events` lues par le calendrier et l'accueil (événements publics). */
+  publicEvents?: PublicEventRow[]
+  /** Vue `public_private_events` (US-004) : heures des événements privés publiés. */
+  privateEvents?: PrivateEventRow[]
+  /** Seule la vue des événements privés est injoignable. */
+  privateEventsDown?: boolean
   /** Retard (ms) de la réponse content_blocks, pour rejouer les courses entre requêtes. */
   contentDelayMs?: number
   /** Retard (ms) des disponibilités (créneaux + événements). */
@@ -54,6 +73,11 @@ export async function mockSupabase(page: Page, mock: SupabaseMock = {}): Promise
     if (resource === 'public_availability') {
       await wait(mock.availabilityDelayMs)
       return json(route, [])
+    }
+    if (resource === 'events') return json(route, mock.publicEvents ?? [])
+    if (resource === 'public_private_events') {
+      if (mock.privateEventsDown) return route.abort()
+      return json(route, mock.privateEvents ?? [])
     }
     if (resource === 'rpc/check_availability') return json(route, true)
     return json(route, [])

@@ -20,6 +20,7 @@ type Row = {
   image_focus_x: number
   image_focus_y: number
   image_zoom: number
+  image_fill: string | null
 }
 
 let row: Row
@@ -27,7 +28,9 @@ let row: Row
 test.beforeAll(async () => {
   const { data, error } = await testDb()
     .from('content_blocks')
-    .select('id, section, image_path, image_caption, image_focus_x, image_focus_y, image_zoom')
+    .select(
+      'id, section, image_path, image_caption, image_focus_x, image_focus_y, image_zoom, image_fill',
+    )
     .eq('field_key', KEY)
     .single()
   if (error) throw error
@@ -42,6 +45,7 @@ test.afterAll(async () => {
       image_focus_x: row.image_focus_x,
       image_focus_y: row.image_focus_y,
       image_zoom: row.image_zoom,
+      image_fill: row.image_fill,
     })
     .eq('id', row.id)
 })
@@ -138,4 +142,50 @@ test('CA-03 — nouvelle photo choisie : repart de 100 %, même zoom disponible 
 
   const after = await testDb().from('content_blocks').select('image_path').eq('id', row.id).single()
   expect(after.data?.image_path).toBe(row.image_path)
+})
+
+test('CA-02 / CA-05 / CA-07 / CA-08 v2 — dézoomer jusqu’à « Photo entière », couleur des bords enregistrée', async ({
+  page,
+}) => {
+  const block = await openAtelier(page)
+  await block.getByRole('button', { name: 'Ajuster le cadrage' }).click()
+  // Minimum connu une fois la photo chargée : le curseur tout à gauche = « Photo entière ».
+  await expect(zoomSlider(page)).not.toHaveAttribute('min', '100')
+  const min = (await zoomSlider(page).getAttribute('min')) ?? '100'
+  await zoomSlider(page).fill(min)
+  await expect(page.getByText('Photo entière', { exact: true })).toBeVisible()
+  await page.getByLabel('Position verticale').fill('100')
+
+  // Aperçu = calcul de l'admin, bande peinte de la couleur des bords.
+  const fill = await preview(page).evaluate((el) => {
+    const [r = 0, g = 0, b = 0] = (getComputedStyle(el).backgroundColor.match(/\d+/g) ?? []).map(
+      Number,
+    )
+    return `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`
+  })
+  // L'icône « déplacer » (interface, pas cadrage) tombe ici sur la bande unie : masquée pour mesurer.
+  await preview(page).evaluate((el) => {
+    el.querySelector('span')?.style.setProperty('visibility', 'hidden')
+  })
+  expect(await differenceWithAdminFraming(page, preview(page), 0, [50, 100], fill)).toBeLessThan(6)
+
+  await page.getByRole('button', { name: 'Enregistrer le cadrage' }).click()
+  await expect(page.getByRole('status')).toContainText('Cadrage enregistré.')
+  const saved = await testDb()
+    .from('content_blocks')
+    .select('image_path, image_zoom, image_focus_y, image_fill')
+    .eq('id', row.id)
+    .single()
+  expect(Number(saved.data?.image_zoom)).toBe(0)
+  expect(Number(saved.data?.image_focus_y)).toBe(100)
+  expect(saved.data?.image_fill).toMatch(/^#[0-9a-f]{6}$/)
+  expect(saved.data?.image_fill).toBe(fill)
+  expect(saved.data?.image_path).toBe(row.image_path)
+
+  await page.reload()
+  const reopened = await openAtelier(page)
+  await reopened.getByRole('button', { name: 'Ajuster le cadrage' }).click()
+  await expect(page.getByText('Photo entière', { exact: true })).toBeVisible()
+  await expect(page.getByLabel('Position verticale')).toHaveValue('100')
+  await page.getByRole('button', { name: 'Annuler' }).click()
 })

@@ -3,11 +3,22 @@ import type { Page, Route } from '@playwright/test'
 // Simule les réponses Supabase du site public : les tests du site ne lisent ni n'écrivent
 // jamais la base de production (seule base existante).
 
-export type ContentRow = {
-  field_key: string
-  field_type: 'text'
-  text_value: string | null
-}
+export type ContentRow =
+  | {
+      field_key: string
+      field_type: 'text'
+      text_value: string | null
+    }
+  | {
+      field_key: string
+      field_type: 'image'
+      image_path: string | null
+      image_caption?: string | null
+      image_focus_x: number
+      image_focus_y: number
+      /** Absent = ligne lue avant US-003 (le site doit la traiter comme 100 %). */
+      image_zoom?: number
+    }
 
 export type AvailabilityEvent = {
   id: string

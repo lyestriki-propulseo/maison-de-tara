@@ -7,14 +7,15 @@ import { visibleArea } from '@/lib/image-zoom'
 
 /**
  * Écart moyen (0-255) entre la zone de contenu de la photo à l'écran et la zone que le calcul de
- * l'admin (visibleArea) dit visible, redessinée depuis le fichier source. Limité au centre du cadre
- * pour ignorer l'arrondi des arches.
+ * l'admin (visibleArea) dit visible, redessinée depuis le fichier source — sous 100 % (v2), sur la
+ * couleur de remplissage `fill`. Limité au centre du cadre pour ignorer l'arrondi des arches.
  */
 export async function differenceWithAdminFraming(
   page: Page,
   target: Locator,
   zoom: number,
   focus: [number, number],
+  fill?: string,
 ) {
   await target.scrollIntoViewIfNeeded()
   // Apparitions au défilement : on laisse l'observateur les déclencher, puis on attend qu'elles
@@ -68,7 +69,7 @@ export async function differenceWithAdminFraming(
   const shot = (await page.screenshot({ clip })).toString('base64')
   return page.evaluate(
     async (input) => {
-      const { box: frame, clip: zone, area: shown } = input
+      const { box: frame, clip: zone, area: shown, fill: band } = input
       const load = async (src: string) => {
         const image = new Image()
         image.crossOrigin = 'anonymous'
@@ -90,7 +91,12 @@ export async function differenceWithAdminFraming(
         return context.getImageData(x, y, zone.width, zone.height).data
       }
       const expected = pixels(
-        (context) =>
+        (context) => {
+          if (band) {
+            context.fillStyle = band
+            context.fillRect(0, 0, frame.width, frame.height)
+          }
+          // Source hors de la photo (sous 100 %) : le navigateur la recadre et ajuste la destination.
           context.drawImage(
             source,
             shown.left * frame.imageWidth,
@@ -101,7 +107,8 @@ export async function differenceWithAdminFraming(
             0,
             frame.width,
             frame.height,
-          ),
+          )
+        },
         zone.x - frame.left,
         zone.y - frame.top,
       )
@@ -113,6 +120,6 @@ export async function differenceWithAdminFraming(
       }
       return sum / ((actual.length / 4) * 3)
     },
-    { shot, box, clip, area },
+    { shot, box, clip, area, fill: fill ?? null },
   )
 }

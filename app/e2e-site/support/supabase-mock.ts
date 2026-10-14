@@ -18,6 +18,8 @@ export type ContentRow =
       image_focus_y: number
       /** Absent = ligne lue avant US-003 (le site doit la traiter comme 100 %). */
       image_zoom?: number
+      /** US-003 v2 : couleur de remplissage sous 100 % (#rrggbb). */
+      image_fill?: string | null
     }
 
 export type AvailabilityEvent = {

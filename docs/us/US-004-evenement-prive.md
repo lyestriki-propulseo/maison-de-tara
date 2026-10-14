@@ -1,7 +1,7 @@
 ---
 id: US-004
 titre: Tara crée un événement privé, sans prix ni réservation en ligne, qui privatise la salle
-statut: validee
+statut: en_construction
 version: 1
 projet: Maison de Tara (site + admin)
 ---

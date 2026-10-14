@@ -91,6 +91,25 @@ test('CA-01/02/04/06 — un privé sans prix se publie, privatise la salle et re
   expect(fromCalendar.length).toBeGreaterThan(0)
   for (const r of fromCalendar) expect(Object.keys(r).sort()).toEqual(['ends_at', 'starts_at'])
 
+  // CA-04 : la vue publique est en lecture seule (correctif du 14/10) : ni modification ni
+  // suppression possibles avec la clé du site.
+  for (const method of ['PATCH', 'DELETE'] as const) {
+    const res = await fetch(
+      `${e2eEnv.supabaseUrl()}/rest/v1/public_private_events?starts_at=gte.2000-01-01`,
+      {
+        method,
+        headers: {
+          apikey: e2eEnv.anonKey(),
+          Authorization: `Bearer ${e2eEnv.anonKey()}`,
+          'Content-Type': 'application/json',
+        },
+        body: method === 'PATCH' ? JSON.stringify({ ends_at: '2000-01-01T00:00:00Z' }) : undefined,
+      },
+    )
+    expect(res.ok).toBe(false)
+  }
+  expect((await readSlot(slot.id)).status).toBe('blocked')
+
   // CA-06 : l'agenda dit pourquoi le créneau est fermé.
   await page.goto('/admin/agenda')
   const cell = page.getByRole('button', { name: new RegExp(`^${slotAriaPrefix(slot)},`) })

@@ -67,3 +67,16 @@ test('CA-03 — si la liste des privés est injoignable, le calendrier garde les
   await expect(page.locator('.prog-entry')).toHaveCount(1)
   await expect(page.locator('.prog-entry')).toContainText(PUBLIC.title)
 })
+
+test('CA-03 — le même jour, les événements suivent l’ordre des heures (privé à 10 h avant public à 19 h 30)', async ({
+  page,
+}) => {
+  const matin: PrivateEventRow = {
+    starts_at: '2099-03-10T09:00:00Z',
+    ends_at: '2099-03-10T11:00:00Z',
+  }
+  await mockSupabase(page, { publicEvents: [PUBLIC], privateEvents: [matin] })
+  await page.goto(CALENDRIER)
+  const titres = page.locator('.prog-entry .prog-title')
+  await expect(titres).toHaveText([MENTION, PUBLIC.title])
+})

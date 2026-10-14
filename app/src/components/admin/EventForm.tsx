@@ -59,12 +59,24 @@ export function EventForm({
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
           Titre
-          <input className={inputCls} value={form.title} onChange={(e) => set({ title: e.target.value })} />
+          <input
+            className={inputCls}
+            value={form.title}
+            onChange={(e) => set({ title: e.target.value })}
+          />
         </label>
-        <PrivateToggle form={form} onToggle={(isPrivate) => set({ isPrivate })} />
+        <PrivateToggle
+          form={form}
+          // Repasser en public : la salle n'est plus privatisée d'office (Tara peut recocher).
+          onToggle={(isPrivate) => set(isPrivate ? { isPrivate } : { isPrivate, privatise: false })}
+        />
         <label className="text-xs font-medium text-neutral-600">
           Type
-          <select className={inputCls} value={form.eventType} onChange={(e) => set({ eventType: e.target.value as EventType })}>
+          <select
+            className={inputCls}
+            value={form.eventType}
+            onChange={(e) => set({ eventType: e.target.value as EventType })}
+          >
             {EVENT_TYPES.map((t) => (
               <option key={t.value} value={t.value}>
                 {t.label}
@@ -74,21 +86,44 @@ export function EventForm({
         </label>
         <label className={`text-xs font-medium text-neutral-600 ${form.isPrivate ? 'hidden' : ''}`}>
           Places
-          <input type="number" min={1} max={200} className={inputCls} value={form.capacity} onChange={(e) => set({ capacity: Number(e.target.value) })} />
+          <input
+            type="number"
+            min={1}
+            max={200}
+            className={inputCls}
+            value={form.capacity}
+            onChange={(e) => set({ capacity: Number(e.target.value) })}
+          />
         </label>
         <label className="text-xs font-medium text-neutral-600">
           Date et heure
-          <input type="datetime-local" className={inputCls} value={form.startsAt} onChange={(e) => set({ startsAt: e.target.value })} />
+          <input
+            type="datetime-local"
+            className={inputCls}
+            value={form.startsAt}
+            onChange={(e) => set({ startsAt: e.target.value })}
+          />
         </label>
         <label className="text-xs font-medium text-neutral-600">
           Fin
-          <input type="datetime-local" className={inputCls} value={form.endsAt} onChange={(e) => set({ endsAt: e.target.value })} />
+          <input
+            type="datetime-local"
+            className={inputCls}
+            value={form.endsAt}
+            onChange={(e) => set({ endsAt: e.target.value })}
+          />
         </label>
         <label className="text-xs font-medium text-neutral-600 sm:col-span-2">
           Description
-          <textarea className={`${inputCls} min-h-20`} value={form.description} onChange={(e) => set({ description: e.target.value })} />
+          <textarea
+            className={`${inputCls} min-h-20`}
+            value={form.description}
+            onChange={(e) => set({ description: e.target.value })}
+          />
         </label>
-        <label className={`text-xs font-medium text-neutral-600 sm:col-span-2 ${form.isPrivate ? 'hidden' : ''}`}>
+        <label
+          className={`text-xs font-medium text-neutral-600 sm:col-span-2 ${form.isPrivate ? 'hidden' : ''}`}
+        >
           Prix par personne (€)
           <input
             type="number"
@@ -121,7 +156,11 @@ export function EventForm({
           </span>
         </label>
         <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <input type="checkbox" checked={form.published} onChange={(e) => set({ published: e.target.checked })} />
+          <input
+            type="checkbox"
+            checked={form.published}
+            onChange={(e) => set({ published: e.target.checked })}
+          />
           Publié sur le site
         </label>
       </div>
@@ -146,11 +185,22 @@ export function EventForm({
   )
 }
 
-function PrivateToggle({ form, onToggle }: { form: EventFormState; onToggle: (isPrivate: boolean) => void }) {
+function PrivateToggle({
+  form,
+  onToggle,
+}: {
+  form: EventFormState
+  onToggle: (isPrivate: boolean) => void
+}) {
   return (
     <div className="sm:col-span-2">
       <label className="flex items-start gap-2 text-sm text-neutral-700">
-        <input type="checkbox" className="mt-1" checked={form.isPrivate} onChange={(e) => onToggle(e.target.checked)} />
+        <input
+          type="checkbox"
+          className="mt-1"
+          checked={form.isPrivate}
+          onChange={(e) => onToggle(e.target.checked)}
+        />
         <span>
           Événement privé (sur invitation)
           <span className="block text-xs text-neutral-500">

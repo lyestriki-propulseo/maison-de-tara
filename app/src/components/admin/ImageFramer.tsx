@@ -1,30 +1,24 @@
 import { useRef } from 'react'
-import { Minus, Move, Plus } from 'lucide-react'
+import { Move } from 'lucide-react'
+import { ZoomControls } from '@/components/admin/ZoomControls'
 import type { ImageFormat } from '@/lib/content-image-formats'
-import {
-  ZOOM_MAX,
-  ZOOM_MIN,
-  ZOOM_STEP,
-  clampZoom,
-  focusAfterDrag,
-  zoomBackgroundSize,
-} from '@/lib/image-zoom'
+import { focusAfterDrag, wholeZoom, zoomBackgroundSize } from '@/lib/image-zoom'
 
 // Aperçu de cadrage (US-003) : cadre à la forme réelle de l'emplacement sur le site, photo peinte
-// en fond « cover × zoom » au point de focus — le même rendu que js/site-content.js côté site.
+// en fond « cover × zoom » au point de focus — le même rendu que js/image-zoom.js côté site. Sous
+// 100 % (v2), la bande est peinte de la couleur de remplissage calculée sur les bords de la photo.
 
 export type Framing = { x: number; y: number; zoom: number }
 
 const PREVIEW_MAX_WIDTH = 440
 const PREVIEW_MAX_HEIGHT = 360
 
-const percentLabel = (zoom: number) => `${Math.round(zoom * 100)} %`
-
 export function ImageFramer({
   src,
   image,
   format,
   framing,
+  fill,
   onChange,
 }: {
   src: string | null
@@ -32,16 +26,15 @@ export function ImageFramer({
   image: HTMLImageElement | null
   format: ImageFormat
   framing: Framing
+  /** Couleur de remplissage sous 100 % (CA-08). */
+  fill: string
   onChange: (framing: Framing) => void
 }) {
   const dragRef = useRef<{ pointerX: number; pointerY: number; start: Framing } | null>(null)
   const frameRef = useRef<HTMLDivElement>(null)
   const width = Math.round(Math.min(PREVIEW_MAX_WIDTH, PREVIEW_MAX_HEIGHT * format.ratio))
   const imageRatio = image ? image.naturalWidth / image.naturalHeight : null
-
-  function setZoom(zoom: number) {
-    onChange({ ...framing, zoom: Math.round(clampZoom(zoom) * 100) / 100 })
-  }
+  const whole = imageRatio ? wholeZoom(imageRatio, format.ratio) : null
 
   function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
     dragRef.current = { pointerX: event.clientX, pointerY: event.clientY, start: framing }
@@ -70,9 +63,6 @@ export function ImageFramer({
     dragRef.current = null
   }
 
-  const buttonClass =
-    'grid size-11 shrink-0 place-items-center rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] disabled:opacity-40'
-
   return (
     <div>
       <div
@@ -90,6 +80,7 @@ export function ImageFramer({
           aspectRatio: String(format.ratio),
           borderRadius: format.arch ? '999px 999px 0 0' : '6px',
           backgroundImage: src && imageRatio ? `url("${src}")` : undefined,
+          backgroundColor: framing.zoom < 1 && imageRatio ? fill : undefined,
           backgroundRepeat: 'no-repeat',
           backgroundSize: imageRatio
             ? zoomBackgroundSize(imageRatio, format.ratio, framing.zoom)
@@ -108,43 +99,15 @@ export function ImageFramer({
       </div>
       <p className="mt-2 max-w-[60ch] text-[0.6875rem] leading-relaxed text-neutral-600">
         L’aperçu a la forme de l’emplacement sur le site (écran d’ordinateur). Faites glisser la
-        photo pour placer le sujet, zoomez pour resserrer le cadre.
+        photo pour placer le sujet, zoomez pour resserrer le cadre ou dézoomez jusqu’à voir la photo
+        entière : le vide est rempli de la couleur de ses bords.
       </p>
 
-      <div className="mt-3 flex max-w-[440px] items-end gap-2">
-        <button
-          type="button"
-          aria-label="Dézoomer"
-          disabled={framing.zoom <= ZOOM_MIN}
-          onClick={() => setZoom(framing.zoom - ZOOM_STEP)}
-          className={buttonClass}
-        >
-          <Minus size={16} aria-hidden="true" />
-        </button>
-        <label className="min-w-0 flex-1 text-xs font-medium text-neutral-700">
-          <span className="flex justify-between">
-            Zoom <span className="tabular-nums">{percentLabel(framing.zoom)}</span>
-          </span>
-          <input
-            type="range"
-            min={ZOOM_MIN * 100}
-            max={ZOOM_MAX * 100}
-            step={1}
-            value={Math.round(framing.zoom * 100)}
-            onChange={(event) => setZoom(Number(event.target.value) / 100)}
-            className="mt-1 block h-11 w-full accent-[#4A5D2E]"
-          />
-        </label>
-        <button
-          type="button"
-          aria-label="Zoomer"
-          disabled={framing.zoom >= ZOOM_MAX}
-          onClick={() => setZoom(framing.zoom + ZOOM_STEP)}
-          className={buttonClass}
-        >
-          <Plus size={16} aria-hidden="true" />
-        </button>
-      </div>
+      <ZoomControls
+        zoom={framing.zoom}
+        whole={whole}
+        onChange={(zoom) => onChange({ ...framing, zoom })}
+      />
 
       <div className="mt-3 grid max-w-[440px] gap-3 sm:grid-cols-2">
         <label className="text-xs font-medium text-neutral-700">

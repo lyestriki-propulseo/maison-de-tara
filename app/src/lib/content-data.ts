@@ -21,7 +21,7 @@ export const listContentBlocks = createServerFn({ method: 'GET' })
     const { data, error } = await db
       .from('content_blocks')
       .select(
-        'id, page, section, field_key, field_type, label, text_value, image_path, image_caption, image_focus_x, image_focus_y, image_zoom, sort_order',
+        'id, page, section, field_key, field_type, label, text_value, image_path, image_caption, image_focus_x, image_focus_y, image_zoom, image_fill, sort_order',
       )
       .order('page')
       .order('sort_order')
@@ -39,6 +39,7 @@ export const listContentBlocks = createServerFn({ method: 'GET' })
       imageFocusX: row.image_focus_x,
       imageFocusY: row.image_focus_y,
       imageZoom: row.image_zoom,
+      imageFill: row.image_fill,
       sortOrder: row.sort_order,
     }))
   })
@@ -96,6 +97,7 @@ export const updateContentImage = createServerFn({ method: 'POST' })
         image_focus_x: data.focusX,
         image_focus_y: data.focusY,
         image_zoom: data.zoom,
+        image_fill: data.fill,
       })
       .eq('id', data.id)
     throwDatabaseError(error, 'Impossible d’enregistrer la photo')
@@ -114,6 +116,7 @@ export const updateContentImageFocus = createServerFn({ method: 'POST' })
         image_focus_x: data.focusX,
         image_focus_y: data.focusY,
         image_zoom: data.zoom,
+        image_fill: data.fill,
       })
       .eq('id', data.id)
     throwDatabaseError(error, 'Impossible d’enregistrer le cadrage')

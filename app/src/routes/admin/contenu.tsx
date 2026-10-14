@@ -9,7 +9,7 @@ import {
 } from '@/lib/content-data'
 import { CONTENT_PAGES, contentPageLabel } from '@/lib/content'
 import { ContentImageField } from '@/components/admin/ContentImageField'
-import type { Framing } from '@/components/admin/ImageFramer'
+import type { SavedFraming } from '@/components/admin/ContentImageField'
 import { imageFormat, isHiddenContentPhoto } from '@/lib/content-image-formats'
 
 export const Route = createFileRoute('/admin/contenu')({
@@ -58,7 +58,12 @@ function ContenuPage() {
     }
   }
 
-  async function saveImage(row: ContentRow, dataUrl: string, caption: string, framing: Framing) {
+  async function saveImage(
+    row: ContentRow,
+    dataUrl: string,
+    caption: string,
+    framing: SavedFraming,
+  ) {
     setPending(row.id)
     setFeedback(undefined)
     try {
@@ -70,6 +75,7 @@ function ContenuPage() {
           focusX: framing.x,
           focusY: framing.y,
           zoom: framing.zoom,
+          fill: framing.fill,
         },
       })
       await router.invalidate()
@@ -83,12 +89,19 @@ function ContenuPage() {
     }
   }
 
-  async function saveImageFocus(row: ContentRow, caption: string, framing: Framing) {
+  async function saveImageFocus(row: ContentRow, caption: string, framing: SavedFraming) {
     setPending(row.id)
     setFeedback(undefined)
     try {
       await updateContentImageFocus({
-        data: { id: row.id, caption, focusX: framing.x, focusY: framing.y, zoom: framing.zoom },
+        data: {
+          id: row.id,
+          caption,
+          focusX: framing.x,
+          focusY: framing.y,
+          zoom: framing.zoom,
+          fill: framing.fill,
+        },
       })
       await router.invalidate()
       setFeedback({ kind: 'success', message: 'Cadrage enregistré.' })

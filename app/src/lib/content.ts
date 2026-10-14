@@ -32,7 +32,9 @@ export const updateContentImageSchema = z.object({
   caption: z.string().trim().max(200).optional(),
   focusX: z.number().min(0).max(100),
   focusY: z.number().min(0).max(100),
-  zoom: z.number().min(1).max(3),
+  // 0 = mode « Photo entière » (US-003 v2).
+  zoom: z.number().min(0).max(3),
+  fill: z.string().regex(/^#[0-9a-f]{6}$/),
 })
 
 export const updateContentImageFocusSchema = z.object({
@@ -40,5 +42,7 @@ export const updateContentImageFocusSchema = z.object({
   caption: z.string().trim().max(200).optional(),
   focusX: z.number().min(0).max(100),
   focusY: z.number().min(0).max(100),
-  zoom: z.number().min(1).max(3),
+  // 0 = mode « Photo entière » (US-003 v2).
+  zoom: z.number().min(0).max(3),
+  fill: z.string().regex(/^#[0-9a-f]{6}$/),
 })

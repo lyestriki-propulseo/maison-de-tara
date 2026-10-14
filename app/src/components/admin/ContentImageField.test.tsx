@@ -24,6 +24,18 @@ function renderField(overrides: Partial<Props> = {}) {
 
 const zoomSlider = () => screen.getByRole('slider', { name: /Zoom/ })
 
+/** Photo 2:1 « chargée » (jsdom ne charge aucune image) : dans l'arche 0,741, entière à 37 %. */
+class WideImage {
+  naturalWidth = 2000
+  naturalHeight = 1000
+  crossOrigin = ''
+  onload: (() => void) | null = null
+  onerror: (() => void) | null = null
+  set src(_value: string) {
+    queueMicrotask(() => this.onload?.())
+  }
+}
+
 describe('ContentImageField', () => {
   afterEach(() => vi.unstubAllGlobals())
 
@@ -36,7 +48,12 @@ describe('ContentImageField', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
 
     await waitFor(() =>
-      expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', { x: 25, y: 70, zoom: 1 }),
+      expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
+        x: 25,
+        y: 70,
+        zoom: 1,
+        fill: '#fbf7ec',
+      }),
     )
     expect(screen.getByRole('button', { name: 'Ajuster le cadrage' })).toBeInTheDocument()
   })
@@ -74,7 +91,12 @@ describe('ContentImageField', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
     await waitFor(() =>
-      expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', { x: 50, y: 50, zoom: 2.9 }),
+      expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
+        x: 50,
+        y: 50,
+        zoom: 2.9,
+        fill: '#fbf7ec',
+      }),
     )
     expect(props.onSave).not.toHaveBeenCalled()
   })
@@ -100,5 +122,58 @@ describe('ContentImageField', () => {
     expect(screen.getByText('180 %')).toBeInTheDocument()
     expect(screen.getByLabelText('Position horizontale')).toHaveValue('30')
     expect(screen.getByLabelText('Position verticale')).toHaveValue('64')
+  })
+  test('CA-02 v2 — tant que la photo n’est pas chargée, pas de dézoom sous 100 %', () => {
+    renderField()
+    fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
+    expect(screen.getByRole('button', { name: 'Dézoomer' })).toBeDisabled()
+    expect(zoomSlider()).toHaveAttribute('min', '100')
+  })
+
+  test('CA-02 v2 — dézoomer jusqu’à « Photo entière », enregistré comme un mode (0)', async () => {
+    vi.stubGlobal('Image', WideImage)
+    const props = renderField()
+    fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
+    await waitFor(() => expect(zoomSlider()).toHaveAttribute('min', '37'))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Dézoomer' }))
+    expect(screen.getByText('90 %')).toBeInTheDocument()
+    // Le curseur tout à gauche = mode « Photo entière ».
+    fireEvent.change(zoomSlider(), { target: { value: '37' } })
+    expect(screen.getByText('Photo entière')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Dézoomer' })).toBeDisabled()
+    // CA-05 : sous 100 %, l'aperçu montre la couleur de remplissage dans la bande.
+    expect(screen.getByRole('img', { name: 'Aperçu du cadrage' }).style.backgroundColor).toBe(
+      'rgb(251, 247, 236)',
+    )
+    fireEvent.change(screen.getByLabelText('Position verticale'), { target: { value: '100' } })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
+    await waitFor(() =>
+      expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
+        x: 50,
+        y: 100,
+        zoom: 0,
+        fill: '#fbf7ec',
+      }),
+    )
+  })
+
+  test('CA-02 v2 — depuis « Photo entière », + repart du zoom réellement affiché', async () => {
+    vi.stubGlobal('Image', WideImage)
+    renderField({ currentZoom: 0 })
+    fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
+    await waitFor(() => expect(zoomSlider()).toHaveAttribute('min', '37'))
+    fireEvent.click(screen.getByRole('button', { name: 'Zoomer' }))
+    expect(screen.getByText('47 %')).toBeInTheDocument()
+  })
+
+  test('CA-07 v2 — rouvrir un cadrage enregistré en « Photo entière » le retrouve', async () => {
+    vi.stubGlobal('Image', WideImage)
+    renderField({ currentZoom: 0, currentFocusY: 100 })
+    fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
+    expect(screen.getByText('Photo entière')).toBeInTheDocument()
+    await waitFor(() => expect(zoomSlider()).toHaveValue('37'))
+    expect(screen.getByLabelText('Position verticale')).toHaveValue('100')
   })
 })

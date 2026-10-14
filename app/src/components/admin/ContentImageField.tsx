@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Crosshair, RotateCcw } from 'lucide-react'
 import { ImageFramer } from '@/components/admin/ImageFramer'
 import type { Framing } from '@/components/admin/ImageFramer'
-import { imageToDataUrl, useImage } from '@/components/admin/photo-file'
+import { imageToDataUrl, photoFill, useImage } from '@/components/admin/photo-file'
 import type { ImageFormat } from '@/lib/content-image-formats'
+import { FILL_FALLBACK } from '@/lib/image-zoom'
 
 const DEFAULT_FOCUS = 50
 
 type EditorMode = 'existing' | 'new' | null
+
+/** Cadrage enregistré : zoom, position et couleur de remplissage calculée (US-003 v2, CA-08). */
+export type SavedFraming = Framing & { fill: string }
 
 export function ContentImageField({
   label,
@@ -30,8 +34,8 @@ export function ContentImageField({
   /** Forme de l'emplacement sur le site (US-003), voir content-image-formats.ts. */
   format: ImageFormat
   pending: boolean
-  onSave: (dataUrl: string, caption: string, framing: Framing) => Promise<boolean>
-  onSaveFocus: (caption: string, framing: Framing) => Promise<boolean>
+  onSave: (dataUrl: string, caption: string, framing: SavedFraming) => Promise<boolean>
+  onSaveFocus: (caption: string, framing: SavedFraming) => Promise<boolean>
 }) {
   const [mode, setMode] = useState<EditorMode>(null)
   const [fileUrl, setFileUrl] = useState<string | null>(null)
@@ -55,6 +59,10 @@ export function ContentImageField({
   const previewSrc = mode === 'new' ? fileUrl : currentImagePath
   // Photo chargée : dimensions pour l'aperçu, et fichier à envoyer pour une nouvelle photo.
   const previewImage = useImage(mode ? previewSrc : null)
+  const fill = useMemo(
+    () => (previewImage ? photoFill(previewImage) : FILL_FALLBACK),
+    [previewImage],
+  )
 
   function openExistingEditor() {
     setFraming(savedFraming)
@@ -81,9 +89,9 @@ export function ContentImageField({
     let saved = false
     if (mode === 'new') {
       if (!previewImage) return
-      saved = await onSave(imageToDataUrl(previewImage), caption, framing)
+      saved = await onSave(imageToDataUrl(previewImage), caption, { ...framing, fill })
     } else {
-      saved = await onSaveFocus(caption, framing)
+      saved = await onSaveFocus(caption, { ...framing, fill })
     }
     if (saved) closeEditor()
   }
@@ -150,6 +158,7 @@ export function ContentImageField({
         image={previewImage}
         format={format}
         framing={framing}
+        fill={fill}
         onChange={setFraming}
       />
 

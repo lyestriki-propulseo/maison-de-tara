@@ -1,7 +1,7 @@
 ---
 id: US-004
 titre: Tara crée un événement privé, sans prix ni réservation en ligne, qui privatise la salle
-statut: verifiee
+statut: livree
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -151,3 +151,5 @@ Non-régression : vitest 129/129, e2e admin complet 33/33 puis 8/8 après correc
 - 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).
 - 2026-10-14 — construite et vérifiée (local + base de prod). Migrations 20261014100000 et 20261014110000 appliquées en prod (accord de Lyes) ; site et admin pas encore déployés. Relecture de code : vue rendue en lecture seule (faille d'écriture anon, aucun privé n'existait), réservation manuelle refusée côté serveur, dé-privatisation au retour en public, tri par heure.
 - 2026-10-14 — en production (site d3e71d6, admin 2b13e83). Contrôle prod : e2e admin 11/11 contre l'admin en ligne ; un privé [TEST] en 2099 affiché « Événement privé — la Maison est privatisée » au calendrier, sans titre, description, prix ni bouton, absent de l'accueil, 0 erreur console ; supprimé ensuite. En attente de l'acceptation de Lyes.
+- 2026-10-14 — acceptée par Lyes (« oui j'accepte », dans la conversation).
+- 2026-10-14 — livrée : en production depuis le 2026-10-14.

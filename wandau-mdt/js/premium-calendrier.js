@@ -17,7 +17,9 @@ import { loadEvents } from './site-events.js';
     atelier:   { label: 'Atelier',   cls: 'tag--atelier' },
     brunch:    { label: 'Brunch',    cls: 'tag--brunch' },
     evenement: { label: 'Événement', cls: 'tag--evenement' },
-    boutique:  { label: 'Boutique',  cls: 'tag--boutique' }
+    boutique:  { label: 'Boutique',  cls: 'tag--boutique' },
+    // Événement privé (US-004) : pas de type dévoilé, juste « Privé ».
+    prive:     { label: 'Privé',     cls: 'tag--prive' }
   };
 
   var progRoot = document.getElementById('programme');

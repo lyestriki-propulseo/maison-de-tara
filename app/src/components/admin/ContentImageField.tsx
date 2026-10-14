@@ -2,40 +2,12 @@ import { useEffect, useState } from 'react'
 import { Crosshair, RotateCcw } from 'lucide-react'
 import { ImageFramer } from '@/components/admin/ImageFramer'
 import type { Framing } from '@/components/admin/ImageFramer'
+import { imageToDataUrl, useImage } from '@/components/admin/photo-file'
 import type { ImageFormat } from '@/lib/content-image-formats'
 
-const MAX_IMAGE_SIDE = 2400
 const DEFAULT_FOCUS = 50
 
 type EditorMode = 'existing' | 'new' | null
-
-function imageToDataUrl(image: HTMLImageElement): string {
-  const scale = Math.min(1, MAX_IMAGE_SIDE / Math.max(image.naturalWidth, image.naturalHeight))
-  const canvas = document.createElement('canvas')
-  canvas.width = Math.round(image.naturalWidth * scale)
-  canvas.height = Math.round(image.naturalHeight * scale)
-  const context = canvas.getContext('2d')
-  if (!context) throw new Error('Impossible de préparer la photo')
-  context.drawImage(image, 0, 0, canvas.width, canvas.height)
-  return canvas.toDataURL('image/jpeg', 0.86)
-}
-
-function useImage(src: string | null) {
-  const [image, setImage] = useState<HTMLImageElement | null>(null)
-
-  useEffect(() => {
-    if (!src) {
-      setImage(null)
-      return
-    }
-    const nextImage = new Image()
-    nextImage.onload = () => setImage(nextImage)
-    nextImage.src = src
-    return () => setImage(null)
-  }, [src])
-
-  return image
-}
 
 export function ContentImageField({
   label,

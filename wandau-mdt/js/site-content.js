@@ -5,6 +5,7 @@
 // personnalisé (valeur vide), le HTML statique déjà présent reste affiché tel quel.
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
 import { renderTexte } from './content-format.js';
+import { paintZoom } from './image-zoom.js';
 
 const CONFIGURED =
   /^https:\/\/[^<]+\.supabase\.co/.test(SUPABASE_URL) && !/[<>]/.test(SUPABASE_ANON_KEY);
@@ -46,12 +47,16 @@ function applyText(el, value) {
   el.textContent = value;
 }
 
-function applyImage(el, imagePath, caption, focusX, focusY) {
+function applyImage(el, imagePath, caption, focusX, focusY, zoom) {
   el.src = imagePath;
   const x = Number(focusX);
   const y = Number(focusY);
   if (Number.isFinite(x) && Number.isFinite(y)) {
-    el.style.objectPosition = `${Math.min(100, Math.max(0, x))}% ${Math.min(100, Math.max(0, y))}%`;
+    const fx = Math.min(100, Math.max(0, x));
+    const fy = Math.min(100, Math.max(0, y));
+    el.style.objectPosition = `${fx}% ${fy}%`;
+    // Zoom réglé dans l'admin (US-003) : rien n'est posé à 100 %.
+    paintZoom(el, imagePath, zoom, fx, fy);
   }
   if (!caption) return;
   el.alt = caption;
@@ -97,7 +102,14 @@ function applyRow(row) {
   els.forEach((el) => {
     if (row.field_type === 'image') {
       if (row.image_path) {
-        applyImage(el, row.image_path, row.image_caption, row.image_focus_x, row.image_focus_y);
+        applyImage(
+          el,
+          row.image_path,
+          row.image_caption,
+          row.image_focus_x,
+          row.image_focus_y,
+          row.image_zoom,
+        );
       }
     } else if (row.text_value) {
       applyText(el, row.text_value);
@@ -111,7 +123,7 @@ async function fetchPage(page) {
     SUPABASE_URL +
       '/rest/v1/content_blocks?page=eq.' +
       encodeURIComponent(page) +
-      '&select=field_key,field_type,text_value,image_path,image_caption,image_focus_x,image_focus_y',
+      '&select=field_key,field_type,text_value,image_path,image_caption,image_focus_x,image_focus_y,image_zoom',
     {
       headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
       // Sans ça, le navigateur peut resservir une réponse mise en cache pour cette

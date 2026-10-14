@@ -26,6 +26,7 @@ export type Database = {
           image_focus_x: number
           image_focus_y: number
           image_zoom: number
+          image_fill: string | null
         }
         Insert: {
           id?: string
@@ -42,6 +43,7 @@ export type Database = {
           image_focus_x?: number
           image_focus_y?: number
           image_zoom?: number
+          image_fill?: string | null
         }
         Update: {
           id?: string
@@ -58,6 +60,7 @@ export type Database = {
           image_focus_x?: number
           image_focus_y?: number
           image_zoom?: number
+          image_fill?: string | null
         }
         Relationships: []
       }

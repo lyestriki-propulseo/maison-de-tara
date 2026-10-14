@@ -1,7 +1,7 @@
 ---
 id: US-003
 titre: Tara cadre ses photos avec un zoom, dans un aperçu qui a la forme réelle de l'emplacement
-statut: brouillon
+statut: validee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -164,3 +164,4 @@ corriger), R3 (largeur de référence 1440 px dans CA-01/CA-04) et R4 (décision
 - 2026-10-14 — v1 brouillon (mail de Tara du 10/10 ; choix de Lyes du 14/10 : zoom seul, toutes les
   photos, photos déjà en ligne comprises, aperçu au format réel).
 - 2026-10-14 — v1 révisée après relecture et décisions de Lyes (40 emplacements, 1440 px, réalisations cachées).
+- 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).

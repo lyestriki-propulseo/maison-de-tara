@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { afterEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { ContentImageField } from '@/components/admin/ContentImageField'
 
 type Props = Parameters<typeof ContentImageField>[0]
@@ -24,19 +24,32 @@ function renderField(overrides: Partial<Props> = {}) {
 
 const zoomSlider = () => screen.getByRole('slider', { name: /Zoom/ })
 
-/** Photo 2:1 « chargée » (jsdom ne charge aucune image) : dans l'arche 0,741, entière à 37 %. */
-class WideImage {
-  naturalWidth = 2000
-  naturalHeight = 1000
-  crossOrigin = ''
-  onload: (() => void) | null = null
-  onerror: (() => void) | null = null
-  set src(_value: string) {
-    queueMicrotask(() => this.onload?.())
-  }
+/** Enregistre une fois la photo chargée (bouton désactivé avant, CA-08). */
+async function clickSave() {
+  const save = screen.getByRole('button', { name: 'Enregistrer le cadrage' })
+  await waitFor(() => expect(save).toBeEnabled())
+  fireEvent.click(save)
 }
 
+/** Photo « chargée » de w × h (jsdom ne charge aucune image). */
+function loadedImage(width: number, height: number) {
+  return class {
+    naturalWidth = width
+    naturalHeight = height
+    crossOrigin = ''
+    onload: (() => void) | null = null
+    onerror: (() => void) | null = null
+    set src(_value: string) {
+      queueMicrotask(() => this.onload?.())
+    }
+  }
+}
+/** Photo 2:1 : dans l'arche 0,741, entière à 37 %. */
+const WideImage = loadedImage(2000, 1000)
+
 describe('ContentImageField', () => {
+  // Par défaut, photo à la forme exacte du cadre : pas de dézoom possible, comme en v1.
+  beforeEach(() => vi.stubGlobal('Image', loadedImage(741, 1000)))
   afterEach(() => vi.unstubAllGlobals())
 
   test('permet d’ajuster le point de focus d’une photo existante', async () => {
@@ -45,7 +58,7 @@ describe('ContentImageField', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
     fireEvent.change(screen.getByLabelText('Position horizontale'), { target: { value: '25' } })
     fireEvent.change(screen.getByLabelText('Position verticale'), { target: { value: '70' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
+    await clickSave()
 
     await waitFor(() =>
       expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
@@ -89,7 +102,7 @@ describe('ContentImageField', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Dézoomer' }))
     expect(screen.getByText('290 %')).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
+    await clickSave()
     await waitFor(() =>
       expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
         x: 50,
@@ -123,11 +136,13 @@ describe('ContentImageField', () => {
     expect(screen.getByLabelText('Position horizontale')).toHaveValue('30')
     expect(screen.getByLabelText('Position verticale')).toHaveValue('64')
   })
-  test('CA-02 v2 — tant que la photo n’est pas chargée, pas de dézoom sous 100 %', () => {
+  test('CA-02 v2 / CA-08 — tant que la photo n’est pas chargée : pas de dézoom, pas d’enregistrement', () => {
+    vi.unstubAllGlobals() // jsdom : l'image ne se charge jamais
     renderField()
     fireEvent.click(screen.getByRole('button', { name: 'Ajuster le cadrage' }))
     expect(screen.getByRole('button', { name: 'Dézoomer' })).toBeDisabled()
     expect(zoomSlider()).toHaveAttribute('min', '100')
+    expect(screen.getByRole('button', { name: 'Enregistrer le cadrage' })).toBeDisabled()
   })
 
   test('CA-02 v2 — dézoomer jusqu’à « Photo entière », enregistré comme un mode (0)', async () => {
@@ -148,7 +163,7 @@ describe('ContentImageField', () => {
     )
     fireEvent.change(screen.getByLabelText('Position verticale'), { target: { value: '100' } })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer le cadrage' }))
+    await clickSave()
     await waitFor(() =>
       expect(props.onSaveFocus).toHaveBeenCalledWith('La boutique', {
         x: 50,

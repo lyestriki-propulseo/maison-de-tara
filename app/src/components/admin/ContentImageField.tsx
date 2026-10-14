@@ -182,7 +182,8 @@ export function ContentImageField({
         </button>
         <button
           type="button"
-          disabled={pending || (mode === 'new' && !previewImage)}
+          // Photo pas encore chargée : ni dimensions ni couleur des bords (CA-08) → pas d'enregistrement.
+          disabled={pending || !previewImage}
           onClick={() => void confirm()}
           className="min-h-11 rounded-lg bg-[#4A5D2E] px-4 text-xs font-semibold text-white hover:bg-[#3B4B24] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A5D2E] disabled:cursor-not-allowed disabled:opacity-50"
         >

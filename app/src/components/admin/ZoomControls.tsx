@@ -29,7 +29,7 @@ export function ZoomControls({
   whole: number | null
   onChange: (zoom: number) => void
 }) {
-  const minPercent = whole === null || whole >= 0.995 ? 100 : Math.floor(whole * 100)
+  const minPercent = whole === null || whole >= 0.995 ? 100 : Math.floor(whole * 100 + 1e-6)
   const shown = zoom === ZOOM_WHOLE ? (whole ?? 1) : zoom
   const atMin = zoom === ZOOM_WHOLE || shown * 100 <= minPercent
   const set = (value: number) => onChange(nextZoom(value, whole))

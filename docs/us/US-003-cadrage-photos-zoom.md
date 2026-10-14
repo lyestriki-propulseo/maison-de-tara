@@ -1,7 +1,7 @@
 ---
 id: US-003
 titre: Tara cadre ses photos avec un zoom, dans un aperçu qui a la forme réelle de l'emplacement
-statut: en_construction
+statut: verifiee
 version: 2
 projet: Maison de Tara (site + admin)
 ---
@@ -265,6 +265,29 @@ l'image » donne le fichier entier ; le fond des photos zoomées se charge sans 
 **Idées hors mandat** (non faites) : masquer aussi les 2 textes de « Certaines réalisations » ;
 vignette de la liste montrant le zoom.
 
+## Recette v2
+
+Recette du 14/10 (construction : admin `1680dd6` → `6de5d93`, site `ce708e8`). Preuves en local :
+site servi depuis `C:/mdt-site` avec Supabase simulé (`pnpm e2e:site`, 33 ✓, 3 passes complètes),
+admin local sur la base de prod (`contenu*.e2e.ts`, 10 ✓, ligne de l'étape 01 remise à l'identique
+et vérifiée), Vitest 150 ✓, `node --test` site 18 ✓, `tsc` et `eslint` propres. Migration
+`20261014150000_content_image_fill.sql` appliquée en prod (compatible v1).
+
+| Critère | Preuve (test, capture, requête) | Commit | État |
+|---|---|---|---|
+| CA-01 | inchangé depuis v1 (tests toujours verts) | — | ok |
+| CA-02 | `image-zoom.test.ts` (« Photo entière », glisser dans la bande) ; `ContentImageField.test.tsx` CA-02 v2 (pas de dézoom avant chargement, minimum 37 % → mode 0, + repart du zoom affiché) ; e2e admin v2 (curseur au minimum → « Photo entière », position 100, enregistré `image_zoom = 0`, fichier inchangé) | 1680dd6, e88ffcb, 6de5d93 | ok |
+| CA-03 | même champ et mêmes contrôles pour une nouvelle photo (`ContentImageField.test.tsx` CA-03 v1 inchangé, contrôles partagés `ZoomControls`) | e88ffcb | ok |
+| CA-04 | cas partagés admin ↔ site étendus au dézoom ; comparaison de pixels écran ↔ calcul admin avec bande (site et aperçu admin, écart < 6/255) | 1680dd6, ce708e8, b942cf0, 6de5d93 | ok (local) |
+| CA-05 | e2e-site CA-05 v2 à 1280 / 1440 / 1920 / 390 px : photo à bordure verte en mode « Photo entière », bordure visible à gauche ET à droite, rendu = calcul ; calque limité à la zone de contenu (passe-partout gardé, boîte inchangée) ; témoin : mode traité comme 100 % → 5 échecs | ce708e8, b942cf0 | ok (local) |
+| CA-06 | tests v1 inchangés et verts (100 % = rien de posé) | — | ok (local) |
+| CA-07 | `ContentImageField.test.tsx` CA-07 v2 ; e2e admin : après rechargement, « Photo entière » et position 100 retrouvées | e88ffcb, 6de5d93 | ok |
+| CA-08 | `image-zoom.test.ts` (fond uni → couleur exacte, bords contrastés → moyenne, transparence ignorée) ; e2e-site : capture crème générée, couleur calculée par l'admin = `#f6efdc`, jonction bande/photo à 1440 px < 3/255 (témoin sans couleur > 3) ; e2e admin : couleur enregistrée = couleur de l'aperçu | 1680dd6, b942cf0, 6de5d93 | ok (local) |
+
+**Capture de l'aperçu admin** (vraie photo de l'étape 01, poterie) : en « Photo entière » placée en
+bas, la bande au-dessus est d'un brun moyen — c'est la limite acceptée pour une photo aux bords non
+unis.
+
 ## Historique
 
 - 2026-10-14 — v1 brouillon (mail de Tara du 10/10 ; choix de Lyes du 14/10 : zoom seul, toutes les
@@ -279,3 +302,4 @@ vignette de la liste montrant le zoom.
 - 2026-10-14 — v2 relue (sous-agent neuf), décisions de Lyes intégrées (mode « Photo entière »
   recalculé, photo déplaçable dans la bande).
 - 2026-10-14 — v2 validée par Lyes (réponse « oui construit là et met en ligne », dans la conversation) ; construction lancée.
+- 2026-10-14 — v2 construite et vérifiée en local.

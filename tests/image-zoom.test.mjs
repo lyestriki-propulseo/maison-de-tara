@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { clampZoom, zoomBackgroundSize } from '../wandau-mdt/js/image-zoom.js';
+import { clampZoom, cssUrl, zoomBackgroundSize } from '../wandau-mdt/js/image-zoom.js';
 
 // US-003 — copie site du calcul de cadrage de l'admin (app/src/lib/image-zoom.ts, dépôt app).
 // Le rendu DOM (paintZoom) est couvert par app/e2e-site/photos-zoom.e2e.ts.
@@ -26,4 +26,13 @@ test('CA-02 — le zoom est borné entre 100 % et 300 % (valeur absente ou inval
   assert.equal(clampZoom(Number.NaN), 1);
   assert.equal(clampZoom(undefined), 1);
   assert.equal(clampZoom('2.5'), 2.5);
+});
+
+test('CA-05 — l’adresse de la photo passe telle quelle dans le CSS, sans pouvoir en sortir', () => {
+  const supabase =
+    'https://x.supabase.co/storage/v1/object/public/medias/content/atelier/atelier.ch01.photo-1a2b3c4d.jpeg';
+  assert.equal(cssUrl(supabase), `url("${supabase}")`);
+  assert.equal(cssUrl('../assets-premium-lp/sortie-four.jpg'), 'url("../assets-premium-lp/sortie-four.jpg")');
+  assert.equal(cssUrl('a"), url(x'), String.raw`url("a\"), url(x")`);
+  assert.equal(cssUrl(`${String.raw`a\b`}\nc`), String.raw`url("a\\bc")`);
 });

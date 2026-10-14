@@ -27,6 +27,12 @@ export function zoomBackgroundSize(imageRatio, frameRatio, zoom) {
   return imageRatio >= frameRatio ? `auto ${percent}` : `${percent} auto`;
 }
 
+/** url("…") CSS sûr : guillemets et barres obliques inverses échappés, retours à la ligne retirés. */
+export function cssUrl(path) {
+  const escaped = String(path).replace(/["\\\n]/g, (char) => (char === '\n' ? '' : `\\${char}`));
+  return `url("${escaped}")`;
+}
+
 const OFFSCREEN = '-100000px -100000px';
 
 /**
@@ -37,32 +43,47 @@ export function paintZoom(img, imagePath, zoom, focusX, focusY) {
   const z = clampZoom(zoom);
   if (z <= ZOOM_MIN) return;
 
-  // La couleur de fond existante (ex. passe-partout crème) suit le dernier calque : on lui laisse
-  // sa zone d'origine via un second calque vide, la photo n'occupe que la zone de contenu.
-  const style = getComputedStyle(img);
-  const clip = style.backgroundClip.split(',')[0].trim() || 'border-box';
-  const origin = style.backgroundOrigin.split(',')[0].trim() || 'padding-box';
-  const cssUrl = String(imagePath).replace(/["\\\n]/g, (char) => (char === '\n' ? '' : `\\${char}`));
-  img.style.backgroundImage = `url("${cssUrl}"), none`;
-  img.style.backgroundRepeat = 'no-repeat';
-  img.style.backgroundPosition = `${focusX}% ${focusY}%, 0% 0%`;
-  img.style.backgroundOrigin = `content-box, ${origin}`;
-  img.style.backgroundClip = `content-box, ${clip}`;
-  img.style.objectPosition = OFFSCREEN;
-  img.dataset.mdtZoom = String(z);
-
-  // La forme du cadre peut changer avec la largeur de l'écran : on recalcule la taille du fond
-  // (l'observateur se déclenche aussi une première fois dès qu'il est branché).
+  // Le fond est posé tout de suite, en même temps que le src (une seule requête pour les deux),
+  // mais il reste caché SOUS la photo normale, opaque. On ne retire celle-ci qu'une fois la
+  // NOUVELLE photo chargée (pas l'ancienne image statique) et la taille du fond calculée : jamais
+  // de cadre vide ni de fond à la mauvaise taille.
+  paintBackground(img, imagePath, focusX, focusY);
+  const target = new URL(imagePath, document.baseURI).href;
   let frameRatio = 0;
+  let revealed = false;
   const update = () => {
-    if (!img.naturalWidth || !img.naturalHeight || !frameRatio) return;
+    const ready = img.complete && img.naturalWidth > 0 && img.naturalHeight > 0;
+    if (!ready || !frameRatio || img.currentSrc !== target) return;
     const size = zoomBackgroundSize(img.naturalWidth / img.naturalHeight, frameRatio, z);
     img.style.backgroundSize = `${size}, auto`;
+    if (revealed) return;
+    revealed = true;
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        img.style.objectPosition = OFFSCREEN;
+        img.dataset.mdtZoom = String(z);
+      }),
+    );
   };
   img.addEventListener('load', update);
+  // La forme du cadre peut changer avec la largeur de l'écran : on recalcule la taille du fond
+  // (l'observateur se déclenche aussi une première fois dès qu'il est branché).
   new ResizeObserver(([entry]) => {
     const { width, height } = entry.contentRect;
     if (width > 0 && height > 0) frameRatio = width / height;
     update();
   }).observe(img);
+}
+
+function paintBackground(img, imagePath, focusX, focusY) {
+  // La couleur de fond existante (ex. passe-partout crème) suit le dernier calque : on lui laisse
+  // sa zone d'origine via un second calque vide, la photo n'occupe que la zone de contenu.
+  const style = getComputedStyle(img);
+  const clip = style.backgroundClip.split(',')[0].trim() || 'border-box';
+  const origin = style.backgroundOrigin.split(',')[0].trim() || 'padding-box';
+  img.style.backgroundImage = `${cssUrl(imagePath)}, none`;
+  img.style.backgroundRepeat = 'no-repeat';
+  img.style.backgroundPosition = `${focusX}% ${focusY}%, 0% 0%`;
+  img.style.backgroundOrigin = `content-box, ${origin}`;
+  img.style.backgroundClip = `content-box, ${clip}`;
 }

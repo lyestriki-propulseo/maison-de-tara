@@ -23,8 +23,8 @@ enregistre. Sur la page Atelier, l'arche montre exactement ce cadrage.
 
 **Exemple v2** : pour l'étape 01, Tara a mis une capture du calendrier de réservation, plus large
 que l'arche. À 100 %, l'arche coupe les côtés (« …ter libre », le formulaire). Elle dézoome jusqu'à
-voir le calendrier entier ; le vide sous la capture est rempli du crème de ses bords, la jonction ne
-se voit pas.
+« Photo entière » et fait glisser la capture tout en bas de l'arche : le haut arrondi est rempli du
+crème de ses bords, la jonction ne se voit pas, et le calendrier est entier sur tous les écrans.
 
 ## Limites (ce que l'US ne fait PAS)
 
@@ -35,6 +35,13 @@ se voit pas.
   (choix de Lyes du 14/10). Sur une vraie photo dont les bords ne sont pas unis, la bande de
   remplissage se verra : accepté.
 - Pas de photo floutée en fond (option écartée par Lyes le 14/10).
+- « Photo entière » = la photo tient dans le **rectangle** du cadre. Dans une arche, si Tara la laisse
+  en haut, ses coins sont coupés par l'arrondi : elle le voit dans l'aperçu et peut la faire glisser
+  vers le bas (choix de Lyes du 14/10).
+- Photo avec transparence : la couleur de remplissage se voit à travers ; les nouvelles photos sont
+  de toute façon réencodées en JPEG à l'envoi. Accepté.
+- Sur les arches à passe-partout crème (Atelier), un remplissage crème efface la limite entre photo
+  et passe-partout : accepté.
 - Référence de cadrage = écran d'ordinateur de 1440 px (choix de Lyes du 14/10). À d'autres largeurs
   (1280, 1920 px, téléphone), le site garde le même centre et le même zoom, mais le bord visible peut
   varier un peu.
@@ -51,9 +58,12 @@ se voit pas.
   son emplacement sur le site à 1440 px, pour les 40 emplacements visibles. Les 6 photos de « Certaines
   réalisations » (section masquée) n'apparaissent plus dans Contenu tant que la section est masquée.
 - **CA-02** (v2) — Étant donné une photo déjà en ligne, quand Tara ouvre son cadrage, alors elle peut
-  zoomer de « photo entière » (le plus petit zoom où toute la photo est visible dans le cadre de
-  l'emplacement à 1440 px, affiché en % : moins de 100 % quand la photo n'a pas la forme du cadre) à
-  300 % (curseur + boutons − / +), et faire glisser l'image, sans renvoyer le fichier.
+  zoomer de « Photo entière » à 300 % (curseur + boutons − / +) et faire glisser l'image, sans
+  renvoyer le fichier. « Photo entière » est le plus petit zoom où toute la photo tient dans le
+  rectangle du cadre ; c'est un **mode** (libellé « Photo entière » dans l'aperçu), pas un chiffre :
+  il est recalculé pour chaque largeur d'écran. Entre « Photo entière » et 100 %, le zoom est un
+  pourcentage. Sous 100 %, le glisser et les curseurs Position placent la photo dans le cadre (ex.
+  tout en bas d'une arche).
 - **CA-03** (v2) — Étant donné une nouvelle photo choisie sur son ordinateur, quand Tara la cadre
   avant l'envoi, alors elle dispose du même zoom (dézoom compris) et du même glisser, en repartant de
   100 %.
@@ -64,7 +74,8 @@ se voit pas.
   s'affiche (admin ou site, à toutes les largeurs), alors : à 100 % et plus, elle remplit son cadre
   sans bande vide ; en dessous de 100 %, la partie du cadre non couverte par la photo est remplie de
   sa couleur de remplissage (CA-08), sans trou ni transparence, et la photo n'est jamais plus petite
-  que « photo entière » à la largeur affichée. Dans tous les cas, ni la photo ni le remplissage ne
+  que « Photo entière » à la largeur affichée ; une photo en mode « Photo entière » est entière à
+  toutes les largeurs (1280, 1440, 1920 px, téléphone). Dans tous les cas, ni la photo ni le remplissage ne
   débordent de l'emplacement (ni sur les éléments voisins, ni sur le liseré, le passe-partout ou le
   cadre).
 - **CA-06** — Étant donné les photos déjà en ligne avant la livraison, quand la mise à jour est
@@ -73,11 +84,12 @@ se voit pas.
   défilement, même position (photo surélevée des privatisations comprise).
 - **CA-07** — Étant donné un cadrage enregistré, quand Tara rouvre le cadrage de la même photo, alors
   elle retrouve le zoom et la position enregistrés (zoom inférieur à 100 % compris, v2).
-- **CA-08** (v2) — Étant donné un cadrage enregistré, quand il est enregistré, alors la couleur de
-  remplissage est calculée automatiquement à partir des bords de la photo (couleur moyenne du
-  pourtour) et enregistrée avec le cadrage ; pour une capture à fond uni (exemple : la capture
-  crème du calendrier), l'écart entre le remplissage et le bord de la photo est imperceptible (moins
-  de 3 points sur 255 par canal en moyenne le long de la jonction).
+- **CA-08** (v2) — Étant donné une photo dont Tara enregistre le cadrage (nouvelle ou déjà en
+  ligne), quand l'enregistrement aboutit, alors une couleur de remplissage calculée automatiquement
+  sur les 4 bords de la photo est enregistrée avec le cadrage, sans réglage de Tara. Mesure : sur le
+  site à 1440 px, avec une image de test à fond uni versionnée dans le dépôt, l'écart moyen entre le
+  remplissage et la photo, mesuré de part et d'autre de la jonction à 3 px de celle-ci, est inférieur
+  à 3/255 par canal.
 
 ## Faits et hypothèses
 
@@ -137,6 +149,28 @@ se voit pas.
   photo, sur une copie réduite). Côté site, sous 100 % : un calque de couleur `image_fill` sous la
   photo, limité à la zone de contenu ; taille de la photo bornée à « photo entière » à la largeur
   affichée.
+- **Décision** (Lyes, 14/10, après relecture v2) : mode « Photo entière » recalculé à chaque largeur ;
+  sous 100 %, la photo se place dans le cadre (glisser + curseurs).
+- **Hypothèse** (précisions de la relecture v2) :
+  - mode « Photo entière » stocké `image_zoom = 0` ; contrainte remplacée (`drop constraint
+    content_blocks_image_zoom_range`) par `image_zoom = 0 or (image_zoom > 0 and image_zoom <= 3)` ;
+    un zoom intermédiaire est arrondi vers le bas et le site le remonte à « Photo entière » si besoin ;
+  - `image_fill` NULL = aucune couleur (lignes v1) ; contrainte `image_fill ~ '^#[0-9a-f]{6}$'` ;
+  - remplissage = calque d'image uni (dégradé d'une seule couleur) limité à la zone de contenu, posé
+    seulement sous 100 % : rien ne change à 100 % et plus (CA-06, test « style exactement
+    object-position » inchangé) ; si `image_fill` manque sous 100 %, crème du site `#FBF7EC` ;
+  - couleur = moyenne des pixels d'une bande de 2 % (au moins 1 px) sur les 4 bords d'une copie
+    réduite à 200 px, pixels à moins de 50 % d'opacité ignorés ; photo chargée en CORS anonyme dans
+    l'admin (aujourd'hui `useImage` ne le fait pas) ; calcul impossible → `#FBF7EC` ;
+  - dézoom désactivé tant que la photo de l'aperçu n'est pas chargée (minimum inconnu) ;
+  - **déploiement** : migration, puis admin, puis site ; l'import de `image-zoom.js` dans
+    `site-content.js` reçoit un suffixe de version (`?v=2`) pour ne jamais mélanger un nouveau
+    `site-content.js` et un ancien `image-zoom.js` en cache (sinon tout le contenu retombe en
+    statique) ;
+  - **tests à refaire** : bornes de zoom (`image-zoom.test.ts` + jumeau site), « Dézoomer désactivé
+    à 100 % » (`ContentImageField.test.tsx`), outil de comparaison `framing.ts` (dessiner
+    remplissage + photo), e2e admin `afterAll` (remettre aussi `image_fill`) ; test CA-05 « zone dans
+    la photo » à étendre.
 - **Hypothèse (tests)** : mêmes preuves que v1 (calcul partagé, comparaison de pixels admin / site
   en zone visible ET en zone remplie), plus un test de la couleur des bords sur une image à fond uni
   et sur une image à bords contrastés.
@@ -191,6 +225,13 @@ corriger), R3 (largeur de référence 1440 px dans CA-01/CA-04) et R4 (décision
 
 **Traitement (2026-10-14, rédacteur)** — bloquants : R1 → CA-05 et hypothèse « enveloppe » (décision de Lyes : les 40 emplacements d'un coup) ; R2 → CA-06 détaillé + propriété `scale` ; R3 → référence 1440 px (décision de Lyes, Limites + CA-01/04) ; R4 → réalisations cachées de l'admin (décision de Lyes, CA-01). Intégrés : R5 (CA-01), R6 (Limites, CA-03, hypothèse image-crop), R7 et R12 (Limites), R8 et R9 (tests), R10 (format déclaré dans le code), R11 (tests).
 
+**Relecture v2** (sous-agent neuf, 14/10) : 12 constats, 2 bloquants — « photo entière » aux autres
+largeurs (#1) et arche qui coupe une photo entière (#2) → tranchés par Lyes (mode recalculé ; photo
+déplaçable, « entière » = rectangle). Précisions intégrées : glisser dans la bande (#3), calque limité
+à la zone de contenu (#4), transparence (#5), méthode de couleur (#6), CORS dans l'admin (#7),
+mesure de CA-08 (#8), ordre de déploiement et cache des modules (#9), contrainte et arrondis (#10),
+dézoom avant chargement (#11), tests à refaire (#12).
+
 ## Recette v1
 
 Recette du 14/10 (construction : admin `04e7c77` → `f37eae2`, site `5fa07f3` + `f9ca6ca`). Preuves en
@@ -235,3 +276,5 @@ vignette de la liste montrant le zoom.
 - 2026-10-14 — v2 brouillon : dézoom jusqu'à « photo entière », vide rempli de la couleur des bords
   (demande de Lyes après test en ligne, capture du calendrier dans l'arche de l'étape 01 ; choix
   « couleur des bords auto »). CA-02, CA-03, CA-05, CA-07 reformulés, CA-08 ajouté.
+- 2026-10-14 — v2 relue (sous-agent neuf), décisions de Lyes intégrées (mode « Photo entière »
+  recalculé, photo déplaçable dans la bande).

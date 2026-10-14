@@ -1,7 +1,7 @@
 ---
 id: US-003
 titre: Tara cadre ses photos avec un zoom, dans un aperçu qui a la forme réelle de l'emplacement
-statut: validee
+statut: verifiee
 version: 1
 projet: Maison de Tara (site + admin)
 ---
@@ -149,15 +149,36 @@ corriger), R3 (largeur de référence 1440 px dans CA-01/CA-04) et R4 (décision
 
 ## Recette
 
+Recette du 14/10 (construction : admin `04e7c77` → `f37eae2`, site `5fa07f3` + `f9ca6ca`). Preuves en
+local : site servi depuis `C:/mdt-site` avec Supabase simulé (`pnpm e2e:site`, 27 ✓, 5 passes
+complètes vertes), admin local sur la base de prod (`contenu*.e2e.ts`, 9 ✓, base remise à
+l'identique et vérifiée), Vitest 139 ✓, `node --test` site 16 ✓, `tsc` et `eslint` propres.
+**Pas encore déployé** : contrôle en prod à faire après la mise en ligne.
+
+**Écart à l'hypothèse technique (choix de Lyes du 14/10, pendant la construction)** : pas
+d'enveloppe autour des 28 photos. Au-delà de 100 %, `js/image-zoom.js` peint la photo agrandie en
+fond de la balise `<img>` elle-même (« cover × zoom » au point de focus, limité à la zone de
+contenu) et retire la photo normale une fois tout chargé. Aucun HTML ni CSS de page touché ; à
+100 %, rien n'est posé. Les critères sont inchangés.
+
 | Critère | Preuve (test, capture, requête) | Commit | État |
 |---|---|---|---|
-| CA-01 | | | non vérifié |
-| CA-02 | | | non vérifié |
-| CA-03 | | | non vérifié |
-| CA-04 | | | non vérifié |
-| CA-05 | | | non vérifié |
-| CA-06 | | | non vérifié |
-| CA-07 | | | non vérifié |
+| CA-01 | `e2e-site/photos-zoom.e2e.ts` « CA-01 — la table des formats… » : les 40 emplacements mesurés à 1440 px = `content-image-formats.ts` (rapport ±1 %, arche) ; `ContentImageField.test.tsx` CA-01 ; `e2e/contenu-photos-zoom.e2e.ts` CA-01 (aperçu 0,741 en arche, 0 photo dans « Certaines réalisations ») ; capture de l'aperçu admin | 56221a4, 0584321 | ok |
+| CA-02 | `image-zoom.test.ts` CA-02 (bornes, glisser) ; `ContentImageField.test.tsx` CA-02 (− / + / curseur, `onSave` jamais appelé) ; e2e admin CA-02 (zoom 240 % enregistré, `image_path` inchangé en base) | 04e7c77, 56221a4 | ok |
+| CA-03 | `ContentImageField.test.tsx` CA-03 ; e2e admin CA-03 (nouveau fichier : 100 %, zoom 180 % rendu juste, annulé sans envoi) | 56221a4 | ok |
+| CA-04 | Comparaison de pixels écran ↔ calcul `visibleArea` de l'admin : site (galerie Boutique 180 %, arche Atelier 240 %, écart moyen ≈ 0,03/255, seuil 6 ; témoins faux zoom/focus > 6) et aperçu admin (même mesure) ; cas partagés `image-zoom.test.ts` ↔ `tests/image-zoom.test.mjs` | 04e7c77, 5fa07f3, b3b62c4, 4e2f3d6 | ok (local) |
+| CA-05 | `image-zoom.test.ts` CA-05 (zone toujours dans la photo) ; e2e-site CA-05 : 300 % rendu juste à 1280 / 1920 / 390 px, boîte inchangée et passe-partout gardé (`content-box`), rien de peint avant le chargement de la nouvelle photo (réponse lente) ; URL échappée (`tests/image-zoom.test.mjs`) | 5fa07f3, f9ca6ca, f37eae2 | ok (local) |
+| CA-06 | e2e-site CA-06 : 40 photos à 100 % ou sans `image_zoom` (dont 41/52 et 57,27/71,45) → style exactement `object-position: x% y%`, rien d'autre ; zoomées : décalage −14 px et survol 1,035 conservés | 5fa07f3, b3b62c4 | ok (local) |
+| CA-07 | `ContentImageField.test.tsx` CA-07 ; e2e admin : après enregistrement et rechargement, 240 % / 65 / 20 retrouvés | 56221a4, 4e2f3d6 | ok |
+
+**Relecture du code** (sous-agent neuf, 14/10) : aucun bloquant. Corrigé : fond pouvant apparaître
+un instant à la mauvaise taille avant chargement (f9ca6ca), fichier > 200 lignes (eb73b71), témoins
+négatifs ajoutés (f37eae2). **Limites acceptées à valider par Lyes** : une photo zoomée est un fond
+CSS → elle ne s'imprime pas si l'impression des arrière-plans est désactivée, et « enregistrer
+l'image » donne le fichier entier ; le fond des photos zoomées se charge sans attendre le défilement.
+
+**Idées hors mandat** (non faites) : masquer aussi les 2 textes de « Certaines réalisations » ;
+vignette de la liste montrant le zoom.
 
 ## Historique
 
@@ -165,3 +186,4 @@ corriger), R3 (largeur de référence 1440 px dans CA-01/CA-04) et R4 (décision
   photos, photos déjà en ligne comprises, aperçu au format réel).
 - 2026-10-14 — v1 révisée après relecture et décisions de Lyes (40 emplacements, 1440 px, réalisations cachées).
 - 2026-10-14 — v1 validée par Lyes (réponse « Validée », dans la conversation).
+- 2026-10-14 — construite (rendu « zoom peint », choix de Lyes) et vérifiée en local ; migration `image_zoom` en prod. Pas encore déployée.

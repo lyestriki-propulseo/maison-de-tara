@@ -99,19 +99,52 @@ function fromStaticFile() {
   }).then((events) => (Array.isArray(events) ? keepUpcoming(events) : []));
 }
 
+// Événement privé (US-004) : la base n'expose que ses heures (vue public_private_events) ; le
+// public voit seulement cette mention, sans titre, description, prix ni bouton de réservation.
+export const MENTION_PRIVEE = 'Événement privé — la Maison est privatisée';
+
+function mapPrivateRow(row) {
+  return {
+    date: parisDate(row.starts_at),
+    horaire: parisHeure(row.starts_at),
+    horaireFin: row.ends_at ? parisHeure(row.ends_at) : '',
+    duree: '',
+    prix: '',
+    titre: MENTION_PRIVEE,
+    type: 'prive',
+    description: '',
+    lienReservation: '',
+    prive: true,
+  };
+}
+
+function byDateTime(x, y) {
+  return (x.date + (x.horaire || '')).localeCompare(y.date + (y.horaire || ''));
+}
+
+const HEADERS = { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY };
+
+function fetchRows(path) {
+  return fetch(SUPABASE_URL + '/rest/v1/' + path, { headers: HEADERS }).then((r) => {
+    if (!r.ok) throw new Error(String(r.status));
+    return r.json();
+  });
+}
+
 // Renvoie une promesse de tableau d'événements au format { date, horaire, duree, prix, titre, type,
-// description, lienReservation } (horaire/duree/prix absents du repli data/events.json).
+// description, lienReservation, prive? } (horaire/duree/prix absents du repli data/events.json).
+// Les événements privés publiés y figurent avec `prive: true` (à écarter là où ils n'ont pas leur
+// place, ex. l'accueil). Si leur liste seule échoue, on garde les événements publics.
 export function loadEvents() {
   if (!CONFIGURED) return fromStaticFile();
-  return fetch(
-    SUPABASE_URL +
-      '/rest/v1/events?published=eq.true&select=id,title,event_type,description,starts_at,ends_at,deposit_enabled,deposit_amount_cents&order=starts_at',
-    { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } },
-  )
-    .then((r) => {
-      if (!r.ok) throw new Error(String(r.status));
-      return r.json();
-    })
-    .then((rows) => (Array.isArray(rows) ? keepUpcoming(rows.map(mapRow)) : []))
+  const publics = fetchRows(
+    'events?published=eq.true&select=id,title,event_type,description,starts_at,ends_at,deposit_enabled,deposit_amount_cents&order=starts_at',
+  ).then((rows) => (Array.isArray(rows) ? rows.map(mapRow) : []));
+  const prives = fetchRows('public_private_events?select=starts_at,ends_at&order=starts_at')
+    .then((rows) => (Array.isArray(rows) ? rows.map(mapPrivateRow) : []))
+    .catch(() => []);
+  return Promise.all([publics, prives])
+    // Tri par date puis heure : un privé à 10 h passe avant un public à 19 h le même jour.
+    .then(([a, b]) => keepUpcoming(a.concat(b)).sort(byDateTime))
     .catch(fromStaticFile);
 }

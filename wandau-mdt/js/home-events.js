@@ -32,7 +32,9 @@ import { loadEvents } from './site-events.js';
   }
 
   loadEvents()
-    .then(function (events) {
+    .then(function (all) {
+      // Les événements privés (US-004) n'ont pas leur place dans les rendez-vous de l'accueil.
+      var events = all.filter(function (e) { return !e.prive; });
       // Aucun événement publié : sans ce message la section restait un grand blanc.
       if (!events.length) { showFallback(); return; }
 

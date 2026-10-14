@@ -268,6 +268,7 @@
 .premium-calendrier .tag--brunch    { color: #8f4f47; background: rgba(186, 119, 112, 0.16); border-color: rgba(186, 119, 112, 0.5); }
 .premium-calendrier .tag--evenement { color: var(--terracotta); background: rgba(121, 48, 30, 0.1); border-color: rgba(121, 48, 30, 0.4); }
 .premium-calendrier .tag--boutique  { color: #8a6a30; background: rgba(184, 146, 77, 0.16); border-color: rgba(184, 146, 77, 0.55); }
+.premium-calendrier .tag--prive     { color: #4a4036; background: rgba(44, 36, 25, 0.08); border-color: rgba(44, 36, 25, 0.35); }
 .premium-calendrier .prog-weekday {
   font-size: var(--fs-small);
   color: rgba(44, 36, 25, 0.6);

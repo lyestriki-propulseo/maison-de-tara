@@ -113,12 +113,46 @@ test('CA-04 — à 1440 px, la zone visible est celle calculée par l’admin (r
   expect(
     await differenceWithAdminFraming(page, img(page, 'boutique.galerie.02.photo'), 1.8, [30, 70]),
   ).toBeLessThan(6)
+  // Témoin : la mesure distingue bien un zoom voisin (2 au lieu de 1,8) et un autre focus.
+  expect(
+    await differenceWithAdminFraming(page, img(page, 'boutique.galerie.02.photo'), 2, [30, 70]),
+  ).toBeGreaterThan(6)
+  expect(
+    await differenceWithAdminFraming(page, img(page, 'boutique.galerie.02.photo'), 1.8, [40, 70]),
+  ).toBeGreaterThan(6)
 
   await page.goto(PAGES.atelier)
   await expect(img(page, 'atelier.ch01.photo')).toHaveAttribute('data-mdt-zoom', '2.4')
   expect(
     await differenceWithAdminFraming(page, img(page, 'atelier.ch01.photo'), 2.4, [65, 20]),
   ).toBeLessThan(6)
+})
+
+test('CA-05 — rien n’est peint avant que la nouvelle photo soit chargée (pas de cadre vide)', async ({
+  page,
+}) => {
+  const key = 'atelier.ch01.photo'
+  const slow = '/assets-premium-lp/sortie-four.jpg?lent'
+  await mockSupabase(page, { content: { atelier: [photo(key, [65, 20], 2, slow)] } })
+  await page.route(
+    (url) => url.search === '?lent',
+    async (route) => {
+      await new Promise((done) => setTimeout(done, 2500))
+      await route.continue()
+    },
+  )
+  await page.goto(PAGES.atelier, { waitUntil: 'domcontentloaded' })
+  const target = img(page, key)
+  await expect(target).toHaveAttribute('src', slow)
+  // Nouvelle photo pas encore arrivée : la photo normale reste affichée (pas poussée hors cadre),
+  // le fond attend dessous sans taille calculée.
+  await page.waitForTimeout(500)
+  expect(await target.evaluate((el) => [el.style.objectPosition, el.style.backgroundSize])).toEqual(
+    ['65% 20%', ''],
+  )
+  await expect(target).not.toHaveAttribute('data-mdt-zoom')
+  await expect(target).toHaveAttribute('data-mdt-zoom', '2', { timeout: 10_000 })
+  expect(await differenceWithAdminFraming(page, target, 2, [65, 20])).toBeLessThan(6)
 })
 
 for (const viewport of [
@@ -147,15 +181,16 @@ test('CA-05 — zoomée, la photo ne déborde ni de son emplacement ni sur son c
   const key = 'atelier.priva.photo1'
   await mockSupabase(page, { content: { atelier: [photo(key, [50, 50], 1)] } })
   await page.goto(PAGES.atelier)
-  await img(page, key).scrollIntoViewIfNeeded()
-  const before = await img(page, key).boundingBox()
+  // Taille de mise en page (sans les transformations des apparitions, qui varient d'un chargement
+  // à l'autre) : la photo zoomée occupe exactement la même boîte.
+  const layoutSize = (el: HTMLElement) => [el.offsetWidth, el.offsetHeight]
+  const before = await img(page, key).evaluate(layoutSize)
 
   await mockSupabase(page, { content: { atelier: [photo(key, [50, 50], 3)] } })
   await page.goto(PAGES.atelier)
   const target = img(page, key)
   await expect(target).toHaveAttribute('data-mdt-zoom', '3')
-  await target.scrollIntoViewIfNeeded()
-  expect(await target.boundingBox()).toEqual(before)
+  expect(await target.evaluate(layoutSize)).toEqual(before)
   const style = await target.evaluate((el) => {
     const s = getComputedStyle(el)
     return { clip: s.backgroundClip, origin: s.backgroundOrigin, color: s.backgroundColor }

@@ -184,6 +184,8 @@ export const listReservationTargets = createServerFn({ method: 'GET' })
         .from('events')
         .select('id, title, starts_at')
         .eq('published', true)
+        // Un événement privé (US-004) n'est pas réservable : il n'est pas proposé ici.
+        .eq('is_private', false)
         .gte('starts_at', new Date().toISOString())
         .order('starts_at')
         .limit(60),

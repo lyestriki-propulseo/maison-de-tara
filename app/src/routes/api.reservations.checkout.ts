@@ -80,12 +80,16 @@ export async function checkoutHandler(request: Request): Promise<Response> {
   } else {
     const { data: event, error: eventError } = await db
       .from('events')
-      .select('title, deposit_enabled, deposit_amount_cents')
+      .select('title, deposit_enabled, deposit_amount_cents, is_private')
       .eq('id', targetId)
       .eq('published', true)
       .maybeSingle()
     if (eventError) return json({ message: 'Impossible de charger l’événement' }, 500)
     if (!event) return json({ message: 'Événement introuvable ou non publié' }, 404)
+    // Événement privé (US-004) : sur invitation, jamais réservable en ligne, même avec un ancien prix.
+    if (event.is_private) {
+      return json({ message: 'Cet événement est privé : il ne se réserve pas en ligne.' }, 409)
+    }
     // Événement = prix complet par personne payé en ligne. Sans prix valide, on refuse :
     // jamais de confirmation gratuite pour un événement (seul l'atelier peut être à 0 €).
     if (!event.deposit_enabled || !event.deposit_amount_cents || event.deposit_amount_cents < 100) {

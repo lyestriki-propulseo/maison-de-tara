@@ -126,7 +126,12 @@ test('atelier à 0 € : pas de Stripe, réservation confirmée directement', as
 const eventId = '22222222-2222-4222-8222-222222222222'
 
 // Événement lu dans `events` + Stripe simulé. `confirmRpc` ne doit jamais servir pour un événement.
-function mockEvent(event: { title: string; deposit_enabled: boolean; deposit_amount_cents: number | null }) {
+function mockEvent(event: {
+  title: string
+  deposit_enabled: boolean
+  deposit_amount_cents: number | null
+  is_private?: boolean
+}) {
   const stripeCreate = vi.fn().mockResolvedValue({ url: 'https://checkout.stripe.com/test-session' })
   const confirmRpc = vi.fn().mockResolvedValue({ data: 'resa-1', error: null })
   const rpc = vi.fn((name: string) =>
@@ -178,6 +183,20 @@ test('refuse un événement à moins de 1 € (ancien acompte à 0)', async () =
   const { confirmRpc } = mockEvent({ title: 'Soirée', deposit_enabled: true, deposit_amount_cents: 0 })
   const res = await postEvent(1)
   expect(res.status).toBe(409)
+  expect(confirmRpc).not.toHaveBeenCalled()
+})
+
+test('CA-05 (US-004) — refuse un événement privé, même s’il garde un ancien prix', async () => {
+  const { stripeCreate, confirmRpc } = mockEvent({
+    title: 'Syn’After',
+    deposit_enabled: true,
+    deposit_amount_cents: 4000,
+    is_private: true,
+  })
+  const res = await postEvent(2)
+  expect(res.status).toBe(409)
+  expect((await res.json()).message).toBe('Cet événement est privé : il ne se réserve pas en ligne.')
+  expect(stripeCreate).not.toHaveBeenCalled()
   expect(confirmRpc).not.toHaveBeenCalled()
 })
 
